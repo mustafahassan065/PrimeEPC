@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floor Plans & Drafting | Prime EPC & Design Firm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Prime Branding Colors */
+            --primary-deep: #0a1628;  /* deeply professional navy */
+            --primary-navy: #1a2f4e;  /* corporate blue */
+            --accent-emerald: #10b981; /* energy/efficiency green */
+            --accent-emerald-light: #34d399;
+            --accent-gold: #f59e0b;   /* premium accent */
+            --neutral-100: #f8fafc;
+            --neutral-200: #e2e8f0;
+            --neutral-300: #cbd5e1;
+            --neutral-600: #475569;
+            --neutral-800: #1e293b;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--neutral-100);
+            color: var(--neutral-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--accent-emerald) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .logo-text {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            color: var(--primary-deep);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: var(--accent-emerald);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--neutral-600);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-navy);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-emerald);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-emerald);
+            border-radius: 2px;
+        }
+
+        .nav-cta {
+            background: var(--primary-navy);
+            color: white;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent-emerald);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(165deg, var(--primary-deep) 0%, var(--primary-navy) 50%, #1e3a5f 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 4rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--accent-emerald-light);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-emerald);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent-emerald-light);
+            font-style: italic;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--neutral-300);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: var(--accent-emerald);
+            color: var(--primary-deep);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-emerald-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .floor-plan-preview {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .floor-plan-svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .floating-tag {
+            position: absolute;
+            background: var(--white);
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-tag.tag-1 {
+            top: -20px;
+            right: 20px;
+            color: var(--accent-emerald);
+        }
+
+        .floating-tag.tag-2 {
+            bottom: 60px;
+            left: -30px;
+            color: var(--primary-navy);
+            animation-delay: 1s;
+        }
+
+        .floating-tag.tag-3 {
+            bottom: -10px;
+            right: 40px;
+            color: var(--accent-gold);
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--white);
+            padding: 3rem 4rem;
+            display: flex;
+            justify-content: center;
+            gap: 6rem;
+            border-bottom: 1px solid var(--neutral-200);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            color: var(--primary-navy);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number span {
+            color: var(--accent-emerald);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--neutral-600);
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 7rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-emerald);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: var(--primary-deep);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--neutral-600);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--neutral-200);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-emerald-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon svg {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-emerald);
+        }
+
+        .service-card h3 {
+            font-size: 1.35rem;
+            color: var(--primary-deep);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--neutral-600);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--neutral-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--accent-emerald);
+            font-weight: 700;
+        }
+
+        /* Process Section */
+        .process {
+            background: var(--primary-deep);
+            padding: 7rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 50% 50% at 0% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 50% at 100% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .process .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .process .section-title {
+            color: var(--white);
+        }
+
+        .process .section-subtitle {
+            color: var(--neutral-300);
+        }
+
+        .process-steps {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-emerald-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            color: var(--primary-deep);
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 35px;
+            left: calc(50% + 45px);
+            width: calc(100% - 90px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-emerald), transparent);
+            opacity: 0.3;
+        }
+
+        .process-step h4 {
+            color: var(--white);
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--neutral-300);
+            font-size: 0.9rem;
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            padding: 7rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .why-us-content h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.75rem;
+            color: var(--primary-deep);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .why-us-content p {
+            color: var(--neutral-600);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .benefits-list {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .benefit-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-emerald);
+        }
+
+        .benefit-text h4 {
+            font-size: 1.05rem;
+            color: var(--primary-deep);
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-text p {
+            font-size: 0.9rem;
+            color: var(--neutral-600);
+            margin: 0;
+        }
+
+        .why-us-visual {
+            position: relative;
+        }
+
+        .showcase-card {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-deep) 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .showcase-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .showcase-stat {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .showcase-stat .number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 4rem;
+            color: var(--accent-emerald);
+            line-height: 1;
+        }
+
+        .showcase-stat .label {
+            color: var(--neutral-300);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .showcase-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .showcase-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 100px;
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 7rem 4rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.02) 100%);
+        }
+
+        .cta-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 32px;
+            padding: 4rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-gold), var(--accent-emerald));
+        }
+
+        .cta h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.5rem;
+            color: var(--primary-deep);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--neutral-600);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cta .btn-primary {
+            padding: 1.25rem 2.5rem;
+            font-size: 1rem;
+        }
+
+        .cta .btn-outline {
+            background: transparent;
+            color: var(--primary-navy);
+            padding: 1.25rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary-navy);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta .btn-outline:hover {
+            background: var(--primary-navy);
+            color: var(--white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-deep);
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo .logo-icon {
+            background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-emerald-light) 100%);
+        }
+
+        .footer-logo .logo-text {
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--neutral-300);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-emerald);
+        }
+
+        .footer-bottom {
+            color: var(--neutral-600);
+            font-size: 0.85rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 1rem 2rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                padding: 7rem 2rem 3rem;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .stats-bar {
+                gap: 3rem;
+                padding: 2rem;
+            }
+
+            .services, .why-us {
+                padding: 5rem 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .process {
+                padding: 5rem 2rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta {
+                padding: 5rem 2rem;
+            }
+
+            .cta-card {
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="#" class="logo">
+            <div class="logo-icon">PE</div>
+            <div class="logo-text">Prime EPC <span>&</span> Design</div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">EPC Services</a></li>
+            <li><a href="#" class="active">Floor Plans & Drafting</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Get a Quote</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">Professional Drafting Services</div>
+                <h1>Prime Design Services: Precision in <span class="highlight">Every Line</span></h1>
+                <p class="hero-description">At Prime EPC & Design Firm, we transform property surveys into high-accuracy floor plans, lease plans, and architectural drafts. Presentation and compliance, handled in one go.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        Request a Quote
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#services" class="btn-secondary">Explore Services</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="floor-plan-preview">
+                        <svg class="floor-plan-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="20" width="360" height="260" fill="#f8fafc" stroke="#1a2f4e" stroke-width="3"/>
+                            <rect x="20" y="20" width="180" height="140" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <rect x="200" y="20" width="180" height="100" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <rect x="200" y="120" width="90" height="80" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <rect x="290" y="120" width="90" height="80" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <rect x="20" y="160" width="120" height="120" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <rect x="140" y="200" width="60" height="80" fill="none" stroke="#1a2f4e" stroke-width="2"/>
+                            <path d="M80 160 L80 175 Q95 175 95 160" fill="none" stroke="#10b981" stroke-width="2"/>
+                            <path d="M200 70 L200 85 Q215 85 215 70" fill="none" stroke="#10b981" stroke-width="2"/>
+                            <path d="M245 120 L245 135 Q260 135 260 120" fill="none" stroke="#10b981" stroke-width="2"/>
+                            <path d="M335 120 L335 135 Q350 135 350 120" fill="none" stroke="#10b981" stroke-width="2"/>
+                            <line x1="20" y1="10" x2="200" y2="10" stroke="#cbd5e1" stroke-width="1"/>
+                            <text x="110" y="8" font-size="10" fill="#64748b" text-anchor="middle">5.2m</text>
+                            <line x1="390" y1="20" x2="390" y2="120" stroke="#cbd5e1" stroke-width="1"/>
+                            <text x="395" y="70" font-size="10" fill="#64748b" transform="rotate(90 395 70)">3.1m</text>
+                            <text x="100" y="95" font-size="12" fill="#1a2f4e" text-anchor="middle" font-weight="500">Living Room</text>
+                            <text x="290" y="70" font-size="11" fill="#1a2f4e" text-anchor="middle" font-weight="500">Kitchen</text>
+                            <text x="245" y="165" font-size="10" fill="#1a2f4e" text-anchor="middle" font-weight="500">Bath</text>
+                            <text x="335" y="165" font-size="10" fill="#1a2f4e" text-anchor="middle" font-weight="500">WC</text>
+                            <text x="80" y="225" font-size="11" fill="#1a2f4e" text-anchor="middle" font-weight="500">Bedroom 1</text>
+                            <text x="170" y="245" font-size="10" fill="#1a2f4e" text-anchor="middle" font-weight="500">Hall</text>
+                            <circle cx="350" cy="250" r="18" fill="#f1f5f9" stroke="#1a2f4e" stroke-width="1"/>
+                            <path d="M350 235 L355 255 L350 250 L345 255 Z" fill="#1a2f4e"/>
+                            <text x="350" y="272" font-size="8" fill="#64748b" text-anchor="middle">N</text>
+                        </svg>
+                    </div>
+                    <div class="floating-tag tag-1">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                        RICS Compliant
+                        
+                    </div>
+                    <div class="floating-tag tag-2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12,6 12,12 16,14"/>
+                        </svg>
+                        24-48hr Delivery
+                    </div>
+                    <div class="floating-tag tag-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        5-Star Rated
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">2,500<span>+</span></div>
+            <div class="stat-label">Drawings Delivered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">99<span>%</span></div>
+            <div class="stat-label">Land Registry Acceptance</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24<span>hr</span></div>
+            <div class="stat-label">Standard Turnaround</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">4.9<span>/5</span></div>
+            <div class="stat-label">Client Satisfaction</div>
+        </div>
+    </div>
+
+    <section class="services" id="services">
+        <div class="section-header">
+            <div class="section-tag">Our Core Services</div>
+            <h2 class="section-title">Floor Plans & Technical Drafting</h2>
+            <p class="section-subtitle">Whether you are an Estate Agent needing marketing plans or a Landlord requiring compliant lease plans, we provide the architectural precision your property deserves.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </div>
+                <h3>Marketing Floor Plans</h3>
+                <p>Enhance your property listings with clear, professional visuals. We convert sketches and site surveys into engaging floor plans that help buyers visualize the space.</p>
+                <ul class="service-features">
+                    <li>Standard 2D & Premium 3D</li>
+                    <li>Agency Branding Applied</li>
+                    <li>Room Dimensions & Total Sq Ft</li>
+                    <li>Ideal for Rightmove / Zoopla</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                </div>
+                <h3>Compliant Lease Plans</h3>
+                <p>Leasehold transactions require strict adherence to Land Registry Practice Guide 40. We take the stress out of compliance with rejection-free guarantees.</p>
+                <ul class="service-features">
+                    <li>1:1250 / 1:500 Scales</li>
+                    <li>Red-Line Boundary Edging</li>
+                    <li>North Points & Orientation</li>
+                    <li>Legal Pack Ready</li>
+                </ul>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27,6.96 12,12.01 20.73,6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                </div>
+                <h3>Architectural Drafting</h3>
+                <p>Support for architects, developers, and property managers. We digitize old blueprints and hand sketches into fully editable formats.</p>
+                <ul class="service-features">
+                    <li>Paper-to-CAD Conversion</li>
+                    <li>Space Planning & Layouts</li>
+                    <li>HMO Conversion Plans</li>
+                    <li>.DWG / .DXF File Delivery</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="section-header">
+            <div class="section-tag">The Workflow</div>
+            <h2 class="section-title">The Prime Process</h2>
+            <p class="section-subtitle">From survey to submission in four simple steps.</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>Book Your Survey</h4>
+                <p>Schedule a combined visit. We can perform your EPC assessment and Floor Plan survey in a single appointment.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>Technical Drafting</h4>
+                <p>Our technicians convert the laser measurements into precise CAD drawings using industry-standard software.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>Review & Refine</h4>
+                <p>We send you the draft for approval. Need a room label changed? We offer unlimited revisions until it's perfect.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>Fast Delivery</h4>
+                <p>Receive your final high-resolution files (PDF, JPG, or DWG) within 24-48 hours, ready for market.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us">
+        <div class="why-us-grid">
+            <div class="why-us-content">
+                <h2>The Prime Advantage</h2>
+                <p>We are not just a drafting service; we are property compliance experts. By integrating design with our core EPC services, we offer a seamless solution for UK property professionals.</p>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <div class="benefit-text">
+                            <h4>Integrated Site Visits</h4>
+                            <p>One appointment for both your EPC and Floor Plan survey—saving time for landlords and tenants.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                            </svg>
+                        </div>
+                        <div class="benefit-text">
+                            <h4>Speed & Precision</h4>
+                            <p>Drafts returned rapidly without sacrificing accuracy, using advanced laser measurement technology.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="benefit-text">
+                            <h4>Transparent Pricing</h4>
+                            <p>Fixed prices with no hidden costs, plus volume discounts for regular agency clients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="why-us-visual">
+                <div class="showcase-card">
+                    <div class="showcase-content">
+                        <div class="showcase-stat">
+                            <div class="number">100%</div>
+                            <div class="label">Compliance Guarantee for Lease Plans</div>
+                        </div>
+                        <div class="showcase-badges">
+                            <span class="showcase-badge">RICS Certified</span>
+                            <span class="showcase-badge">UK Based Team</span>
+                            <span class="showcase-badge">Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="cta-card">
+            <h2>Get Your Property "Market Ready"</h2>
+            <p>Discuss your project with our design team or book a combined EPC & Floor Plan survey today. Quotes delivered within 2 hours.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-primary">
+                    Request a Quote
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="tel:+441234567890" class="btn-outline">Call Design Team</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <div class="logo-icon">PE</div>
+            <div class="logo-text">Prime EPC <span style="color: #10b981;">&</span> Design</div>
+        </div>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">EPC Services</a>
+            <a href="#">Floor Plans & Drafting</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Prime EPC & Design Firm. All rights reserved. Registered in England & Wales.</p>
+        </div>
+    </footer>
+</body>
+</html>

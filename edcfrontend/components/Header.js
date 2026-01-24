@@ -8,12 +8,12 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm">
       {/* Topbar */}
-      <div className="bg-green-700 text-white py-2">
-        <div className="container mx-auto px-12 flex justify-between items-center text-sm">
+      <div className="bg-[#016837] text-white py-2">
+        <div className="container mx-auto px-4 md:px-12 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
             <span>📞 +44 7469 340373</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-4">
             <span>We serve areas within a 50-mile radius of Manchester.</span>
           </div>
           <div className="hidden md:block">
@@ -26,26 +26,34 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-green-800">
-            Prime EPC and Design Consultants
-          </Link>
+          <Link href="/" className="flex items-center">
+  <img 
+    src="/images/logo3.png" 
+    alt="Prime EPC Logo"
+    className="h-12 w-auto"
+  />
+</Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-green-700 font-medium">Home</Link>
-            <Link href="/about" className="text-gray-700 hover:text-green-700 font-medium">About</Link>
-            <Link href="/why-us" className="text-gray-700 hover:text-green-700 font-medium">Why Us</Link>
-            <Link href="/blog" className="text-gray-700 hover:text-green-700 font-medium">Blog</Link>
-            <Link href="/#faqs" className="text-gray-700 hover:text-green-700 font-medium">FAQs</Link>
-            <Link href="/#contact" className="text-gray-700 hover:text-green-700 font-medium">Contact</Link>
-            <Link href="/booking" className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium">
+            <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Home</Link>
+            <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">About</Link>
+            <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Why Us</Link>
+            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Floor Plans & Drafting</Link>
+            <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Blog</Link>
+            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">FAQs</Link>
+            <Link href="/#contact" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Contact</Link>
+            <Link 
+              href="/booking" 
+              className="bg-[#016837] text-white px-6 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg"
+            >
               Book Your EPC
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-gray-700"
+            className="md:hidden text-[#282828]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -56,15 +64,55 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
+          <div className="md:hidden mt-4 pb-4 border-t border-[#80C531] border-opacity-20">
             <div className="flex flex-col space-y-4 mt-4">
-              <Link href="/" className="text-gray-700 hover:text-green-700 font-medium">Home</Link>
-              <Link href="/about" className="text-gray-700 hover:text-green-700 font-medium">About</Link>
-              <Link href="/why-us" className="text-gray-700 hover:text-green-700 font-medium">Why Us</Link>
-              <Link href="/blog" className="text-gray-700 hover:text-green-700 font-medium">Blog</Link>
-              <Link href="/#faqs" className="text-gray-700 hover:text-green-700 font-medium">FAQs</Link>
-              <Link href="/#contact" className="text-gray-700 hover:text-green-700 font-medium">Contact</Link>
-              <Link href="/booking" className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium text-center">
+              <Link 
+                href="/" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/about" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link 
+                href="/why-us" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Why Us
+              </Link>
+              <Link 
+                href="/blog" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link 
+                href="/#faqs" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                FAQs
+              </Link>
+              <Link 
+                href="/#contact" 
+                className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
+              <Link 
+                href="/booking" 
+                className="bg-[#016837] text-white px-6 py-3 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium text-center shadow-md hover:shadow-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 Book Your EPC
               </Link>
             </div>

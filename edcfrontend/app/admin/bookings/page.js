@@ -83,7 +83,7 @@ export default function AdminBookings() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading bookings...</p>
@@ -94,17 +94,18 @@ export default function AdminBookings() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Header - Mobile responsive */}
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Booking Management</h1>
-              <span className="ml-4 text-sm text-gray-500">Prime EPC & Design Consultants</span>
+        <div className="px-4 py-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Booking Management</h1>
+              <span className="text-xs sm:text-sm text-gray-500">Prime EPC & Design Consultants</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col xs:flex-row gap-2">
               <button
                 onClick={() => router.push('/admin/dashboard')}
-                className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
+                className="w-full xs:w-auto bg-gray-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-gray-700 text-sm sm:text-base"
               >
                 Back to Dashboard
               </button>
@@ -113,85 +114,92 @@ export default function AdminBookings() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <main className="py-4 sm:py-6 px-4 sm:px-6">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-6">
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-4 sm:mb-6 text-sm sm:text-base">
             {error}
           </div>
         )}
 
-        <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white shadow overflow-hidden sm:rounded-md">
-            <div className="px-4 py-5 sm:px-6">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                All Bookings
-              </h3>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                Manage EPC assessment bookings
-              </p>
-            </div>
+        <div className="bg-white shadow overflow-hidden rounded-md">
+          <div className="px-4 py-4 sm:px-6">
+            <h3 className="text-lg sm:text-xl leading-6 font-medium text-gray-900">
+              All Bookings
+            </h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Manage EPC assessment bookings
+            </p>
+          </div>
 
-            {bookings.length === 0 ? (
-              <div className="px-4 py-12 text-center">
-                <p className="text-gray-500">No bookings found.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
+          {bookings.length === 0 ? (
+            <div className="px-4 py-8 sm:py-12 text-center">
+              <p className="text-gray-500">No bookings found.</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              {/* Mobile-friendly horizontal table */}
+              <div className="inline-block min-w-full align-middle">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Customer
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Property
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Date & Time
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         Actions
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {bookings.map((booking) => (
-                      <tr key={booking.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
-                            {booking.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {booking.email}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {booking.phone}
+                      <tr key={booking.id} className="hover:bg-gray-50">
+                        <td className="px-3 py-4">
+                          <div className="min-w-[150px]">
+                            <div className="text-sm font-medium text-gray-900">
+                              {booking.name}
+                            </div>
+                            <div className="text-xs text-gray-500 truncate max-w-[150px]">
+                              {booking.email}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {booking.phone}
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-3 py-4 min-w-[180px]">
                           <div className="text-sm text-gray-900 capitalize">
                             {booking.propertyType}
                           </div>
-                          <div className="text-sm text-gray-500 max-w-xs truncate">
+                          <div className="text-xs text-gray-500 truncate max-w-[180px]">
                             {booking.propertyAddress}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {new Date(booking.preferredDate).toLocaleString()}
+                        <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-900 min-w-[140px]">
+                          {new Date(booking.preferredDate).toLocaleDateString()}
+                          <br />
+                          <span className="text-xs text-gray-500">
+                            {new Date(booking.preferredDate).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                          </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-3 py-4 whitespace-nowrap">
                           <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(booking.status)}`}>
                             {booking.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <td className="px-3 py-4 whitespace-nowrap text-sm font-medium">
                           <select
                             value={booking.status}
                             onChange={(e) => updateBookingStatus(booking.id, e.target.value)}
-                            className="text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            className="text-xs sm:text-sm border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500 w-full max-w-[120px]"
                           >
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
@@ -204,9 +212,18 @@ export default function AdminBookings() {
                   </tbody>
                 </table>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
+
+        {/* Horizontal Scroll Indicator for Mobile */}
+        {bookings.length > 0 && (
+          <div className="mt-4 text-center sm:hidden">
+            <p className="text-xs text-gray-500">
+              ← Scroll horizontally to view more →
+            </p>
+          </div>
+        )}
       </main>
     </div>
   )

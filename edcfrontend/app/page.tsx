@@ -5,7 +5,6 @@ import { useState } from 'react'
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-<<<<<<< HEAD
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,13 +18,6 @@ export default function Home() {
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
   }
-=======
-
-
-  const toggleFaq = (index: number) => {
-  setOpenFaq(openFaq === index ? null : index)
-}
->>>>>>> 36bc3a20734610d790042be0e6232b4c009878d0
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -161,72 +153,69 @@ export default function Home() {
     <div className="min-h-screen font-sans">
       {/* Hero Section with Background Image */}
       <section className="relative py-28 overflow-hidden">
-  {/* Background Image with Overlay */}
-  <div 
-    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-    style={{
-      backgroundImage: 'url("/images/bg.avif")'
-    }}
-  />
-  {/* Green & Gold Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 via-green-800/85 to-yellow-600/20"></div>
-  
-  {/* Animated Background Elements */}
-  <div className="absolute inset-0 overflow-hidden">
-    <div className="absolute -top-40 -right-40 w-80 h-80 bg-yellow-400/10 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-green-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-  </div>
-  
-  <div className="container mx-auto px-4 relative z-10">
-    {/* YAHAN CHANGE KARO - Single column center alignment */}
-    <div className="max-w-3xl mx-auto text-center">
-      {/* Content - Ab sab center mein hoga */}
-      <div className="text-white animate-fade-in-up">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-          <span className="text-yellow-200 text-sm font-semibold tracking-wide bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-            TRUSTED EPC PROVIDERS Manchester-WIDE
-          </span>
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("/images/bg.avif")'
+          }}
+        />[#016837]/90
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-          Energy Performance
-          <span className="block bg-gradient-to-r from-green-300 to-yellow-300 bg-clip-text text-transparent">
-            Certificates
-          </span>
-        </h1>
-        
-        <p className="text-xl text-green-100 mb-8 leading-relaxed max-w-2xl mx-auto">
-          Get your EPC within <span className="font-bold text-yellow-300">24-48 hours</span>. Fully accredited assessors providing professional, stress-free certification across the Manchester.
-        </p>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="text-white animate-fade-in-up">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                  TRUSTED EPC PROVIDERS Manchester-WIDE
+                </span>
+              </div>
+              
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                Energy Performance
+                <span className="block text-white">
+                  Certificates
+                </span>
+              </h1>
+              
+              <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
+                Get your EPC within <span className="font-bold text-[#80C531]">24-48 hours</span>. Fully accredited assessors providing professional, stress-free certification across the Manchester.
+              </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
-          <Link 
-            href="/contact" 
-            className="btn-primary flex items-center justify-center gap-3 group text-lg"
-          >
-            <span>Book Your EPC Today</span>
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+                <Link 
+                  href="/contact" 
+                  className="bg-white hover:from-[#01572E] hover:to-[#70B52B] text-[#016837] font-bold py-3 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  <span>Book Your EPC Today</span>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        
-      </div>
-    </div>
-  </div>
-</section>
       {/* What is EPC Section */}
-      <section className="py-24 bg-gradient-to-br from-white to-green-50">
+      <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 📋 UNDERSTANDING EPC
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What is an Energy Performance Certificate?</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">What is an Energy Performance Certificate?</h2>
+              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">
                 Your complete guide to understanding EPCs and why they're essential for your property
               </p>
             </div>
@@ -234,33 +223,33 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               {/* Content */}
               <div>
-                <div className="bg-white rounded-3xl p-8 shadow-lg border border-green-100">
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    An <strong className="text-green-600">Energy Performance Certificate (EPC)</strong> is a legal requirement that shows how energy-efficient your property is. It provides an energy efficiency rating from <strong className="text-green-700">A (most efficient)</strong> to <strong className="text-green-700">G (least efficient)</strong>, along with practical recommendations for improvement.
+                <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
+                  <p className="text-lg text-[#282828] leading-relaxed mb-6">
+                    An <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> is a legal requirement that shows how energy-efficient your property is. It provides an energy efficiency rating from <strong className="text-[#016837]">A (most efficient)</strong> to <strong className="text-[#016837]">G (least efficient)</strong>, along with practical recommendations for improvement.
                   </p>
                   
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 mb-6">
-                    <h4 className="font-bold text-yellow-800 mb-3 flex items-center gap-2">
+                  <div className="bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/5 border border-[#80C531]/30 rounded-2xl p-6 mb-6">
+                    <h4 className="font-bold text-[#016837] mb-3 flex items-center gap-2">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                       </svg>
                       Why You Need an EPC
                     </h4>
-                    <ul className="text-yellow-800 space-y-2">
+                    <ul className="text-[#016837] space-y-2">
                       <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
                         Legal requirement for selling or renting property
                       </li>
                       <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
                         Valid for 10 years from issue date
                       </li>
                       <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
                         Helps attract buyers/tenants with better ratings
                       </li>
                       <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
                         Identifies cost-saving energy improvements
                       </li>
                     </ul>
@@ -302,7 +291,7 @@ export default function Home() {
                   ))}
                 </div>
                 
-                <div className="text-center text-green-200 text-sm">
+                <div className="text-center text-white/80 text-sm">
                   SAP Score = Standard Assessment Procedure
                 </div>
               </div>
@@ -312,14 +301,14 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
               ⭐ WHY CHOOSE US
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Why Property Owners Choose Prime EPC</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Property Owners Choose Prime EPC</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
               Experience the difference with our professional, reliable, and efficient EPC services
             </p>
           </div>
@@ -353,19 +342,19 @@ export default function Home() {
             ].map((feature, index) => (
               <div 
                 key={index}
-                className="bg-white rounded-3xl p-8 shadow-lg border border-gray-200 group hover:border-yellow-300 transition-all duration-300 hover:shadow-xl"
+                className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl"
               >
                 <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-yellow-500 rounded-2xl flex items-center justify-center text-2xl text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
                     {feature.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-2xl font-bold text-[#282828] mb-3">{feature.title}</h3>
+                    <p className="text-[#282828] opacity-90 mb-4 leading-relaxed">{feature.description}</p>
                     <div className="space-y-2">
                       {feature.features.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-gray-700">
-                          <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                        <div key={idx} className="flex items-center gap-3 text-[#282828]">
+                          <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
                           <span className="text-sm font-semibold">{item}</span>
                         </div>
                       ))}
@@ -379,14 +368,14 @@ export default function Home() {
       </section>
 
       {/* 3-Step Process */}
-      <section className="py-24 bg-gradient-to-br from-green-50 to-yellow-50">
+      <section className="py-24 bg-gradient-to-br from-[#F8F8F8] via-white to-[#E1EED4]/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
               📝 HOW IT WORKS
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Get Your EPC in 3 Simple Steps</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Get Your EPC in 3 Simple Steps</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
               Our streamlined process makes getting your Energy Performance Certificate quick and hassle-free
             </p>
           </div>
@@ -394,7 +383,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               {/* Process Line */}
-              <div className="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-yellow-400 -z-10"></div>
+              <div className="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-[#016837] via-[#80C531] to-[#016837] -z-10"></div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
@@ -422,21 +411,21 @@ export default function Home() {
                 ].map((step, index) => (
                   <div key={index} className="text-center relative">
                     <div className="relative mb-8">
-                      <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-yellow-500 rounded-2xl flex items-center justify-center text-2xl text-white mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <div className="w-24 h-24 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300">
                         <span className="text-3xl">{step.icon}</span>
                       </div>
-                      <div className="absolute -top-2 -right-2 w-10 h-10 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
+                      <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-r from-[#80C531] to-[#9CD35A] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
                         {step.step}
                       </div>
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{step.description}</p>
+                    <h3 className="text-2xl font-bold text-[#282828] mb-4">{step.title}</h3>
+                    <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">{step.description}</p>
                     
                     <div className="space-y-2">
                       {step.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center justify-center gap-2 text-gray-700">
-                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                        <div key={idx} className="flex items-center justify-center gap-2 text-[#282828]">
+                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full"></div>
                           <span className="text-sm font-semibold">{detail}</span>
                         </div>
                       ))}
@@ -447,16 +436,22 @@ export default function Home() {
             </div>
 
             {/* CTA Box */}
-            <div className="mt-12 bg-white rounded-3xl p-8 shadow-lg border border-yellow-200 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Start the Process?</h3>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            <div className="mt-12 bg-gradient-to-r from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 text-center">
+              <h3 className="text-2xl font-bold text-[#282828] mb-4">Ready to Start the Process?</h3>
+              <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">
                 Get your EPC certificate quickly and professionally. Contact us today for a free, no-obligation quote.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/booking" className="bg-gradient-to-r from-green-500 to-yellow-500 text-white font-bold py-3 px-6 rounded-2xl hover:from-green-600 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <Link 
+                  href="/booking" 
+                  className="bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
+                >
                   Book Assessment Now
                 </Link>
-                <Link href="#contact" className="bg-white text-gray-800 font-bold py-3 px-6 rounded-2xl border border-gray-300 hover:border-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <Link 
+                  href="#contact" 
+                  className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg"
+                >
                   Get Instant Quote
                 </Link>
               </div>
@@ -466,35 +461,35 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
               🛠️ OUR SERVICES
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Comprehensive EPC Services</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Professional Energy Performance Certificates for all property types across the UK
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Comprehensive EPC Services</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
+              Professional Energy Performance Certificates for all property types across the Manchester
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* EPC Services */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-green-200 group hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+                <div className="w-14 h-14 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center">
                   <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">EPC Services</h3>
-                  <p className="text-green-600 font-semibold">From £45</p>
+                  <h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3>
+                  <p className="text-[#016837] font-semibold">From £49</p>
                 </div>
               </div>
               
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the UK. 
+              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">
+                We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Manchester. 
                 Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.
               </p>
               
@@ -507,37 +502,40 @@ export default function Home() {
                   'Property Sales EPCs',
                   'Rental Property EPCs'
                 ].map((service, index) => (
-                  <div key={index} className="flex items-center gap-3 bg-white rounded-xl p-3 shadow-sm border border-green-100">
-                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <div key={index} className="flex items-center gap-3 bg-gradient-to-r from-[#F8F8F8] to-white rounded-xl p-3 shadow-sm border border-[#80C531]/10">
+                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-[#016837]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="font-semibold text-gray-700">{service}</span>
+                    <span className="font-semibold text-[#282828]">{service}</span>
                   </div>
                 ))}
               </div>
               
-              <Link href="/booking" className="w-full bg-gradient-to-r from-green-500 to-yellow-500 text-white font-bold py-3 px-6 rounded-2xl hover:from-green-600 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg text-center block">
+              <Link 
+                href="/booking" 
+                className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg text-center block"
+              >
                 Book EPC Service
               </Link>
             </div>
 
             {/* Design Consultancy */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-yellow-200 group hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center">
+                <div className="w-14 h-14 bg-gradient-to-r from-[#80C531] to-[#9CD35A] rounded-2xl flex items-center justify-center">
                   <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900">Design Consultancy</h3>
-                  <p className="text-yellow-600 font-semibold">Expert Guidance</p>
+                  <h3 className="text-2xl font-bold text-[#282828]">Design Consultancy</h3>
+                  <p className="text-[#80C531] font-semibold">Expert Guidance</p>
                 </div>
               </div>
               
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">
                 Strategic design consultancy isn't just an expense—it's an investment that pays for itself. 
                 We provide expert guidance from concept to completion, ensuring your project achieves optimal efficiency and value.
               </p>
@@ -552,17 +550,20 @@ export default function Home() {
                   'Cost-benefit analysis'
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3 h-3 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 text-[#80C531]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="font-semibold text-gray-700">{item}</span>
+                    <span className="font-semibold text-[#282828]">{item}</span>
                   </div>
                 ))}
               </div>
               
-              <Link href="#contact" className="w-full bg-white text-gray-800 font-bold py-3 px-6 rounded-2xl border border-gray-300 hover:border-yellow-400 transform hover:scale-105 transition-all duration-300 shadow-lg text-center block">
+              <Link 
+                href="#contact" 
+                className="w-full bg-gradient-to-r from-white to-[#F8F8F8] text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg text-center block"
+              >
                 Learn More About Consultancy
               </Link>
             </div>
@@ -571,14 +572,14 @@ export default function Home() {
       </section>
 
       {/* Interactive FAQ Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-green-50">
+      <section id="faqs" className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
               ❓ FREQUENTLY ASKED QUESTIONS
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Common Questions About EPC</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Common Questions About EPC</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
               Find quick answers to the most frequently asked questions about Energy Performance Certificates
             </p>
           </div>
@@ -588,15 +589,15 @@ export default function Home() {
               {faqs.map((faq, index) => (
                 <div 
                   key={index}
-                  className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl"
+                  className="bg-white rounded-2xl shadow-lg border border-[#80C531]/10 overflow-hidden transition-all duration-300 hover:shadow-xl"
                 >
                   <button
                     onClick={() => toggleFaq(index)}
-                    className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors duration-200"
+                    className="w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r from-[#F8F8F8] to-white transition-colors duration-200"
                   >
-                    <h3 className="text-lg font-bold text-gray-900 pr-4">{faq.question}</h3>
+                    <h3 className="text-lg font-bold text-[#282828] pr-4">{faq.question}</h3>
                     <svg 
-                      className={`w-5 h-5 text-green-600 transition-transform duration-300 flex-shrink-0 ${
+                      className={`w-5 h-5 text-[#016837] transition-transform duration-300 flex-shrink-0 ${
                         openFaq === index ? 'rotate-180' : ''
                       }`}
                       fill="none" 
@@ -611,8 +612,8 @@ export default function Home() {
                       openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="p-6 pt-0 border-t border-gray-100">
-                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    <div className="p-6 pt-0 border-t border-[#80C531]/10">
+                      <p className="text-[#282828] opacity-90 leading-relaxed">{faq.answer}</p>
                     </div>
                   </div>
                 </div>
@@ -621,13 +622,16 @@ export default function Home() {
 
             {/* FAQ CTA */}
             <div className="mt-12 text-center">
-              <div className="bg-gradient-to-r from-green-600 to-green-800 rounded-3xl p-8 text-white">
+              <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
-                <p className="text-green-100 mb-6 max-w-2xl mx-auto">
+                <p className="text-white/80 mb-6 max-w-2xl mx-auto">
                   Our team of EPC experts is here to help you with any questions about Energy Performance Certificates.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="#contact" className="bg-white text-gray-800 font-bold py-3 px-6 rounded-2xl hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                  <Link 
+                    href="#contact" 
+                    className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg hover:bg-[#F8F8F8] transform hover:scale-105 transition-all duration-300 shadow-lg"
+                  >
                     Contact Our Experts
                   </Link>
                 </div>
@@ -637,12 +641,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-r from-green-700 via-green-600 to-yellow-500 text-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
+      {/* Contact Section - WHITE BACKGROUND */}
+      <section id="contact" className="py-20 bg-white relative overflow-hidden">
+        {/* Background Pattern - Subtle Green Pattern */}
+        <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23016837' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
             backgroundSize: '80px 80px'
           }}></div>
         </div>
@@ -650,17 +654,17 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-              <span className="text-yellow-200 text-sm font-semibold tracking-wide bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
+              <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
+              <span className="text-[#016837] text-sm font-semibold tracking-wide bg-[#80C531]/10 backdrop-blur-sm px-4 py-2 rounded-full">
                 GET IN TOUCH TODAY
               </span>
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-white">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">
               Contact Us
             </h2>
             
-            <p className="text-xl text-green-100 mb-8 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
               Ready to get your EPC or need expert design consultancy? Reach out to us for professional, stress-free service.
             </p>
           </div>
@@ -668,51 +672,51 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Contact Information */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+              <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
                 <h3 className="text-3xl font-bold mb-8 text-white">Contact Information</h3>
                 
                 <div className="space-y-8 mb-8">
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-yellow-200 text-lg mb-1">Phone</h4>
+                      <h4 className="font-semibold text-[#80C531] text-lg mb-1">Phone</h4>
                       <p className="text-white font-bold text-xl">+44 7469 340373</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-yellow-200 text-lg mb-1">Email</h4>
+                      <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
                       <p className="text-white font-bold text-lg">primeepc.design@gmail.com</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-yellow-500 rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-yellow-200 text-lg mb-1">Service Areas</h4>
-                      <p className="text-green-100 font-semibold text-lg">Manchester Coverage</p>
+                      <h4 className="font-semibold text-[#80C531] text-lg mb-1">Service Areas</h4>
+                      <p className="text-white font-semibold text-lg">Manchester Coverage</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Social Media Icons */}
                 <div>
-                  <h4 className="font-semibold text-yellow-200 text-lg mb-6">Follow Us</h4>
+                  <h4 className="font-semibold text-[#80C531] text-lg mb-6">Follow Us</h4>
                   <div className="flex gap-4">
                     {[
                       { 
@@ -764,15 +768,14 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
 
-              {/* Contact Form */}
-              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-                <h3 className="text-3xl font-bold mb-8 text-white">Send Us a Message</h3>
+              {/* Contact Form - WHITE BACKGROUND */}
+              <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
+                <h3 className="text-3xl font-bold mb-8 text-[#016837]">Send Us a Message</h3>
                 
                 {/* Success Message */}
                 {formSuccess && (
-                  <div className="mb-6 p-4 bg-green-500/20 border border-green-400 rounded-2xl text-green-100">
+                  <div className="mb-6 p-4 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/5 border border-[#80C531] rounded-2xl text-[#016837]">
                     <div className="flex items-center gap-3">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -785,7 +788,7 @@ export default function Home() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-yellow-200 mb-3">
+                      <label htmlFor="name" className="block text-sm font-semibold text-[#016837] mb-3">
                         Full Name *
                       </label>
                       <input
@@ -795,13 +798,13 @@ export default function Home() {
                         required
                         value={formData.name}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
+                        className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                         placeholder="Your full name"
                       />
                     </div>
                     
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-yellow-200 mb-3">
+                      <label htmlFor="email" className="block text-sm font-semibold text-[#016837] mb-3">
                         Email Address *
                       </label>
                       <input
@@ -811,14 +814,14 @@ export default function Home() {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
+                        className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-yellow-200 mb-3">
+                    <label htmlFor="phone" className="block text-sm font-semibold text-[#016837] mb-3">
                       Phone Number
                     </label>
                     <input
@@ -827,13 +830,13 @@ export default function Home() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
+                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                       placeholder="+44 XXX XXX XXXX"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="service" className="block text-sm font-semibold text-yellow-200 mb-3">
+                    <label htmlFor="service" className="block text-sm font-semibold text-[#016837] mb-3">
                       Service Required
                     </label>
                     <select
@@ -841,7 +844,7 @@ export default function Home() {
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white"
+                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828]"
                     >
                       <option value="" className="text-gray-800">Select a service</option>
                       <option value="domestic-epc" className="text-gray-800">Domestic EPC</option>
@@ -852,7 +855,7 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-yellow-200 mb-3">
+                    <label htmlFor="message" className="block text-sm font-semibold text-[#016837] mb-3">
                       Message *
                     </label>
                     <textarea
@@ -862,7 +865,7 @@ export default function Home() {
                       rows={4}
                       value={formData.message}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
+                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                       placeholder="Tell us about your requirements..."
                     ></textarea>
                   </div>
@@ -870,7 +873,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={formLoading}
-                    className="w-full bg-gradient-to-r from-green-500 to-yellow-500 text-white text-lg font-bold py-4 rounded-2xl hover:from-green-600 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white text-lg font-bold py-4 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed border border-[#80C531]/30"
                   >
                     {formLoading ? (
                       <>
@@ -887,109 +890,11 @@ export default function Home() {
                     )}
                   </button>
                 </form>
-=======
-              <div>
-                <h4 className="font-semibold text-yellow-200 text-lg mb-1">Service Areas</h4>
-                <p className="text-green-100 font-semibold text-lg">Manchester Coverage</p>
->>>>>>> 36bc3a20734610d790042be0e6232b4c009878d0
               </div>
             </div>
           </div>
         </div>
-<<<<<<< HEAD
       </section>
-=======
-
-        {/* Contact Form */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-          <h3 className="text-3xl font-bold mb-8 text-white">Send Us a Message</h3>
-          
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-yellow-200 mb-3">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
-                  placeholder="Your full name"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-yellow-200 mb-3">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="phone" className="block text-sm font-semibold text-yellow-200 mb-3">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
-                placeholder="+44 XXX XXX XXXX"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="service" className="block text-sm font-semibold text-yellow-200 mb-3">
-                Service Required
-              </label>
-              <select
-                id="service"
-                className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white"
-              >
-                <option value="" className="text-gray-800">Select a service</option>
-                <option value="domestic-epc" className="text-gray-800">Domestic EPC</option>
-                <option value="commercial-epc" className="text-gray-800">Commercial EPC</option>
-                <option value="design-consultancy" className="text-gray-800">Design Consultancy</option>
-                <option value="other" className="text-gray-800">Other Inquiry</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-semibold text-yellow-200 mb-3">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                required
-                rows={4}
-                className="w-full px-4 py-4 bg-white/10 border border-white/30 rounded-2xl focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-white placeholder-green-200"
-                placeholder="Tell us about your requirements..."
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-green-500 to-yellow-500 text-white text-lg font-bold py-4 rounded-2xl hover:from-green-600 hover:to-yellow-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 group"
-            >
-              <span>Send Message</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
->>>>>>> 36bc3a20734610d790042be0e6232b4c009878d0
     </div>
   )
 }

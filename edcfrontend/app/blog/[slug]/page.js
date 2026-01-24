@@ -52,7 +52,11 @@ export default async function BlogPost({ params }) {
       <Head>
         <title>{blog.metaTitle}</title>
         <meta name="description" content={blog.metaDescription} />
-        <meta name="keywords" content={blog.keywords?.join(', ')} />
+        <meta
+  name="keywords"
+  content={Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords}
+/>
+
         <link rel="canonical" href={`http://localhost:3000/blog/${blog.slug}`} />
         
         {/* Open Graph Tags */}
