@@ -4,7 +4,7 @@ async function getBlog(slug) {
   try {
     console.log('🔄 Fetching blog with slug:', slug);
     
-    const res = await fetch(`http://localhost:5000/api/blogs/${slug}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`, {
       cache: 'no-store'
     });
     
@@ -40,7 +40,7 @@ export default async function BlogPost({ params }) {
           <h1 className="text-2xl font-bold text-red-600 mb-4">Blog not found</h1>
           <p className="text-gray-600">Slug: {slug}</p>
           <p className="text-sm text-gray-500 mt-2">
-            Check backend API: http://localhost:5000/api/blogs/{slug}
+            Check backend API: ${process.env.NEXT_PUBLIC_API_URL}/api/blogs/{slug}
           </p>
         </div>
       </div>

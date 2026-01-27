@@ -29,7 +29,7 @@ export default function EditBlog() {
       const token = localStorage.getItem('adminToken')
       const blogId = params.id
       
-      const response = await fetch(`http://localhost:5000/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs/${blogId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -59,7 +59,7 @@ export default function EditBlog() {
       const token = localStorage.getItem('adminToken')
       const blogId = params.id
       
-      const response = await fetch(`http://localhost:5000/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs/${blogId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

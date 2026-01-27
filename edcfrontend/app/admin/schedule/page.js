@@ -31,7 +31,7 @@ export default function AdminSchedule() {
   const fetchSchedules = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch('http://localhost:5000/api/booking/admin/schedules', {
+      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -53,7 +53,7 @@ export default function AdminSchedule() {
     e.preventDefault()
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch('http://localhost:5000/api/booking/admin/schedules', {
+      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export default function AdminSchedule() {
   const toggleAvailability = async (scheduleId, currentStatus) => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`http://localhost:5000/api/booking/admin/schedules/${scheduleId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules/${scheduleId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function AdminSchedule() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`http://localhost:5000/api/booking/admin/schedules/${scheduleId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules/${scheduleId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
