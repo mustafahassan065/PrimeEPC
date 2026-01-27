@@ -31,7 +31,7 @@ export default function AdminSchedule() {
   const fetchSchedules = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -53,7 +53,7 @@ export default function AdminSchedule() {
     e.preventDefault()
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

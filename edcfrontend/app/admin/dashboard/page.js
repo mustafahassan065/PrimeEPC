@@ -25,7 +25,7 @@ export default function AdminDashboard() {
   const fetchBlogs = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

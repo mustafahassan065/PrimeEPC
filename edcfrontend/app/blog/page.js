@@ -15,7 +15,7 @@ export default function BlogList() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/blogs');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`);
       const data = await res.json();
       console.log('Blogs API response:', data); // Debug log
       if (data.success) {
