@@ -65,7 +65,7 @@ export default function BookingPage() {
   const fetchAvailableSlots = async () => {
     setLoading(true)
     try {
-      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/available-slots-all')
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/available-slots-all`)
       const data = await response.json()
 
       console.log('📊 Raw API data:', data.data); // Debug
@@ -150,7 +150,7 @@ export default function BookingPage() {
         slotId: selectedSlot.id
       }
 
-      const response = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/booking/create', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
