@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://primeepcdesign.co.uk'
+// TEMPORARY HARDCODE - Remove env variable completely
+const API_URL = 'https://primeepcdesign.co.uk'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -18,6 +19,8 @@ export default function AdminLogin() {
     setError('')
 
     try {
+      console.log('🌐 Making login request to:', `${API_URL}/api/admin/login`)
+      
       const response = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: {
@@ -26,21 +29,31 @@ export default function AdminLogin() {
         body: JSON.stringify({ email, password }),
       })
 
+      console.log('📥 Response status:', response.status)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📥 Response data:', data)
 
       if (data.success) {
         localStorage.setItem('adminToken', data.token)
         localStorage.setItem('admin', JSON.stringify(data.admin))
+        console.log('✅ Token saved to localStorage')
         router.push('/admin/dashboard')
       } else {
         setError(data.message || 'Login failed')
       }
     } catch (error) {
-      setError('Network error. Please check if backend server is running.')
+      console.error('❌ Login error:', error)
+      setError('Network error. Please check if backend server is running. ' + error.message)
     } finally {
       setLoading(false)
     }
   }
+
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-4 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
