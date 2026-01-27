@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -27,12 +29,16 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-  <img 
-    src="/images/logo3.png" 
+  <Image
+    src="/images/logo3.png"
     alt="Prime EPC Logo"
+    width={180}
+    height={48}
+    priority
     className="h-12 w-auto"
   />
 </Link>
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
