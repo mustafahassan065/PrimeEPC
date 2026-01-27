@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
@@ -24,20 +27,28 @@ export default function AdminBookings() {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/bookings`, {
+      console.log('📊 Fetching bookings from:', `${API_URL}/api/booking/admin/bookings`)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/bookings`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📊 Bookings response:', data)
 
       if (data.success) {
         setBookings(data.data)
       } else {
-        setError('Failed to fetch bookings')
+        setError(data.message || 'Failed to fetch bookings')
       }
     } catch (error) {
+      console.error('❌ Fetch bookings error:', error)
       setError('Network error. Please check if backend server is running.')
     } finally {
       setLoading(false)
@@ -47,7 +58,9 @@ export default function AdminBookings() {
   const updateBookingStatus = async (bookingId, status) => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/bookings/${bookingId}`, {
+      console.log('🔄 Updating booking:', bookingId, 'status:', status)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/bookings/${bookingId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -56,19 +69,24 @@ export default function AdminBookings() {
         body: JSON.stringify({ status })
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('🔄 Update response:', data)
 
       if (data.success) {
         setBookings(bookings.map(booking => 
           booking.id === bookingId ? { ...booking, status } : booking
         ))
-        alert('Booking status updated successfully')
+        alert('✅ Booking status updated successfully')
       } else {
-        alert('Failed to update booking status')
+        alert('❌ Failed to update booking status: ' + data.message)
       }
     } catch (error) {
-      console.error('Update error:', error)
-      alert('Network error')
+      console.error('❌ Update error:', error)
+      alert('❌ Network error: ' + error.message)
     }
   }
 

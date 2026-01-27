@@ -1,14 +1,18 @@
 import Head from 'next/head';
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 async function getBlog(slug) {
   try {
     console.log('🔄 Fetching blog with slug:', slug);
+    console.log('🌐 API URL:', `${API_URL}/api/blogs/${slug}`)
     
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${slug}`, {
+    const res = await fetch(`${API_URL}/api/blogs/${slug}`, {
       cache: 'no-store'
     });
     
-    console.log('Response status:', res.status);
+    console.log('📥 Response status:', res.status);
     
     if (!res.ok) {
       console.log('❌ API response not OK');
@@ -16,7 +20,7 @@ async function getBlog(slug) {
     }
     
     const data = await res.json();
-    console.log('API data:', data);
+    console.log('📥 API data:', data);
     
     return data.success ? data.data : null;
   } catch (error) {
@@ -38,33 +42,50 @@ export default async function BlogPost({ params }) {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Blog not found</h1>
-          <p className="text-gray-600">Slug: {slug}</p>
+          <p className="text-gray-600">The blog post "{slug}" could not be found.</p>
           <p className="text-sm text-gray-500 mt-2">
-            Check backend API: ${process.env.NEXT_PUBLIC_API_URL}/api/blogs/{slug}
+            Check backend API: {API_URL}/api/blogs/{slug}
           </p>
+          <a 
+            href="/blog" 
+            className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          >
+            Back to Blog List
+          </a>
         </div>
       </div>
     );
   }
 
+  // Get featured image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return null;
+    
+    if (imagePath.startsWith('http')) return imagePath;
+    if (imagePath.startsWith('/')) return imagePath;
+    
+    return `/images/${imagePath}`;
+  };
+
+  const featuredImage = getImageUrl(blog.featured_image || blog.featuredImage);
+
   return (
     <>
       <Head>
-        <title>{blog.metaTitle}</title>
-        <meta name="description" content={blog.metaDescription} />
+        <title>{blog.metaTitle || blog.title} | Prime EPC & Design Consultants</title>
+        <meta name="description" content={blog.metaDescription || blog.excerpt || 'EPC blog article'} />
         <meta
-  name="keywords"
-  content={Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords}
-/>
-
-        <link rel="canonical" href={`http://localhost:3000/blog/${blog.slug}`} />
+          name="keywords"
+          content={Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC, Energy Performance Certificate'}
+        />
+        <link rel="canonical" href={`https://primeepcdesign.co.uk/blog/${blog.slug}`} />
         
         {/* Open Graph Tags */}
-        <meta property="og:title" content={blog.metaTitle} />
-        <meta property="og:description" content={blog.metaDescription} />
+        <meta property="og:title" content={blog.metaTitle || blog.title} />
+        <meta property="og:description" content={blog.metaDescription || blog.excerpt || 'EPC blog article'} />
         <meta property="og:type" content="article" />
-        {blog.featuredImage && (
-          <meta property="og:image" content={blog.featuredImage} />
+        {featuredImage && (
+          <meta property="og:image" content={featuredImage} />
         )}
       </Head>
 
@@ -75,10 +96,10 @@ export default async function BlogPost({ params }) {
               {blog.title}
             </h1>
             <div className="text-gray-600 flex justify-center items-center gap-4">
-              <span>By {blog.author}</span>
+              <span>By {blog.author || 'Prime EPC'}</span>
               <span>•</span>
-              <time dateTime={blog.createdAt}>
-                {new Date(blog.createdAt).toLocaleDateString('en-GB', {
+              <time dateTime={blog.created_at || blog.createdAt}>
+                {new Date(blog.created_at || blog.createdAt).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric'
@@ -87,12 +108,15 @@ export default async function BlogPost({ params }) {
             </div>
           </header>
 
-          {blog.featuredImage && (
+          {featuredImage && (
             <div className="mb-12">
               <img 
-                src={blog.featuredImage} 
+                src={featuredImage} 
                 alt={blog.title}
                 className="w-full h-96 object-cover rounded-2xl shadow-lg"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
               />
             </div>
           )}
@@ -107,6 +131,15 @@ export default async function BlogPost({ params }) {
                 .replace(/(\d+\.) (.*?)(?=\n|$)/g, '<li>$2</li>')
             }}
           />
+          
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <a 
+              href="/blog" 
+              className="text-green-600 hover:text-green-700 font-semibold inline-flex items-center"
+            >
+              ← Back to all articles
+            </a>
+          </div>
         </div>
       </article>
     </>

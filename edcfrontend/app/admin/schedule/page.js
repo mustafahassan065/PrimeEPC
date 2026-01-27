@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function AdminSchedule() {
   const [schedules, setSchedules] = useState([])
   const [loading, setLoading] = useState(true)
@@ -31,19 +34,26 @@ export default function AdminSchedule() {
   const fetchSchedules = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules`, {
+      console.log('📅 Fetching schedules from:', `${API_URL}/api/booking/admin/schedules`)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/schedules`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📅 Schedules response:', data)
 
       if (data.success) {
         setSchedules(data.data)
       }
     } catch (error) {
-      console.error('Error fetching schedules:', error)
+      console.error('❌ Error fetching schedules:', error)
     } finally {
       setLoading(false)
     }
@@ -53,7 +63,9 @@ export default function AdminSchedule() {
     e.preventDefault()
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules`, {
+      console.log('➕ Creating schedule:', formData)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/schedules`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +74,12 @@ export default function AdminSchedule() {
         body: JSON.stringify(formData)
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('➕ Create schedule response:', data)
 
       if (data.success) {
         setSchedules([...schedules, data.data])
@@ -74,18 +91,22 @@ export default function AdminSchedule() {
           isAvailable: true,
           maxBookings: 1
         })
-        alert('Schedule created successfully')
+        alert('✅ Schedule created successfully')
+      } else {
+        alert('❌ Failed to create schedule: ' + data.message)
       }
     } catch (error) {
-      console.error('Error creating schedule:', error)
-      alert('Error creating schedule')
+      console.error('❌ Error creating schedule:', error)
+      alert('❌ Error creating schedule: ' + error.message)
     }
   }
 
   const toggleAvailability = async (scheduleId, currentStatus) => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules/${scheduleId}`, {
+      console.log('🔄 Toggling schedule availability:', scheduleId, 'current:', currentStatus)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/schedules/${scheduleId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +115,12 @@ export default function AdminSchedule() {
         body: JSON.stringify({ isAvailable: !currentStatus })
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('🔄 Toggle response:', data)
 
       if (data.success) {
         setSchedules(schedules.map(schedule => 
@@ -102,7 +128,7 @@ export default function AdminSchedule() {
         ))
       }
     } catch (error) {
-      console.error('Error updating schedule:', error)
+      console.error('❌ Error updating schedule:', error)
     }
   }
 
@@ -111,22 +137,31 @@ export default function AdminSchedule() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/admin/schedules/${scheduleId}`, {
+      console.log('🗑️ Deleting schedule:', scheduleId)
+      
+      const response = await fetch(`${API_URL}/api/booking/admin/schedules/${scheduleId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('🗑️ Delete response:', data)
 
       if (data.success) {
         setSchedules(schedules.filter(schedule => schedule.id !== scheduleId))
-        alert('Schedule deleted successfully')
+        alert('✅ Schedule deleted successfully')
+      } else {
+        alert('❌ Failed to delete schedule: ' + data.message)
       }
     } catch (error) {
-      console.error('Error deleting schedule:', error)
-      alert('Error deleting schedule')
+      console.error('❌ Error deleting schedule:', error)
+      alert('❌ Error deleting schedule: ' + error.message)
     }
   }
 
