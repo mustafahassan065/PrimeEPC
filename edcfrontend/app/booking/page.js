@@ -65,7 +65,7 @@ export default function BookingPage() {
   const fetchAvailableSlots = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/available-slots-all`)
+      const response = await fetch(`https://primeepcdesign.co.uk/api/booking/available-slots-all`)
       const data = await response.json()
 
       console.log('📊 Raw API data:', data.data); // Debug
