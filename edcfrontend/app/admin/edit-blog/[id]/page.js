@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function EditBlog() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -29,22 +32,31 @@ export default function EditBlog() {
       const token = localStorage.getItem('adminToken')
       const blogId = params.id
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs/${blogId}`, {
+      console.log('📝 Fetching blog ID:', blogId)
+      console.log('🌐 API URL:', `${API_URL}/api/admin/blogs/${blogId}`)
+      
+      const response = await fetch(`${API_URL}/api/admin/blogs/${blogId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📝 Blog data:', data)
 
       if (data.success) {
         setTitle(data.data.title)
         setContent(data.data.content)
       } else {
-        setError('Failed to fetch blog')
+        setError('❌ Failed to fetch blog: ' + data.message)
       }
     } catch (error) {
-      setError('Network error. Please check if backend server is running.')
+      console.error('❌ Fetch blog error:', error)
+      setError('❌ Network error: ' + error.message)
     } finally {
       setLoading(false)
     }
@@ -59,7 +71,10 @@ export default function EditBlog() {
       const token = localStorage.getItem('adminToken')
       const blogId = params.id
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs/${blogId}`, {
+      console.log('✏️ Updating blog ID:', blogId)
+      console.log('📤 Data:', { title, content })
+      
+      const response = await fetch(`${API_URL}/api/admin/blogs/${blogId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -71,17 +86,22 @@ export default function EditBlog() {
         }),
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📥 Update response:', data)
 
       if (data.success) {
         alert('✅ Blog updated successfully!')
         router.push('/admin/dashboard')
       } else {
-        setError(data.message || 'Failed to update blog')
+        setError('❌ Failed to update blog: ' + data.message)
       }
     } catch (error) {
-      console.error('Update blog error:', error)
-      setError('Network error. Please check if backend server is running.')
+      console.error('❌ Update blog error:', error)
+      setError('❌ Network error: ' + error.message)
     } finally {
       setSubmitting(false)
     }

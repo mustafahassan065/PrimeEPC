@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function AdminDashboard() {
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
@@ -25,21 +28,29 @@ export default function AdminDashboard() {
   const fetchBlogs = async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs`, {
+      console.log('📝 Fetching blogs from:', `${API_URL}/api/admin/blogs`)
+      
+      const response = await fetch(`${API_URL}/api/admin/blogs`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📝 Blogs response:', data)
 
       if (data.success) {
         setBlogs(data.data)
       } else {
-        setError('Failed to fetch blogs')
+        setError('❌ Failed to fetch blogs: ' + data.message)
       }
     } catch (error) {
-      setError('Network error. Please check if backend server is running.')
+      console.error('❌ Fetch blogs error:', error)
+      setError('❌ Network error: ' + error.message)
     } finally {
       setLoading(false)
     }
@@ -52,16 +63,20 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('adminToken')
       
       console.log('🗑️ Deleting blog ID:', blogId)
+      console.log('🌐 API URL:', `${API_URL}/api/admin/blogs/${blogId}`)
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs/${blogId}`, {
+      const response = await fetch(`${API_URL}/api/admin/blogs/${blogId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
 
-      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
+      const data = await response.json()
       console.log('🗑️ Delete response:', data)
 
       if (data.success) {
@@ -72,7 +87,7 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error('❌ Delete error:', error)
-      alert('❌ Network error')
+      alert('❌ Network error: ' + error.message)
     }
   }
 

@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function CreateBlog() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -17,7 +20,11 @@ export default function CreateBlog() {
 
     try {
       const token = localStorage.getItem('adminToken')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/blogs`, {
+      console.log('📝 Creating blog...')
+      console.log('📤 Data:', { title, content })
+      console.log('🌐 API URL:', `${API_URL}/api/admin/blogs`)
+      
+      const response = await fetch(`${API_URL}/api/admin/blogs`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,19 +38,22 @@ export default function CreateBlog() {
         }),
       })
 
-      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
-      console.log('Create blog response:', data)
+      const data = await response.json()
+      console.log('📥 Create response:', data)
 
       if (data.success) {
         alert('✅ Blog created successfully!')
         router.push('/admin/dashboard')
       } else {
-        setError(data.message || 'Failed to create blog')
+        setError('❌ Failed to create blog: ' + data.message)
       }
     } catch (error) {
-      console.error('Create blog error:', error)
-      setError('Network error. Please check if backend server is running.')
+      console.error('❌ Create blog error:', error)
+      setError('❌ Network error: ' + error.message)
     } finally {
       setLoading(false)
     }

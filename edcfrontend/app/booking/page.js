@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+// HARDCODED API URL - NO ENV VARIABLE ISSUES
+const API_URL = 'https://primeepcdesign.co.uk'
+
 export default function BookingPage() {
   const [availableSlots, setAvailableSlots] = useState([])
   const [selectedSlot, setSelectedSlot] = useState(null)
@@ -65,10 +68,17 @@ export default function BookingPage() {
   const fetchAvailableSlots = async () => {
     setLoading(true)
     try {
-      const response = await fetch(`https://primeepcdesign.co.uk/api/booking/available-slots-all`)
+      console.log('📅 Fetching available slots from:', `${API_URL}/api/booking/available-slots-all`)
+      
+      const response = await fetch(`${API_URL}/api/booking/available-slots-all`)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const data = await response.json()
 
-      console.log('📊 Raw API data:', data.data); // Debug
+      console.log('📅 Raw API data:', data.data);
 
       if (data.success) {
         // Group slots by date
@@ -98,7 +108,7 @@ export default function BookingPage() {
         console.log('📅 Processed dates:', slotsArray.map(item => ({
           storedDate: item.date,
           displayDate: item.dateObj.toDateString()
-        }))); // Debug
+        })));
 
         setAvailableSlots(slotsArray)
         // Auto-select first date if available
@@ -106,11 +116,11 @@ export default function BookingPage() {
           setSelectedDate(slotsArray[0])
         }
       } else {
-        alert('Error fetching available slots')
+        alert('❌ Error fetching available slots: ' + data.message)
       }
     } catch (error) {
-      console.error('Error:', error)
-      alert('Network error. Please try again.')
+      console.error('❌ Error:', error)
+      alert('❌ Network error. Please try again: ' + error.message)
     } finally {
       setLoading(false)
     }
@@ -150,7 +160,10 @@ export default function BookingPage() {
         slotId: selectedSlot.id
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/booking/create`, {
+      console.log('📤 Submitting booking:', bookingData)
+      console.log('🌐 API URL:', `${API_URL}/api/booking/create`)
+
+      const response = await fetch(`${API_URL}/api/booking/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,17 +171,22 @@ export default function BookingPage() {
         body: JSON.stringify(bookingData)
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
       const data = await response.json()
+      console.log('📥 Booking response:', data)
 
       if (data.success) {
-        alert('Booking created successfully! We will contact you soon.')
+        alert('✅ Booking created successfully! We will contact you soon.')
         router.push('/')
       } else {
-        alert('Error creating booking: ' + data.message)
+        alert('❌ Error creating booking: ' + data.message)
       }
     } catch (error) {
-      console.error('Error:', error)
-      alert('Network error. Please try again.')
+      console.error('❌ Error:', error)
+      alert('❌ Network error. Please try again: ' + error.message)
     } finally {
       setLoading(false)
     }
