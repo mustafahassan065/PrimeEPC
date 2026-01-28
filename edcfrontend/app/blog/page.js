@@ -149,8 +149,3 @@ export default function BlogList() {
   );
 }
 
-// Add metadata for blog page
-export const metadata = {
-  title: 'EPC Blog | Prime EPC & Design Consultants',
-  description: 'Read our latest articles about Energy Performance Certificates, property energy efficiency, and EPC requirements.',
-};
