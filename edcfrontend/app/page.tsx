@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -154,15 +155,19 @@ export default function Home() {
       {/* Hero Section with Background Image */}
       <section className="relative py-28 overflow-hidden">
         {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url("/images/bg.avif")'
-          }}
-        />[#016837]/90
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/bg.avif"
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
+        
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
-        
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>

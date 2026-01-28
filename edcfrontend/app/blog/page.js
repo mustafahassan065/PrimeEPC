@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // HARDCODED API URL - NO ENV VARIABLE ISSUES
 const API_URL = 'https://primeepcdesign.co.uk'
@@ -20,10 +20,12 @@ export default function BlogList() {
     try {
       console.log('📝 Fetching blogs from:', `${API_URL}/api/blogs`)
       
-      const res = await fetch(`${API_URL}/api/blogs`);
+      const res = await fetch(`${API_URL}/api/blogs`, {
+        next: { revalidate: 3600 } // Revalidate every hour
+      });
       
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`)
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
       
       const data = await res.json();
@@ -32,11 +34,11 @@ export default function BlogList() {
       if (data.success) {
         setBlogs(data.data);
       } else {
-        setError('Failed to load blogs: ' + data.message)
+        setError('Failed to load blogs: ' + data.message);
       }
     } catch (error) {
       console.error('❌ Error fetching blogs:', error);
-      setError('Network error. Please try again later.')
+      setError('Network error. Please check your connection or try again later.');
     } finally {
       setLoading(false);
     }
@@ -57,13 +59,7 @@ export default function BlogList() {
   };
 
   return (
-    <>
-      <Head>
-        <title>EPC Blog | Prime EPC & Design Consultants</title>
-        <meta name="description" content="Read our latest articles about Energy Performance Certificates, property energy efficiency, and EPC requirements." />
-        <link rel="canonical" href="https://primeepcdesign.co.uk/blog" />
-      </Head>
-
+    <div className="min-h-screen">
       <section className="py-20 bg-gradient-to-br from-green-50 to-yellow-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -76,8 +72,17 @@ export default function BlogList() {
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-8 text-center">
-              {error}
+            <div className="max-w-6xl mx-auto mb-8">
+              <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-xl text-center">
+                <p className="font-semibold mb-2">⚠️ Unable to load blogs</p>
+                <p className="text-sm mb-3">{error}</p>
+                <button
+                  onClick={fetchBlogs}
+                  className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
+                >
+                  Try Again
+                </button>
+              </div>
             </div>
           )}
 
@@ -90,8 +95,10 @@ export default function BlogList() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {blogs.length === 0 ? (
                 <div className="col-span-3 text-center py-12">
-                  <p className="text-gray-500 text-lg">No blog posts available yet.</p>
-                  <p className="text-gray-400 text-sm mt-2">Check back later for new articles.</p>
+                  <div className="bg-white rounded-2xl p-8 shadow-lg">
+                    <p className="text-gray-500 text-lg mb-3">No blog posts available yet.</p>
+                    <p className="text-gray-400 text-sm">Check back later for new articles.</p>
+                  </div>
                 </div>
               ) : (
                 blogs.map((blog) => {
@@ -99,28 +106,28 @@ export default function BlogList() {
                   const imageUrl = getImageUrl(blog.featured_image || blog.featuredImage);
                   
                   return (
-                    <article key={blog.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                      <div className="h-48 bg-gray-100 overflow-hidden">
-                        <img 
-                          src={imageUrl} 
-                          alt={blog.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                          onError={(e) => {
-                            e.target.src = '/images/blog-default.png';
-                            console.error('Image failed to load:', imageUrl);
-                          }}
-                        />
+                    <article key={blog.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                      <div className="h-48 bg-gray-100 overflow-hidden relative">
+                        <Link href={`/blog/${blog.slug}`}>
+                          <Image 
+                            src={imageUrl} 
+                            alt={blog.title}
+                            fill
+                            className="object-cover hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </Link>
                       </div>
-                      <div className="p-6">
-                        <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-green-600 transition-colors">
+                      <div className="p-6 flex-grow flex flex-col">
+                        <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-green-600 transition-colors line-clamp-2">
                           <Link href={`/blog/${blog.slug}`}>
                             {blog.title}
                           </Link>
                         </h2>
-                        <p className="text-gray-600 mb-4 line-clamp-3">
+                        <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">
                           {blog.excerpt || blog.meta_description || blog.metaDescription || 'Read more about this topic...'}
                         </p>
-                        <div className="flex justify-between items-center text-sm text-gray-500">
+                        <div className="flex justify-between items-center text-sm text-gray-500 mt-auto">
                           <span>{new Date(blog.created_at || blog.createdAt).toLocaleDateString()}</span>
                           <Link 
                             href={`/blog/${blog.slug}`}
@@ -138,6 +145,12 @@ export default function BlogList() {
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }
+
+// Add metadata for blog page
+export const metadata = {
+  title: 'EPC Blog | Prime EPC & Design Consultants',
+  description: 'Read our latest articles about Energy Performance Certificates, property energy efficiency, and EPC requirements.',
+};

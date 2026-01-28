@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function About() {
   return (
@@ -8,12 +9,25 @@ export default function About() {
       {/* Hero Section */}
       <section className="relative py-34 overflow-hidden">
         {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url("/images/aboutbg.jpg")'
-          }}
-        />
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/aboutbg.jpg"
+            alt="About background"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
+        
+        {/* Rest of the code remains exactly the same... */}
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
         

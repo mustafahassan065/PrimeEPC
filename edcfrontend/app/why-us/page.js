@@ -1,6 +1,7 @@
 "use client"
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function WhyUs() {
   const features = [
@@ -71,15 +72,19 @@ export default function WhyUs() {
       {/* Hero Section */}
       <section className="relative py-28 overflow-hidden">
         {/* Background Image with Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url("/images/whyusBg.jpg")'
-          }}
-        />
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/whyusBg.jpg"
+            alt="Why Us background"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
+        
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
-        
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
