@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-// HARDCODED API URL - NO ENV VARIABLE ISSUES
 const API_URL = 'https://primeepcdesign.co.uk'
 
 export default function BlogList() {
@@ -18,43 +17,45 @@ export default function BlogList() {
 
   const fetchBlogs = async () => {
     try {
-      console.log('📝 Fetching blogs from:', `${API_URL}/api/blogs`)
-      
-      const res = await fetch(`${API_URL}/api/blogs`, {
-        next: { revalidate: 3600 } // Revalidate every hour
-      });
+      const res = await fetch(`${API_URL}/api/blogs`);
       
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
       
       const data = await res.json();
-      console.log('📝 Blogs API response:', data);
       
       if (data.success) {
         setBlogs(data.data);
       } else {
-        setError('Failed to load blogs: ' + data.message);
+        setError('Failed to load blogs');
       }
     } catch (error) {
       console.error('❌ Error fetching blogs:', error);
-      setError('Network error. Please check your connection or try again later.');
+      setError('Network error. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to get correct image URL
+  // Simplified image URL function
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return '/images/blog-default.png';
+    // If no image or empty, use default
+    if (!imagePath || imagePath.trim() === '') {
+      return '/images/blog-default.png';
+    }
     
-    // If it's already a full URL, use it
-    if (imagePath.startsWith('http')) return imagePath;
+    // If it's already a full URL (http/https), use it as is
+    if (imagePath.startsWith('http')) {
+      return imagePath;
+    }
     
-    // If it starts with /, it's a relative path
-    if (imagePath.startsWith('/')) return imagePath;
+    // If it starts with /, it's already a proper path
+    if (imagePath.startsWith('/')) {
+      return imagePath;
+    }
     
-    // Otherwise, prepend with /images/
+    // Otherwise, prepend /images/
     return `/images/${imagePath}`;
   };
 
@@ -102,8 +103,9 @@ export default function BlogList() {
                 </div>
               ) : (
                 blogs.map((blog) => {
-                  // Use featured_image (not featuredImage)
-                  const imageUrl = getImageUrl(blog.featured_image || blog.featuredImage);
+                  // Get image URL - use featured_image from API
+                  const imageUrl = getImageUrl(blog.featured_image);
+                  console.log(`Blog: ${blog.title}, Image URL: ${imageUrl}`);
                   
                   return (
                     <article key={blog.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
@@ -115,6 +117,10 @@ export default function BlogList() {
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-300"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            onError={(e) => {
+                              console.log('Image failed to load:', imageUrl);
+                              e.target.src = '/images/blog-default.png';
+                            }}
                           />
                         </Link>
                       </div>
@@ -125,10 +131,10 @@ export default function BlogList() {
                           </Link>
                         </h2>
                         <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">
-                          {blog.excerpt || blog.meta_description || blog.metaDescription || 'Read more about this topic...'}
+                          {blog.excerpt || blog.meta_description || 'Read more about this topic...'}
                         </p>
                         <div className="flex justify-between items-center text-sm text-gray-500 mt-auto">
-                          <span>{new Date(blog.created_at || blog.createdAt).toLocaleDateString()}</span>
+                          <span>{new Date(blog.created_at).toLocaleDateString()}</span>
                           <Link 
                             href={`/blog/${blog.slug}`}
                             className="text-green-600 font-semibold hover:text-green-700 transition-colors"
@@ -148,4 +154,3 @@ export default function BlogList() {
     </div>
   );
 }
-

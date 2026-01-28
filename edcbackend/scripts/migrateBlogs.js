@@ -1,3 +1,4 @@
+// migrateblogs.js - UPDATE KARO
 const Blog = require('../models/Blog');
 const { sequelize } = require('../database');
 
@@ -10,10 +11,10 @@ const blogData = [
     metaDescription: "Everything UK warehouse owners need to know about EPC certificates, compliance, and MEES regulations.",
     keywords: ["warehouse EPC", "commercial EPC", "energy performance certificate", "MEES compliance", "UK EPC guide"],
     content: `Do You Need an EPC for Your Warehouse? A Simple UK Guide
-If you own or manage a warehouse in the UK and you’re planning to sell or rent it out, you’ve probably heard you need an Energy Performance Certificate (EPC).
+If you own or manage a warehouse in the UK and you're planning to sell or rent it out, you've probably heard you need an Energy Performance Certificate (EPC).
 
 But do you actually need one? And if so, what does it involve?
-The short answer is: Usually yes, but there are important exceptions. This guide breaks down exactly when you need one, how to get it, and how to make sure you aren’t breaking any laws.
+The short answer is: Usually yes, but there are important exceptions. This guide breaks down exactly when you need one, how to get it, and how to make sure you aren't breaking any laws.
 
 What is a Warehouse EPC?
 Think of an EPC as a fuel-efficiency rating for your building. It grades your property from A (most efficient) to G (least efficient).
@@ -23,7 +24,7 @@ Does Your Warehouse Actually Need One?
 This is the most common question we get. Not every warehouse needs a certificate. You might be exempt if your building meets specific criteria.
 
 You generally DO NOT need an EPC if:
-● The building is a standalone industrial site or workshop with 00000000000low energy demand.
+● The building is a standalone industrial site or workshop with low energy demand.
 ● It is a non-residential agricultural building.
 ● The "Cold Warehouse" Rule: The warehouse has no heating or air conditioning and is used only for storage (and doesn't have a staffed office inside).
 
@@ -35,8 +36,8 @@ Honest answer? Not really. Unlike an office block where high energy bills can sc
 How to Get Your Certificate (Step-by-Step)
 1. Hire an Accredited Assessor You need a "Level 3" or "Level 4" Non-Domestic Energy Assessor. Make sure they are accredited so the certificate is legally valid.
 2. Get Your Paperwork Ready The assessment is faster if you have floor plans and details on your insulation or heating systems ready before they arrive.
-3. The Site Visit The assessor will walk through the property to check the "building fabric" (walls, roof, floor), the lights, and the HVAC systems. It’s a visual inspection, so they won’t be drilling into walls. It shouldn't disrupt your daily operations.
-4. The Result The assessor runs the data through government-approved software to generate your rating and lodgement on the national register. You’ll get a report showing your grade and a list of recommended improvements.
+3. The Site Visit The assessor will walk through the property to check the "building fabric" (walls, roof, floor), the lights, and the HVAC systems. It's a visual inspection, so they won't be drilling into walls. It shouldn't disrupt your daily operations.
+4. The Result The assessor runs the data through government-approved software to generate your rating and lodgement on the national register. You'll get a report showing your grade and a list of recommended improvements.
 
 Stuck with a Low Rating?
 If your warehouse comes out with a poor rating (F or G), don't panic. For warehouses, the fix is often simpler than you think.
@@ -48,7 +49,7 @@ This is the part you can't ignore. The Minimum Energy Efficiency Standards (MEES
 If you are planning to lease the building, check your rating first. If it's an F or G, you will likely need to make those LED upgrades before you can sign a tenant.
 `,
     excerpt: "A complete UK guide for warehouse owners on EPC requirements, assessment, and compliance.",
-    featuredImage: `http://localhost:3000/images/blog1.png`, // placeholder for your public folder image
+    featuredImage: `/images/blog1.png`, // ✅ CHANGE: Remove localhost:3000, just use relative path
     status: "published",
     author: "Prime EPC"
   },
@@ -62,7 +63,7 @@ If you are planning to lease the building, check your rating first. If it's an F
 If you are selling or renting out a property in the UK, the Energy Performance Certificate (EPC) is one of the first documents you will be asked for. 
 
 But how long do they actually last? Do you need a new one every time you find a new tenant? 
-Here is the no-nonsense guide to EPC validity, assessment times, and why you can’t ignore the "E" rating rule. 
+Here is the no-nonsense guide to EPC validity, assessment times, and why you can't ignore the "E" rating rule. 
 
 The Short Answer: How Long is it Valid? 
 An EPC is valid for 10 years. 
@@ -76,7 +77,7 @@ However, you should consider getting a new one early if:
 Who is Responsible for It? 
 If you are the landlord or the seller, this is on you. You legally must order the EPC before you even market the property. If you are a tenant or a buyer, you don't need to arrange anything—you just need to be shown the certificate. 
 What Actually Happens During the Assessment? 
-People often worry this will be a big disruption. It isn’t. 
+People often worry this will be a big disruption. It isn't. 
 ● Domestic (Homes): Takes about 30 to 40 minutes. 
 ● Commercial (Offices/Warehouses): Takes 45 minutes+ (depending on size). 
 
@@ -97,7 +98,7 @@ We cover a 40-mile radius around Manchester, offering:
 ● Competitive pricing with no hidden fees. 
 `,
     excerpt: "No-nonsense guide on EPC validity, assessment times, and landlord responsibilities in the UK.",
-    featuredImage: "http://localhost:3000/images/blog2.png",
+    featuredImage: "/images/blog2.png", // ✅ CHANGE
     status: "published",
     author: "Prime EPC"
   },
@@ -112,7 +113,7 @@ You are about to sell or rent your property, and your solicitor asks for the Ene
 Don't panic. You probably don't need to pay for a new one. 
 
 Here is how to check if your certificate is still valid, how to download a copy for free, and what to do if you need a new assessment. 
-Step 1: Check the National Register (It’s Free) 
+Step 1: Check the National Register (It's Free) 
 Before you spend a penny, check the government database. All valid EPCs in the UK are stored digitally on the GOV.UK EPC Register. 
 ● Go to the register website. 
 ● Type in your postcode. 
@@ -125,11 +126,11 @@ Step 3: When to Book a New Assessment
 
 Sometimes, finding the old certificate isn't the right move. You should book a fresh survey with Prime EPC & Design Consultants if: 
 ● It has expired: The old one is 10+ years old. 
-● You’ve done work: If you’ve installed a new boiler, double glazing, or roof insulation since the last certificate, your old "D" rating might now be a "C." A better rating makes your property much easier to sell or rent. 
+● You've done work: If you've installed a new boiler, double glazing, or roof insulation since the last certificate, your old "D" rating might now be a "C." A better rating makes your property much easier to sell or rent. 
 ● The Rating is 'F' or 'G': You cannot legally rent out a property with these ratings. You need a new assessment to see exactly what upgrades are needed to hit the legal minimum of "E." 
 
 What Actually Happens During a New Assessment? 
-If you do need a new one, it’s a straightforward process. At Prime EPC & Design Consultants, our assessor will visit your property and check: 
+If you do need a new one, it's a straightforward process. At Prime EPC & Design Consultants, our assessor will visit your property and check: 
 
 ● The Age & Size: How the building was constructed. 
 ● Insulation: They look at walls, roofs, and floors. 
@@ -142,12 +143,12 @@ You can't "fail" it in the sense that you get no certificate. You will always ge
 
 Need a New Certificate Fast? 
 If your EPC is missing or expired, we can help sort it out quickly. Prime EDC provides accredited energy assessments across the UK. We focus on: 
-● Speed: We know property deals can’t wait. 
+● Speed: We know property deals can't wait. 
 ● Accuracy: We ensure your rating reflects every improvement you've made. 
 ● Simple Pricing: No hidden fees. 
 `,
     excerpt: "Step-by-step instructions to locate, download, or replace lost EPC certificates in the UK.",
-    featuredImage: "http://localhost:3000/images/blog3.png",
+    featuredImage: "/images/blog3.png", // ✅ CHANGE
     status: "published",
     author: "Prime EPC"
   },
@@ -166,7 +167,7 @@ But do you need to spend a fortune on solar panels to get there? usually, no.
 Here is the practical roadmap to getting that 'C' grade, starting with the cheapest fixes first. 
 Step 1: The "Low-Hanging Fruit" (Do These First) 
 Before you start ripping out boilers, tackle the cheap and easy wins. These often nudge your score up just enough to cross the line. 
-● 100% LED Lighting: This is the easiest point-scorer. If you still have old halogen or filament bulbs, swap every single one for an LED. It’s cheap, instant, and assessors look for it immediately. 
+● 100% LED Lighting: This is the easiest point-scorer. If you still have old halogen or filament bulbs, swap every single one for an LED. It's cheap, instant, and assessors look for it immediately. 
 ● Draught Proofing: Go around your windows, doors, and even the letterbox. If you can feel a breeze, you are losing points. inexpensive foam strips or brushes can seal these gaps. 
 ● Hot Water Cylinder Jacket: If you have a hot water tank, make sure it has a thick insulating jacket (at least 80mm). It costs about £20 and makes a surprising difference to your score. 
 
@@ -177,7 +178,7 @@ You cannot heat a home effectively if the heat escapes through the roof.
 
 Step 3: Heating Controls (The "Smart" Fix) 
 Sometimes your boiler is fine, but your controls are letting you down. An assessor wants to see that you can control where and when the heat is used. 
-● Install a room thermostat if you don’t have one. 
+● Install a room thermostat if you don't have one. 
 ● Add Thermostatic Radiator Valves (TRVs) to your radiators so you can control the temperature in each room individually. 
 
 Step 4: The Heavy Lifters (Big Investments) 
@@ -192,7 +193,7 @@ Don't Guess—Get a Plan
 The worst thing you can do is spend money on upgrades that don't move the needle. At Prime EDC, we don't just give you a certificate; we give you a roadmap. Our assessors can tell you exactly which changes will get your specific property to that 'C' rating for the lowest cost. 
 `,
     excerpt: "Practical steps to raise your property EPC rating to 'C' using low-cost, effective improvements.",
-    featuredImage: "http://localhost:3000/images/blog4.jpg",
+    featuredImage: "/images/blog4.jpg", // ✅ CHANGE
     status: "published",
     author: "Prime EPC"
   },
@@ -245,7 +246,7 @@ Don't wait until a lease is due to check your compliance. At Prime EDC, we work 
 ● Compliance Advice: If you are an F or G, we will tell you exactly how to fix it. 
 `,
     excerpt: "Everything UK commercial property owners need to know about EPC compliance and energy regulations.",
-    featuredImage: "http://localhost:3000/images/blog5.png",
+    featuredImage: "/images/blog5.png", // ✅ CHANGE
     status: "published",
     author: "Prime EPC"
   }
@@ -265,25 +266,22 @@ async function migrateBlogs() {
       const blog = blogData[i];
       try {
         console.log(`\n📝 Migrating blog ${i + 1}: "${blog.title}"`);
+        console.log(`🖼️ Image path: ${blog.featuredImage}`);
 
         // Prepare data with ALL required fields including metaTitle and metaDescription
         const safeBlog = {
-  title: blog.title,
-  slug: blog.slug,
-  meta_title: blog.metaTitle,
-  meta_description: blog.metaDescription,
-  keywords: JSON.stringify(blog.keywords || []),
-  content: blog.content,
-  featured_image: blog.featuredImage || '',
-  excerpt: blog.excerpt || '',
-  status: blog.status || 'published',
-  author: blog.author || 'Prime EPC',
-};
+          title: blog.title,
+          slug: blog.slug,
+          meta_title: blog.metaTitle,
+          meta_description: blog.metaDescription,
+          keywords: JSON.stringify(blog.keywords || []),
+          content: blog.content,
+          featured_image: blog.featuredImage, // Just use the relative path
+          excerpt: blog.excerpt || '',
+          status: blog.status || 'published',
+          author: blog.author || 'Prime EPC',
+        };
 
-await Blog.upsert(safeBlog, { returning: true });
-
-
-        // Use upsert with the model
         const [createdBlog, createdFlag] = await Blog.upsert(safeBlog, { returning: true });
         console.log(`✅ ${createdFlag ? 'Created' : 'Updated'}: ${blog.title}`);
         successCount++;
