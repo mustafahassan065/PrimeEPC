@@ -13,6 +13,7 @@ export default function BookingPage() {
   const [step, setStep] = useState(1) // 1: Select slot, 2: Form
   const [selectedDate, setSelectedDate] = useState(null)
   const [showAreasBox, setShowAreasBox] = useState(false)
+  const [paymentMethod, setPaymentMethod] = useState('card') // 'card' | 'paypal' | 'bank'
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -93,9 +94,8 @@ export default function BookingPage() {
         // Convert to array and sort by date - FIXED DATE CREATION
         const slotsArray = Object.entries(groupedByDate)
           .map(([date, slots]) => {
-            // FIX: Create date object without timezone issues
             const [year, month, day] = date.split('-').map(Number);
-            const dateObj = new Date(year, month - 1, day); // month is 0-indexed
+            const dateObj = new Date(year, month - 1, day);
             
             return {
               date,
@@ -134,12 +134,11 @@ export default function BookingPage() {
   const handleInputChange = (e) => {
     const { name, value } = e.target
     
-    // If property type changes, reset property details
     if (name === 'propertyType') {
       setFormData({
         ...formData,
         [name]: value,
-        propertyDetails: '' // Reset property details when type changes
+        propertyDetails: ''
       })
     } else {
       setFormData({
@@ -157,7 +156,8 @@ export default function BookingPage() {
       const bookingData = {
         ...formData,
         preferredDate: `${selectedSlot.dateData.date}T${selectedSlot.startTime}`,
-        slotId: selectedSlot.id
+        slotId: selectedSlot.id,
+        paymentMethod // include selected payment method
       }
 
       console.log('📤 Submitting booking:', bookingData)
@@ -208,7 +208,6 @@ export default function BookingPage() {
     tomorrow.setDate(today.getDate() + 1);
     tomorrow.setHours(0, 0, 0, 0);
     
-    // FIX: Compare dates properly
     const inputDate = new Date(dateObj);
     inputDate.setHours(0, 0, 0, 0);
     
@@ -225,7 +224,6 @@ export default function BookingPage() {
     }
   }
 
-  // FIX: Format date for display without timezone issues
   const formatDateDisplay = (dateObj) => {
     const date = new Date(dateObj);
     return date.toLocaleDateString('en-GB', { 
@@ -235,22 +233,26 @@ export default function BookingPage() {
     })
   }
 
-  // Get day of week
   const getDayOfWeek = (dateObj) => {
     const date = new Date(dateObj);
-    return date.toLocaleDateString('en-GB', { weekday: 'short' });
+    return date.toLocaleDateString('en-GB', { weekday: 'short' }).toUpperCase();
   }
 
-  // Get day number
   const getDayNumber = (dateObj) => {
     const date = new Date(dateObj);
     return date.getDate();
   }
 
-  // Get month name
   const getMonthName = (dateObj) => {
     const date = new Date(dateObj);
-    return date.toLocaleDateString('en-GB', { month: 'short' });
+    return date.toLocaleDateString('en-GB', { month: 'short' }).toUpperCase();
+  }
+
+  // Get current month/year label from visible dates
+  const getMonthYearLabel = () => {
+    if (!selectedDate) return ''
+    const date = new Date(selectedDate.dateObj)
+    return date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
   }
 
   return (
@@ -287,8 +289,7 @@ export default function BookingPage() {
         {showAreasBox && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
-              {/* Header */}
-              <div className="bg-[#016837]  text-white p-6 flex justify-between items-center">
+              <div className="bg-[#016837] text-white p-6 flex justify-between items-center">
                 <h2 className="text-2xl font-bold">Areas We Cover</h2>
                 <button
                   onClick={() => setShowAreasBox(false)}
@@ -297,8 +298,6 @@ export default function BookingPage() {
                   ×
                 </button>
               </div>
-              
-              {/* Content */}
               <div className="p-8 max-h-[60vh] overflow-y-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {areas.map((area, index) => (
@@ -311,9 +310,6 @@ export default function BookingPage() {
                   ))}
                 </div>
               </div>
-              
-              {/* Footer */}
-              
             </div>
           </div>
         )}
@@ -325,8 +321,8 @@ export default function BookingPage() {
               <div key={stepNumber} className="flex items-center">
                 <div className={`flex items-center justify-center w-14 h-14 rounded-2xl text-xl font-bold transition-all duration-300 ${
                   step >= stepNumber 
-                    ? 'bg-[#016837]  text-white shadow-lg' 
-                    : 'bg-[#016837]   border border-[#80C531]/20 text-white opacity-90'
+                    ? 'bg-[#016837] text-white shadow-lg' 
+                    : 'bg-[#016837] border border-[#80C531]/20 text-white opacity-90'
                 }`}>
                   {stepNumber}
                 </div>
@@ -344,93 +340,105 @@ export default function BookingPage() {
           </div>
         </div>
 
-        {/* Step 1: Slot Selection */}
+        {/* ───────────────────────────────────────────────
+            STEP 1 — myConstructor-style Calendar + Slots
+        ─────────────────────────────────────────────── */}
         {step === 1 && (
-          <div className="bg-white rounded-3xl shadow-lg border border-[#80C531]/20 p-8">
-            <h2 className="text-2xl font-bold text-[#282828] mb-8">
-              Available Time Slots
-            </h2>
-            
+          <div className="bg-white rounded-3xl shadow-lg border border-[#80C531]/20 overflow-hidden">
+            {/* Calendar header */}
+            <div className="px-8 pt-8 pb-4">
+              <h2 className="text-2xl font-bold text-[#282828] mb-1">
+                Select a date &amp; time to book your appointment
+              </h2>
+              {selectedDate && (
+                <p className="text-base text-[#016837] font-semibold">{getMonthYearLabel()}</p>
+              )}
+            </div>
+
             {loading ? (
-              <div className="text-center py-12">
+              <div className="text-center py-16">
                 <div className="animate-spin rounded-full h-14 w-14 border-b-2 border-[#016837] mx-auto"></div>
                 <p className="mt-6 text-lg text-[#282828] opacity-90">Loading available slots...</p>
               </div>
             ) : availableSlots.length > 0 ? (
-              <div className="space-y-8">
-                {/* Calendar Style Date Selection */}
-                <div className="mb-8">
-                  <div className="flex overflow-x-auto pb-6 space-x-4 scrollbar-hide">
-                    {availableSlots.map((dateData) => (
-                      <button
-                        key={dateData.date}
-                        onClick={() => setSelectedDate(dateData)}
-                        className={`flex flex-col items-center justify-center p-5 min-w-[100px] rounded-2xl border-2 transition-all duration-300 ${
-                          selectedDate && selectedDate.date === dateData.date
-                            ? 'border-[#016837] bg-gradient-to-br from-[#016837]/10 to-[#80C531]/5 text-[#016837] shadow-lg'
-                            : 'border-[#80C531]/20 bg-white text-[#282828] hover:border-[#016837] hover:shadow-lg'
-                        }`}
-                      >
-                        <div className="text-sm font-semibold uppercase tracking-wide">
-                          {getDayOfWeek(dateData.dateObj)}
-                        </div>
-                        <div className="text-3xl font-bold mt-2">
-                          {getDayNumber(dateData.dateObj)}
-                        </div>
-                        <div className="text-sm font-semibold mt-2">
-                          {getMonthName(dateData.dateObj)}
-                        </div>
-                      </button>
-                    ))}
+              <div>
+                {/* ── Date Strip ── */}
+                <div className="px-8 pb-2">
+                  <div className="flex overflow-x-auto pb-2 gap-2 scrollbar-hide">
+                    {availableSlots.map((dateData) => {
+                      const isSelected = selectedDate && selectedDate.date === dateData.date
+                      return (
+                        <button
+                          key={dateData.date}
+                          onClick={() => setSelectedDate(dateData)}
+                          className={`flex flex-col items-center justify-center px-4 py-3 min-w-[76px] rounded-2xl border-2 transition-all duration-200 flex-shrink-0 ${
+                            isSelected
+                              ? 'border-[#016837] bg-[#016837] text-white shadow-lg'
+                              : 'border-gray-200 bg-white text-[#282828] hover:border-[#016837] hover:shadow-md'
+                          }`}
+                        >
+                          <span className={`text-xs font-bold tracking-wider ${isSelected ? 'text-white/80' : 'text-gray-400'}`}>
+                            {getDayOfWeek(dateData.dateObj)}
+                          </span>
+                          <span className="text-2xl font-extrabold mt-0.5 leading-none">
+                            {getDayNumber(dateData.dateObj)}
+                          </span>
+                          <span className={`text-xs font-semibold mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-400'}`}>
+                            {getMonthName(dateData.dateObj)}
+                          </span>
+                          {/* slot count badge */}
+                          <span className={`mt-1.5 text-xs font-bold px-2 py-0.5 rounded-full ${
+                            isSelected
+                              ? 'bg-white/20 text-white'
+                              : 'bg-[#80C531]/15 text-[#016837]'
+                          }`}>
+                            {dateData.slots.length} {dateData.slots.length === 1 ? 'slot' : 'slots'}
+                          </span>
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
 
-                {/* Time Slots for Selected Date */}
+                {/* ── Time Slots Grid ── */}
                 {selectedDate && (
-                  <div className="border border-[#80C531]/20 rounded-2xl overflow-hidden">
-                    {/* Date Header */}
-                    <div className="bg-gradient-to-r from-[#016837]/10 to-[#80C531]/10 px-8 py-6 border-b border-[#80C531]/20">
-                      <h3 className="text-xl font-bold text-[#016837]">
-                        {formatDate(selectedDate.dateObj)}
-                      </h3>
-                      <p className="text-lg text-[#282828] opacity-90 mt-1">
-                        {formatDateDisplay(selectedDate.dateObj)}
-                      </p>
-                    </div>
-                    
-                    {/* Time Slots Grid */}
-                    <div className="p-8">
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {selectedDate.slots.map((slot) => (
+                  <div className="px-8 pb-8 pt-4">
+                    <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">
+                      Available times — {formatDate(selectedDate.dateObj)}, {formatDateDisplay(selectedDate.dateObj)}
+                    </p>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                      {selectedDate.slots.map((slot) => {
+                        const isChosen = selectedSlot && selectedSlot.id === slot.id
+                        return (
                           <button
                             key={slot.id}
                             onClick={() => handleSlotSelect(slot, selectedDate)}
-                            className="flex flex-col items-center justify-center p-5 border-2 border-[#80C531]/30 bg-gradient-to-br from-white to-[#F8F8F8] rounded-xl hover:border-[#016837] hover:bg-gradient-to-br hover:from-[#016837]/5 hover:to-[#80C531]/5 hover:shadow-lg transition-all duration-300 group"
+                            className={`flex flex-col items-center justify-center py-3 px-2 rounded-xl border-2 font-semibold transition-all duration-200 ${
+                              isChosen
+                                ? 'border-[#016837] bg-[#016837] text-white shadow-lg scale-105'
+                                : 'border-[#80C531]/40 bg-white text-[#016837] hover:border-[#016837] hover:bg-[#016837]/5 hover:shadow-md'
+                            }`}
                           >
-                            <div className="text-lg font-bold text-[#016837] group-hover:text-[#01572E]">
-                              {formatTime(slot.startTime)}-{formatTime(slot.endTime)}
-                            </div>
-                            <div className="text-sm text-[#80C531] mt-2 font-semibold">
-                              Available
-                            </div>
+                            <span className="text-sm font-bold">{formatTime(slot.startTime)}</span>
+                            <span className={`text-xs mt-0.5 ${isChosen ? 'text-white/70' : 'text-gray-400'}`}>
+                              – {formatTime(slot.endTime)}
+                            </span>
                             {slot.currentBookings > 0 && (
-                              <div className="text-xs text-[#282828] opacity-90 mt-2">
-                                {slot.maxBookings - slot.currentBookings} slots left
-                              </div>
+                              <span className={`text-xs mt-1 font-medium ${isChosen ? 'text-white/60' : 'text-orange-500'}`}>
+                                {slot.maxBookings - slot.currentBookings} left
+                              </span>
                             )}
                           </button>
-                        ))}
-                      </div>
+                        )
+                      })}
                     </div>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="text-center py-16">
+              <div className="text-center py-16 px-8">
                 <div className="text-[#80C531] text-8xl mb-6">📅</div>
-                <h3 className="text-2xl font-bold text-[#282828] mb-4">
-                  No Available Slots
-                </h3>
+                <h3 className="text-2xl font-bold text-[#282828] mb-4">No Available Slots</h3>
                 <p className="text-lg text-[#282828] opacity-90 mb-6">
                   There are no available time slots at the moment.
                 </p>
@@ -439,15 +447,11 @@ export default function BookingPage() {
                 </p>
                 <div className="space-y-3 text-lg text-[#282828] opacity-90 mb-8">
                   <div className="flex items-center justify-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full flex items-center justify-center text-white">
-                      📞
-                    </div>
+                    <div className="w-8 h-8 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full flex items-center justify-center text-white">📞</div>
                     <span className="font-semibold">+44 7469 340373</span>
                   </div>
                   <div className="flex items-center justify-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full flex items-center justify-center text-white">
-                      📧
-                    </div>
+                    <div className="w-8 h-8 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full flex items-center justify-center text-white">📧</div>
                     <span className="font-semibold">Primeepc.design@gmail.com</span>
                   </div>
                 </div>
@@ -462,13 +466,13 @@ export default function BookingPage() {
           </div>
         )}
 
-        {/* Step 2: Booking Form */}
+        {/* ───────────────────────────────────────────────
+            STEP 2 — Details Form + Payment Method
+        ─────────────────────────────────────────────── */}
         {step === 2 && (
           <div className="bg-white rounded-3xl shadow-lg border border-[#80C531]/20 p-8">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-[#282828]">
-                Your Details
-              </h2>
+              <h2 className="text-2xl font-bold text-[#282828]">Your Details</h2>
               <button
                 onClick={() => setStep(1)}
                 className="text-[#016837] hover:text-[#01572E] font-semibold text-lg flex items-center gap-2 group transition-colors duration-300"
@@ -482,9 +486,7 @@ export default function BookingPage() {
 
             {/* Selected Appointment Summary */}
             <div className="mb-8 p-6 bg-gradient-to-r from-[#016837]/10 to-[#80C531]/5 rounded-2xl border-2 border-[#80C531]/30">
-              <p className="text-[#016837] font-bold text-lg mb-3">
-                Selected Appointment
-              </p>
+              <p className="text-[#016837] font-bold text-lg mb-3">Selected Appointment</p>
               <p className="text-[#016837] text-2xl font-bold">
                 {formatDateDisplay(selectedSlot.dateData.dateObj)}
               </p>
@@ -496,146 +498,208 @@ export default function BookingPage() {
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-lg font-semibold text-[#282828] mb-3">
-                    Full Name *
-                  </label>
+                  <label htmlFor="name" className="block text-lg font-semibold text-[#282828] mb-3">Full Name *</label>
                   <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
+                    type="text" id="name" name="name" required
+                    value={formData.name} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                     placeholder="Enter your full name"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-lg font-semibold text-[#282828] mb-3">
-                    Email Address *
-                  </label>
+                  <label htmlFor="email" className="block text-lg font-semibold text-[#282828] mb-3">Email Address *</label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
+                    type="email" id="email" name="email" required
+                    value={formData.email} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                     placeholder="your.email@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-lg font-semibold text-[#282828] mb-3">
-                    Phone Number *
-                  </label>
+                  <label htmlFor="phone" className="block text-lg font-semibold text-[#282828] mb-3">Phone Number *</label>
                   <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    value={formData.phone}
-                    onChange={handleInputChange}
+                    type="tel" id="phone" name="phone" required
+                    value={formData.phone} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                     placeholder="+44 1234 567890"
                   />
                 </div>
 
-                {/* NEW FIELD: Postcode */}
                 <div>
-                  <label htmlFor="postcode" className="block text-lg font-semibold text-[#282828] mb-3">
-                    Postcode of the property *
-                  </label>
+                  <label htmlFor="postcode" className="block text-lg font-semibold text-[#282828] mb-3">Postcode of the property *</label>
                   <input
-                    type="text"
-                    id="postcode"
-                    name="postcode"
-                    required
-                    value={formData.postcode}
-                    onChange={handleInputChange}
+                    type="text" id="postcode" name="postcode" required
+                    value={formData.postcode} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                     placeholder="e.g., M1 1AB"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="propertyType" className="block text-lg font-semibold text-[#282828] mb-3">
-                    Property Type *
-                  </label>
+                  <label htmlFor="propertyType" className="block text-lg font-semibold text-[#282828] mb-3">Property Type *</label>
                   <select
-                    id="propertyType"
-                    name="propertyType"
-                    required
-                    value={formData.propertyType}
-                    onChange={handleInputChange}
+                    id="propertyType" name="propertyType" required
+                    value={formData.propertyType} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] bg-white"
                   >
-                    <option value="domestic" className="text-[#282828]">Domestic Property</option>
-                    <option value="commercial" className="text-[#282828]">Commercial Property</option>
+                    <option value="domestic">Domestic Property</option>
+                    <option value="commercial">Commercial Property</option>
                   </select>
                 </div>
 
-                {/* Conditional Property Details Field */}
                 <div>
                   <label htmlFor="propertyDetails" className="block text-lg font-semibold text-[#282828] mb-3">
                     {formData.propertyType === 'domestic' ? 'Select Bedroom Option *' : 'Select Area Option *'}
                   </label>
                   <select
-                    id="propertyDetails"
-                    name="propertyDetails"
-                    required
-                    value={formData.propertyDetails}
-                    onChange={handleInputChange}
+                    id="propertyDetails" name="propertyDetails" required
+                    value={formData.propertyDetails} onChange={handleInputChange}
                     className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] bg-white"
                   >
-                    {formData.propertyType === 'domestic' ? (
-                      domesticOptions.map((option, index) => (
-                        <option key={index} value={option.value} className="text-[#282828]">
-                          {option.label}
-                        </option>
-                      ))
-                    ) : (
-                      commercialOptions.map((option, index) => (
-                        <option key={index} value={option.value} className="text-[#282828]">
-                          {option.label}
-                        </option>
-                      ))
-                    )}
+                    {formData.propertyType === 'domestic'
+                      ? domesticOptions.map((option, index) => (
+                          <option key={index} value={option.value}>{option.label}</option>
+                        ))
+                      : commercialOptions.map((option, index) => (
+                          <option key={index} value={option.value}>{option.label}</option>
+                        ))
+                    }
                   </select>
                 </div>
               </div>
 
               <div>
-                <label htmlFor="propertyAddress" className="block text-lg font-semibold text-[#282828] mb-3">
-                  Property Address *
-                </label>
+                <label htmlFor="propertyAddress" className="block text-lg font-semibold text-[#282828] mb-3">Property Address *</label>
                 <textarea
-                  id="propertyAddress"
-                  name="propertyAddress"
-                  required
-                  rows={4}
-                  value={formData.propertyAddress}
-                  onChange={handleInputChange}
+                  id="propertyAddress" name="propertyAddress" required rows={4}
+                  value={formData.propertyAddress} onChange={handleInputChange}
                   className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                   placeholder="Full address including street, city, etc."
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-lg font-semibold text-[#282828] mb-3">
-                  Additional Message (Optional)
-                </label>
+                <label htmlFor="message" className="block text-lg font-semibold text-[#282828] mb-3">Additional Message (Optional)</label>
                 <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleInputChange}
+                  id="message" name="message" rows={4}
+                  value={formData.message} onChange={handleInputChange}
                   className="w-full px-4 py-3 border-2 border-[#80C531]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
                   placeholder="Any special instructions or questions..."
                 />
+              </div>
+
+              {/* ── Payment Method Selection ── */}
+              <div>
+                <p className="text-lg font-semibold text-[#282828] mb-4">Payment Method *</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                  {/* Card */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('card')}
+                    className={`flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border-2 transition-all duration-200 ${
+                      paymentMethod === 'card'
+                        ? 'border-[#016837] bg-[#016837]/5 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-[#016837]/40 hover:shadow-md'
+                    }`}
+                  >
+                    {/* Card icon */}
+                    <svg className={`w-8 h-8 ${paymentMethod === 'card' ? 'text-[#016837]' : 'text-gray-400'}`} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <rect x="2" y="5" width="20" height="14" rx="2" ry="2" />
+                      <line x1="2" y1="10" x2="22" y2="10" />
+                    </svg>
+                    <span className={`text-base font-bold ${paymentMethod === 'card' ? 'text-[#016837]' : 'text-gray-500'}`}>
+                      Card
+                    </span>
+                    <span className={`text-xs text-center ${paymentMethod === 'card' ? 'text-[#016837]/70' : 'text-gray-400'}`}>
+                      Visa / Mastercard / Amex
+                    </span>
+                    {paymentMethod === 'card' && (
+                      <span className="mt-1 w-5 h-5 rounded-full bg-[#016837] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+
+                  {/* PayPal */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('paypal')}
+                    className={`flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border-2 transition-all duration-200 ${
+                      paymentMethod === 'paypal'
+                        ? 'border-[#016837] bg-[#016837]/5 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-[#016837]/40 hover:shadow-md'
+                    }`}
+                  >
+                    {/* PayPal P icon */}
+                    <svg className={`w-8 h-8 ${paymentMethod === 'paypal' ? 'text-[#016837]' : 'text-gray-400'}`} viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M7.5 21H4.25L6.75 5.5H12c3.31 0 5.5 1.69 5.5 4.5 0 3.31-2.69 5.5-6 5.5H9L7.5 21ZM9.5 13h1.75c1.93 0 3.25-1.07 3.25-2.75 0-1.25-.93-2.25-2.75-2.25H9.25L9.5 13Z"/>
+                    </svg>
+                    <span className={`text-base font-bold ${paymentMethod === 'paypal' ? 'text-[#016837]' : 'text-gray-500'}`}>
+                      PayPal
+                    </span>
+                    <span className={`text-xs text-center ${paymentMethod === 'paypal' ? 'text-[#016837]/70' : 'text-gray-400'}`}>
+                      Pay via PayPal account
+                    </span>
+                    {paymentMethod === 'paypal' && (
+                      <span className="mt-1 w-5 h-5 rounded-full bg-[#016837] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Bank Transfer */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('bank')}
+                    className={`flex flex-col items-center justify-center gap-2 p-5 rounded-2xl border-2 transition-all duration-200 ${
+                      paymentMethod === 'bank'
+                        ? 'border-[#016837] bg-[#016837]/5 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-[#016837]/40 hover:shadow-md'
+                    }`}
+                  >
+                    {/* Bank icon */}
+                    <svg className={`w-8 h-8 ${paymentMethod === 'bank' ? 'text-[#016837]' : 'text-gray-400'}`} fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 10v11M12 10v11M16 10v11" />
+                    </svg>
+                    <span className={`text-base font-bold ${paymentMethod === 'bank' ? 'text-[#016837]' : 'text-gray-500'}`}>
+                      Bank Transfer
+                    </span>
+                    <span className={`text-xs text-center ${paymentMethod === 'bank' ? 'text-[#016837]/70' : 'text-gray-400'}`}>
+                      Direct bank transfer
+                    </span>
+                    {paymentMethod === 'bank' && (
+                      <span className="mt-1 w-5 h-5 rounded-full bg-[#016837] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    )}
+                  </button>
+                </div>
+
+                {/* Payment method note */}
+                {paymentMethod === 'bank' && (
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700">
+                    <strong>Bank Transfer:</strong> After booking confirmation, we will email you our bank details. Payment must be received before your assessment.
+                  </div>
+                )}
+                {paymentMethod === 'paypal' && (
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700">
+                    <strong>PayPal:</strong> You will receive a PayPal payment link via email after booking. Complete payment to confirm your assessment.
+                  </div>
+                )}
+                {paymentMethod === 'card' && (
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl text-sm text-blue-700">
+                    <strong>Card Payment:</strong> You will receive a secure payment link via email. No card details stored on our servers.
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-end space-x-6">
