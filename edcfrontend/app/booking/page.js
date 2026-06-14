@@ -402,91 +402,44 @@ export default function BookingPage() {
               )}
             </div>
 
-            {/* Trust Bar */}
-            <div className="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm px-6 py-4">
-              <div className="flex flex-wrap items-center justify-center gap-0">
+            {/* Payment Trust Bar */}
+            <div className="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm px-8 py-5">
+              <div className="flex flex-wrap items-center justify-center gap-8">
 
-                {/* Quidos */}
-                <div className="flex items-center px-4 py-1">
-                  <div style={{background:'#1a1a3e', borderRadius:'4px', padding:'4px 10px'}}>
-                    <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
-                      <span style={{fontFamily:'Georgia,serif', fontSize:'18px', fontWeight:700, color:'white', lineHeight:1}}>Q</span>
-                      <span style={{fontFamily:'Georgia,serif', fontSize:'12px', color:'white'}}>uidos</span>
-                    </div>
-                    <div style={{fontSize:'7px', color:'#aab0cc', letterSpacing:'0.3px', marginTop:'1px'}}>Accredited Assessor</div>
-                  </div>
-                </div>
-
-                <div className="h-8 w-px bg-gray-100"></div>
-
-                {/* Stroma */}
-                <div className="flex items-center px-4 py-1">
-                  <div style={{border:'1px solid #ccc', borderRadius:'4px', padding:'4px 8px', display:'flex', alignItems:'center', gap:'6px'}}>
-                    <div style={{display:'flex', flexDirection:'column'}}>
-                      <span style={{fontSize:'7px', color:'#555', letterSpacing:'1px', fontWeight:600}}>STROMA</span>
-                      <span style={{fontSize:'10px', color:'#006B3C', fontWeight:800, letterSpacing:'0.3px'}}>CERTIFIED</span>
-                      <span style={{fontSize:'7px', color:'#006B3C', letterSpacing:'0.2px'}}>ENERGY ASSESSOR</span>
-                    </div>
-                    <svg viewBox="0 0 28 28" width="26" height="26">
-                      <circle cx="14" cy="14" r="13" fill="#e8f5e9"/>
-                      <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                      <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                      <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                    </svg>
-                  </div>
-                </div>
-
-                <div className="h-8 w-px bg-gray-100"></div>
-
-                {/* DBS */}
-                <div className="flex items-center gap-2 px-4 py-1">
-                  <div style={{display:'flex', flexDirection:'column'}}>
-                    <div style={{display:'flex', alignItems:'baseline', gap:'4px'}}>
-                      <span style={{fontSize:'18px', fontWeight:900, color:'#222', lineHeight:1, fontFamily:'Arial,sans-serif'}}>DBS</span>
-                      <span style={{fontSize:'8px', color:'#555'}}>(formerly CRB)</span>
-                    </div>
-                    <span style={{fontSize:'13px', fontWeight:900, color:'#222', fontFamily:'Arial,sans-serif', lineHeight:1}}>CHECKED</span>
-                    <span style={{fontSize:'7px', color:'#777', marginTop:'1px'}}>Disclosure and Barring Service</span>
-                  </div>
-                  <svg viewBox="0 0 32 32" width="28" height="28">
-                    <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2"/>
-                    <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                  </svg>
-                </div>
-
-                <div className="h-8 w-px bg-gray-100"></div>
-
-                {/* City & Guilds */}
-                <div className="flex items-center gap-1.5 px-4 py-1">
-                  <span style={{fontSize:'11px', fontWeight:800, color:'#222', lineHeight:1.3, fontFamily:'Arial,sans-serif'}}>City&amp;<br/>Guilds</span>
-                  <svg viewBox="0 0 22 28" width="20" height="26">
-                    <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000"/>
-                    <text x="11" y="14" fontFamily="serif" fontSize="8" fontWeight="bold" fill="white" textAnchor="middle">C&amp;G</text>
-                    <text x="11" y="23" fontFamily="serif" fontSize="6" fill="#ffcccc" textAnchor="middle">★★★</text>
-                  </svg>
-                  <span style={{fontSize:'8px', color:'#555'}}>Qualified</span>
-                </div>
-
-                <div className="h-8 w-px bg-gray-100"></div>
-
-                {/* PayPal */}
-                <div className="flex flex-col items-center px-4 py-1">
-                  <span style={{fontSize:'8px', color:'#555', marginBottom:'2px'}}>Secure Payments By</span>
+                {/* Secure Payments label */}
+                <div className="flex flex-col items-center">
+                  <span style={{fontSize:'9px', color:'#888', marginBottom:'3px', letterSpacing:'0.5px'}}>SECURE PAYMENTS BY</span>
                   <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
-                    <span style={{fontSize:'20px', fontWeight:900, color:'#003087', fontFamily:'Arial,sans-serif', lineHeight:1}}>Pay</span>
-                    <span style={{fontSize:'20px', fontWeight:900, color:'#009cde', fontFamily:'Arial,sans-serif', lineHeight:1}}>Pal</span>
-                    <span style={{fontSize:'9px', color:'#555', alignSelf:'flex-start', marginTop:'2px'}}>™</span>
+                    <span style={{fontSize:'22px', fontWeight:900, color:'#003087', fontFamily:'Arial,sans-serif', lineHeight:1}}>Pay</span>
+                    <span style={{fontSize:'22px', fontWeight:900, color:'#009cde', fontFamily:'Arial,sans-serif', lineHeight:1}}>Pal</span>
+                    <span style={{fontSize:'9px', color:'#888', alignSelf:'flex-start', marginTop:'2px'}}>™</span>
                   </div>
-                  <div style={{display:'flex', gap:'3px', marginTop:'3px', alignItems:'center'}}>
-                    <div style={{background:'#1a1f71', borderRadius:'2px', padding:'1px 4px', fontSize:'7px', fontWeight:700, color:'white', letterSpacing:'0.5px'}}>VISA</div>
-                    <div style={{position:'relative', width:'22px', height:'13px'}}>
-                      <div style={{position:'absolute', left:0, top:0, width:'13px', height:'13px', borderRadius:'50%', background:'#eb001b'}}></div>
-                      <div style={{position:'absolute', right:0, top:0, width:'13px', height:'13px', borderRadius:'50%', background:'#f79e1b'}}></div>
-                    </div>
-                    <div style={{background:'#fff', border:'0.5px solid #ddd', borderRadius:'2px', padding:'1px 4px', fontSize:'7px', fontWeight:600, color:'#555'}}>DISC</div>
-                    <div style={{background:'#016fd0', borderRadius:'2px', padding:'1px 4px', fontSize:'7px', fontWeight:700, color:'white'}}>AMEX</div>
-                  </div>
-                  <span style={{fontSize:'7.5px', color:'#e53e3e', fontWeight:600, marginTop:'2px', letterSpacing:'0.2px'}}>NO PAYPAL ACCOUNT NEEDED!</span>
+                  <span style={{fontSize:'8px', color:'#e53e3e', fontWeight:600, marginTop:'2px', letterSpacing:'0.3px'}}>NO PAYPAL ACCOUNT NEEDED!</span>
+                </div>
+
+                <div className="h-10 w-px bg-gray-100"></div>
+
+                {/* Visa */}
+                <div style={{background:'#1a1f71', borderRadius:'4px', padding:'5px 12px'}}>
+                  <span style={{fontSize:'14px', fontWeight:800, color:'white', fontFamily:'Arial,sans-serif', letterSpacing:'1px'}}>VISA</span>
+                </div>
+
+                {/* Mastercard */}
+                <div style={{position:'relative', width:'42px', height:'28px'}}>
+                  <div style={{position:'absolute', left:0, top:0, width:'28px', height:'28px', borderRadius:'50%', background:'#eb001b'}}></div>
+                  <div style={{position:'absolute', right:0, top:0, width:'28px', height:'28px', borderRadius:'50%', background:'#f79e1b'}}></div>
+                  <div style={{position:'absolute', left:'50%', top:'50%', transform:'translate(-50%,-50%)', width:'14px', height:'28px', background:'#ff5f00'}}></div>
+                </div>
+
+                {/* Discover */}
+                <div style={{background:'#fff', border:'1px solid #ddd', borderRadius:'4px', padding:'4px 10px', display:'flex', alignItems:'center', gap:'4px'}}>
+                  <span style={{fontSize:'10px', fontWeight:700, color:'#555', fontFamily:'Arial,sans-serif', letterSpacing:'0.3px'}}>DISCOVER</span>
+                  <div style={{width:'14px', height:'14px', borderRadius:'50%', background:'#f76f20'}}></div>
+                </div>
+
+                {/* Amex */}
+                <div style={{background:'#016fd0', borderRadius:'4px', padding:'5px 12px'}}>
+                  <span style={{fontSize:'11px', fontWeight:700, color:'white', fontFamily:'Arial,sans-serif', letterSpacing:'0.5px'}}>AMEX</span>
                 </div>
 
               </div>

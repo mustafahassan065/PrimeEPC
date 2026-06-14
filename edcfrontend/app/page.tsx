@@ -310,6 +310,75 @@ export default function Home() {
 
   </div>
 </section>
+{/* Accreditation Bar - Hero ke baad */}
+<div className="bg-white border-b border-gray-100 shadow-sm">
+  <div className="container mx-auto px-4 py-4">
+    <div className="flex flex-wrap items-center justify-center gap-0">
+
+      {/* Quidos */}
+      <div className="flex items-center px-5 py-2">
+        <div style={{background:'#1a1a3e', borderRadius:'4px', padding:'5px 12px'}}>
+          <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
+            <span style={{fontFamily:'Georgia,serif', fontSize:'20px', fontWeight:700, color:'white', lineHeight:1}}>Q</span>
+            <span style={{fontFamily:'Georgia,serif', fontSize:'13px', color:'white'}}>uidos</span>
+          </div>
+          <div style={{fontSize:'7.5px', color:'#aab0cc', letterSpacing:'0.4px', marginTop:'1px'}}>Accredited Assessor</div>
+        </div>
+      </div>
+
+      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+
+      {/* Stroma */}
+      <div className="flex items-center px-5 py-2">
+        <div style={{border:'1px solid #ccc', borderRadius:'4px', padding:'5px 10px', display:'flex', alignItems:'center', gap:'8px'}}>
+          <div style={{display:'flex', flexDirection:'column'}}>
+            <span style={{fontSize:'8px', color:'#555', letterSpacing:'1px', fontWeight:600}}>STROMA</span>
+            <span style={{fontSize:'11px', color:'#006B3C', fontWeight:800, letterSpacing:'0.3px'}}>CERTIFIED</span>
+            <span style={{fontSize:'8px', color:'#006B3C', letterSpacing:'0.2px'}}>ENERGY ASSESSOR</span>
+          </div>
+          <svg viewBox="0 0 28 28" width="30" height="30">
+            <circle cx="14" cy="14" r="13" fill="#e8f5e9"/>
+            <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+            <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round"/>
+            <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+
+      {/* DBS Checked */}
+      <div className="flex items-center gap-2 px-5 py-2">
+        <div style={{display:'flex', flexDirection:'column'}}>
+          <div style={{display:'flex', alignItems:'baseline', gap:'4px'}}>
+            <span style={{fontSize:'20px', fontWeight:900, color:'#222', lineHeight:1, fontFamily:'Arial,sans-serif'}}>DBS</span>
+            <span style={{fontSize:'9px', color:'#555'}}>(formerly CRB)</span>
+          </div>
+          <span style={{fontSize:'14px', fontWeight:900, color:'#222', fontFamily:'Arial,sans-serif', lineHeight:1}}>CHECKED</span>
+          <span style={{fontSize:'7.5px', color:'#777', marginTop:'1px'}}>Disclosure and Barring Service</span>
+        </div>
+        <svg viewBox="0 0 32 32" width="30" height="30">
+          <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2"/>
+          <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        </svg>
+      </div>
+
+      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+
+      {/* City & Guilds */}
+      <div className="flex items-center gap-2 px-5 py-2">
+        <span style={{fontSize:'13px', fontWeight:800, color:'#222', lineHeight:1.3, fontFamily:'Arial,sans-serif'}}>City&amp;<br/>Guilds</span>
+        <svg viewBox="0 0 22 28" width="22" height="28">
+          <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000"/>
+          <text x="11" y="14" fontFamily="serif" fontSize="8" fontWeight="bold" fill="white" textAnchor="middle">C&amp;G</text>
+          <text x="11" y="23" fontFamily="serif" fontSize="6" fill="#ffcccc" textAnchor="middle">★★★</text>
+        </svg>
+        <span style={{fontSize:'9px', color:'#555'}}>Qualified</span>
+      </div>
+
+    </div>
+  </div>
+</div>
 
       {/* What is EPC Section */}
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
