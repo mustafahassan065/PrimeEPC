@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,9 +17,16 @@ export default function Home() {
   })
   const [formLoading, setFormLoading] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
+  const router = useRouter()
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
+  }
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      router.push('/booking')
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -30,32 +39,17 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setFormLoading(true)
-
     try {
       const response = await fetch('http://localhost:5000/api/contact/send-contact-form', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
-
       const data = await response.json()
-
       if (data.success) {
         setFormSuccess(true)
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          service: '',
-          message: ''
-        })
-        
-        // Reset success message after 5 seconds
-        setTimeout(() => {
-          setFormSuccess(false)
-        }, 5000)
+        setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+        setTimeout(() => setFormSuccess(false), 5000)
       } else {
         alert('Failed to send message: ' + data.message)
       }
@@ -68,317 +62,260 @@ export default function Home() {
   }
 
   const faqs = [
+    { question: 'What is an EPC and why is it needed?', answer: 'An Energy Performance Certificate shows how energy efficient a property is and its estimated energy costs. It\'s legally required in the UK when you sell, rent or build a new property.' },
+    { question: 'How long is an EPC valid for?', answer: 'An EPC is valid for 10 years from issue. After that, if you\'re selling or renting, you need a new one.' },
+    { question: 'How long does an EPC assessment take?', answer: 'Usually between 30 to 60 minutes for domestic properties, depending on size and complexity.' },
+    { question: 'Can I use the same EPC for selling and renting my property?', answer: 'Yes, as long as the EPC is still valid (within 10 years), you can use the same certificate for both renting and selling purposes.' },
+    { question: 'Does improving my EPC rating increase property value?', answer: 'Definitely. A higher EPC rating often attracts buyers and tenants because it means lower energy bills and better comfort — increasing your property\'s market appeal.' },
+    { question: 'Can I get an EPC for a commercial property?', answer: 'Yes. Commercial buildings also require EPCs when sold or rented, but the assessment criteria differ slightly from domestic properties.' },
+    { question: 'Do new builds automatically have EPCs?', answer: 'Yes. Every new build in the UK must have an EPC before completion — it\'s arranged by the builder or developer before the property is listed.' },
+    { question: 'What is the difference between an EPC and a Home Energy Report?', answer: 'An EPC is an official government certificate, while a Home Energy Report provides more detailed advice and data to help you plan improvements.' },
+    { question: 'How much does an EPC cost?', answer: 'The cost depends on property size, type, and location. It can vary widely, but a normal domestic EPC is usually modest — contact us for a quote.' },
+    { question: 'Who can issue an EPC?', answer: 'Only accredited energy assessors approved under UK schemes can issue valid EPCs. Assessors must follow government standards.' },
+    { question: 'What property details are checked during an EPC?', answer: 'The assessor checks things like wall/roof/floor insulation, heating systems, windows, lighting, and size/floor area of the property.' },
+    { question: 'Where can I find out if a property already has an EPC?', answer: 'You can search the EPC Register (UK government site) by address or postcode to see if there\'s a valid certificate.' },
+    { question: 'What happens if I don\'t get an EPC when required?', answer: 'You may face legal penalties, fines, or delays in selling or renting the property. It\'s also non-compliance with UK regulations.' },
+    { question: 'Can improvements change the EPC rating?', answer: 'Yes — implementing recommended upgrades like insulation, double-glazing, or more efficient heating can improve your EPC rating.' },
+    { question: 'Can I refuse to improve my property even if recommendations are made?', answer: 'Yes, it\'s voluntary. Recommendations are suggestions, not mandatory unless required by law or specific local rules. But ignoring them may mean higher energy bills.' },
+    { question: 'Do rented properties have to meet a minimum EPC rating?', answer: 'Yes — under UK law, rented properties must meet Minimum Energy Efficiency Standards (MEES). For many, the minimum rating is E or above.' },
+    { question: 'What if my property is exempt?', answer: 'Some properties, like listed buildings, very small buildings, or temporary structures, may be exempt from EPC requirements. Always check with local authority.' },
+    { question: 'Is an EPC required before advertising a property for sale or rent?', answer: 'Yes — legally, you must have a valid EPC before marketing your property for sale or rent.' },
+    { question: 'Is the EPC only about energy bills?', answer: 'No — while it estimates energy costs, it also shows carbon emissions and suggests improvements for comfort, property value, and environmental impact.' },
+    { question: 'How do I know if my EPC is genuine?', answer: 'Check the EA reference number on the certificate — you can verify it on the official EPC Register using that number. If missing or incorrect, contact the issuing assessor or accreditation scheme.' }
+  ]
+
+  const reviews = [
     {
-      question: 'What is an EPC and why is it needed?',
-      answer: 'An Energy Performance Certificate shows how energy efficient a property is and its estimated energy costs. It\'s legally required in the UK when you sell, rent or build a new property.'
+      initials: 'LP',
+      name: 'Laura P.',
+      location: 'Stockport',
+      rating: 5,
+      text: '"Really stress-free experience. I had no idea what to expect from an EPC assessment but the team explained the whole process beforehand. Highly recommend."',
+      source: 'Google'
     },
     {
-      question: 'How long is an EPC valid for?',
-      answer: 'An EPC is valid for 10 years from issue. After that, if you\'re selling or renting, you need a new one.'
+      initials: 'MH',
+      name: 'Mark H.',
+      location: 'Bolton',
+      rating: 5,
+      text: '"Competitive price and a proper local company — not a faceless national service. Sorted my EPC for a property sale in Bolton within 24 hours. Brilliant."',
+      source: 'Google'
     },
     {
-      question: 'How long does an EPC assessment take?',
-      answer: 'Usually between 30 to 60 minutes for domestic properties, depending on size and complexity.'
+      initials: 'NK',
+      name: 'Nadia K.',
+      location: 'Didsbury, Manchester',
+      rating: 5,
+      text: '"The assessor was knowledgeable and pointed out a few quick wins to improve my rating. That extra advice alone was worth it. Fast, friendly, and professional."',
+      source: 'Google'
     },
     {
-      question: 'Can I use the same EPC for selling and renting my property?',
-      answer: 'Yes, as long as the EPC is still valid (within 10 years), you can use the same certificate for both renting and selling purposes.'
+      initials: 'JR',
+      name: 'James R.',
+      location: 'Salford',
+      rating: 5,
+      text: '"Booked online late on a Tuesday, had my EPC by Thursday morning. Exactly what a landlord needs — no fuss, no delays, just done properly."',
+      source: 'Google'
     },
     {
-      question: 'Does improving my EPC rating increase property value?',
-      answer: 'Definitely. A higher EPC rating often attracts buyers and tenants because it means lower energy bills and better comfort — increasing your property\'s market appeal.'
+      initials: 'AT',
+      name: 'Aisha T.',
+      location: 'Oldham',
+      rating: 5,
+      text: '"I was selling my mum\'s house and needed an EPC quickly. They were prompt, polite and the certificate arrived the next day. Would absolutely use again."',
+      source: 'Google'
     },
     {
-      question: 'Can I get an EPC for a commercial property?',
-      answer: 'Yes. Commercial buildings also require EPCs when sold or rented, but the assessment criteria differ slightly from domestic properties.'
-    },
-    {
-      question: 'Do new builds automatically have EPCs?',
-      answer: 'Yes. Every new build in the UK must have an EPC before completion — it\'s arranged by the builder or developer before the property is listed.'
-    },
-    {
-      question: 'What is the difference between an EPC and a Home Energy Report?',
-      answer: 'An EPC is an official government certificate, while a Home Energy Report provides more detailed advice and data to help you plan improvements.'
-    },
-    {
-      question: 'How much does an EPC cost?',
-      answer: 'The cost depends on property size, type, and location. It can vary widely, but a normal domestic EPC is usually modest — contact us for a quote.'
-    },
-    {
-      question: 'Who can issue an EPC?',
-      answer: 'Only accredited energy assessors approved under UK schemes can issue valid EPCs. Assessors must follow government standards.'
-    },
-    {
-      question: 'What property details are checked during an EPC?',
-      answer: 'The assessor checks things like wall/roof/floor insulation, heating systems, windows, lighting, and size/floor area of the property.'
-    },
-    {
-      question: 'Where can I find out if a property already has an EPC?',
-      answer: 'You can search the EPC Register (UK government site) by address or postcode to see if there\'s a valid certificate.'
-    },
-    {
-      question: 'What happens if I don\'t get an EPC when required?',
-      answer: 'You may face legal penalties, fines, or delays in selling or renting the property. It\'s also non-compliance with UK regulations.'
-    },
-    {
-      question: 'Can improvements change the EPC rating?',
-      answer: 'Yes — implementing recommended upgrades like insulation, double-glazing, or more efficient heating can improve your EPC rating.'
-    },
-    {
-      question: 'Can I refuse to improve my property even if recommendations are made?',
-      answer: 'Yes, it\'s voluntary. Recommendations are suggestions, not mandatory unless required by law or specific local rules. But ignoring them may mean higher energy bills.'
-    },
-    {
-      question: 'Do rented properties have to meet a minimum EPC rating?',
-      answer: 'Yes — under UK law, rented properties must meet Minimum Energy Efficiency Standards (MEES). For many, the minimum rating is E or above.'
-    },
-    {
-      question: 'What if my property is exempt?',
-      answer: 'Some properties, like listed buildings, very small buildings, or temporary structures, may be exempt from EPC requirements. Always check with local authority.'
-    },
-    {
-      question: 'Is an EPC required before advertising a property for sale or rent?',
-      answer: 'Yes — legally, you must have a valid EPC before marketing your property for sale or rent.'
-    },
-    {
-      question: 'Is the EPC only about energy bills?',
-      answer: 'No — while it estimates energy costs, it also shows carbon emissions and suggests improvements for comfort, property value, and environmental impact.'
-    },
-    {
-      question: 'How do I know if my EPC is genuine?',
-      answer: 'Check the EA reference number on the certificate — you can verify it on the official EPC Register using that number. If missing or incorrect, contact the issuing assessor or accreditation scheme.'
+      initials: 'DC',
+      name: 'David C.',
+      location: 'Wigan',
+      rating: 5,
+      text: '"Used Prime EPC for three rental properties in one go. Competitive rates, turned around fast and the assessor was thorough. My go-to from now on."',
+      source: 'Google'
     }
   ]
 
   return (
     <div className="min-h-screen font-sans">
-      {/* Hero Section with Background Image */}
-     <section className="relative py-20 overflow-hidden">
-  {/* Background Image */}
-  <div className="absolute inset-0 z-0">
-    <Image
-      src="/images/bg.avif"
-      alt="Hero background"
-      fill
-      priority
-      className="object-cover object-center"
-      sizes="100vw"
-    />
-  </div>
-  
-  {/* PURANA GRADIENT OVERLAY */}
-  <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
 
-  {/* Animated Background Elements */}
-  <div className="absolute inset-0 overflow-hidden z-[1]">
-    <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
-    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-  </div>
-  
-  <div className="container mx-auto px-4 relative z-10">
-    
-    {/* Center Title & Subtitle */}
-    <div className="text-center max-w-4xl mx-auto mb-10">
-      <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-        Safe Homes. Skilled Trades. Simple Solutions.
-      </h1>
-      <p className="text-lg text-white/90">
-        Your trusted partner for EPCs, EICRs, and full property trade services starting at  <span className="font-bold text-[#80C531]"> £55.00 Fixed Fee</span>.
-      </p>
-    </div>
+      {/* ── Hero Section ── */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image src="/images/bg.avif" alt="Hero background" fill priority className="object-cover object-center" sizes="100vw" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
+        <div className="absolute inset-0 overflow-hidden z-[1]">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-    {/* Search Bar */}
-    <div className="max-w-3xl mx-auto mb-8">
-      <div className="bg-white rounded-xl p-2 shadow-xl flex items-center gap-2">
-        <div className="flex-1 flex items-center gap-3 px-4">
-          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-          <input 
-            type="text" 
-            placeholder="Search for a Service (e.g., EPC, Gas Safety)" 
-            className="w-full py-3 text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent"
-          />
-        </div>
-        <Link 
-          href="/contact" 
-          className="bg-[#C0392B] hover:bg-[#A93226] text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 shadow-md whitespace-nowrap"
-        >
-          Check Price & Book
-        </Link>
-      </div>
-    </div>
+        <div className="container mx-auto px-4 relative z-10">
 
-    {/* Service Cards Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
-      {/* Card 1 - Residential EPC */}
-      <div className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl transition-shadow">
-        <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-          <svg className="w-10 h-10 text-[#B68A4C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-          </svg>
-        </div>
-        <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Residential epc </h3>
-        <p className="font-bold text-[#016837] text-lg mt-1">£55</p>
-      </div>
-
-      {/* Card 2 - Commercial EPC */}
-      <div className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl transition-shadow">
-        <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-          <svg className="w-10 h-10 text-[#B68A4C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-          </svg>
-        </div>
-        <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Lease Plans </h3>
-        <p className="font-bold text-gray-700 text-lg mt-1">(Get Quote)</p>
-      </div>
-
-      {/* Card 3 - Gas Safety Cert */}
-      <div className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl transition-shadow">
-        <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-          <svg className="w-10 h-10 text-[#B68A4C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
-          </svg>
-        </div>
-        <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Floor Plans </h3>
-        <p className="font-bold text-gray-700 text-lg mt-1">(Get Quote)</p>
-      </div>
-
-      {/* Card 4 - EICR Cert */}
-      <div className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl transition-shadow">
-        <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
-          <svg className="w-10 h-10 text-[#B68A4C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-          </svg>
-        </div>
-        <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">EICR start from </h3>
-        <p className="font-bold text-[#016837] text-lg mt-1"> £110</p>
-      </div>
-    </div>
-
-    {/* Bottom Features Row */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-          <svg className="w-8 h-8 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <div>
-          <p className="text-white font-bold text-xs uppercase leading-tight">Fast 24-48 Hour<br/>Turnaround</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-          <svg className="w-8 h-8 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <div>
-          <p className="text-white font-bold text-xs uppercase leading-tight">Fully Accredited<br/>Pros</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-          <svg className="w-8 h-8 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <div>
-          <p className="text-white font-bold text-xs uppercase leading-tight">Fixed Price<br/>Guarantee</p>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
-          <svg className="w-8 h-8 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-          </svg>
-        </div>
-        <div>
-          <p className="text-white font-bold text-xs uppercase leading-tight">Bespoke Trade<br/>Portal</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-{/* Accreditation Bar - Hero ke baad */}
-<div className="bg-white border-b border-gray-100 shadow-sm">
-  <div className="container mx-auto px-4 py-4">
-    <div className="flex flex-wrap items-center justify-center gap-0">
-
-      {/* Quidos */}
-      <div className="flex items-center px-5 py-2">
-        <div style={{background:'#1a1a3e', borderRadius:'4px', padding:'5px 12px'}}>
-          <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
-            <span style={{fontFamily:'Georgia,serif', fontSize:'20px', fontWeight:700, color:'white', lineHeight:1}}>Q</span>
-            <span style={{fontFamily:'Georgia,serif', fontSize:'13px', color:'white'}}>uidos</span>
+          {/* Title */}
+          <div className="text-center max-w-4xl mx-auto mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+              Safe Homes. Skilled Trades. Simple Solutions.
+            </h1>
+            <p className="text-lg text-white/90">
+              Your trusted partner for EPCs, EICRs, and full property trade services starting at <span className="font-bold text-[#80C531]">£55.00 Fixed Fee</span>.
+            </p>
           </div>
-          <div style={{fontSize:'7.5px', color:'#aab0cc', letterSpacing:'0.4px', marginTop:'1px'}}>Accredited Assessor</div>
-        </div>
-      </div>
 
-      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
-
-      {/* Stroma */}
-      <div className="flex items-center px-5 py-2">
-        <div style={{border:'1px solid #ccc', borderRadius:'4px', padding:'5px 10px', display:'flex', alignItems:'center', gap:'8px'}}>
-          <div style={{display:'flex', flexDirection:'column'}}>
-            <span style={{fontSize:'8px', color:'#555', letterSpacing:'1px', fontWeight:600}}>STROMA</span>
-            <span style={{fontSize:'11px', color:'#006B3C', fontWeight:800, letterSpacing:'0.3px'}}>CERTIFIED</span>
-            <span style={{fontSize:'8px', color:'#006B3C', letterSpacing:'0.2px'}}>ENERGY ASSESSOR</span>
+          {/* Search Bar — functional: Enter or button click → /booking */}
+          <div className="max-w-3xl mx-auto mb-8">
+            <div className="bg-white rounded-xl p-2 shadow-xl flex items-center gap-2">
+              <div className="flex-1 flex items-center gap-3 px-4">
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearchKeyDown}
+                  placeholder="Search for a Service (e.g., EPC, Gas Safety)"
+                  className="w-full py-3 text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent"
+                />
+              </div>
+              <button
+                onClick={() => router.push('/booking')}
+                className="bg-[#C0392B] hover:bg-[#A93226] text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 shadow-md whitespace-nowrap"
+              >
+                Check Price &amp; Book
+              </button>
+            </div>
           </div>
-          <svg viewBox="0 0 28 28" width="30" height="30">
-            <circle cx="14" cy="14" r="13" fill="#e8f5e9"/>
-            <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-            <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round"/>
-            <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-          </svg>
-        </div>
-      </div>
 
-      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
-
-      {/* DBS Checked */}
-      <div className="flex items-center gap-2 px-5 py-2">
-        <div style={{display:'flex', flexDirection:'column'}}>
-          <div style={{display:'flex', alignItems:'baseline', gap:'4px'}}>
-            <span style={{fontSize:'20px', fontWeight:900, color:'#222', lineHeight:1, fontFamily:'Arial,sans-serif'}}>DBS</span>
-            <span style={{fontSize:'9px', color:'#555'}}>(formerly CRB)</span>
+          {/* Service Cards — all 4 are clickable links to /booking */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+            {[
+              {
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>,
+                label: 'Instant Service Quote', title: 'Residential EPC', price: '£55', priceColor: 'text-[#016837]'
+              },
+              {
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>,
+                label: 'Instant Service Quote', title: 'Commercial EPC', price: '(Get Quote)', priceColor: 'text-gray-700'
+              },
+              {
+                icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></>,
+                label: 'Instant Service Quote', title: 'Floor Plans', price: '(Get Quote)', priceColor: 'text-gray-700'
+              },
+              {
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>,
+                label: 'Instant Service Quote', title: 'EICR start from', price: '£110', priceColor: 'text-[#016837]'
+              }
+            ].map((card, i) => (
+              <Link key={i} href="/booking" className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer block">
+                <div className="w-12 h-12 mx-auto mb-3 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-[#B68A4C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {card.icon}
+                  </svg>
+                </div>
+                <p className="text-xs text-gray-500 mb-1">{card.label}</p>
+                <h3 className="font-bold text-gray-900 text-sm">{card.title}</h3>
+                <p className={`font-bold text-lg mt-1 ${card.priceColor}`}>{card.price}</p>
+              </Link>
+            ))}
           </div>
-          <span style={{fontSize:'14px', fontWeight:900, color:'#222', fontFamily:'Arial,sans-serif', lineHeight:1}}>CHECKED</span>
-          <span style={{fontSize:'7.5px', color:'#777', marginTop:'1px'}}>Disclosure and Barring Service</span>
+
+          {/* Bottom Features Row — icons now white */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                label: 'Fast 24-48 Hour\nTurnaround'
+              },
+              {
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                label: 'Fully Accredited\nPros'
+              },
+              {
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                label: 'Fixed Price\nGuarantee'
+              },
+              {
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>,
+                label: 'Bespoke Trade\nPortal'
+              }
+            ].map((feat, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {feat.path}
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white font-bold text-xs uppercase leading-tight">
+                    {feat.label.split('\n').map((line, li) => (
+                      <span key={li}>{line}{li === 0 && <br/>}</span>
+                    ))}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
-        <svg viewBox="0 0 32 32" width="30" height="30">
-          <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2"/>
-          <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-        </svg>
+      </section>
+
+      {/* Accreditation Bar */}
+      <div className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-wrap items-center justify-center gap-0">
+            <div className="flex items-center px-5 py-2">
+              <div style={{background:'#1a1a3e', borderRadius:'4px', padding:'5px 12px'}}>
+                <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
+                  <span style={{fontFamily:'Georgia,serif', fontSize:'20px', fontWeight:700, color:'white', lineHeight:1}}>Q</span>
+                  <span style={{fontFamily:'Georgia,serif', fontSize:'13px', color:'white'}}>uidos</span>
+                </div>
+                <div style={{fontSize:'7.5px', color:'#aab0cc', letterSpacing:'0.4px', marginTop:'1px'}}>Accredited Assessor</div>
+              </div>
+            </div>
+            <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+            <div className="flex items-center px-5 py-2">
+              <div style={{border:'1px solid #ccc', borderRadius:'4px', padding:'5px 10px', display:'flex', alignItems:'center', gap:'8px'}}>
+                <div style={{display:'flex', flexDirection:'column'}}>
+                  <span style={{fontSize:'8px', color:'#555', letterSpacing:'1px', fontWeight:600}}>STROMA</span>
+                  <span style={{fontSize:'11px', color:'#006B3C', fontWeight:800, letterSpacing:'0.3px'}}>CERTIFIED</span>
+                  <span style={{fontSize:'8px', color:'#006B3C', letterSpacing:'0.2px'}}>ENERGY ASSESSOR</span>
+                </div>
+                <svg viewBox="0 0 28 28" width="30" height="30">
+                  <circle cx="14" cy="14" r="13" fill="#e8f5e9"/>
+                  <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+                  <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                  <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+            <div className="flex items-center gap-2 px-5 py-2">
+              <div style={{display:'flex', flexDirection:'column'}}>
+                <div style={{display:'flex', alignItems:'baseline', gap:'4px'}}>
+                  <span style={{fontSize:'20px', fontWeight:900, color:'#222', lineHeight:1, fontFamily:'Arial,sans-serif'}}>DBS</span>
+                  <span style={{fontSize:'9px', color:'#555'}}>(formerly CRB)</span>
+                </div>
+                <span style={{fontSize:'14px', fontWeight:900, color:'#222', fontFamily:'Arial,sans-serif', lineHeight:1}}>CHECKED</span>
+                <span style={{fontSize:'7.5px', color:'#777', marginTop:'1px'}}>Disclosure and Barring Service</span>
+              </div>
+              <svg viewBox="0 0 32 32" width="30" height="30">
+                <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2"/>
+                <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
+            <div className="flex items-center gap-2 px-5 py-2">
+              <span style={{fontSize:'13px', fontWeight:800, color:'#222', lineHeight:1.3, fontFamily:'Arial,sans-serif'}}>City&amp;<br/>Guilds</span>
+              <svg viewBox="0 0 22 28" width="22" height="28">
+                <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000"/>
+                <text x="11" y="14" fontFamily="serif" fontSize="8" fontWeight="bold" fill="white" textAnchor="middle">C&amp;G</text>
+                <text x="11" y="23" fontFamily="serif" fontSize="6" fill="#ffcccc" textAnchor="middle">★★★</text>
+              </svg>
+              <span style={{fontSize:'9px', color:'#555'}}>Qualified</span>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
-
-      {/* City & Guilds */}
-      <div className="flex items-center gap-2 px-5 py-2">
-        <span style={{fontSize:'13px', fontWeight:800, color:'#222', lineHeight:1.3, fontFamily:'Arial,sans-serif'}}>City&amp;<br/>Guilds</span>
-        <svg viewBox="0 0 22 28" width="22" height="28">
-          <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000"/>
-          <text x="11" y="14" fontFamily="serif" fontSize="8" fontWeight="bold" fill="white" textAnchor="middle">C&amp;G</text>
-          <text x="11" y="23" fontFamily="serif" fontSize="6" fill="#ffcccc" textAnchor="middle">★★★</text>
-        </svg>
-        <span style={{fontSize:'9px', color:'#555'}}>Qualified</span>
-      </div>
-
-    </div>
-  </div>
-</div>
 
       {/* What is EPC Section */}
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
@@ -393,81 +330,52 @@ export default function Home() {
                 Your complete guide to understanding EPCs and why they're essential for your property
               </p>
             </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Content */}
               <div>
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
                   <p className="text-lg text-[#282828] leading-relaxed mb-6">
                     An <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> is a legal requirement that shows how energy-efficient your property is. It provides an energy efficiency rating from <strong className="text-[#016837]">A (most efficient)</strong> to <strong className="text-[#016837]">G (least efficient)</strong>, along with practical recommendations for improvement.
                   </p>
-                  
                   <div className="bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/5 border border-[#80C531]/30 rounded-2xl p-6 mb-6">
                     <h4 className="font-bold text-[#016837] mb-3 flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                      </svg>
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
                       Why You Need an EPC
                     </h4>
                     <ul className="text-[#016837] space-y-2">
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
-                        Legal requirement for selling or renting property
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
-                        Valid for 10 years from issue date
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
-                        Helps attract buyers/tenants with better ratings
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
-                        Identifies cost-saving energy improvements
-                      </li>
+                      {['Legal requirement for selling or renting property','Valid for 10 years from issue date','Helps attract buyers/tenants with better ratings','Identifies cost-saving energy improvements'].map((item, i) => (
+                        <li key={i} className="flex items-center gap-2"><div className="w-2 h-2 bg-[#80C531] rounded-full"></div>{item}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
               </div>
-
-              {/* Rating Visualization */}
               <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-6 text-center">EPC Rating Scale</h3>
-                
                 <div className="space-y-4 mb-6">
                   {[
-                    { grade: 'A', color: 'from-green-400 to-green-500', label: 'Most Efficient', score: '92-100', width: '100%' },
-                    { grade: 'B', color: 'from-green-300 to-green-400', label: 'Very Efficient', score: '81-91', width: '85%' },
-                    { grade: 'C', color: 'from-lime-300 to-lime-400', label: 'Good', score: '69-80', width: '70%' },
-                    { grade: 'D', color: 'from-yellow-300 to-yellow-400', label: 'Average', score: '55-68', width: '55%' },
-                    { grade: 'E', color: 'from-amber-300 to-amber-400', label: 'Fair', score: '39-54', width: '40%' },
-                    { grade: 'F', color: 'from-orange-400 to-orange-500', label: 'Poor', score: '21-38', width: '25%' },
-                    { grade: 'G', color: 'from-red-400 to-red-500', label: 'Least Efficient', score: '1-20', width: '10%' }
-                  ].map((item, index) => (
+                    { grade:'A', color:'from-green-400 to-green-500', label:'Most Efficient', score:'92-100', width:'100%' },
+                    { grade:'B', color:'from-green-300 to-green-400', label:'Very Efficient', score:'81-91', width:'85%' },
+                    { grade:'C', color:'from-lime-300 to-lime-400', label:'Good', score:'69-80', width:'70%' },
+                    { grade:'D', color:'from-yellow-300 to-yellow-400', label:'Average', score:'55-68', width:'55%' },
+                    { grade:'E', color:'from-amber-300 to-amber-400', label:'Fair', score:'39-54', width:'40%' },
+                    { grade:'F', color:'from-orange-400 to-orange-500', label:'Poor', score:'21-38', width:'25%' },
+                    { grade:'G', color:'from-red-400 to-red-500', label:'Least Efficient', score:'1-20', width:'10%' }
+                  ].map(item => (
                     <div key={item.grade} className="flex items-center gap-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${item.color} rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-lg`}>
-                        {item.grade}
-                      </div>
+                      <div className={`w-12 h-12 bg-gradient-to-r ${item.color} rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-lg`}>{item.grade}</div>
                       <div className="flex-1">
                         <div className="flex justify-between items-center mb-1">
                           <span className="font-semibold">{item.label}</span>
                           <span className="text-green-200 text-sm">{item.score} SAP</span>
                         </div>
                         <div className="w-full bg-green-900 rounded-full h-2">
-                          <div 
-                            className={`bg-gradient-to-r ${item.color} h-2 rounded-full transition-all duration-500`}
-                            style={{ width: item.width }}
-                          ></div>
+                          <div className={`bg-gradient-to-r ${item.color} h-2 rounded-full`} style={{width:item.width}}></div>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                
-                <div className="text-center text-white/80 text-sm">
-                  SAP Score = Standard Assessment Procedure
-                </div>
+                <div className="text-center text-white/80 text-sm">SAP Score = Standard Assessment Procedure</div>
               </div>
             </div>
           </div>
@@ -478,59 +386,26 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              ⭐ WHY CHOOSE US
-            </div>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY CHOOSE US</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Property Owners Choose Prime EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-              Experience the difference with our professional, reliable, and efficient EPC services
-            </p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Experience the difference with our professional, reliable, and efficient EPC services</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {[
-              {
-                icon: '🚀',
-                title: 'Lightning Fast Service',
-                description: 'Get your EPC report within 24-48 hours of inspection with our streamlined process',
-                features: ['24-48 Hour Turnaround', 'Quick Online Booking', 'Fast Digital Delivery']
-              },
-              {
-                icon: '🏆',
-                title: 'Fully Accredited Experts',
-                description: 'Our assessors are fully qualified and accredited, following all government standards',
-                features: ['Government Approved', 'Regularly Trained', 'Quality Assured']
-              },
-              {
-                icon: '📍',
-                title: 'Manchester Coverage',
-                description: 'Proudly serving customers across the Manchester for both domestic and commercial properties',
-                features: ['Nationwide Service', 'Flexible Scheduling', 'Local Assessors']
-              },
-              {
-                icon: '💷',
-                title: 'Transparent Pricing',
-                description: 'Clear, competitive pricing with no hidden fees or surprise charges',
-                features: ['Price Match Guarantee', 'No Hidden Costs', 'Instant Quotes']
-              }
+              { icon:'🚀', title:'Lightning Fast Service', description:'Get your EPC report within 24-48 hours of inspection with our streamlined process', features:['24-48 Hour Turnaround','Quick Online Booking','Fast Digital Delivery'] },
+              { icon:'🏆', title:'Fully Accredited Experts', description:'Our assessors are fully qualified and accredited, following all government standards', features:['Government Approved','Regularly Trained','Quality Assured'] },
+              { icon:'📍', title:'Manchester Coverage', description:'Proudly serving customers across the Manchester for both domestic and commercial properties', features:['Nationwide Service','Flexible Scheduling','Local Assessors'] },
+              { icon:'💷', title:'Transparent Pricing', description:'Clear, competitive pricing with no hidden fees or surprise charges', features:['Price Match Guarantee','No Hidden Costs','Instant Quotes'] }
             ].map((feature, index) => (
-              <div 
-                key={index}
-                className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl"
-              >
+              <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
                 <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    {feature.icon}
-                  </div>
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">{feature.icon}</div>
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold text-[#282828] mb-3">{feature.title}</h3>
                     <p className="text-[#282828] opacity-90 mb-4 leading-relaxed">{feature.description}</p>
                     <div className="space-y-2">
                       {feature.features.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-[#282828]">
-                          <div className="w-2 h-2 bg-[#80C531] rounded-full"></div>
-                          <span className="text-sm font-semibold">{item}</span>
-                        </div>
+                        <div key={idx} className="flex items-center gap-3 text-[#282828]"><div className="w-2 h-2 bg-[#80C531] rounded-full"></div><span className="text-sm font-semibold">{item}</span></div>
                       ))}
                     </div>
                   </div>
@@ -545,89 +420,41 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-br from-[#F8F8F8] via-white to-[#E1EED4]/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              📝 HOW IT WORKS
-            </div>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📝 HOW IT WORKS</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Get Your EPC in 3 Simple Steps</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-              Our streamlined process makes getting your Energy Performance Certificate quick and hassle-free
-            </p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Our streamlined process makes getting your Energy Performance Certificate quick and hassle-free</p>
           </div>
-
           <div className="max-w-5xl mx-auto">
             <div className="relative">
-              {/* Process Line */}
               <div className="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-[#016837] via-[#80C531] to-[#016837] -z-10"></div>
-              
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  {
-                    step: '01',
-                    icon: '📞',
-                    title: 'Book Your Assessment',
-                    description: 'Contact us via phone, email, or online form to schedule your EPC inspection at your convenience.',
-                    details: ['Free Instant Quote', 'Flexible Scheduling', 'Online Booking Available']
-                  },
-                  {
-                    step: '02',
-                    icon: '🏠',
-                    title: 'Property Inspection',
-                    description: 'Our accredited assessor visits your property for a comprehensive 30-60 minute inspection.',
-                    details: ['Professional Assessment', 'Minimal Disruption', 'Comprehensive Check']
-                  },
-                  {
-                    step: '03',
-                    icon: '📄',
-                    title: 'Receive Certificate',
-                    description: 'Get your official EPC digitally within 24-48 hours, with physical copies available.',
-                    details: ['Digital Delivery', '24-48 Hour Turnaround', 'Lodged on National Register']
-                  }
+                  { step:'01', icon:'📞', title:'Book Your Assessment', description:'Contact us via phone, email, or online form to schedule your EPC inspection at your convenience.', details:['Free Instant Quote','Flexible Scheduling','Online Booking Available'] },
+                  { step:'02', icon:'🏠', title:'Property Inspection', description:'Our accredited assessor visits your property for a comprehensive 30-60 minute inspection.', details:['Professional Assessment','Minimal Disruption','Comprehensive Check'] },
+                  { step:'03', icon:'📄', title:'Receive Certificate', description:'Get your official EPC digitally within 24-48 hours, with physical copies available.', details:['Digital Delivery','24-48 Hour Turnaround','Lodged on National Register'] }
                 ].map((step, index) => (
                   <div key={index} className="text-center relative">
                     <div className="relative mb-8">
-                      <div className="w-24 h-24 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300">
-                        <span className="text-3xl">{step.icon}</span>
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-r from-[#80C531] to-[#9CD35A] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
-                        {step.step}
-                      </div>
+                      <div className="w-24 h-24 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white mx-auto shadow-lg"><span className="text-3xl">{step.icon}</span></div>
+                      <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-r from-[#80C531] to-[#9CD35A] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">{step.step}</div>
                     </div>
-                    
                     <h3 className="text-2xl font-bold text-[#282828] mb-4">{step.title}</h3>
                     <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">{step.description}</p>
-                    
                     <div className="space-y-2">
                       {step.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-center justify-center gap-2 text-[#282828]">
-                          <div className="w-1.5 h-1.5 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full"></div>
-                          <span className="text-sm font-semibold">{detail}</span>
-                        </div>
+                        <div key={idx} className="flex items-center justify-center gap-2 text-[#282828]"><div className="w-1.5 h-1.5 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-full"></div><span className="text-sm font-semibold">{detail}</span></div>
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* CTA Box */}
             <div className="mt-12 bg-gradient-to-r from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 text-center">
               <h3 className="text-2xl font-bold text-[#282828] mb-4">Ready to Start the Process?</h3>
-              <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">
-                Get your EPC certificate quickly and professionally. Contact us today for a free, no-obligation quote.
-              </p>
+              <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">Get your EPC certificate quickly and professionally. Contact us today for a free, no-obligation quote.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/booking" 
-                  className="bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  Book Assessment Now
-                </Link>
-                <Link 
-                  href="#contact" 
-                  className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  Get Instant Quote
-                </Link>
+                <Link href="/booking" className="bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">Book Assessment Now</Link>
+                <Link href="#contact" className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg">Get Instant Quote</Link>
               </div>
             </div>
           </div>
@@ -638,234 +465,192 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              🛠️ OUR SERVICES
-            </div>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🛠️ OUR SERVICES</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Comprehensive EPC Services</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-              Professional Energy Performance Certificates for all property types across the Manchester
-            </p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Professional Energy Performance Certificates for all property types across the Manchester</p>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* EPC Services */}
             <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-14 h-14 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3>
-                  <p className="text-[#016837] font-semibold">From £55</p>
-                </div>
+                <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £49</p></div>
               </div>
-              
-              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">
-                We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Manchester. 
-                Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.
-              </p>
-              
+              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Manchester. Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                {[
-                  'Domestic EPCs',
-                  'Commercial EPCs',
-                  'New Build EPCs',
-                  'Landlord EPCs',
-                  'Property Sales EPCs',
-                  'Rental Property EPCs'
-                ].map((service, index) => (
+                {['Domestic EPCs','Commercial EPCs','New Build EPCs','Landlord EPCs','Property Sales EPCs','Rental Property EPCs'].map((service, index) => (
                   <div key={index} className="flex items-center gap-3 bg-gradient-to-r from-[#F8F8F8] to-white rounded-xl p-3 shadow-sm border border-[#80C531]/10">
-                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center">
-                      <svg className="w-3 h-3 text-[#016837]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
+                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center"><svg className="w-3 h-3 text-[#016837]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg></div>
                     <span className="font-semibold text-[#282828]">{service}</span>
                   </div>
                 ))}
               </div>
-              
-              <Link 
-                href="/booking" 
-                className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg text-center block"
-              >
-                Book EPC Service
-              </Link>
+              <Link href="/booking" className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg text-center block">Book EPC Service</Link>
             </div>
-
-            {/* Design Consultancy */}
             <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-14 h-14 bg-gradient-to-r from-[#80C531] to-[#9CD35A] rounded-2xl flex items-center justify-center">
-                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                  </svg>
+                  <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-[#282828]">Design Consultancy</h3>
-                  <p className="text-[#80C531] font-semibold">Expert Guidance</p>
-                </div>
+                <div><h3 className="text-2xl font-bold text-[#282828]">Design Consultancy</h3><p className="text-[#80C531] font-semibold">Expert Guidance</p></div>
               </div>
-              
-              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">
-                Strategic design consultancy isn't just an expense—it's an investment that pays for itself. 
-                We provide expert guidance from concept to completion, ensuring your project achieves optimal efficiency and value.
-              </p>
-              
+              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">Strategic design consultancy isn't just an expense—it's an investment that pays for itself. We provide expert guidance from concept to completion, ensuring your project achieves optimal efficiency and value.</p>
               <div className="space-y-4 mb-8">
-                {[
-                  'Expert guidance from concept to completion',
-                  'Save time and reduce project costs',
-                  'Innovative sustainable design solutions',
-                  'Compliance and safety assurance',
-                  'Energy efficiency optimization',
-                  'Cost-benefit analysis'
-                ].map((item, index) => (
+                {['Expert guidance from concept to completion','Save time and reduce project costs','Innovative sustainable design solutions','Compliance and safety assurance','Energy efficiency optimization','Cost-benefit analysis'].map((item, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3 h-3 text-[#80C531]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
+                    <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center flex-shrink-0"><svg className="w-3 h-3 text-[#80C531]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg></div>
                     <span className="font-semibold text-[#282828]">{item}</span>
                   </div>
                 ))}
               </div>
-              
-              <Link 
-                href="#contact" 
-                className="w-full bg-gradient-to-r from-white to-[#F8F8F8] text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg text-center block"
-              >
-                Learn More About Consultancy
-              </Link>
+              <Link href="#contact" className="w-full bg-gradient-to-r from-white to-[#F8F8F8] text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg text-center block">Learn More About Consultancy</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive FAQ Section */}
+      {/* ── Reviews Section ── */}
+      <section className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+              ⭐ CUSTOMER REVIEWS
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-4">What Our Customers Say</h2>
+            <p className="text-xl text-[#282828] opacity-80 max-w-2xl mx-auto">Real reviews from verified customers across Greater Manchester</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {reviews.map((review, index) => (
+              <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col justify-between">
+                {/* Stars */}
+                <div>
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed mb-6">{review.text}</p>
+                </div>
+                {/* Reviewer */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-gray-600">{review.initials}</span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-800">{review.name}</p>
+                      <p className="text-xs text-gray-400">{review.location}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                      <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z" fill="#4285F4"/>
+                    </svg>
+                    <span className="text-xs text-gray-400 font-medium">{review.source}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Overall rating summary */}
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex items-center gap-3">
+              <span className="text-5xl font-bold text-gray-800">5.0</span>
+              <div>
+                <div className="flex gap-0.5 mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-500">Based on Google Reviews</p>
+              </div>
+            </div>
+            <div className="h-12 w-px bg-gray-200 hidden sm:block"></div>
+            <Link href="/booking" className="bg-gradient-to-r from-[#016837] to-[#80C531] text-white font-semibold px-6 py-3 rounded-xl hover:from-[#01572E] hover:to-[#70B52B] transition-all shadow-md">
+              Book Your Assessment →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
       <section id="faqs" className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              ❓ FREQUENTLY ASKED QUESTIONS
-            </div>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">❓ FREQUENTLY ASKED QUESTIONS</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Common Questions About EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-              Find quick answers to the most frequently asked questions about Energy Performance Certificates
-            </p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Find quick answers to the most frequently asked questions about Energy Performance Certificates</p>
           </div>
-
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {faqs.map((faq, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-2xl shadow-lg border border-[#80C531]/10 overflow-hidden transition-all duration-300 hover:shadow-xl"
-                >
-                  <button
-                    onClick={() => toggleFaq(index)}
-                    className="w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r from-[#F8F8F8] to-white transition-colors duration-200"
-                  >
+                <div key={index} className="bg-white rounded-2xl shadow-lg border border-[#80C531]/10 overflow-hidden transition-all duration-300 hover:shadow-xl">
+                  <button onClick={() => toggleFaq(index)} className="w-full text-left p-6 flex justify-between items-center hover:bg-gradient-to-r from-[#F8F8F8] to-white transition-colors duration-200">
                     <h3 className="text-lg font-bold text-[#282828] pr-4">{faq.question}</h3>
-                    <svg 
-                      className={`w-5 h-5 text-[#016837] transition-transform duration-300 flex-shrink-0 ${
-                        openFaq === index ? 'rotate-180' : ''
-                      }`}
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <svg className={`w-5 h-5 text-[#016837] transition-transform duration-300 flex-shrink-0 ${openFaq === index ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                   </button>
-                  <div 
-                    className={`transition-all duration-300 overflow-hidden ${
-                      openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <div className="p-6 pt-0 border-t border-[#80C531]/10">
-                      <p className="text-[#282828] opacity-90 leading-relaxed">{faq.answer}</p>
-                    </div>
+                  <div className={`transition-all duration-300 overflow-hidden ${openFaq === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <div className="p-6 pt-0 border-t border-[#80C531]/10"><p className="text-[#282828] opacity-90 leading-relaxed">{faq.answer}</p></div>
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* FAQ CTA */}
             <div className="mt-12 text-center">
               <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
-                <p className="text-white/80 mb-6 max-w-2xl mx-auto">
-                  Our team of EPC experts is here to help you with any questions about Energy Performance Certificates.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link 
-                    href="#contact" 
-                    className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg hover:bg-[#F8F8F8] transform hover:scale-105 transition-all duration-300 shadow-lg"
-                  >
-                    Contact Our Experts
-                  </Link>
-                </div>
+                <p className="text-white/80 mb-6 max-w-2xl mx-auto">Our team of EPC experts is here to help you with any questions about Energy Performance Certificates.</p>
+                <Link href="#contact" className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg hover:bg-[#F8F8F8] transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">Contact Our Experts</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section - WHITE BACKGROUND */}
+      {/* Contact Section */}
       <section id="contact" className="py-20 bg-white relative overflow-hidden">
-        {/* Background Pattern - Subtle Green Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23016837' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-            backgroundSize: '80px 80px'
-          }}></div>
+          <div className="absolute inset-0" style={{backgroundImage:`url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23016837' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,backgroundSize:'80px 80px'}}></div>
         </div>
-        
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-              <span className="text-[#016837] text-sm font-semibold tracking-wide bg-[#80C531]/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                GET IN TOUCH TODAY
-              </span>
+              <span className="text-[#016837] text-sm font-semibold tracking-wide bg-[#80C531]/10 backdrop-blur-sm px-4 py-2 rounded-full">GET IN TOUCH TODAY</span>
             </div>
-            
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">
-              Contact Us
-            </h2>
-            
-            <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Ready to get your EPC or need expert design consultancy? Reach out to us for professional, stress-free service.
-            </p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">Contact Us</h2>
+            <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">Ready to get your EPC or need expert design consultancy? Reach out to us for professional, stress-free service.</p>
           </div>
-
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Contact Information */}
+              {/* Contact Info */}
               <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
                 <h3 className="text-3xl font-bold mb-8 text-white">Contact Information</h3>
-                
                 <div className="space-y-8 mb-8">
+                  {/* Phone */}
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
                       <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#80C531] text-lg mb-1">Phone</h4>
-                      <p className="text-white font-bold text-xl">07308658247 </p>
+                      <p className="text-white font-bold text-xl">07308658247</p>
                     </div>
                   </div>
-
+                  {/* Email — fixed icon (no distortion on mobile) */}
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <polyline points="3,5 12,13 21,5"/>
                       </svg>
                     </div>
                     <div>
@@ -873,9 +658,9 @@ export default function Home() {
                       <p className="text-white font-bold text-lg">info@primeepcdesign.co.uk</p>
                     </div>
                   </div>
-
+                  {/* Location */}
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
                       <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -887,180 +672,69 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-
-                {/* Social Media Icons */}
+                {/* Social */}
                 <div>
                   <h4 className="font-semibold text-[#80C531] text-lg mb-6">Follow Us</h4>
                   <div className="flex gap-4">
                     {[
-                      { 
-                        name: 'Facebook', 
-                        icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                          </svg>
-                        ), 
-                        color: 'bg-blue-600 hover:bg-blue-700' 
-                      },
-                      { 
-                        name: 'Twitter', 
-                        icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                          </svg>
-                        ), 
-                        color: 'bg-blue-400 hover:bg-blue-500' 
-                      },
-                      { 
-                        name: 'LinkedIn', 
-                        icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                          </svg>
-                        ), 
-                        color: 'bg-blue-800 hover:bg-blue-900' 
-                      },
-                      { 
-                        name: 'Instagram', 
-                        icon: (
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.2 14.816 3.71 13.665 3.71 12.368s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z"/>
-                          </svg>
-                        ), 
-                        color: 'bg-pink-600 hover:bg-pink-700' 
-                      }
+                      { name:'Facebook', color:'bg-blue-600 hover:bg-blue-700', icon:<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/> },
+                      { name:'Twitter', color:'bg-blue-400 hover:bg-blue-500', icon:<path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/> },
+                      { name:'LinkedIn', color:'bg-blue-800 hover:bg-blue-900', icon:<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/> },
+                      { name:'Instagram', color:'bg-pink-600 hover:bg-pink-700', icon:<path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.2 14.816 3.71 13.665 3.71 12.368s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z"/> }
                     ].map((social, index) => (
-                      <a
-                        key={index}
-                        href="#"
-                        className={`w-14 h-14 ${social.color} rounded-2xl flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
-                        aria-label={social.name}
-                      >
-                        {social.icon}
+                      <a key={index} href="#" className={`w-14 h-14 ${social.color} rounded-2xl flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`} aria-label={social.name}>
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">{social.icon}</svg>
                       </a>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Contact Form - WHITE BACKGROUND */}
+              {/* Contact Form */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
                 <h3 className="text-3xl font-bold mb-8 text-[#016837]">Send Us a Message</h3>
-                
-                {/* Success Message */}
                 {formSuccess && (
                   <div className="mb-6 p-4 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/5 border border-[#80C531] rounded-2xl text-[#016837]">
                     <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                       <span className="font-semibold">Message sent successfully! We'll get back to you within 24 hours.</span>
                     </div>
                   </div>
                 )}
-                
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-[#016837] mb-3">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
-                        placeholder="Your full name"
-                      />
+                      <label htmlFor="name" className="block text-sm font-semibold text-[#016837] mb-3">Full Name *</label>
+                      <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="Your full name"/>
                     </div>
-                    
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-[#016837] mb-3">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
-                        placeholder="your@email.com"
-                      />
+                      <label htmlFor="email" className="block text-sm font-semibold text-[#016837] mb-3">Email Address *</label>
+                      <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="your@email.com"/>
                     </div>
                   </div>
-
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-[#016837] mb-3">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
-                      placeholder="+44 XXX XXX XXXX"
-                    />
+                    <label htmlFor="phone" className="block text-sm font-semibold text-[#016837] mb-3">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="+44 XXX XXX XXXX"/>
                   </div>
-
                   <div>
-                    <label htmlFor="service" className="block text-sm font-semibold text-[#016837] mb-3">
-                      Service Required
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828]"
-                    >
-                      <option value="" className="text-gray-800">Select a service</option>
-                      <option value="domestic-epc" className="text-gray-800">Domestic EPC</option>
-                      <option value="commercial-epc" className="text-gray-800">Commercial EPC</option>
-                      <option value="design-consultancy" className="text-gray-800">Design Consultancy</option>
-                      <option value="other" className="text-gray-800">Other Inquiry</option>
+                    <label htmlFor="service" className="block text-sm font-semibold text-[#016837] mb-3">Service Required</label>
+                    <select id="service" name="service" value={formData.service} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828]">
+                      <option value="">Select a service</option>
+                      <option value="domestic-epc">Domestic EPC</option>
+                      <option value="commercial-epc">Commercial EPC</option>
+                      <option value="design-consultancy">Design Consultancy</option>
+                      <option value="other">Other Inquiry</option>
                     </select>
                   </div>
-
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-[#016837] mb-3">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60"
-                      placeholder="Tell us about your requirements..."
-                    ></textarea>
+                    <label htmlFor="message" className="block text-sm font-semibold text-[#016837] mb-3">Message *</label>
+                    <textarea id="message" name="message" required rows={4} value={formData.message} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="Tell us about your requirements..."></textarea>
                   </div>
-
-                  <button
-                    type="submit"
-                    disabled={formLoading}
-                    className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white text-lg font-bold py-4 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed border border-[#80C531]/30"
-                  >
+                  <button type="submit" disabled={formLoading} className="w-full bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white text-lg font-bold py-4 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed border border-[#80C531]/30">
                     {formLoading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                        <span>Sending...</span>
-                      </>
+                      <><div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div><span>Sending...</span></>
                     ) : (
-                      <>
-                        <span>Send Message</span>
-                        <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                      </>
+                      <><span>Send Message</span><svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg></>
                     )}
                   </button>
                 </form>

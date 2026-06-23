@@ -11,7 +11,6 @@ export default function Footer() {
 
           {/* Column 1 - Logo + Trustpilot */}
           <div className="lg:col-span-1">
-            {/* Logo from Header */}
             <Link href="/" className="inline-block mb-6">
               <Image
                 src="/images/logo3.png"
@@ -23,7 +22,6 @@ export default function Footer() {
               />
             </Link>
 
-            {/* Trustpilot Widget */}
             <div className="bg-white/5 rounded-lg p-4 border border-[#80C531]/20">
               <div className="flex items-center gap-2 mb-2">
                 <svg className="w-5 h-5 text-[#80C531]" fill="currentColor" viewBox="0 0 24 24">
@@ -46,29 +44,26 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 - See More */}
+          {/* Column 2 - See More (Header wale links) */}
           <div>
             <h4 className="text-[#80C531] font-semibold mb-5 text-base">See More</h4>
             <div className="flex flex-col space-y-3">
-              <Link href="/services-near-you" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Services near you</Link>
-              <Link href="/property-renovation" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Property Renovation</Link>
               <Link href="/about" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">About us</Link>
-              <Link href="/how-it-works" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">How it works</Link>
-              <Link href="/faqs" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQ&apos;s</Link>
-              <Link href="/terms" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Terms & Policies</Link>
-              <Link href="/payment-methods" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Payment Methods</Link>
-              <Link href="/partners" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Partners</Link>
+              <Link href="/why-us" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Why Us</Link>
+              <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans & Drafting</Link>
+              <Link href="/blog" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Blog</Link>
+              <Link href="/#faqs" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQ&apos;s</Link>
             </div>
           </div>
 
-          {/* Column 3 - Useful Links */}
+          {/* Column 3 - Useful Links (Ab Header wale links) */}
           <div>
             <h4 className="text-[#80C531] font-semibold mb-5 text-base">Useful Links</h4>
             <div className="flex flex-col space-y-3">
-              <Link href="/login" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Customer Login</Link>
-              <Link href="/signup" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Customer Sign up</Link>
-              <Link href="/business-login" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Business Login</Link>
-              <Link href="/business-signup" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Business Sign up</Link>
+              <Link href="/booking" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Book Your EPC</Link>
+              <Link href="/#contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact Us</Link>
+              <Link href="/blog" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Blog</Link>
+              <Link href="/terms" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Terms & Policies</Link>
             </div>
           </div>
 
@@ -76,11 +71,10 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <h4 className="text-[#80C531] font-semibold mb-5 text-base">Let&apos;s talk</h4>
             <div className="flex flex-col space-y-3">
-              <Link href="/contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact us</Link>
-              <Link href="/help" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Help Center</Link>
-              <Link href="/resolution" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Resolution Center</Link>
+              <Link href="/#contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact us</Link>
+              <Link href="/booking" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Book Your EPC</Link>
               
-              <p className="text-white/70 text-sm">Support: <span className="text-[#80C531] font-semibold">07308658247</span></p>
+              <p className="text-white/70 text-sm">Sales: <span className="text-[#80C531] font-semibold">07308658247</span></p>
               <div className="pt-2 space-y-1 border-t border-[#80C531]/20 mt-2">
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Mon - Fri:</span> 08:00 - 19:30</p>
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat:</span> 08:00 - 18:00</p>
@@ -114,7 +108,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar - Social + Copyright */}
+      {/* Bottom Bar */}
       <div className="border-t border-[#80C531]/20">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -132,7 +126,7 @@ export default function Footer() {
               </a>
             </div>
             <p className="text-white/50 text-xs">
-              © {currentYear} Prime EPC and Design Consultants. All rights reserved.
+              &copy; {currentYear} Prime EPC and Design Consultants. All rights reserved.
             </p>
           </div>
         </div>
