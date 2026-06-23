@@ -41,7 +41,7 @@ export default function Footer() {
                 ))}
               </div>
               <p className="text-white/70 text-xs">
-                TrustScore <span className="text-[#80C531] font-semibold">4.9</span> | <span className="text-white font-semibold">14,156 reviews</span>
+                TrustScore <span className="text-[#80C531] font-semibold">4.9</span> | <span className="text-white font-semibold">1049 reviews</span>
               </p>
             </div>
           </div>
@@ -79,8 +79,8 @@ export default function Footer() {
               <Link href="/contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact us</Link>
               <Link href="/help" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Help Center</Link>
               <Link href="/resolution" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Resolution Center</Link>
-              <p className="text-white/70 text-sm">Sales: <span className="text-[#80C531] font-semibold">020 4577 3706</span></p>
-              <p className="text-white/70 text-sm">Support: <span className="text-[#80C531] font-semibold">020 4577 0862</span></p>
+              
+              <p className="text-white/70 text-sm">Support: <span className="text-[#80C531] font-semibold">07308658247</span></p>
               <div className="pt-2 space-y-1 border-t border-[#80C531]/20 mt-2">
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Mon - Fri:</span> 08:00 - 19:30</p>
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat:</span> 08:00 - 18:00</p>

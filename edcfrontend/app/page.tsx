@@ -180,10 +180,10 @@ export default function Home() {
     {/* Center Title & Subtitle */}
     <div className="text-center max-w-4xl mx-auto mb-10">
       <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-        Nationwide Home Compliance and Trades, Simplified.
+        Safe Homes. Skilled Trades. Simple Solutions.
       </h1>
       <p className="text-lg text-white/90">
-        Your trusted partner for EPCs, EICRs, Gas Safety, and full property trade services - starting at <span className="font-bold text-[#80C531]">£72.00 Fixed Fee</span>.
+        Your trusted partner for EPCs, EICRs, and full property trade services starting at  <span className="font-bold text-[#80C531]"> £55.00 Fixed Fee</span>.
       </p>
     </div>
 
@@ -219,8 +219,8 @@ export default function Home() {
           </svg>
         </div>
         <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Residential EPC</h3>
-        <p className="font-bold text-[#016837] text-lg mt-1">£72.00+</p>
+        <h3 className="font-bold text-gray-900 text-sm">Residential epc </h3>
+        <p className="font-bold text-[#016837] text-lg mt-1">£55</p>
       </div>
 
       {/* Card 2 - Commercial EPC */}
@@ -231,7 +231,7 @@ export default function Home() {
           </svg>
         </div>
         <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Commercial EPC</h3>
+        <h3 className="font-bold text-gray-900 text-sm">Lease Plans </h3>
         <p className="font-bold text-gray-700 text-lg mt-1">(Get Quote)</p>
       </div>
 
@@ -244,8 +244,8 @@ export default function Home() {
           </svg>
         </div>
         <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">Gas Safety Cert</h3>
-        <p className="font-bold text-[#016837] text-lg mt-1">£79.00+</p>
+        <h3 className="font-bold text-gray-900 text-sm">Floor Plans </h3>
+        <p className="font-bold text-gray-700 text-lg mt-1">(Get Quote)</p>
       </div>
 
       {/* Card 4 - EICR Cert */}
@@ -256,8 +256,8 @@ export default function Home() {
           </svg>
         </div>
         <p className="text-xs text-gray-500 mb-1">Instant Service Quote</p>
-        <h3 className="font-bold text-gray-900 text-sm">EICR Cert</h3>
-        <p className="font-bold text-[#016837] text-lg mt-1">£129.00+</p>
+        <h3 className="font-bold text-gray-900 text-sm">EICR start from </h3>
+        <p className="font-bold text-[#016837] text-lg mt-1"> £110</p>
       </div>
     </div>
 
@@ -658,7 +658,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3>
-                  <p className="text-[#016837] font-semibold">From £49</p>
+                  <p className="text-[#016837] font-semibold">From £55</p>
                 </div>
               </div>
               
@@ -858,7 +858,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#80C531] text-lg mb-1">Phone</h4>
-                      <p className="text-white font-bold text-xl">+44 7469 340373</p>
+                      <p className="text-white font-bold text-xl">07308658247 </p>
                     </div>
                   </div>
 
@@ -870,7 +870,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
-                      <p className="text-white font-bold text-lg">primeepc.design@gmail.com</p>
+                      <p className="text-white font-bold text-lg">info@primeepcdesign.co.uk</p>
                     </div>
                   </div>
 

@@ -13,13 +13,13 @@ export default function Header() {
       <div className="bg-[#016837] text-white py-2">
         <div className="container mx-auto px-4 md:px-12 flex justify-between items-center text-sm">
           <div className="flex items-center space-x-4">
-            <span>📞 +44 7469 340373</span>
+            <span>📞 07308658247</span>
           </div>
           <div className="hidden sm:flex items-center space-x-4">
             <span>We serve areas within a 50-mile radius of Manchester.</span>
           </div>
           <div className="hidden md:block">
-            📧 primeepc.design@gmail.com
+            📧 info@primeepcdesign.co.uk
           </div>
         </div>
       </div>
