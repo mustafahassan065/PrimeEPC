@@ -475,7 +475,7 @@ export default function Home() {
                 <div className="w-14 h-14 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center">
                   <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
-                <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £49</p></div>
+                <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £55</p></div>
               </div>
               <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Manchester. Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -647,17 +647,17 @@ export default function Home() {
                   </div>
                   {/* Email — fixed icon (no distortion on mobile) */}
                   <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
-                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-                        <rect x="3" y="5" width="18" height="14" rx="2"/>
-                        <polyline points="3,5 12,13 21,5"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
-                      <p className="text-white font-bold text-lg">info@primeepcdesign.co.uk</p>
-                    </div>
-                  </div>
+  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+    <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <polyline points="3,5 12,13 21,5"/>
+    </svg>
+  </div>
+  <div className="min-w-0">
+    <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
+    <p className="text-white font-bold text-base break-all">info@primeepcdesign.co.uk</p>
+  </div>
+</div>
                   {/* Location */}
                   <div className="flex items-center gap-6">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
