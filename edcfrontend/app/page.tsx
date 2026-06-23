@@ -560,7 +560,7 @@ export default function Home() {
           {/* Overall rating summary */}
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
             <div className="flex items-center gap-3">
-              <span className="text-5xl font-bold text-gray-800">5.0</span>
+              <span className="text-5xl font-bold text-gray-800">4.9</span>
               <div>
                 <div className="flex gap-0.5 mb-1">
                   {[...Array(5)].map((_, i) => (
