@@ -40,6 +40,16 @@ export default function BookingPage() {
     { value: '2690 – 3230 ft square (251 – 300 square metres) £360', label: '2690 – 3230 ft square (251 – 300 square metres) £360' },
   ]
 
+  const eicrOptions = [
+    { value: '1 Bedroom Flat £110', label: '1 Bedroom Flat — £110' },
+    { value: '2 Bedroom Flat £120', label: '2 Bedroom Flat — £120' },
+    { value: '2 Bedroom House £130', label: '2 Bedroom House — £130' },
+    { value: '3 Bedroom House £140', label: '3 Bedroom House — £140' },
+    { value: '4 Bedroom House £160', label: '4 Bedroom House — £160' },
+    { value: '5 Bedroom House £180', label: '5 Bedroom House — £180' },
+    { value: '6+ Bedroom House Contact for Quote', label: '6+ Bedroom House — Contact for Quote' },
+  ]
+
   const areas = [
     "EPC Altrincham","EPC Ashton-in-Makerfield","EPC Ashton-under-Lyne","EPC Astley",
     "EPC Atherton","EPC Bolton","EPC Bramhall","EPC Bury","EPC Chadderton","EPC Cheadle",
@@ -487,19 +497,20 @@ export default function BookingPage() {
                   <label htmlFor="propertyType" className="block text-sm text-gray-600 mb-1.5">Property Type *</label>
                   <select id="propertyType" name="propertyType" required value={formData.propertyType} onChange={handleInputChange}
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] text-sm text-gray-700 bg-white transition-all">
-                    <option value="domestic">Domestic Property</option>
-                    <option value="commercial">Commercial Property</option>
+                    <option value="domestic">Domestic Property (EPC)</option>
+                    <option value="commercial">Commercial Property (EPC)</option>
+                    <option value="eicr">EICR (Electrical Inspection)</option>
                   </select>
                 </div>
 
                 <div>
                   <label htmlFor="propertyDetails" className="block text-sm text-gray-600 mb-1.5">
-                    {formData.propertyType === 'domestic' ? 'Bedrooms / Price *' : 'Area / Price *'}
+                    {formData.propertyType === 'domestic' ? 'Bedrooms / Price *' : formData.propertyType === 'eicr' ? 'Property Size / Price *' : 'Area / Price *'}
                   </label>
                   <select id="propertyDetails" name="propertyDetails" required value={formData.propertyDetails} onChange={handleInputChange}
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] text-sm text-gray-700 bg-white transition-all">
                     <option value="">Select option</option>
-                    {(formData.propertyType === 'domestic' ? domesticOptions : commercialOptions).map((o,i) => (
+                    {(formData.propertyType === 'domestic' ? domesticOptions : formData.propertyType === 'eicr' ? eicrOptions : commercialOptions).map((o,i) => (
                       <option key={i} value={o.value}>{o.label}</option>
                     ))}
                   </select>
