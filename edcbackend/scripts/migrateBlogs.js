@@ -2,13 +2,9 @@
 const Blog = require('../models/Blog');
 const { sequelize } = require('../database');
 
-const PHONE   = '\U0001f4de 07308658247';
-const EMAIL   = '\U0001f4e7 info@primeepcdesign.co.uk';
-const WEBSITE = 'https://www.primeepcdesign.co.uk/';
-
 const blogData = [
 
-  // ── BLOG 1 ──────────────────────────────────────────────────────────────
+  // ── BLOG 1 ─────────────────────────────────────────────────────────────
   {
     title: "Commercial EPCs in Manchester: The Rules You Cannot Afford to Ignore",
     slug: "commercial-epcs-manchester-rules",
@@ -19,121 +15,123 @@ const blogData = [
     status: "published",
     author: "Prime EPC",
     excerpt: "If you own, lease or manage a commercial property in Manchester, the EPC rules have changed. This guide explains MEES compliance, fines, and what you must do to stay legal.",
-    content: `Commercial EPCs in Manchester: The Rules You Cannot Afford to Ignore
+    content: `# Commercial EPCs in Manchester: The Rules You Cannot Afford to Ignore
 
-If You Own or Lease a Commercial Property in Manchester, the Rules Have Changed
+## If You Own or Lease a Commercial Property in Manchester, the Rules Have Changed
 
 It is no longer a question of having a certificate filed somewhere in a drawer. Under current UK law, your EPC rating determines whether you can legally rent out your commercial property at all.
 
 For commercial landlords and property managers across Manchester, understanding these rules is not optional — the financial penalties for getting it wrong are significant, and the regulations are only going to tighten further.
 
-This guide from Prime EPC and Designing Consultants cuts through the legal language and tells you exactly what you need to know, what you are required to do, and what happens if you do not.
+This guide from **Prime EPC and Designing Consultants** cuts through the legal language and tells you exactly what you need to know, what you are required to do, and what happens if you do not.
 
-What Is a Commercial EPC — and How Is It Different From a Domestic One?
+## What Is a Commercial EPC — and How Is It Different From a Domestic One?
 
-An Energy Performance Certificate rates a building on a scale from A (most efficient) to G (least efficient). You will already be familiar with that much.
+An Energy Performance Certificate rates a building on a scale from **A (most efficient) to G (least efficient)**. You will already be familiar with that much.
 
 What most people do not realise is that a commercial EPC assessment is considerably more detailed and complex than a residential one. A qualified commercial assessor looks at the building across several categories that simply do not apply to homes:
 
-Zoning — A commercial building is divided into zones based on how each area is used. A heated office space is assessed differently from an unheated warehouse loading bay. The assessor accounts for this, so the rating reflects how the building actually functions — not a one-size-fits-all calculation.
+**Zoning** — A commercial building is divided into zones based on how each area is used. A heated office space is assessed differently from an unheated warehouse loading bay. The assessor accounts for this, so the rating reflects how the building actually functions — not a one-size-fits-all calculation.
 
-HVAC Systems — The efficiency of your heating, ventilation and air conditioning equipment plays a major role in the rating. Older, poorly maintained or inefficient HVAC systems will drag the score down considerably.
+**HVAC Systems** — The efficiency of your heating, ventilation and air conditioning equipment plays a major role in the rating. Older, poorly maintained or inefficient HVAC systems will drag the score down considerably.
 
-Lighting — Commercial buildings tend to use far more lighting than homes, and the type of lighting fitted has a direct impact on the rating. Older fluorescent tubes score poorly compared to modern LED systems.
+**Lighting** — Commercial buildings tend to use far more lighting than homes, and the type of lighting fitted has a direct impact on the rating. Older fluorescent tubes score poorly compared to modern LED systems.
 
-The calculation is carried out using government-approved SBEM (Simplified Building Energy Model) software, which uses the measurements and data collected during the on-site assessment to produce an accurate CO2 emissions figure — and from that, the A to G rating.
+The calculation is carried out using government-approved **SBEM (Simplified Building Energy Model)** software, which uses the measurements and data collected during the on-site assessment to produce an accurate CO2 emissions figure — and from that, the A to G rating.
 
-The Rule That Catches Commercial Landlords Out: MEES
+## The Rule That Catches Commercial Landlords Out: MEES
 
-The Minimum Energy Efficiency Standards (MEES) regulations are the part of commercial EPC compliance that carries the most serious consequences — and the part that is most frequently misunderstood.
+The **Minimum Energy Efficiency Standards (MEES)** regulations are the part of commercial EPC compliance that carries the most serious consequences — and the part that is most frequently misunderstood.
 
-Under MEES, it is currently unlawful to grant a new commercial lease, or to continue an existing one, if the property carries an EPC rating of F or G. This is not a guideline or a recommendation. It is a legal requirement.
+Under MEES, it is currently **unlawful** to grant a new commercial lease, or to continue an existing one, if the property carries an EPC rating of **F or G**. This is not a guideline or a recommendation. It is a legal requirement.
 
-What Are the Fines for Non-Compliance?
+## What Are the Fines for Non-Compliance?
 
-If you are found to be renting out an F or G rated commercial property without a valid registered exemption, the penalties are calculated based on the rateable value of the property:
+If you are found to be renting out an F or G rated commercial property without a valid registered exemption, the penalties are calculated based on the **rateable value** of the property:
 
-- Properties with a rateable value below £50,000: fines of up to £5,000 for less than 3 months of non-compliance, rising to £10,000 for 3 months or more
-- Properties with a rateable value above £50,000: fines of up to £50,000 for less than 3 months, rising to £150,000 for 3 months or more
+- Properties with a rateable value **below £50,000**: fines of up to **£5,000** for less than 3 months of non-compliance, rising to **£10,000** for 3 months or more
+- Properties with a rateable value **above £50,000**: fines of up to **£50,000** for less than 3 months, rising to **£150,000** for 3 months or more
 
 Beyond the financial penalties, non-compliance can also be published on a public register — which creates reputational risk for property owners and investors.
 
-When Does a Commercial Property in Manchester Legally Need an EPC?
+## When Does a Commercial Property in Manchester Legally Need an EPC?
 
-- Sale of the property — Before the sale of a property, it is mandatory to have a valid EPC.
-- Letting to a new occupier — A valid EPC must be supplied to the potential tenant before signing of the lease agreement.
-- Completion of construction — A newly built commercial property must have a valid EPC.
-- Major modifications — If there are any major modifications in the property like extension or subdivision, then a new EPC might become necessary.
-- Showing the EPC — Certain commercial properties having a floor area of more than 500 square metres which are visited by the public on a regular basis are obligated to show the EPC.
+- **Sale of the property** — Before the sale of a property, it is mandatory to have a valid EPC.
+- **Letting to a new occupier** — A valid EPC must be supplied to the potential tenant before signing of the lease agreement.
+- **Completion of construction** — A newly built commercial property must have a valid EPC.
+- **Major modifications** — If there are any major modifications in the property like extension or subdivision, then a new EPC might become necessary.
+- **Showing the EPC** — Certain commercial properties having a floor area of more than 500 square metres which are visited by the public on a regular basis are obligated to show the EPC.
 
-Does a Lease Renewal Require a New EPC?
+## Does a Lease Renewal Require a New EPC?
 
 A straightforward lease renewal with an existing tenant does not automatically require a new EPC. However:
 
-- If your existing EPC has expired (certificates are valid for 10 years), you do not have a valid certificate in place — and proceeding with a renewal without one creates a compliance risk
-- The MEES prohibition on letting sub-standard properties does apply to renewals and extensions of existing tenancies, not just new leases
+- If your existing EPC has **expired** (certificates are valid for 10 years), you do not have a valid certificate in place — and proceeding with a renewal without one creates a compliance risk
+- The MEES prohibition on letting sub-standard properties **does apply to renewals and extensions** of existing tenancies, not just new leases
 - Current non-domestic MEES guidance indicates that a new EPC should be obtained on renewal if no valid one exists
 
-The safest position: if your EPC has expired or no valid certificate exists, obtain a new one before any renewal discussions proceed.
+The safest and most straightforward position: **if your EPC has expired or no valid certificate exists, obtain a new one before any renewal discussions proceed.** It removes the compliance risk entirely.
 
-How Is a Commercial EPC Rating Calculated?
+## How Is a Commercial EPC Rating Calculated?
 
-Commercial EPC assessors use SBEM software — a government-approved calculation tool — to produce the rating. During the assessment, the assessor will:
+Commercial EPC assessors use **SBEM software** — a government-approved calculation tool — to produce the rating. During the assessment, the assessor will:
 
-- Measure and record the dimensions and construction of the building
-- Identify and assess each functional zone within the building (offices, warehouses, retail areas, server rooms, etc.)
-- Record the heating and hot water systems, including boiler type, age and efficiency
-- Assess the air conditioning and ventilation equipment
-- Record the lighting type and controls throughout the building
-- Note any on-site renewable energy generation
+- Measure and record the **dimensions and construction** of the building
+- Identify and assess each **functional zone** within the building (offices, warehouses, retail areas, server rooms, etc.)
+- Record the **heating and hot water systems**, including boiler type, age and efficiency
+- Assess the **air conditioning and ventilation** equipment
+- Record the **lighting type and controls** throughout the building
+- Note any **on-site renewable energy** generation
 
-What Are the Upcoming Changes to Commercial MEES?
+## What Are the Upcoming Changes to Commercial MEES?
 
-- C by 2027 — the proposed minimum EPC rating for all commercial properties being let
-- B by 2030 — the proposed minimum rating for all let commercial properties
+- **C by 2027** — the proposed minimum EPC rating for all commercial properties being let
+- **B by 2030** — the proposed minimum rating for all let commercial properties
 
 Commercial landlords in Manchester with properties currently sitting at D or E face a compliance challenge in the medium term. Planning improvements now is far more cost-effective than being forced to act quickly as a regulatory deadline approaches.
 
-How to Improve a Poor Commercial EPC Rating
+## How to Improve a Poor Commercial EPC Rating
 
-Upgrade to LED Lighting Throughout — For offices, warehouses and retail units, switching entirely to LED lighting is typically the single biggest improvement available.
+**Upgrade to LED Lighting Throughout** — For offices, warehouses and retail units, switching entirely to LED lighting is typically the single biggest improvement available.
 
-Install Occupancy Sensors and Lighting Controls — Fitting occupancy sensors scores additional points on the assessment and further reduces energy consumption.
+**Install Occupancy Sensors and Lighting Controls** — Fitting occupancy sensors scores additional points on the assessment and further reduces energy consumption.
 
-Service and Maintain HVAC Equipment — Modern, well-maintained air conditioning and heating systems score considerably better than older or poorly serviced ones.
+**Service and Maintain HVAC Equipment** — Modern, well-maintained air conditioning and heating systems score considerably better than older or poorly serviced ones.
 
-Improve Insulation — For older commercial buildings in Manchester, improving roof and wall insulation can deliver a substantial improvement to the EPC rating.
+**Improve Insulation** — For older commercial buildings in Manchester, improving roof and wall insulation can deliver a substantial improvement to the EPC rating.
 
-Frequently Asked Questions
+## Frequently Asked Questions
 
-Does every unit in a multi-tenancy commercial building need its own EPC?
+**Does every unit in a multi-tenancy commercial building need its own EPC?**
 In most cases where units are let separately, each unit requires its own EPC. Our team can advise on the right approach for your property.
 
-Can I let a commercial property while an exemption is registered?
+**Can I let a commercial property while an exemption is registered?**
 In some cases, yes. MEES exemptions are available for specific circumstances. Exemptions must be registered on the official PRS Exemptions Register and are valid for five years.
 
-How long does a commercial EPC assessment take in Manchester?
+**How long does a commercial EPC assessment take in Manchester?**
 A small retail unit may take 45 minutes to an hour. A large office block or industrial unit can take several hours.
 
-How long is a commercial EPC valid for?
+**How long is a commercial EPC valid for?**
 Ten years from the date of issue — the same as a residential EPC.
 
-Protect Your Commercial Property With Prime EPC and Designing Consultants
+## Protect Your Commercial Property With Prime EPC and Designing Consultants
 
-- Specialist commercial EPC assessors with experience across offices, retail, warehouses and industrial units
-- SBEM-compliant assessments using government-approved software
-- Fast turnaround — we understand commercial deals cannot wait
-- Clear compliance advice — if your property is rated F or G, we will tell you exactly what needs to change and in what order
-- Covering Manchester and a 40-mile radius including Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan and Tameside
+Do not wait until a lease is due or a sale falls through to check whether your commercial property is compliant.
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+✔ Specialist commercial EPC assessors with experience across offices, retail, warehouses and industrial units
+✔ SBEM-compliant assessments using government-approved software
+✔ Fast turnaround — we understand commercial deals cannot wait
+✔ Clear compliance advice — if your property is rated F or G, we will tell you exactly what needs to change and in what order
+✔ Covering Manchester and a 40-mile radius including Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan and Tameside
 
-Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manchester and the North West`
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
+
+*Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manchester and the North West*`
   },
 
-  // ── BLOG 2 ──────────────────────────────────────────────────────────────
+  // ── BLOG 2 ─────────────────────────────────────────────────────────────
   {
     title: "EPC Certificate Pricing in Manchester — What Affects the Cost and What You Should Expect to Pay",
     slug: "epc-certificate-pricing-manchester",
@@ -144,96 +142,114 @@ Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manche
     status: "published",
     author: "Prime EPC",
     excerpt: "EPC pricing in Manchester depends on property size, type and complexity. This guide explains every factor so you know exactly what you are paying for.",
-    content: `EPC Certificate Pricing in Manchester — What Affects the Cost and What You Should Expect to Pay
+    content: `# EPC Certificate Pricing in Manchester — What Affects the Cost and What You Should Expect to Pay
 
-What Does an EPC Certificate Cost in Manchester?
+## What Does an EPC Certificate Cost in Manchester?
 
 If you are preparing to sell or let a property in Manchester — whether a home, a flat or a commercial building — one of the first practical questions is what an EPC is going to cost.
 
 It is a fair question, and the honest answer is that the price varies. EPC assessments are not priced identically across every property because the time and work involved differs depending on what is being assessed.
 
-What should never vary is the transparency of the quote. At Prime EPC and Designing Consultants, the price we give you before the assessment is the price on the invoice afterwards. No hidden charges, no surprise fees, no extras added once the assessor has visited.
+What should never vary is the transparency of the quote. At **Prime EPC and Designing Consultants**, the price we give you before the assessment is the price on the invoice afterwards. No hidden charges, no surprise fees, no extras added once the assessor has visited.
 
-The Main Factors That Affect EPC Pricing
+## The Main Factors That Affect EPC Pricing
 
-Property Size — Size is the single biggest factor in EPC pricing. A larger property takes longer to assess — more rooms, more systems to record, more data to process.
+### Property Size
 
-Residential or Commercial Assessment — A residential EPC uses RdSAP software and focuses on the elements found in homes. A commercial EPC uses SBEM software and covers a considerably wider range of building systems — zoning, HVAC equipment, ventilation controls, lighting management systems and building management controls.
+Size is the single biggest factor in EPC pricing. A larger property takes longer to assess — more rooms, more systems to record, more data to process. A one-bedroom flat requires far less time on site than a four-bedroom detached house.
 
-Age and Construction Type — Older properties — particularly those built before the 1920s — often take more time to assess accurately.
+### Residential or Commercial Assessment
 
-Number of Zones (Commercial Properties) — Commercial buildings are assessed zone by zone. The more zones a building has, the longer the assessment takes.
+**A residential EPC** uses RdSAP software and focuses on the elements found in homes — insulation, heating systems, glazing and lighting. It is a streamlined process for a qualified domestic energy assessor.
 
-Access and Complexity — Properties that are straightforward to access and easy to inspect take less time than those with restricted access or multiple separate units.
+**A commercial EPC** uses SBEM software — a government-approved calculation tool — and covers a considerably wider range of building systems. Zoning, HVAC equipment, ventilation controls, lighting management systems and building management controls all form part of a commercial assessment. The process is more technical, takes longer and requires a specialist commercial assessor.
 
-Multiple Properties — Landlords with a portfolio who book multiple assessments together will find this a more cost-effective approach than booking each one separately.
+### Age and Construction Type
 
-Residential EPC Pricing in Manchester — What to Expect
+Older properties — particularly those built before the 1920s — often take more time to assess accurately. Non-standard construction methods, unusual wall types or hard-to-access building elements require the assessor to spend more time gathering and recording the right data to produce a reliable rating.
 
-Most residential assessments take between 30 and 45 minutes on site. Every residential EPC assessment with Prime EPC and Designing Consultants includes:
+### Number of Zones (Commercial Properties)
+
+Commercial buildings are assessed zone by zone. A building with a heated reception area, separate office floors, a server room, a warehouse section and a loading bay will have multiple distinct zones — each assessed individually. The more zones a building has, the longer the assessment takes and the more work is involved in producing the certificate.
+
+### Access and Complexity
+
+Properties that are straightforward to access and easy to inspect take less time than those with restricted access, multiple separate units or areas requiring additional coordination.
+
+### Multiple Properties
+
+Landlords with a portfolio of properties across Manchester who book multiple assessments together will find this a more cost-effective approach than booking each one separately. At **Prime EPC and Designing Consultants**, we work regularly with portfolio landlords and managing agents — contact us to discuss the most practical and cost-effective arrangement for your specific situation.
+
+## Residential EPC Pricing in Manchester — What to Expect
+
+For homeowners selling a property and residential landlords letting homes and flats across Greater Manchester, a domestic EPC assessment is a relatively quick process. Most residential assessments take between 30 and 45 minutes on site.
+
+Every residential EPC assessment with **Prime EPC and Designing Consultants** includes:
 
 - Full RdSAP assessment by an accredited domestic energy assessor
 - Certificate lodged on the GOV.UK national register the same day
 - PDF copy of the certificate emailed to you promptly
 - Clear explanation of the rating and what it means
-- Written improvement recommendations at no extra charge
+- Written improvement recommendations at no extra charge — so you know exactly what could be done to raise the rating if needed
 
-Commercial EPC Pricing in Manchester — What to Expect
+## Commercial EPC Pricing in Manchester — What to Expect
 
-Every commercial EPC assessment with Prime EPC and Designing Consultants includes:
+Every commercial EPC assessment with **Prime EPC and Designing Consultants** includes:
 
 - Full SBEM assessment using government-approved software
 - Certificate lodged on the national register the same day
 - PDF copy of the certificate emailed promptly
-- MEES compliance advice — if the property is rated F or G, we will explain exactly what needs to change
+- MEES compliance advice — if the property is rated F or G, we will explain exactly what needs to change and in what order to reach the legal minimum rating
 - Clear pricing confirmed before the assessment is booked
 
-What to Watch Out for When Comparing EPC Prices in Manchester
+## What to Watch Out for When Comparing EPC Prices in Manchester
 
-Are there hidden fees? Some providers quote a low base price and then add separate charges for lodging the certificate on the national register, travelling to the property, or issuing the PDF.
+**Are there hidden fees?** Some providers quote a low base price and then add separate charges for lodging the certificate on the national register, travelling to the property, or issuing the PDF. Always confirm the total price before booking.
 
-What is the turnaround time? A lower-cost provider that takes several days to lodge the certificate can cause more financial disruption through delays than the saving was worth.
+**What is the turnaround time?** If a property transaction is moving quickly, the time between assessment and certificate matters as much as the price. A lower-cost provider that takes several days to lodge the certificate can cause more financial disruption through delays than the saving was worth.
 
-Is the assessor fully accredited? EPC assessors must hold valid accreditation through a government-approved scheme. An assessment carried out by an unaccredited assessor is not legally valid.
+**Is the assessor fully accredited?** EPC assessors must hold valid accreditation through a government-approved scheme. An assessment carried out by an unaccredited assessor is not legally valid — the certificate will not be accepted by solicitors, letting agents or on the national register. Always verify accreditation before booking.
 
-Does the assessor have experience with your property type? A residential assessor and a commercial assessor are not interchangeable.
+**Does the assessor have experience with your property type?** A residential assessor and a commercial assessor are not interchangeable. Commercial properties require a specialist with experience in SBEM assessments and an understanding of the systems involved.
 
-Why Accuracy Matters as Much as Price
+## Why Accuracy Matters as Much as Price
 
-For commercial landlords, a rating of F or G means the property cannot be let at all — with fines of up to £150,000 for larger commercial properties in non-compliance.
+An EPC is a legal document. For residential landlords, the rating determines whether the property can be legally let under current MEES regulations. For commercial landlords, a rating of F or G means the property cannot be let at all — with fines of up to **£150,000** for larger commercial properties in non-compliance.
 
-At Prime EPC and Designing Consultants, our assessors take the time to do the job properly. Every piece of relevant documentation is reviewed, every improvement is recorded, and every certificate reflects the true current state of the property.
+At **Prime EPC and Designing Consultants**, our assessors take the time to do the job properly. Every piece of relevant documentation is reviewed, every improvement is recorded, and every certificate reflects the true current state of the property.
 
-Get a Clear EPC Quote in Manchester Today
+## Get a Clear EPC Quote in Manchester Today
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+Whether you need an EPC for a home, a flat, a rental property or a commercial building anywhere across Manchester and Greater Manchester — contact **Prime EPC and Designing Consultants** for a straightforward, no-obligation quote.
 
-Frequently Asked Questions
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
 
-Why do EPC prices vary between providers in Manchester?
-EPC prices vary based on property size, type, complexity and the time required for the assessment. Always get a total price, not just a base figure.
+## Frequently Asked Questions
 
-Is a cheaper EPC assessment always worse quality?
-Not necessarily — but the cheapest option carries more risk. A fair price from an experienced, accredited assessor is better value than a cheap one that produces an inaccurate rating.
+**Why do EPC prices vary between providers in Manchester?**
+EPC prices vary based on property size, type, complexity and the time required for the assessment. They also vary based on whether the provider includes lodging the certificate and issuing the PDF in the quoted price or charges for these separately. Always get a total price, not just a base figure.
 
-Do you charge extra for lodging the certificate on the national register?
-No. Lodging the certificate on the GOV.UK national register is included in the price at Prime EPC and Designing Consultants.
+**Is a cheaper EPC assessment always worse quality?**
+Not necessarily — but the cheapest option carries more risk. An underpriced assessment may mean the assessor is rushing, not reviewing supporting documentation properly, or not fully accredited. A fair price from an experienced, accredited assessor is better value than a cheap one that produces an inaccurate rating.
 
-Can I get a quote for multiple properties at once?
-Yes. Contact us directly with details of the properties and we will provide a combined quote.
+**Do you charge extra for lodging the certificate on the national register?**
+No. Lodging the certificate on the GOV.UK national register is included in the price at Prime EPC and Designing Consultants — there are no additional charges for this.
 
-How long does it take to receive the certificate after the assessment?
-The certificate is lodged on the national register the same day the assessment is completed in most cases.
+**Can I get a quote for multiple properties at once?**
+Yes. Contact us directly with details of the properties and we will provide a combined quote. Booking multiple assessments together is typically more cost-effective than booking each one individually.
 
-Do commercial EPC assessments cost more than residential ones?
-Yes — commercial assessments are more technically involved, take longer and require a specialist commercial assessor.
+**How long does it take to receive the certificate after the assessment?**
+The certificate is lodged on the national register the same day the assessment is completed in most cases. A PDF copy is emailed to you promptly once it has been issued.
 
-Prime EPC and Designing Consultants — Transparent EPC Pricing for Residential and Commercial Properties Across Manchester and Greater Manchester`
+**Do commercial EPC assessments cost more than residential ones?**
+Yes — commercial assessments are more technically involved, take longer and require a specialist commercial assessor. The exact cost depends on the size and complexity of the building. Contact us directly for a specific quote for your commercial property.
+
+*Prime EPC and Designing Consultants — Transparent EPC Pricing for Residential and Commercial Properties Across Manchester and Greater Manchester*`
   },
 
-  // ── BLOG 3 ──────────────────────────────────────────────────────────────
+  // ── BLOG 3 ─────────────────────────────────────────────────────────────
   {
     title: "EPC Regulations for Commercial Property in Manchester: What Landlords, Owners and Tenants Need to Know",
     slug: "epc-regulations-commercial-property-manchester",
@@ -244,17 +260,19 @@ Prime EPC and Designing Consultants — Transparent EPC Pricing for Residential 
     status: "published",
     author: "Prime EPC",
     excerpt: "Own, let or occupy a commercial property in Manchester? This guide explains EPC regulations, MEES compliance and your legal obligations in plain English.",
-    content: `EPC Regulations for Commercial Property in Manchester: What Landlords, Owners and Tenants Need to Know
+    content: `# EPC Regulations for Commercial Property in Manchester: What Landlords, Owners and Tenants Need to Know
 
-Introduction
+## Introduction
 
 If you own, let or occupy a commercial property in Manchester, staying on top of energy performance rules is no longer optional. The government has put firm regulations in place — and the rules are only getting stricter.
 
-At Prime EPC and Designing Consultants, we work with commercial landlords, property owners and tenants across Manchester to ensure full compliance, avoid penalties and make smarter decisions around energy use.
+At **Prime EPC and Designing Consultants**, we work with commercial landlords, property owners and tenants across Manchester to ensure full compliance, avoid penalties and make smarter decisions around energy use.
 
-What Is an EPC for a Commercial Property?
+## What Is an EPC for a Commercial Property?
 
-An Energy Performance Certificate (EPC) is a legal document that measures how energy efficient a building is. It rates the property on a scale from A (most efficient) to G (least efficient).
+An **Energy Performance Certificate (EPC)** is a legal document that measures how energy efficient a building is. It rates the property on a scale from **A (most efficient) to G (least efficient)**.
+
+EPCs for commercial properties were introduced under the EU Directive on the Energy Performance of Buildings (EPBD) and are now firmly embedded in UK property law.
 
 The certificate is produced by a qualified assessor and covers key elements including:
 
@@ -264,51 +282,99 @@ The certificate is produced by a qualified assessor and covers key elements incl
 - On-site power generation (where applicable)
 - Refrigeration units in commercial settings
 
-Do Commercial Properties in Manchester Need an EPC?
+The rating is calculated based on estimated **CO2 equivalent emissions** from these systems, giving a realistic picture of how much energy the building uses under standard conditions.
 
-Yes — and there are no exceptions for most commercial buildings.
+## Do Commercial Properties in Manchester Need an EPC?
+
+**Yes — and there are no exceptions for most commercial buildings.**
+
+Any commercial property in Manchester that is being **sold, rented or significantly modified** requires a valid EPC. This includes offices, retail units, warehouses, industrial units and mixed-use buildings.
 
 An EPC is required in the following situations:
 
-- Selling a commercial property — the seller must obtain an EPC before marketing the property.
-- Letting or re-letting a commercial property — landlords must have a valid EPC in place before granting a new lease.
-- Constructing a new building — a new EPC is required once the build is complete.
-- Making major alterations — if significant structural or system changes are made that affect energy use, an updated EPC may be required.
-- Displaying the EPC — certain larger commercial buildings are legally required to display the EPC in a prominent location.
+- **Selling a commercial property** — the seller must obtain an EPC before marketing the property.
+- **Letting or re-letting a commercial property** — landlords must have a valid EPC in place before granting a new lease.
+- **Constructing a new building** — a new EPC is required once the build is complete.
+- **Making major alterations** — if significant structural or system changes are made that affect energy use, an updated EPC may be required.
+- **Displaying the EPC** — certain larger commercial buildings are legally required to display the EPC in a prominent location.
+- **Demonstrating energy improvements** — if you have made upgrades to reduce energy use, a new EPC documents and validates those improvements.
 
-EPCs are valid for 10 years. If your certificate is older than that, it needs renewing before you can sell or let the property.
+One important point: **EPCs are valid for 10 years**. If your certificate is older than that, it needs renewing before you can sell or let the property.
 
-What Are the MEES Regulations — and Why Do They Matter?
+## What Are the MEES Regulations — and Why Do They Matter?
 
-Since 1 April 2018, it has been unlawful to let a sub-standard commercial property — that is, one rated F or G — to a new or renewing tenant, unless a valid exemption has been registered.
+Alongside EPCs, commercial property owners in Manchester must also comply with the **Minimum Energy Efficiency Standards (MEES)** regulations.
 
-- If your commercial property has an EPC rating of F or G, you cannot legally grant a new lease or renew an existing one without either improving the property or registering an exemption.
-- The minimum legal requirement for letting commercial property is currently an E rating.
-- The government has signalled its intention to raise this minimum to a C rating by 2027 and a B rating by 2030 for commercial properties.
+Since **1 April 2018**, it has been unlawful to let a sub-standard commercial property — that is, one rated **F or G** — to a new or renewing tenant, unless a valid exemption has been registered.
 
-EPC Compliance: What It Means for Landlords, Owners and Tenants
+Here is what that means in practice:
 
-For Landlords — Before granting any new lease, you must hold a valid EPC (no older than 10 years), ensure the rating is at least an E, and provide a copy of the EPC to prospective tenants before they sign.
+- If your commercial property has an **EPC rating of F or G**, you cannot legally grant a new lease or renew an existing one without either improving the property or registering an exemption.
+- The minimum legal requirement for letting commercial property is currently an **E rating**.
+- The government has signalled its intention to raise this minimum to a **C rating by 2027** and a **B rating by 2030** for commercial properties — though timelines may be subject to change.
 
-For Property Owners — If you own a commercial building that is not currently tenanted, you are not required to hold an EPC unless you plan to sell or let it. However, getting an EPC in place early gives you time to address any issues before they become obstacles.
+## How Is a Commercial EPC Rating Calculated?
 
-For Tenants — As a commercial tenant, you have the right to receive a copy of the EPC before you agree to a lease. Understanding the EPC rating of a property matters — it directly affects your energy bills and your organisation's carbon footprint.
+Commercial EPC assessors use specialised software to calculate a building's energy rating. The process is more detailed than a domestic EPC and typically involves an on-site inspection covering:
 
-What Happens During a Lease Renewal?
+- The age and construction type of the building
+- The type and condition of insulation (walls, roof, floors)
+- Heating, hot water and cooling systems
+- Ventilation systems
+- Lighting systems
+- Any on-site renewable energy sources
 
-- A lease renewal is not technically the same as granting a new lease, so it does not always automatically trigger an EPC requirement.
-- However, if no valid EPC exists at the point of renewal, obtaining one at this stage is advisable.
-- The MEES prohibition on letting sub-standard properties does apply to extensions and renewals of existing tenancies from April 2018 onwards.
+The result is a **Standard Assessment Procedure (SAP)** or **Simplified Building Energy Model (SBEM)** score, which is then translated into the A–G rating that appears on the certificate.
 
-How to Improve Your Commercial EPC Rating in Manchester
+## EPC Compliance: What It Means for Landlords, Owners and Tenants in Manchester
 
-- Upgrading the heating system — moving to a more efficient boiler or heat pump
-- Improving insulation — particularly roof and wall insulation in older buildings
-- Replacing lighting with LEDs — a relatively low-cost improvement with a measurable impact on ratings
-- Installing smart controls and building management systems
-- Adding solar panels or other on-site renewables
+### For Landlords
 
-Why Work With Prime EPC and Designing Consultants?
+You have the greatest legal responsibility under EPC and MEES regulations. Before granting any new lease, you must:
+
+- Hold a valid EPC (no older than 10 years)
+- Ensure the rating is at least an **E**
+- Provide a copy of the EPC to prospective tenants before they sign
+
+Failure to comply can result in financial penalties and — in some cases — the inability to enforce the lease.
+
+### For Property Owners
+
+If you own a commercial building in Manchester that is not currently tenanted, you are not required to hold an EPC unless you plan to sell or let it. However, if you are planning either in the near future, getting an EPC in place early gives you time to address any issues before they become obstacles.
+
+### For Tenants
+
+As a commercial tenant, you have the right to receive a copy of the EPC before you agree to a lease. While the legal obligations sit primarily with the landlord, understanding the EPC rating of a property matters — it directly affects your energy bills and your organisation's carbon footprint.
+
+If you are taking a long lease on a lower-rated property, it is worth negotiating with the landlord about planned energy improvements, particularly given the upcoming MEES changes.
+
+## What Happens During a Lease Renewal?
+
+This is a grey area that trips up many landlords and agents. Here is the current position:
+
+- A **lease renewal** is not technically the same as granting a new lease, so it does not always automatically trigger an EPC requirement.
+- However, if **no valid EPC exists** at the point of renewal, current guidance from the Non-Domestic MEES framework suggests that obtaining one at this stage is advisable.
+- The MEES prohibition on letting sub-standard properties **does apply to extensions and renewals** of existing tenancies from April 2018 onwards.
+
+The safest approach: if your current EPC has expired or no valid certificate exists, obtain a fresh one before any renewal conversations begin.
+
+## How to Improve Your Commercial EPC Rating in Manchester
+
+If your property currently sits at a D, E, F or G rating, the following improvements are typically the most impactful:
+
+- **Upgrading the heating system** — moving to a more efficient boiler or heat pump
+- **Improving insulation** — particularly roof and wall insulation in older buildings
+- **Replacing lighting with LEDs** — a relatively low-cost improvement with a measurable impact on ratings
+- **Installing smart controls and building management systems**
+- **Adding solar panels or other on-site renewables**
+
+Every property is different. At **Prime EPC and Designing Consultants**, we carry out a full assessment and advise on the most cost-effective route to improving your rating ahead of any sale, letting or upcoming MEES deadline.
+
+## Why Work With Prime EPC and Designing Consultants?
+
+We are a Manchester-based team with hands-on experience across commercial property — from small retail units to large industrial sites.
+
+When you work with us, you get:
 
 - A thorough, accredited EPC assessment carried out by qualified energy assessors
 - Clear advice on your current rating and what it means for your obligations
@@ -316,33 +382,41 @@ Why Work With Prime EPC and Designing Consultants?
 - Fast turnaround on certificates so you are never held up on a sale or letting
 - Support navigating MEES compliance and exemptions where relevant
 
-Frequently Asked Questions
+Whether you are a landlord with a portfolio across Greater Manchester, a property owner preparing to sell, or a tenant wanting to understand what you are signing up to — we are here to help.
 
-How long does a commercial EPC last?
+## Frequently Asked Questions
+
+**How long does a commercial EPC last?**
 A commercial EPC lasts for 10 years, starting from the date of the certificate.
 
-What is the minimum rating required for letting a commercial property?
+**What is the minimum rating required for letting a commercial property?**
 As of now, the minimum rating to be able to let your property is E. This will rise to C by 2027 and B by 2030.
 
-Is it possible to sell a commercial property with a bad EPC rating?
-Yes, it is. Unlike letting where there is a minimum requirement, there is none for selling.
+**Is it possible to sell a commercial property with a bad EPC rating?**
+Yes, it is. Unlike letting where there is a minimum requirement for a certificate, there is none for selling.
 
-What is the consequence of letting a property without a valid EPC certificate?
-You may incur some financial penalty. In case of commercial properties, the fine might go up to £150,000.
+**What is the consequence of letting a property without a valid EPC certificate?**
+You may incur some financial penalty. The fine you may receive will be proportional to the rateable value of the property. In case of commercial properties, however, the fine might go up to £150,000.
 
-Do I need an EPC certificate for each unit in a multi-unit building?
-It depends on the layout of your building. We can assess whether you need one for your specific property.
+**Do I need an EPC certificate for each unit in a multi-unit building?**
+It depends on the layout of your building. Some multi-unit buildings will require multiple certificates; however, we can assess whether you need one for your specific property.
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+## Get Your Commercial EPC in Manchester Today
+
+If you need an EPC for a commercial property in Manchester — or want to understand your obligations under MEES — get in touch with **Prime EPC and Designing Consultants**.
+
+We make the process straightforward, from booking your assessment to receiving your certificate and understanding what it means for your property.
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
 
 Serving commercial properties across Manchester and Greater Manchester
 
-Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manchester`
+*Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manchester*`
   },
 
-  // ── BLOG 4 ──────────────────────────────────────────────────────────────
+  // ── BLOG 4 ─────────────────────────────────────────────────────────────
   {
     title: "How Long Does an EPC Last? The Complete Guide for Manchester Landlords and Sellers",
     slug: "how-long-does-an-epc-last-manchester",
@@ -353,11 +427,19 @@ Prime EPC and Designing Consultants — Commercial EPC Assessments Across Manche
     status: "published",
     author: "Prime EPC",
     excerpt: "An EPC is valid for 10 years. This guide answers every question Manchester landlords and sellers have about EPC validity, renewal and what to do when it expires.",
-    content: `How Long Does an EPC Last? The Complete Guide for Manchester Landlords and Sellers
+    content: `# How Long Does an EPC Last? The Complete Guide for Manchester Landlords and Sellers
 
-The Direct Answer: How Long Is an EPC Valid?
+## Selling or Renting in Manchester? Here Is What You Need to Know About EPC Validity
 
-An EPC is valid for 10 years from the date it was issued.
+If you are selling or letting a property in Manchester, the Energy Performance Certificate is one of the first documents you will be asked to produce — by your solicitor, your letting agent, and your prospective buyer or tenant.
+
+Yet it remains one of the most misunderstood documents in property. How long does it actually last? Do you need a new one every time a tenant changes? What happens if your rating is poor?
+
+**Prime EPC and Designing Consultants** answers all of it below — straightforwardly, with no filler.
+
+## The Direct Answer: How Long Is an EPC Valid?
+
+**An EPC is valid for 10 years from the date it was issued.**
 
 This applies to both residential properties — houses and flats — and commercial properties such as offices, retail units and warehouses across Manchester and Greater Manchester.
 
@@ -365,35 +447,46 @@ Within that 10-year window, you can reuse the same certificate for multiple sale
 
 Once it expires, you need a new assessment before you can legally sell or let the property again.
 
-Do You Need a New EPC for Every New Tenant?
+## Do You Need a New EPC for Every New Tenant?
 
 No — and this is the question we get asked most often by Manchester landlords.
 
 You do not need a new EPC every time a tenant changes. The certificate belongs to the property, not the tenancy or the tenant. As long as it is within its 10-year validity period, it covers every new letting during that time.
 
-When Should You Get a New EPC Before the Current One Expires?
+## When Should You Get a New EPC Before the Current One Expires?
 
-You Have Made Improvements to the Property
+### You Have Made Improvements to the Property
 
-If you have installed a new boiler, topped up loft insulation, had cavity walls filled, or upgraded to double glazing since the last assessment — your current certificate does not reflect those changes. A property that was rated D before those improvements could now comfortably sit at a C.
+If you have installed a new boiler, topped up loft insulation, had cavity walls filled, or upgraded to double glazing since the last assessment — your current certificate does not reflect those changes.
 
-Your Current Rating Is F or G
+A property that was rated **D** before those improvements could now comfortably sit at a **C**. Getting a fresh assessment means the certificate accurately represents the property as it stands today. For landlords, a better rating reduces compliance risk as regulations tighten over the coming years. For sellers, it is a concrete marketing advantage at a time when buyers are closely scrutinising energy running costs.
 
-Under the Minimum Energy Efficiency Standards (MEES) regulations, landlords in England cannot legally start a new tenancy on a property with an F or G rating. A new assessment, carried out after targeted improvements, confirms that the property now meets the legal minimum of E.
+### Your Current Rating Is F or G
 
-You Want to Support a Higher Asking Price or Rental Figure
+A valid certificate showing an F or G rating does not protect you from enforcement. Under the **Minimum Energy Efficiency Standards (MEES)** regulations, landlords in England — residential and commercial alike — cannot legally start a new tenancy on a property with either of those ratings.
 
-A property with a C or B rating stands out against one on a D. A fresh assessment that reflects improvements can directly support a stronger asking price or rental figure.
+The certificate tells you what the problem is. A new assessment, carried out after targeted improvements, confirms that the property now meets the legal minimum of **E** and that you are clear to let.
 
-Who Is Responsible for Getting the EPC?
+### You Want to Support a Higher Asking Price or Rental Figure
 
-If you are the landlord or the seller, this sits with you. You are legally required to have a valid EPC in place before the property is marketed. Failing to have a valid EPC before marketing can result in a financial penalty — for residential properties this can reach £5,000, and for commercial properties fines can be significantly higher.
+Buyers and tenants in Manchester are paying close attention to energy costs. A property with a C or B rating stands out against one on a D. If you have made improvements since the last certificate was issued, a fresh assessment that reflects those changes can directly support a stronger asking price or rental figure — and speed up the time it takes to find a buyer or tenant.
 
-What Happens During an EPC Assessment?
+## Who Is Responsible for Getting the EPC?
 
-An EPC assessment is a non-intrusive visual inspection. No floorboards are lifted, no holes are drilled and nothing is dismantled.
+If you are the **landlord or the seller**, this sits with you. You are legally required to have a valid EPC in place before the property is marketed — whether that means listing it with an estate agent, advertising it online or showing it to prospective tenants.
 
-For residential properties — a typical assessment takes around 30 to 45 minutes. The assessor will look at:
+If you are a **buyer or tenant**, you do not need to arrange anything. You have the right to be shown the certificate before you commit to the property.
+
+Failing to have a valid EPC before marketing can result in a financial penalty. For residential properties this can reach **£5,000**. For commercial properties, fines are calculated on the rateable value of the building and can be significantly higher.
+
+## What Happens During an EPC Assessment?
+
+A common concern is that an assessment will cause disruption to the property. In practice, it causes very little.
+
+An EPC assessment is a **non-intrusive visual inspection**. No floorboards are lifted, no holes are drilled and nothing is dismantled.
+
+**For residential properties** — houses, flats and HMOs — a typical assessment takes around **30 to 45 minutes**. The assessor will need access to every room, including the loft where applicable, and will look at:
+
 - The age and construction type of the building
 - Wall, roof and floor insulation
 - The heating system — boiler type, age and efficiency
@@ -401,57 +494,78 @@ For residential properties — a typical assessment takes around 30 to 45 minute
 - Window glazing type — single, double or triple
 - Lighting throughout the property
 
-For commercial properties — the assessment takes longer, typically 45 minutes to a couple of hours depending on size and complexity.
+**For commercial properties** — offices, retail units, warehouses and industrial buildings — the assessment takes longer, typically **45 minutes to a couple of hours** depending on the size and complexity of the building. In addition to the above, commercial assessments also cover:
 
-The Minimum E Rating Rule — The Part Landlords Cannot Afford to Ignore
+- Mechanical ventilation and air conditioning
+- Heating and building management controls
+- Lighting systems and controls
+- Any on-site power generation or refrigeration
+
+Having supporting documentation ready — such as a boiler installation certificate, insulation guarantee paperwork or glazing certificates — allows the assessor to give you full credit for every improvement that has been made to the property.
+
+## The Minimum E Rating Rule — The Part Landlords Cannot Afford to Ignore
+
+This is the single most important compliance point for landlords in Manchester, and it applies regardless of whether an existing EPC certificate is technically still valid.
 
 Under current UK law:
-- Residential landlords cannot legally let a property rated F or G to a new or renewing tenant
-- Commercial landlords face the same restriction under the Non-Domestic MEES regulations
 
-The government has also proposed raising the minimum rating for residential rentals to C by 2028.
+- **Residential landlords** cannot legally let a property rated F or G to a new or renewing tenant
+- **Commercial landlords** face the same restriction under the Non-Domestic MEES regulations, with minimum standards set to increase further in the years ahead
 
-How Quickly Can You Get an EPC in Manchester?
+A certificate that is within its 10-year window but shows an F or G rating does not allow you to let the property. The rating needs to change, not the certificate date.
 
-At Prime EPC and Designing Consultants, we typically arrange an assessor visit within 48 to 72 hours of booking. Once the assessment is complete, the certificate is lodged on the national government register almost immediately.
+The government has also proposed raising the minimum rating for residential rentals to **C by 2028**. For Manchester landlords with properties currently sitting on a D or E, planning improvements now — rather than closer to the deadline — is a far more cost-effective approach.
 
-We cover a 40-mile radius around Manchester, serving Manchester City Centre, Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan, Tameside and surrounding areas.
+## How Quickly Can You Get an EPC in Manchester?
 
-Frequently Asked Questions
+At **Prime EPC and Designing Consultants**, we understand that property transactions move quickly and delays are costly.
 
-Can I reuse an EPC from the previous owner of a property?
+We typically arrange an assessor visit within **48 to 72 hours** of booking. Once the assessment is complete, the certificate is lodged on the national government register almost immediately — so your solicitor, letting agent or prospective tenant can access and verify it straight away without any wait.
+
+We cover a **40-mile radius around Manchester**, serving Manchester City Centre, Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan, Tameside and surrounding areas.
+
+## Frequently Asked Questions
+
+**Can I reuse an EPC from the previous owner of a property?**
 Yes — provided it is less than 10 years old and covers the same property. The certificate belongs to the property, not the owner, so it transfers automatically.
 
-What happens if I market a property without a valid EPC?
+**What happens if I market a property without a valid EPC?**
 You may face a financial penalty. For residential properties, this can be up to £5,000. For commercial properties, fines are based on the rateable value and can be considerably higher.
 
-Does a lease renewal require a new EPC?
+**Does a lease renewal require a new EPC?**
 Not automatically. If a valid EPC already exists, it generally covers a lease renewal. However, if no valid certificate is in place at the point of renewal, obtaining one before proceeding is strongly advisable.
 
-How long does it take to receive the certificate after the assessment?
+**How long does it take to receive the certificate after the assessment?**
 At Prime EPC and Designing Consultants, the certificate is lodged on the national register the same day the assessment is completed in most cases.
 
-Does a better EPC rating affect what I can charge in rent or asking price?
-Yes — properties with higher EPC ratings consistently sell faster and attract stronger offers.
+**Does a better EPC rating affect what I can charge in rent or asking price?**
+Yes — properties with higher EPC ratings consistently sell faster and attract stronger offers. For rental properties, a better rating also reduces exposure to future compliance issues as minimum standards rise.
 
-Book Your EPC Assessment in Manchester Today
+**What is the difference between a residential and a commercial EPC assessment?**
+Residential EPCs are produced using the Reduced Data Standard Assessment Procedure (RdSAP). Commercial EPCs use Simplified Building Energy Model (SBEM) software, which accounts for the additional systems found in non-domestic buildings. Both use the same A to G rating scale.
 
-- Assessor visits typically within 48 to 72 hours
-- Fully accredited local assessors
-- Certificates lodged on the national register same day
-- Clear pricing — no hidden fees
-- Covering a 40-mile radius around Manchester
+## Book Your EPC Assessment in Manchester Today
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+Whether your certificate has expired, you are preparing a property for sale or letting, or you simply want to know where your rating stands — **Prime EPC and Designing Consultants** is ready to help.
 
-Prime EPC and Designing Consultants — Residential and Commercial EPC Assessments Across Manchester and Greater Manchester`
+We provide accredited EPC assessments for both residential and commercial properties across Manchester and Greater Manchester, with fast turnaround times and straightforward pricing.
+
+✔ Assessor visits typically within 48 to 72 hours
+✔ Fully accredited local assessors
+✔ Certificates lodged on the national register same day
+✔ Clear pricing — no hidden fees
+✔ Covering a 40-mile radius around Manchester
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
+
+*Prime EPC and Designing Consultants — Residential and Commercial EPC Assessments Across Manchester and Greater Manchester*`
   },
 
-  // ── BLOG 5 ──────────────────────────────────────────────────────────────
+  // ── BLOG 5 ─────────────────────────────────────────────────────────────
   {
-    title: "How to Get Your Home to an EPC 'C' Rating in Manchester (Without Wasting Money)",
+    title: "How to Get Your Home to an EPC \'C\' Rating in Manchester (Without Wasting Money)",
     slug: "how-to-get-home-epc-c-rating-manchester",
     metaTitle: "How to Get an EPC C Rating for Your Home in Manchester | Prime EPC and Designing Consultants",
     metaDescription: "Want to hit an EPC C rating for your home or flat in Manchester? Prime EPC and Designing Consultants shares a step-by-step guide — starting with the cheapest fixes first.",
@@ -460,101 +574,143 @@ Prime EPC and Designing Consultants — Residential and Commercial EPC Assessmen
     status: "published",
     author: "Prime EPC",
     excerpt: "A practical step-by-step guide for Manchester homeowners and landlords to reach an EPC C rating — starting with the cheapest fixes and working up from there.",
-    content: `How to Get Your Home to an EPC 'C' Rating in Manchester (Without Wasting Money)
+    content: `# How to Get Your Home to an EPC \'C\' Rating in Manchester (Without Wasting Money)
 
-Why Getting to an EPC 'C' Rating Is Worth It Right Now
+## Why Getting to an EPC \'C\' Rating Is Worth It Right Now
 
-Whether you are a landlord in Manchester renting out a property, a homeowner planning to sell, or someone simply trying to cut down on energy bills — getting your home to an EPC C rating is one of the most practical things you can do right now.
+Whether you are a landlord in Manchester renting out a property, a homeowner planning to sell, or someone simply trying to cut down on energy bills — getting your home to an EPC **C rating** is one of the most practical things you can do right now.
 
-For landlords, a C is fast becoming the safety zone. The government has proposed requiring all newly rented homes to meet a minimum C rating by 2028. Getting there now means no last-minute panic, no rushed spending and no risk of being unable to let your property.
+For **landlords**, a C is fast becoming the safety zone. The government has proposed requiring all newly rented homes to meet a minimum C rating by 2028. Getting there now means no last-minute panic, no rushed spending and no risk of being unable to let your property.
 
-For sellers, a C rating makes your home stand out. With buyers acutely aware of energy bills, a well-rated home sells faster and holds its value better than one sitting on a D or E.
+For **sellers**, a C rating makes your home stand out. With buyers acutely aware of energy bills, a well-rated home sells faster and holds its value better than one sitting on a D or E.
 
-And here is the good news: you almost certainly do not need solar panels to get there.
+And here is the good news: **you almost certainly do not need solar panels to get there.**
 
-Step 1: Start With the Cheap Fixes (Do These First)
+This guide from **Prime EPC and Designing Consultants** walks you through the practical steps — in order of cost — to reach that C rating for your Manchester home or flat.
 
-Switch Every Bulb to LED
+## Step 1: Start With the Cheap Fixes (Do These First)
 
-This is the easiest point-scorer on an EPC assessment. If your property still has any halogen or older filament bulbs, swap every single one for an LED equivalent. LEDs use up to 80% less energy than halogen bulbs, they last far longer, and the total cost for a typical home is usually under £50. Assessors check lighting as a specific line item on the assessment. Full LED throughout the property is a tick in the box — and it is the cheapest tick available.
+Before spending money on anything significant, start here. These small changes cost very little but they are things EPC assessors look for immediately — and they can be enough to push a borderline D property over the line into C territory.
 
-Draught-Proof Your Windows, Doors and Letterbox
+### Switch Every Bulb to LED
 
-If you can feel cold air coming in around your windows, doors, loft hatch or even your letterbox, you are losing heat — and losing EPC points along with it. Foam draught strips, brush seals and letterbox covers are available from any hardware shop for a few pounds.
+This is the easiest point-scorer on an EPC assessment. If your property still has any halogen or older filament bulbs, swap every single one for an LED equivalent. LEDs use up to 80% less energy than halogen bulbs, they last far longer, and the total cost for a typical home is usually under £50.
 
-Fit an Insulating Jacket on Your Hot Water Cylinder
+Assessors check lighting as a specific line item on the assessment. Full LED throughout the property is a tick in the box — and it is the cheapest tick available.
 
-If your home has a hot water storage cylinder (a tank, not a combi boiler), make sure it has a thick insulating jacket — at least 80mm. A cylinder jacket costs around £20 from most hardware stores and has a measurable effect on your EPC score.
+### Draught-Proof Your Windows, Doors and Letterbox
 
-Step 2: Insulation — The Biggest Bang for Your Money
+If you can feel cold air coming in around your windows, doors, loft hatch or even your letterbox, you are losing heat — and losing EPC points along with it.
 
-Loft Insulation
+Foam draught strips, brush seals and letterbox covers are available from any hardware shop for a few pounds. Going around the whole property takes an afternoon and costs next to nothing. It will not transform your rating on its own, but combined with other measures it adds up.
 
-If your loft has less than 270mm of insulation, topping it up is often the single most cost-effective improvement you can make to an EPC rating. Heat rises — and if there is nothing substantial stopping it at the roof, you are heating the outside air. Loft insulation is relatively affordable to install, causes minimal disruption, and for many Manchester homes sitting on a D rating, it alone can be enough to reach a C.
+### Fit an Insulating Jacket on Your Hot Water Cylinder
 
-Cavity Wall Insulation
+If your home has a hot water storage cylinder (a tank, not a combi boiler), make sure it has a thick insulating jacket — at least 80mm. A cylinder jacket costs around £20 from most hardware stores and has a measurable effect on your EPC score. If the cylinder is already insulated but the jacket is thin or damaged, replace it.
 
-If your home was built between the 1920s and the 1990s, there is a good chance it has unfilled cavity walls. The gap between the inner and outer wall was designed to stop damp — but it also lets heat escape freely. Cavity wall insulation is injected through small holes drilled in the outside wall, then sealed. It is far cheaper than solid wall insulation, causes very little disruption, and significantly improves heat retention.
+## Step 2: Insulation — The Biggest Bang for Your Money
 
-Step 3: Heating Controls — A Small Change With a Real Impact
+No amount of cheap fixes will overcome poor insulation. Heat escaping through the roof or walls drags your EPC score down and drives your energy bills up. These two improvements consistently deliver the strongest results for the lowest cost.
 
-Your boiler might be perfectly adequate, but if the controls are outdated, the EPC assessment will reflect that. The following additions are relatively low cost and make a genuine difference to your score:
+### Loft Insulation
 
-- A room thermostat — if you do not have one, fitting one is straightforward and inexpensive.
-- A programmable or smart thermostat — allows the heating to run only when needed, which assessors view positively.
-- Thermostatic Radiator Valves (TRVs) on individual radiators — these allow room-by-room temperature control.
+If your loft has less than **270mm of insulation**, topping it up is often the single most cost-effective improvement you can make to an EPC rating. Heat rises — and if there is nothing substantial stopping it at the roof, you are heating the outside air.
 
-Step 4: The Bigger Investments (When You Still Need More Points)
+Loft insulation is relatively affordable to install, causes minimal disruption, and for many Manchester homes sitting on a D rating, it alone can be enough to reach a C.
 
-Boiler Replacement
+### Cavity Wall Insulation
 
-An old non-condensing boiler — typically anything 15 years old or more — is one of the biggest drags on a residential EPC rating. Modern A-rated condensing boilers are significantly more efficient and replacing an old boiler can deliver a substantial jump in your rating.
+If your home was built **between the 1920s and the 1990s**, there is a good chance it has unfilled cavity walls. The gap between the inner and outer wall was designed to stop damp — but it also lets heat escape freely.
 
-Window Upgrades
+Cavity wall insulation is injected through small holes drilled in the outside wall, then sealed. It is far cheaper than solid wall insulation, causes very little disruption, and significantly improves heat retention. For Manchester properties of this era, it is one of the most impactful changes possible.
 
-Moving from single glazing to double glazing adds points to your EPC assessment. However, if your property already has double glazing, upgrading to newer double-glazed units adds far less to the score than most people expect.
+If your home was built before the 1920s or has solid walls, cavity fill is not an option — but solid wall insulation (internal or external) is available, though more expensive.
 
-Do You Actually Need Solar Panels or a Heat Pump to Hit a C?
+## Step 3: Heating Controls — A Small Change With a Real Impact
 
-In most cases, no. Good insulation and a modern gas boiler will get most homes to a C. Solar panels are excellent for pushing a property from C to B or B to A — but they are rarely necessary just to clear the C threshold.
+Your boiler might be perfectly adequate, but if the controls are outdated, the EPC assessment will reflect that. Assessors want to see that the heating system can be controlled precisely — both in terms of timing and temperature.
 
-The Mistake That Costs Homeowners the Most Money
+The following additions are relatively low cost and make a genuine difference to your score:
 
-The biggest mistake people make when trying to improve their EPC rating is spending money on the wrong things. Every property is different. The measures that will take your specific home from a D to a C depend on the age of the building, its construction type, its current heating system and what improvements are already in place.
+- **A room thermostat** — if you do not have one, fitting one is straightforward and inexpensive.
+- **A programmable or smart thermostat** — allows the heating to run only when needed, which assessors view positively.
+- **Thermostatic Radiator Valves (TRVs)** on individual radiators — these allow room-by-room temperature control, which improves both the assessment score and your actual energy use.
 
-Get a Clear Roadmap From Prime EPC and Designing Consultants
+If your property already has all of these, make sure they are in working order before your EPC assessment. A broken or missing TRV will be noted.
 
-At Prime EPC and Designing Consultants, we do not just hand you a certificate and leave you to figure out the rest. Our assessors carry out a full evaluation of your Manchester property and tell you exactly which changes will get you to that C rating — and which ones are not worth your money.
+## Step 4: The Bigger Investments (When You Still Need More Points)
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+If you have done all the above and are still stuck on a D, you might need to look at the heating system itself.
+
+### Boiler Replacement
+
+An old **non-condensing boiler** — typically anything 15 years old or more — is one of the biggest drags on a residential EPC rating. Modern **A-rated condensing boilers** are significantly more efficient and replacing an old boiler can deliver a substantial jump in your rating.
+
+This is not a cheap fix, but if your boiler is already approaching the end of its life, the EPC benefit makes the timing even more compelling.
+
+### Window Upgrades
+
+Moving from **single glazing to double glazing** adds points to your EPC assessment. However, if your property already has double glazing, upgrading to newer double-glazed units adds far less to the score than most people expect — so it is rarely the most efficient way to spend money purely for EPC purposes.
+
+If windows need replacing anyway, modern units are worth it. If they are in reasonable condition, the money is better spent elsewhere on the list.
+
+## Do You Actually Need Solar Panels or a Heat Pump to Hit a C?
+
+**In most cases, no.**
+
+This is one of the most common misconceptions about EPC ratings. Many homeowners assume they need to install solar PV panels or a heat pump to reach a C. For the vast majority of standard residential properties in Manchester, that is simply not the case.
+
+Good insulation and a modern gas boiler will get most homes to a C. Solar panels are excellent for pushing a property from C to B or B to A — but they are rarely necessary just to clear the C threshold.
+
+Heat pumps can boost your rating significantly, but they work best in well-insulated properties and come with a considerable installation cost. They make more sense as part of a longer-term plan rather than a quick route to a C.
+
+## The Mistake That Costs Homeowners the Most Money
+
+The biggest mistake people make when trying to improve their EPC rating is spending money on the wrong things.
+
+Upgrading windows when the loft has no insulation. Installing a smart thermostat when there is an ancient non-condensing boiler. Buying solar panels when draught-proofing and LED lighting would have been enough.
+
+Every property is different. The measures that will take your specific home from a D to a C depend on the age of the building, its construction type, its current heating system and what improvements are already in place.
+
+**Guessing is expensive. A proper assessment is not.**
+
+## Get a Clear Roadmap From Prime EPC and Designing Consultants
+
+At **Prime EPC and Designing Consultants**, we do not just hand you a certificate and leave you to figure out the rest. Our assessors carry out a full evaluation of your Manchester property and tell you exactly which changes will get you to that C rating — and which ones are not worth your money.
+
+Whether you are a landlord looking to future-proof a rental property, a homeowner preparing to sell, or someone who simply wants to understand where their property stands — we give you a clear, honest picture and a practical plan.
+
+We cover residential properties across Manchester and Greater Manchester.
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
 
 Serving homes and flats across Manchester, Salford, Stockport, Oldham, Bolton and surrounding areas
 
-Frequently Asked Questions
+## Frequently Asked Questions
 
-What EPC rating do I need to rent out my property in Manchester?
-Currently, the minimum legal requirement for renting a residential property in England is an E rating. The government has proposed raising this to C for new tenancies by 2028.
+**What EPC rating do I need to rent out my property in Manchester?**
+Currently, the minimum legal requirement for renting a residential property in England is an E rating. The government has proposed raising this to C for new tenancies by 2028. Getting to C now puts you well ahead of that requirement.
 
-How much does it cost to improve an EPC rating from D to C?
-It depends entirely on the property. For some homes, LED lighting, draught-proofing and a cylinder jacket costing under £100 is enough. Others may need loft insulation, cavity wall insulation or a boiler upgrade.
+**How much does it cost to improve an EPC rating from D to C?**
+It depends entirely on the property. For some homes, LED lighting, draught-proofing and a cylinder jacket costing under £100 is enough. Others may need loft insulation, cavity wall insulation or a boiler upgrade. A proper EPC assessment will tell you what your specific property needs.
 
-How long does an EPC assessment take for a home in Manchester?
+**How long does an EPC assessment take for a home in Manchester?**
 A standard residential EPC assessment typically takes between 30 minutes and an hour, depending on the size of the property.
 
-Is an EPC certificate required before selling a home?
+**Is an EPC certificate required before selling a home?**
 Yes. You are legally required to have a valid EPC in place before marketing a residential property for sale in England.
 
-Can I get an EPC assessment and improvement advice in one visit?
+**Can I get an EPC assessment and improvement advice in one visit?**
 Yes — at Prime EPC and Designing Consultants, our assessors provide both the certificate and practical guidance on improvements during the same visit.
 
-Prime EPC and Designing Consultants — Residential EPC Assessments Across Manchester`
+*Prime EPC and Designing Consultants — Residential EPC Assessments Across Manchester*`
   },
 
-  // ── BLOG 6 ──────────────────────────────────────────────────────────────
+  // ── BLOG 6 ─────────────────────────────────────────────────────────────
   {
-    title: "How to Get Your Property to an EPC 'C' Rating in Manchester (Cheapest Fixes First)",
+    title: "How to Get Your Property to an EPC \'C\' Rating in Manchester (Cheapest Fixes First)",
     slug: "how-to-get-property-epc-c-rating-manchester",
     metaTitle: "How to Get an EPC C Rating in Manchester — Step by Step | Prime EPC and Designing Consultants",
     metaDescription: "Want to hit an EPC C rating in Manchester? Prime EPC and Designing Consultants shares a practical step-by-step guide starting with the cheapest fixes first — no solar panels required.",
@@ -563,116 +719,150 @@ Prime EPC and Designing Consultants — Residential EPC Assessments Across Manch
     status: "published",
     author: "Prime EPC",
     excerpt: "Getting to EPC C is one of the smartest moves you can make. This guide walks you through every step in cost order — so you spend as little as possible to reach that C.",
-    content: `How to Get Your Property to an EPC 'C' Rating in Manchester (Cheapest Fixes First)
+    content: `# How to Get Your Property to an EPC \'C\' Rating in Manchester (Cheapest Fixes First)
 
-Getting to an EPC 'C' Rating Is One of the Smartest Moves You Can Make Right Now
+## Getting to an EPC \'C\' Rating Is One of the Smartest Moves You Can Make Right Now
 
-For landlords in Manchester, a C rating is the safe zone. The government has proposed that all privately rented homes must meet a minimum C rating by 2028. Getting there now means no last-minute rush, no rushed spending and no risk of being unable to let your property when the deadline arrives.
+For **landlords** in Manchester, a C rating is the safe zone. The government has proposed that all privately rented homes must meet a minimum C rating by 2028. Getting there now means no last-minute rush, no rushed spending and no risk of being unable to let your property when the deadline arrives.
 
-For sellers, a C rating makes your home stand out. With buyers scrutinising energy bills more carefully than ever, a well-rated home sells faster and holds its value better than one sitting on a D or E.
+For **sellers**, a C rating makes your home stand out. With buyers scrutinising energy bills more carefully than ever, a well-rated home sells faster and holds its value better than one sitting on a D or E.
 
-And here is the part most people get wrong: you almost certainly do not need solar panels to get there.
+And here is the part most people get wrong: **you almost certainly do not need solar panels to get there.**
 
-Before You Spend Anything — Understand Where You Are Starting From
+This guide from **Prime EPC and Designing Consultants** walks you through every step — in order of cost — so you spend as little as possible to reach that C.
+
+## Before You Spend Anything — Understand Where You Are Starting From
 
 Every property is different. The improvements that will move your specific home from a D to a C depend on the age of the building, its construction type, its current heating system and what is already in place.
 
-Work through the steps below in order. Many properties in Manchester reach a C before they even get to the bigger investments — so do not spend more than you need to.
+The steps below are ordered from cheapest to most expensive. Work through them in order. Many properties in Manchester reach a C before they even get to the bigger investments — so do not spend more than you need to.
 
-Step 1: The Cheap Fixes — Do These First
+## Step 1: The Cheap Fixes — Do These First
 
-Switch Every Single Bulb to LED
+Before touching the boiler or calling an insulation contractor, start here. These changes cost very little, take minimal effort, and EPC assessors check for them immediately. For properties sitting just inside a D, they can be enough to cross the line into C territory on their own.
 
-This is the easiest point-scorer on any EPC assessment. If your property has any halogen or older filament bulbs remaining, replace every one with an LED equivalent. LEDs use up to 80% less energy than halogen bulbs, last significantly longer, and the total cost for a typical home rarely exceeds £50. Assessors record lighting as a specific line item — full LED throughout the property is a straightforward tick in the box, and it is the cheapest one available.
+### Switch Every Single Bulb to LED
 
-Draught-Proof Windows, Doors and the Letterbox
+This is the easiest point-scorer on any EPC assessment. If your property has any halogen or older filament bulbs remaining, replace every one with an LED equivalent.
 
-If cold air is coming in around your windows, doors, loft hatch or letterbox, you are losing heat — and losing EPC points with it. Foam draught strips, brush seals and letterbox covers are available from any hardware shop for a few pounds.
+LEDs use up to 80% less energy than halogen bulbs, last significantly longer, and the total cost for a typical home rarely exceeds £50. Assessors record lighting as a specific line item — full LED throughout the property is a straightforward tick in the box, and it is the cheapest one available.
 
-Fit an Insulating Jacket on the Hot Water Cylinder
+### Draught-Proof Windows, Doors and the Letterbox
 
-If your property has a hot water storage cylinder — a tank rather than a combi boiler — make sure it has an insulating jacket of at least 80mm. A jacket costs around £20 from most hardware stores and has a measurable effect on the EPC score.
+If cold air is coming in around your windows, doors, loft hatch or letterbox, you are losing heat — and losing EPC points with it.
 
-Step 2: Insulation — The Best Return on Money Spent
+Foam draught strips, brush seals and letterbox covers are available from any hardware shop for a few pounds. Going around the whole property takes an afternoon. It will not transform your rating alone, but combined with the other measures in this step, it adds up.
 
-Loft Insulation
+### Fit an Insulating Jacket on the Hot Water Cylinder
 
-If your loft has less than 270mm of insulation, topping it up is often the single most cost-effective improvement available for an EPC rating. Heat rises — and without adequate insulation at roof level, you are effectively heating the air outside. Loft insulation is affordable to install, causes very little disruption, and for a significant number of Manchester homes currently sitting on a D, it alone is enough to reach a C.
+If your property has a hot water storage cylinder — a tank rather than a combi boiler — make sure it has an insulating jacket of at least **80mm**. A jacket costs around £20 from most hardware stores and has a measurable effect on the EPC score. If one is already fitted but is thin or in poor condition, replace it.
 
-Cavity Wall Insulation
+## Step 2: Insulation — The Best Return on Money Spent
 
-If your home was built between the 1920s and the 1990s, there is a strong chance it has unfilled cavity walls. The gap between the inner and outer wall — originally designed to prevent damp — also allows heat to escape freely. Cavity wall insulation is injected through small holes drilled in the outside wall, then sealed. It costs far less than solid wall insulation, causes minimal disruption, and significantly improves heat retention.
+No amount of cheap fixes will overcome poor insulation. Heat escaping through the roof or walls drags the EPC score down and pushes energy bills up. These two measures consistently deliver the strongest results relative to their cost.
+
+### Loft Insulation
+
+If your loft has less than **270mm of insulation**, topping it up is often the single most cost-effective improvement available for an EPC rating. Heat rises — and without adequate insulation at roof level, you are effectively heating the air outside.
+
+Loft insulation is affordable to install, causes very little disruption, and for a significant number of Manchester homes currently sitting on a D, it alone is enough to reach a C.
+
+### Cavity Wall Insulation
+
+If your home was built **between the 1920s and the 1990s**, there is a strong chance it has unfilled cavity walls. The gap between the inner and outer wall — originally designed to prevent damp — also allows heat to escape freely.
+
+Cavity wall insulation is injected through small holes drilled in the outside wall, then sealed. It costs far less than solid wall insulation, causes minimal disruption, and significantly improves heat retention. For Manchester properties of this era, it is one of the most impactful changes possible.
 
 If your home was built before the 1920s or has solid walls, cavity fill is not an option — but solid wall insulation (internal or external) is available as an alternative, though at higher cost.
 
-Step 3: Heating Controls — A Precise Fix That Assessors Look For
+## Step 3: Heating Controls — A Precise Fix That Assessors Look For
 
-Your boiler may be perfectly adequate, but if the heating controls are outdated or incomplete, the EPC assessment will reflect that. The following additions are low cost and make a genuine difference to the score:
+Your boiler may be perfectly adequate, but if the heating controls are outdated or incomplete, the EPC assessment will reflect that. Assessors want to see that the heating system can be controlled precisely — both in terms of timing and temperature across different areas of the property.
 
-- A room thermostat — if one is not already fitted, installation is straightforward and inexpensive
-- A programmable or smart thermostat — allows the heating to run only when needed, which assessors factor into the rating
-- Thermostatic Radiator Valves (TRVs) on individual radiators — these allow room-by-room temperature control and are looked upon favourably in the assessment
+The following additions are low cost and make a genuine difference to the score:
+
+- **A room thermostat** — if one is not already fitted, installation is straightforward and inexpensive
+- **A programmable or smart thermostat** — allows the heating to run only when needed, which assessors factor into the rating
+- **Thermostatic Radiator Valves (TRVs)** on individual radiators — these allow room-by-room temperature control and are looked upon favourably in the assessment
 
 If your property already has all of these, check that they are in working order before the assessor visits. A broken or missing TRV will be noted on the report.
 
-Step 4: The Bigger Investments — Only If You Still Need More Points
+## Step 4: The Bigger Investments — Only If You Still Need More Points
 
-Boiler Replacement
+If you have worked through all three steps above and the property remains firmly in D territory, the heating system itself may need attention. These are more significant investments, but they deliver the most substantial improvement to an EPC rating.
 
-An old non-condensing boiler — typically any model more than 15 years old — is one of the biggest single drags on a residential EPC rating. Modern A-rated condensing boilers are significantly more efficient, and replacing an outdated model can deliver a substantial jump in the rating.
+### Boiler Replacement
 
-Window Upgrades
+An old **non-condensing boiler** — typically any model more than 15 years old — is one of the biggest single drags on a residential EPC rating. Modern **A-rated condensing boilers** are significantly more efficient, and replacing an outdated model can deliver a substantial jump in the rating.
 
-Moving from single glazing to double glazing adds points to the EPC score. However, if the property already has double glazing, upgrading to newer double-glazed units adds considerably less to the rating than most people expect — so it is rarely the most efficient use of money purely for EPC purposes.
+This is not a cheap fix, but if the boiler is already approaching the end of its working life, the EPC benefit makes the timing even more worthwhile.
 
-Do You Actually Need Solar Panels or a Heat Pump to Hit a C?
+### Window Upgrades
 
-In most cases, no — and this is one of the most common misconceptions we come across.
+Moving from **single glazing to double glazing** adds points to the EPC score. However, if the property already has double glazing, upgrading to newer double-glazed units adds considerably less to the rating than most people expect — so it is rarely the most efficient use of money purely for EPC purposes.
 
-Good insulation combined with a modern gas boiler will get most homes to a C. Solar panels are excellent for pushing a property from C to B or B to A — but they are rarely necessary just to clear the C threshold. Heat pumps make more sense as part of a longer-term plan than as a quick route to a C.
+If windows need replacing for other reasons, modern units are a sensible choice. If they are in reasonable condition, the money is better spent elsewhere on this list.
 
-The Mistake That Ends Up Costing the Most
+## Do You Actually Need Solar Panels or a Heat Pump to Hit a C?
 
-The most expensive mistake property owners make when trying to improve their EPC rating is spending money on the wrong things — upgrading windows when the loft has barely any insulation, fitting a smart thermostat in a property with a 20-year-old non-condensing boiler, or installing solar panels when draught-proofing and LED lighting would have been sufficient.
+**In most cases, no — and this is one of the most common misconceptions we come across.**
 
-Guessing is expensive. A proper assessment before you spend anything is not.
+Many homeowners and landlords in Manchester assume solar PV panels or a heat pump are required to reach a C rating. For the vast majority of standard residential properties, that is not the case.
 
-Get a Clear Plan From Prime EPC and Designing Consultants
+Good insulation combined with a modern gas boiler will get most homes to a C. Solar panels are excellent for pushing a property from C to B or B to A — but they are rarely necessary just to clear the C threshold.
 
-At Prime EPC and Designing Consultants, we do not just issue a certificate and leave you to work out the rest. Our accredited assessors carry out a full evaluation of your Manchester property and tell you exactly which changes will get you to a C rating — and which ones are not worth your money for that specific property.
+Heat pumps can improve a rating significantly, but they work best in well-insulated properties and carry a considerable installation cost. They make more sense as part of a longer-term plan than as a quick route to a C.
 
-- Full EPC assessment with written improvement recommendations
-- Accredited local assessors with residential experience across Greater Manchester
-- Appointments available within 48 to 72 hours
-- Clear pricing — no hidden fees
+## The Mistake That Ends Up Costing the Most
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+The most expensive mistake property owners make when trying to improve their EPC rating is spending money on the wrong things.
+
+Upgrading windows when the loft has barely any insulation. Fitting a smart thermostat in a property with a 20-year-old non-condensing boiler. Installing solar panels when draught-proofing and LED lighting would have been sufficient.
+
+Every property responds differently. The measures that will take your specific Manchester home from a D to a C depend on what is already in place and where the biggest energy losses are occurring.
+
+**Guessing is expensive. A proper assessment before you spend anything is not.**
+
+## Get a Clear Plan From Prime EPC and Designing Consultants
+
+At **Prime EPC and Designing Consultants**, we do not just issue a certificate and leave you to work out the rest. Our accredited assessors carry out a full evaluation of your Manchester property and tell you exactly which changes will get you to a C rating — and which ones are not worth your money for that specific property.
+
+Whether you are a landlord preparing for the 2028 regulations, a homeowner getting ready to sell, or someone who simply wants to understand where their property stands — we give you a clear, honest picture and a practical plan to act on.
+
+We cover residential properties across Manchester and Greater Manchester.
+
+✔ Full EPC assessment with written improvement recommendations
+✔ Accredited local assessors with residential experience across Greater Manchester
+✔ Appointments available within 48 to 72 hours
+✔ Clear pricing — no hidden fees
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
 
 Covering Manchester, Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan, Tameside and surrounding areas
 
-Frequently Asked Questions
+## Frequently Asked Questions
 
-How much does it cost to improve an EPC rating from D to C in Manchester?
-It varies depending on the property. For some homes, LED lighting, draught-proofing and a cylinder jacket costing under £100 is enough. Others may need loft insulation, cavity wall insulation or a boiler upgrade.
+**How much does it cost to improve an EPC rating from D to C in Manchester?**
+It varies depending on the property. For some homes, LED lighting, draught-proofing and a cylinder jacket costing under £100 is enough. Others may need loft insulation, cavity wall insulation or a boiler upgrade. A proper assessment tells you exactly what your property needs before you spend anything.
 
-What is the minimum EPC rating required to rent out a property in Manchester?
-Currently, the legal minimum is an E rating. The government has proposed raising this to C for new tenancies by 2028.
+**What is the minimum EPC rating required to rent out a property in Manchester?**
+Currently, the legal minimum is an E rating. The government has proposed raising this to C for new tenancies by 2028. Reaching C now puts you well ahead of that requirement.
 
-How long does an EPC assessment take for a home in Manchester?
+**How long does an EPC assessment take for a home in Manchester?**
 A standard residential EPC assessment typically takes between 30 and 45 minutes depending on the size of the property.
 
-Will loft insulation alone get me from a D to a C?
-For some properties, yes — particularly older Manchester homes where the loft has little or no insulation. An assessment will confirm whether loft insulation alone is sufficient.
+**Will loft insulation alone get me from a D to a C?**
+For some properties, yes — particularly older Manchester homes where the loft has little or no insulation. It depends on the overall condition of the property. An assessment will confirm whether loft insulation alone is sufficient or whether additional measures are needed.
 
-Can I get an EPC assessment and improvement advice in one visit?
+**Can I get an EPC assessment and improvement advice in one visit?**
 Yes. At Prime EPC and Designing Consultants, our assessors provide both the certificate and clear guidance on cost-effective improvements during the same visit.
 
-Prime EPC and Designing Consultants — Residential EPC Assessments and Improvement Advice Across Manchester`
+*Prime EPC and Designing Consultants — Residential EPC Assessments and Improvement Advice Across Manchester*`
   },
 
-  // ── BLOG 7 ──────────────────────────────────────────────────────────────
+  // ── BLOG 7 ─────────────────────────────────────────────────────────────
   {
     title: "Need an EPC Urgently in Manchester? Same Week Bookings Available for Homes and Commercial Properties",
     slug: "urgent-epc-booking-manchester",
@@ -683,56 +873,74 @@ Prime EPC and Designing Consultants — Residential EPC Assessments and Improvem
     status: "published",
     author: "Prime EPC",
     excerpt: "Property transactions cannot wait. Prime EPC and Designing Consultants offers urgent EPC bookings across Manchester — assessor visits typically within 24 to 72 hours, certificate issued same day.",
-    content: `Need an EPC Urgently in Manchester? Same Week Bookings Available for Homes and Commercial Properties
+    content: `# Need an EPC Urgently in Manchester? Same Week Bookings Available for Homes and Commercial Properties
 
-Need an EPC in Manchester Fast? We Can Help
+## Need an EPC in Manchester Fast? We Can Help
 
 Property transactions do not wait. A sale that is ready to complete, a tenancy that needs to start, a lease renewal that cannot be delayed — when any of these situations arise and an EPC is missing or expired, you need an assessor booked and a certificate issued as quickly as possible.
 
-At Prime EPC and Designing Consultants, we offer urgent EPC bookings for both residential and commercial properties across Manchester and Greater Manchester. In most cases we can arrange an assessor visit within 24 to 72 hours — and the certificate is lodged on the national register the same day the assessment is completed.
+At **Prime EPC and Designing Consultants**, we offer urgent EPC bookings for both residential and commercial properties across Manchester and Greater Manchester. In most cases we can arrange an assessor visit within **24 to 72 hours** — and the certificate is lodged on the national register the same day the assessment is completed.
 
-Why People Need an EPC at Short Notice
+## Why People Need an EPC at Short Notice
 
-A property sale is progressing and the EPC has expired — Solicitors check EPC validity as standard during the conveyancing process. If the certificate on the register is more than 10 years old, it has expired and a new one is required before the sale can complete.
+There are more common reasons for needing an urgent EPC than most people realise. Here are the situations we deal with most frequently:
 
-A new tenancy is ready to start but no valid EPC is in place — Landlords are legally required to have a valid EPC before a tenancy begins. If a certificate has lapsed or was never obtained for the property, the tenancy cannot lawfully start until one is in place.
+**A property sale is progressing and the EPC has expired** — Solicitors check EPC validity as standard during the conveyancing process. If the certificate on the register is more than 10 years old, it has expired and a new one is required before the sale can complete. Finding this out mid-transaction creates pressure — and a fast assessment is the only solution.
 
-A commercial lease renewal is approaching — For commercial landlords in Manchester, a lease renewal without a valid EPC in place creates a compliance risk under MEES regulations.
+**A new tenancy is ready to start but no valid EPC is in place** — Landlords are legally required to have a valid EPC before a tenancy begins. If a certificate has lapsed or was never obtained for the property, the tenancy cannot lawfully start until one is in place.
 
-A property has just been renovated or a new boiler has been installed — If significant improvements have been made since the last certificate was issued, the existing EPC no longer reflects the property accurately.
+**A commercial lease renewal is approaching** — For commercial landlords in Manchester, a lease renewal without a valid EPC in place creates a compliance risk under MEES regulations. Getting an assessment booked quickly removes that risk before the renewal date arrives.
 
-A new build has just been completed — Newly constructed residential and commercial properties require an EPC before they can be occupied or marketed.
+**A property has just been renovated or a new boiler has been installed** — If significant improvements have been made since the last certificate was issued, the existing EPC no longer reflects the property accurately. Landlords and sellers who want the rating to reflect their investment need a fresh assessment — sometimes at short notice ahead of a listing or letting.
 
-How Our Urgent Booking Process Works
+**A new build has just been completed** — Newly constructed residential and commercial properties require an EPC before they can be occupied or marketed. Developers and contractors often need fast turnaround once a build reaches completion.
 
-Step 1 — Get in Touch: Call or email us directly with your property address, property type and your preferred dates. Let us know it is an urgent booking and we will check availability immediately.
+## How Our Urgent Booking Process Works
 
-Step 2 — Confirm the Booking: We will confirm your appointment, provide a clear quote with no hidden charges, and send you everything you need to know about preparing for the assessment visit.
+Booking an urgent EPC with **Prime EPC and Designing Consultants** is straightforward. There are no complicated forms or lengthy waiting times.
 
-Step 3 — The Assessment: Our accredited assessor visits the property and carries out a full non-intrusive inspection. For a residential property this typically takes 30 to 45 minutes. For a commercial property the time varies depending on the size and complexity of the building.
+**Step 1 — Get in Touch**
+Call or email us directly with your property address, property type and your preferred dates. Let us know it is an urgent booking and we will check availability immediately.
 
-Step 4 — Certificate Issued: Once the assessment is complete, the certificate is lodged on the national government register the same day. You will receive a PDF copy by email promptly — ready to share with your solicitor, letting agent or prospective tenant without delay.
+**Step 2 — Confirm the Booking**
+We will confirm your appointment, provide a clear quote with no hidden charges, and send you everything you need to know about preparing for the assessment visit.
 
-Urgent EPC Pricing — Clear and Straightforward
+**Step 3 — The Assessment**
+Our accredited assessor visits the property and carries out a full non-intrusive inspection. For a residential property this typically takes 30 to 45 minutes. For a commercial property the time varies depending on the size and complexity of the building.
 
-At Prime EPC and Designing Consultants, our pricing is transparent from the first conversation:
+**Step 4 — Certificate Issued**
+Once the assessment is complete, the certificate is lodged on the national government register the same day. You will receive a PDF copy by email promptly — ready to share with your solicitor, letting agent or prospective tenant without delay.
+
+## Urgent EPC Pricing — Clear and Straightforward
+
+We understand that when a booking is urgent, the last thing you need is a confusing quote or unexpected charges appearing on the invoice afterwards.
+
+At **Prime EPC and Designing Consultants**, our pricing is transparent from the first conversation:
 
 - The price we quote is the price you pay — no hidden fees, no call-out charges, no extras
 - Lodging the certificate on the national register is included as standard
 - The PDF copy of the certificate is included as standard
 - Urgent booking slots are available without excessive premium charges
 
-Residential Urgent EPC Bookings in Manchester
+For **residential properties** — houses, flats, HMOs and new builds — pricing is based on the size of the property. For **commercial properties** — offices, retail units, warehouses and industrial buildings — pricing reflects the size and complexity of the building and the number of zones assessed.
 
-- Assessor visits available within 24 to 72 hours in most cases across Greater Manchester
+Contact us directly for a clear, no-obligation quote for your specific property. We will give you a price in the same conversation, not after a series of back-and-forth emails.
+
+## Residential Urgent EPC Bookings in Manchester
+
+For homeowners, landlords and estate agents across Manchester who need a residential EPC at short notice, here is what to expect from an urgent booking with us:
+
+- Assessor visits available within **24 to 72 hours** in most cases across Greater Manchester
 - Full RdSAP assessment carried out by an accredited domestic energy assessor
 - Certificate lodged on the GOV.UK register the same day
-- Clear improvement recommendations included
+- Clear improvement recommendations included — so you know exactly where the property stands and what, if anything, needs to change
 - Suitable for sales, new tenancies, lease renewals, post-renovation assessments and new builds
 
 We cover all residential property types including terraced houses, semi-detached and detached homes, purpose-built flats, converted flats, bungalows and HMOs across Manchester, Salford, Stockport, Oldham, Bolton, Bury, Rochdale, Wigan, Tameside and surrounding areas.
 
-Commercial Urgent EPC Bookings in Manchester
+## Commercial Urgent EPC Bookings in Manchester
+
+For commercial property owners, landlords and managing agents who need a commercial EPC quickly, we provide fast turnaround SBEM assessments across Manchester and the North West.
 
 - Urgent commercial bookings available across Greater Manchester and the North West
 - Full SBEM assessment using government-approved software
@@ -740,67 +948,77 @@ Commercial Urgent EPC Bookings in Manchester
 - Compliance advice included — if your property is rated F or G under MEES regulations, we will tell you exactly what needs to change and in what order
 - Suitable for offices, retail units, warehouses, industrial buildings, mixed-use properties and new commercial builds
 
-What to Have Ready Before the Assessor Arrives
+## What to Have Ready Before the Assessor Arrives
 
-For residential properties:
+To make the most of an urgent booking and ensure the assessment runs as efficiently as possible, having the following ready before the assessor visits will help:
+
+### For Residential Properties:
+
 - Access to all rooms including the loft
 - Any installation certificates for recent improvements — new boiler, insulation, double glazing
 - Details of the heating system if known
 
-For commercial properties:
+### For Commercial Properties:
+
 - Access to all areas and zones within the building
 - Service records for HVAC and air conditioning equipment
 - Installation certificates for any recent energy efficiency improvements
 - Building plans or floor layouts if available
 
-Areas We Cover for Urgent EPC Bookings
+The more supporting documentation available, the more accurately the rating reflects the current state of the property — and the faster the assessment can be completed.
 
-Prime EPC and Designing Consultants covers a 50-mile radius around Manchester for both residential and commercial EPC assessments. If you are unsure whether we cover your location, call us and we will confirm immediately.
+## Areas We Cover for Urgent EPC Bookings
 
-Do Not Let a Missing EPC Hold Up Your Property Deal
+**Prime EPC and Designing Consultants** covers a **50-mile radius around Manchester** for both residential and commercial EPC assessments.
 
-A missing or expired EPC is one of the most avoidable reasons for a property transaction to stall. Prime EPC and Designing Consultants is ready to take your booking today.
+If you are unsure whether we cover your location, call us and we will confirm immediately.
 
-${PHONE}
-${EMAIL}
-${WEBSITE}
+## Do Not Let a Missing EPC Hold Up Your Property Deal
+
+A missing or expired EPC is one of the most avoidable reasons for a property transaction to stall. Whether you are selling a home, starting a tenancy, renewing a commercial lease or completing a new build — the solution is a fast, accredited assessment from a local provider who can turn it around the same week.
+
+**Prime EPC and Designing Consultants** is ready to take your booking today.
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
 
 Urgent EPC bookings available across Manchester and Greater Manchester — call us today
 
-Frequently Asked Questions
+## Frequently Asked Questions
 
-How quickly can I get an urgent EPC in Manchester?
+**How quickly can I get an urgent EPC in Manchester?**
 In most cases we can arrange an assessor visit within 24 to 72 hours of your booking. Call us directly for the earliest available slot.
 
-Is the certificate available the same day as the assessment?
+**Is the certificate available the same day as the assessment?**
 Yes. Once the assessment is complete, the certificate is lodged on the national register the same day and a PDF copy is emailed to you promptly.
 
-Do urgent bookings cost significantly more than standard bookings?
+**Do urgent bookings cost significantly more than standard bookings?**
 At Prime EPC and Designing Consultants, urgent bookings are not subject to excessive premium charges. We keep pricing fair and transparent — contact us for a clear quote.
 
-Can you carry out an urgent commercial EPC assessment in Manchester?
+**Can you carry out an urgent commercial EPC assessment in Manchester?**
 Yes. We provide urgent commercial EPC assessments across Manchester and Greater Manchester for offices, retail units, warehouses and other commercial buildings.
 
-What if my property is large or complex — can you still turn it around quickly?
+**What if my property is large or complex — can you still turn it around quickly?**
 For larger or more complex properties, turnaround times may vary. Contact us directly and we will give you an honest timeline based on your specific property.
 
-Do I need to be present during the assessment?
-For residential properties, someone needs to be present to provide access to all rooms. For commercial properties, a keyholder or site contact should be available.
+**Do I need to be present during the assessment?**
+For residential properties, someone needs to be present to provide access to all rooms. For commercial properties, a keyholder or site contact should be available. The assessor will confirm the access requirements when the booking is confirmed.
 
-Prime EPC and Designing Consultants — Urgent EPC Bookings for Residential and Commercial Properties Across Manchester`
+*Prime EPC and Designing Consultants — Urgent EPC Bookings for Residential and Commercial Properties Across Manchester*`
   }
 
 ];
 
 async function migrateBlogs() {
   try {
-    console.log('🔄 Starting blog migration...');
+    console.log('\U0001f504 Starting blog migration...');
     await Blog.findOne({ where: {} });
-    console.log('✅ Database connection working');
+    console.log('\u2705 Database connection working');
 
     // Delete ALL existing blogs first
     await Blog.destroy({ where: {}, truncate: true });
-    console.log('🗑️  All existing blogs deleted');
+    console.log('\U0001f5d1\ufe0f  All existing blogs deleted');
 
     let successCount = 0;
     let failedCount = 0;
@@ -808,9 +1026,8 @@ async function migrateBlogs() {
     for (let i = 0; i < blogData.length; i++) {
       const blog = blogData[i];
       try {
-        console.log(`\\n📝 Inserting blog ${i + 1}/${blogData.length}: "${blog.title}"`);
+        console.log(`\n\U0001f4dd Inserting blog ${i + 1}/${blogData.length}: "${blog.title}"`);
 
-        const now = new Date();
         const safeBlog = {
           title:            blog.title,
           slug:             blog.slug,
@@ -822,28 +1039,29 @@ async function migrateBlogs() {
           excerpt:          blog.excerpt || '',
           status:           blog.status || 'published',
           author:           blog.author || 'Prime EPC',
-          createdAt:        now,
-          updatedAt:        now,
+          // Explicit timestamps fix the Invalid Date issue on the frontend
+          createdAt:        new Date(),
+          updatedAt:        new Date(),
         };
 
         await Blog.create(safeBlog);
-        console.log(`✅ Inserted: "${blog.title}"`);
+        console.log(`\u2705 Inserted: "${blog.title}"`);
         successCount++;
       } catch (error) {
-        console.error(`❌ Failed: "${blog.title}" — ${error.message}`);
+        console.error(`\u274c Failed: "${blog.title}" — ${error.message}`);
         failedCount++;
       }
     }
 
-    console.log(`\\n🎉 Migration Complete`);
-    console.log(`   ✅ Inserted : ${successCount}`);
-    console.log(`   ❌ Failed   : ${failedCount}`);
+    console.log(`\n\U0001f389 Migration Complete`);
+    console.log(`   \u2705 Inserted : ${successCount}`);
+    console.log(`   \u274c Failed   : ${failedCount}`);
     const finalCount = await Blog.count();
-    console.log(`   📋 Total in DB: ${finalCount}`);
+    console.log(`   \U0001f4cb Total in DB: ${finalCount}`);
 
     process.exit(0);
   } catch (error) {
-    console.error('❌ Migration failed:', error);
+    console.error('\u274c Migration failed:', error);
     process.exit(1);
   }
 }
