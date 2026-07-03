@@ -1040,8 +1040,8 @@ async function migrateBlogs() {
           status:           blog.status || 'published',
           author:           blog.author || 'Prime EPC',
           // Explicit timestamps fix the Invalid Date issue on the frontend
-          createdAt:        new Date(),
-          updatedAt:        new Date(),
+          created_at:      new Date(),
+          updated_at:      new Date(),
         };
 
         await Blog.create(safeBlog);

@@ -18,45 +18,39 @@ export default function BlogList() {
   const fetchBlogs = async () => {
     try {
       const res = await fetch(`${API_URL}/api/blogs`);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
-      
       if (data.success) {
         setBlogs(data.data);
       } else {
         setError('Failed to load blogs');
       }
     } catch (error) {
-      console.error('❌ Error fetching blogs:', error);
+      console.error('Error fetching blogs:', error);
       setError('Network error. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Simplified image URL function
   const getImageUrl = (imagePath) => {
-    // If no image or empty, use default
-    if (!imagePath || imagePath.trim() === '') {
-      return '/images/blog-default.png';
-    }
-    
-    // If it's already a full URL (http/https), use it as is
-    if (imagePath.startsWith('http')) {
-      return imagePath;
-    }
-    
-    // If it starts with /, it's already a proper path
-    if (imagePath.startsWith('/')) {
-      return imagePath;
-    }
-    
-    // Otherwise, prepend /images/
+    if (!imagePath || imagePath.trim() === '') return '/images/blog-default.png';
+    if (imagePath.startsWith('http')) return imagePath;
+    if (imagePath.startsWith('/')) return imagePath;
     return `/images/${imagePath}`;
+  };
+
+  // ── Format date safely — handles created_at (snake) or createdAt (camel) ──
+  const formatDate = (blog) => {
+    const raw = blog.created_at || blog.createdAt;
+    if (!raw) return '';
+    const d = new Date(raw);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
   };
 
   return (
@@ -75,7 +69,7 @@ export default function BlogList() {
           {error && (
             <div className="max-w-6xl mx-auto mb-8">
               <div className="bg-red-50 border border-red-200 text-red-600 px-6 py-4 rounded-xl text-center">
-                <p className="font-semibold mb-2">⚠️ Unable to load blogs</p>
+                <p className="font-semibold mb-2">Unable to load blogs</p>
                 <p className="text-sm mb-3">{error}</p>
                 <button
                   onClick={fetchBlogs}
@@ -103,22 +97,23 @@ export default function BlogList() {
                 </div>
               ) : (
                 blogs.map((blog) => {
-                  // Get image URL - use featured_image from API
                   const imageUrl = getImageUrl(blog.featured_image);
-                  console.log(`Blog: ${blog.title}, Image URL: ${imageUrl}`);
-                  
+                  const dateStr = formatDate(blog);
+
                   return (
-                    <article key={blog.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <article
+                      key={blog.id}
+                      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                    >
                       <div className="h-48 bg-gray-100 overflow-hidden relative">
                         <Link href={`/blog/${blog.slug}`}>
-                          <Image 
-                            src={imageUrl} 
+                          <Image
+                            src={imageUrl}
                             alt={blog.title}
                             fill
                             className="object-cover hover:scale-105 transition-transform duration-300"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             onError={(e) => {
-                              console.log('Image failed to load:', imageUrl);
                               e.target.src = '/images/blog-default.png';
                             }}
                           />
@@ -134,8 +129,9 @@ export default function BlogList() {
                           {blog.excerpt || blog.meta_description || 'Read more about this topic...'}
                         </p>
                         <div className="flex justify-between items-center text-sm text-gray-500 mt-auto">
-                          <span>{new Date(blog.created_at).toLocaleDateString()}</span>
-                          <Link 
+                          {/* Date shown only if valid */}
+                          <span>{dateStr}</span>
+                          <Link
                             href={`/blog/${blog.slug}`}
                             className="text-green-600 font-semibold hover:text-green-700 transition-colors"
                           >
