@@ -195,7 +195,7 @@ export default function Home() {
               },
               {
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>,
-                label: 'Instant Service Quote', title: 'Commercial EPC', price: '(Get Quote)', priceColor: 'text-gray-700'
+                label: 'Instant Service Quote', title: 'Commercial EPC', price: '£144', priceColor: 'text-gray-700'
               },
               {
                 icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></>,
@@ -394,7 +394,7 @@ export default function Home() {
             {[
               { icon:'🚀', title:'Lightning Fast Service', description:'Get your EPC report within 24-48 hours of inspection with our streamlined process', features:['24-48 Hour Turnaround','Quick Online Booking','Fast Digital Delivery'] },
               { icon:'🏆', title:'Fully Accredited Experts', description:'Our assessors are fully qualified and accredited, following all government standards', features:['Government Approved','Regularly Trained','Quality Assured'] },
-              { icon:'📍', title:'Manchester Coverage', description:'Proudly serving customers across the Manchester for both domestic and commercial properties', features:['Nationwide Service','Flexible Scheduling','Local Assessors'] },
+              { icon:'📍', title:'Manchester Coverage', description:'Proudly serving customers across the Manchester for both domestic and commercial properties', features:['Manchesterwide Service','Flexible Scheduling','Local Assessors'] },
               { icon:'💷', title:'Transparent Pricing', description:'Clear, competitive pricing with no hidden fees or surprise charges', features:['Price Match Guarantee','No Hidden Costs','Instant Quotes'] }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
@@ -723,6 +723,7 @@ export default function Home() {
                       <option value="domestic-epc">Domestic EPC</option>
                       <option value="commercial-epc">Commercial EPC</option>
                       <option value="design-consultancy">Design Consultancy</option>
+                      <option value="EICR">EICR</option>
                       <option value="other">Other Inquiry</option>
                     </select>
                   </div>

@@ -494,7 +494,7 @@ export default function BookingPage() {
                 ))}
 
                 <div>
-                  <label htmlFor="propertyType" className="block text-sm text-gray-600 mb-1.5">Property Type *</label>
+                  <label htmlFor="propertyType" className="block text-sm text-gray-600 mb-1.5">Service Type *</label>
                   <select id="propertyType" name="propertyType" required value={formData.propertyType} onChange={handleInputChange}
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] text-sm text-gray-700 bg-white transition-all">
                     <option value="domestic">Domestic Property (EPC)</option>
