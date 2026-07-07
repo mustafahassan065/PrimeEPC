@@ -328,10 +328,10 @@ export default function About() {
               
               <div className="flex items-center gap-6">
                 <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24">
-  <rect x="3" y="5" width="18" height="14" rx="2"/>
-  <polyline points="3,5 12,13 21,5"/>
-</svg>
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+      <rect x="3" y="5" width="18" height="14" rx="2"/>
+      <polyline points="3,5 12,13 21,5"/>
+    </svg>
                     </div>
                 <div>
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Email</p>
