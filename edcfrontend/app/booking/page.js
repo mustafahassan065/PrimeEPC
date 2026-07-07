@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { Elements, CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 
 const API_URL = 'https://primeepcdesign.co.uk'
@@ -40,12 +40,25 @@ const PRICE_MAP = {
   '6+ Bedroom House Contact for Quote': 0,
 }
 
-// ── Stripe Payment Form — uses PaymentElement (full Stripe hosted form) ──
+// ── Stripe Payment Form — custom card fields (image style) ───────────────
 function StripePaymentForm({ amount, onSuccess, onError }) {
   const stripe   = useStripe()
   const elements = useElements()
   const [processing, setProcessing] = useState(false)
   const [stripeError, setStripeError] = useState('')
+  const [cardholderName, setCardholderName] = useState('')
+
+  const cardElementStyle = {
+    style: {
+      base: {
+        fontSize: '14px',
+        color: '#374151',
+        fontFamily: 'inherit',
+        '::placeholder': { color: '#9ca3af' },
+      },
+      invalid: { color: '#ef4444' },
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,13 +66,20 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
     setProcessing(true)
     setStripeError('')
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: { return_url: window.location.href },
-        redirect: 'if_required',
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: elements.getElement(CardNumberElement),
+        billing_details: { name: cardholderName },
       })
       if (error) throw new Error(error.message)
-      if (paymentIntent && paymentIntent.status === 'succeeded') {
+
+      // Confirm payment with clientSecret from Elements context
+      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
+        elements._commonOptions.clientSecret,
+        { payment_method: paymentMethod.id }
+      )
+      if (confirmError) throw new Error(confirmError.message)
+      if (paymentIntent.status === 'succeeded') {
         onSuccess({ paymentRef: paymentIntent.id })
       }
     } catch (err) {
@@ -71,27 +91,75 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 p-4 border border-gray-200 rounded-xl bg-white space-y-4">
-      <p className="text-sm font-medium text-gray-700 mb-2">
-        Card Details — <span className="text-[#016837] font-semibold">£{amount}</span>
-      </p>
-      {/* Stripe's full Payment Element — renders card, Apple Pay, Google Pay etc. */}
-      <PaymentElement options={{ layout: 'tabs' }} />
+    <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+
+      {/* Card Holder Name */}
+      <div>
+        <input
+          type="text"
+          placeholder="Card Holder Name"
+          value={cardholderName}
+          onChange={e => setCardholderName(e.target.value)}
+          required
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] transition-all"
+        />
+      </div>
+
+      {/* Card Number */}
+      <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white flex items-center gap-3">
+        <div className="flex-1">
+          <CardNumberElement options={cardElementStyle} />
+        </div>
+        {/* Card brand icons */}
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <span style={{background:'#1a1f71', borderRadius:'3px', padding:'2px 6px', fontSize:'9px', fontWeight:800, color:'white', letterSpacing:'0.5px'}}>VISA</span>
+          <div style={{position:'relative', width:'28px', height:'18px', flexShrink:0}}>
+            <div style={{position:'absolute', left:0, top:0, width:'18px', height:'18px', borderRadius:'50%', background:'#eb001b'}}></div>
+            <div style={{position:'absolute', right:0, top:0, width:'18px', height:'18px', borderRadius:'50%', background:'#f79e1b'}}></div>
+          </div>
+          <span style={{background:'#016fd0', borderRadius:'3px', padding:'2px 6px', fontSize:'9px', fontWeight:700, color:'white', letterSpacing:'0.3px'}}>AMEX</span>
+        </div>
+      </div>
+
+      {/* Expiry + CVC row */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white">
+          <CardExpiryElement options={{ ...cardElementStyle, placeholder: 'MM/YY' }} />
+        </div>
+        <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white">
+          <CardCvcElement options={{ ...cardElementStyle, placeholder: 'CVC' }} />
+        </div>
+      </div>
+
+      {/* Error */}
       {stripeError && (
-        <p className="text-red-500 text-xs mt-1">{stripeError}</p>
+        <p className="text-red-500 text-xs">{stripeError}</p>
       )}
+
+      {/* Pay button */}
       <button
         type="submit"
-        disabled={processing || !stripe}
-        className="w-full py-2.5 bg-[#016837] text-white rounded-lg text-sm font-medium hover:bg-[#01572E] disabled:opacity-50 transition-all"
+        disabled={processing || !stripe || !cardholderName}
+        className="w-full py-3 bg-[#016837] text-white rounded-lg text-sm font-semibold hover:bg-[#01572E] disabled:opacity-50 transition-all flex items-center justify-center gap-2"
       >
         {processing ? (
-          <span className="flex items-center justify-center gap-2">
-            <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
-            Processing payment...
-          </span>
-        ) : `Pay £${amount} securely`}
+          <>
+            <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></span>
+            Processing...
+          </>
+        ) : (
+          <>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+            Pay £{amount} securely
+          </>
+        )}
       </button>
+
+      <p className="text-center text-xs text-gray-400">
+        🔒 Secured by Stripe — your card details are never stored
+      </p>
     </form>
   )
 }
@@ -736,8 +804,7 @@ export default function BookingPage() {
                       options={{
                         clientSecret: stripeClientSecret,
                         appearance: {
-                          theme: 'stripe',
-                          variables: { colorPrimary: '#016837', borderRadius: '8px' }
+                          theme: 'none',
                         }
                       }}
                     >
