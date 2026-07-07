@@ -1,58 +1,39 @@
-'use client'
+"use client"
 
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function About() {
+
+  const EmailIcon = () => (
+    <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="M2 4 L12 13 L22 4" />
+    </svg>
+  )
+
   return (
     <div className="min-h-screen font-sans">
       {/* Hero Section */}
       <section className="relative py-34 overflow-hidden">
-        {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/aboutbg.jpg"
-            alt="About background"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
+          <Image src="/images/aboutbg.jpg" alt="About background" fill priority className="object-cover object-center" sizes="100vw" />
         </div>
-        
-        {/* Rest of the code remains exactly the same... */}
-        
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-        
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
-        
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#80C531]/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#016837]/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-        
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                  ABOUT PRIME EPC
-                </span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">ABOUT PRIME EPC</span>
               </div>
-              
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                <span className="block text-white">
-                 About Us
-                </span>
+                <span className="block text-white">About Us</span>
               </h1>
-              
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
                 Your trusted partner for professional Energy Performance Certificates and design consultancy services across Manchester.
               </p>
@@ -66,21 +47,15 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                🏢 OUR COMPANY
-              </div>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🏢 OUR COMPANY</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Who We Are</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">
-                Making energy certification accessible, affordable, and easy for everyone in Manchester
-              </p>
+              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">Making energy certification accessible, affordable, and easy for everyone in Manchester</p>
             </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Mission & Vision */}
               <div className="space-y-8">
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300">
                   <div className="flex items-center gap-6 mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center shadow-lg">
                       <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
@@ -91,7 +66,6 @@ export default function About() {
                     To make energy certification accessible, affordable, and easy for everyone in Manchester. We aim to help property owners make smarter energy choices that benefit both their finances and the environment.
                   </p>
                 </div>
-
                 <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white shadow-lg">
                   <div className="flex items-center gap-6 mb-6">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
@@ -106,8 +80,6 @@ export default function About() {
                   </p>
                 </div>
               </div>
-
-              {/* Company Description */}
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-3 h-3 bg-[#80C531] rounded-full"></div>
@@ -130,66 +102,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Why Choose Us - Features */}
+      {/* What Sets Us Apart */}
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              ⭐ WHAT SETS US APART
-            </div>
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHAT SETS US APART</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">What Sets Us Apart</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-              Experience the difference with our professional, reliable, and efficient EPC services
-            </p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Experience the difference with our professional, reliable, and efficient EPC services</p>
           </div>
-
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                {
-                  icon: '🚀',
-                  title: 'Fast & Hassle-Free EPC',
-                  description: 'Quick and professional EPC assessments with minimal disruption to your schedule.',
-                  features: ['Quick Inspection', 'Minimal Disruption', 'Efficient Process']
-                },
-                {
-                  icon: '💷',
-                  title: 'Competitive Pricing',
-                  description: 'Affordable rates with no hidden fees - quality service that doesn\'t cost a fortune.',
-                  features: ['No Hidden Fees', 'Price Match', 'Transparent Quotes']
-                },
-                {
-                  icon: '🏆',
-                  title: 'Qualified Assessors',
-                  description: 'Fully accredited and insured energy assessors following strict government guidelines.',
-                  features: ['Fully Accredited', 'Regular Training', 'Quality Standards']
-                },
-                {
-                  icon: '📍',
-                  title: 'Manchester Coverage',
-                  description: 'Proudly serving customers across Manchester for both domestic and commercial properties.',
-                  features: ['Nationwide Service', 'Flexible Scheduling', 'Local Experts']
-                },
-                {
-                  icon: '🤝',
-                  title: 'Friendly Support',
-                  description: 'Dedicated customer support team always available to answer your questions.',
-                  features: ['24/7 Support', 'Quick Responses', 'Expert Advice']
-                },
-                {
-                  icon: '📄',
-                  title: 'Quick Certificates',
-                  description: 'Receive your EPC certificate within 24-48 hours after inspection.',
-                  features: ['Fast Turnaround', 'Digital Delivery', 'Online Tracking']
-                }
+                { icon: '🚀', title: 'Fast & Hassle-Free EPC', description: "Quick and professional EPC assessments with minimal disruption to your schedule.", features: ['Quick Inspection', 'Minimal Disruption', 'Efficient Process'] },
+                { icon: '💷', title: 'Competitive Pricing', description: "Affordable rates with no hidden fees - quality service that doesn't cost a fortune.", features: ['No Hidden Fees', 'Price Match', 'Transparent Quotes'] },
+                { icon: '🏆', title: 'Qualified Assessors', description: 'Fully accredited and insured energy assessors following strict government guidelines.', features: ['Fully Accredited', 'Regular Training', 'Quality Standards'] },
+                { icon: '📍', title: 'Manchester Coverage', description: 'Proudly serving customers across Manchester for both domestic and commercial properties.', features: ['Nationwide Service', 'Flexible Scheduling', 'Local Experts'] },
+                { icon: '🤝', title: 'Friendly Support', description: 'Dedicated customer support team always available to answer your questions.', features: ['24/7 Support', 'Quick Responses', 'Expert Advice'] },
+                { icon: '📄', title: 'Quick Certificates', description: 'Receive your EPC certificate within 24-48 hours after inspection.', features: ['Fast Turnaround', 'Digital Delivery', 'Online Tracking'] }
               ].map((feature, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 group"
-                >
-                  <div className="w-20 h-20 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    {feature.icon}
-                  </div>
+                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 group">
+                  <div className="w-20 h-20 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">{feature.icon}</div>
                   <h3 className="text-xl font-bold text-[#282828] mb-4 text-center">{feature.title}</h3>
                   <p className="text-[#282828] opacity-90 mb-6 leading-relaxed text-center">{feature.description}</p>
                   <div className="space-y-2">
@@ -212,49 +144,19 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                💎 OUR COMMITMENT
-              </div>
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">💎 OUR COMMITMENT</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Our Commitment to Excellence</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">
-                The principles that guide everything we do at Prime EPC
-              </p>
+              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">The principles that guide everything we do at Prime EPC</p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                {
-                  icon: '🎯',
-                  title: 'Accuracy',
-                  description: 'Precise assessments and reliable certificates you can trust.',
-                  color: 'from-[#016837] to-[#80C531]'
-                },
-                {
-                  icon: '⚡',
-                  title: 'Efficiency',
-                  description: 'Quick service without compromising on quality or compliance.',
-                  color: 'from-[#016837] to-[#80C531]'
-                },
-                {
-                  icon: '🤝',
-                  title: 'Integrity',
-                  description: 'Honest, transparent service with no hidden surprises.',
-                  color: 'from-[#016837] to-[#80C531]'
-                },
-                {
-                  icon: '🌱',
-                  title: 'Sustainability',
-                  description: 'Helping create a greener, more energy-efficient Manchester.',
-                  color: 'from-[#016837] to-[#80C531]'
-                }
+                { icon: '🎯', title: 'Accuracy', description: 'Precise assessments and reliable certificates you can trust.', color: 'from-[#016837] to-[#80C531]' },
+                { icon: '⚡', title: 'Efficiency', description: 'Quick service without compromising on quality or compliance.', color: 'from-[#016837] to-[#80C531]' },
+                { icon: '🤝', title: 'Integrity', description: 'Honest, transparent service with no hidden surprises.', color: 'from-[#016837] to-[#80C531]' },
+                { icon: '🌱', title: 'Sustainability', description: 'Helping create a greener, more energy-efficient Manchester.', color: 'from-[#016837] to-[#80C531]' }
               ].map((value, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 text-center group"
-                >
-                  <div className={`w-16 h-16 bg-gradient-to-r ${value.color} rounded-2xl flex items-center justify-center text-2xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    {value.icon}
-                  </div>
+                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 text-center group">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${value.color} rounded-2xl flex items-center justify-center text-2xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>{value.icon}</div>
                   <h3 className="text-xl font-bold text-[#282828] mb-4">{value.title}</h3>
                   <p className="text-[#282828] opacity-90 leading-relaxed">{value.description}</p>
                 </div>
@@ -266,56 +168,34 @@ export default function About() {
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-green-600 to-green-800 text-white relative overflow-hidden">
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
-        
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-            <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-              READY TO GET STARTED
-            </span>
+            <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">READY TO GET STARTED</span>
           </div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
-            Ready to Get Your EPC Certificate?
-          </h2>
-          
+          <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">Ready to Get Your EPC Certificate?</h2>
           <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-3xl mx-auto">
             Join thousands of satisfied property owners across Manchester who trust Prime EPC for their energy certification needs.
           </p>
-          
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <Link 
-              href="/contact" 
-              className="bg-white hover:from-[#01572E] hover:to-[#70B52B] text-[#016837] font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
+            <Link href="/contact" className="bg-white text-[#016837] font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl">
               <span>Contact Us Today</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </Link>
-            
-            <Link 
-              href="/booking" 
-              className="bg-gradient-to-r from-[#80C531] to-[#9CD35A] hover:from-[#70B52B] hover:to-[#80C531] text-white font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
+            <Link href="/booking" className="bg-gradient-to-r from-[#80C531] to-[#9CD35A] text-white font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl">
               <span>Book Your EPC</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
             </Link>
           </div>
-
-          {/* Contact Info */}
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 max-w-3xl mx-auto border border-white/20">
             <h3 className="text-2xl font-bold mb-8 text-white">Get In Touch</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
               <div className="flex items-center gap-6">
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
                   <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
@@ -325,17 +205,13 @@ export default function About() {
                   <p className="text-white font-bold text-xl">+44 7469 340373</p>
                 </div>
               </div>
-              
               <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <polyline points="3,5 12,13 21,5"/>
-    </svg>
-                    </div>
-                <div>
+                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                  <EmailIcon />
+                </div>
+                <div className="min-w-0">
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Email</p>
-                  <p className="text-white font-bold text-lg">primeepc.design@gmail.com</p>
+                  <p className="text-white font-bold text-base break-all">primeepc.design@gmail.com</p>
                 </div>
               </div>
             </div>
