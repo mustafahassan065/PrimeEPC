@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 
 const API_URL = 'https://primeepcdesign.co.uk'
@@ -18,12 +18,13 @@ const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 
 // ── Price map (Option B — clean, no regex risk) ───────────────────────────
 const PRICE_MAP = {
-  'EPC for 1 bedroom £50': 50,
-  'EPC for 2 bedroom £50': 50,
-  'EPC for 3 bedroom £60': 60,
-  'EPC for 4 bedroom £70': 70,
-  'EPC for 5 bedroom £80': 80,
-  'EPC for 6 bedroom £80': 80,
+  '1 bed. £50': 50,
+  '2 bed. £55': 55,
+  '3 bed. £60': 60,
+  '4 bed. £65': 65,
+  '5 bed. £70': 70,
+  '6 bed. £75': 75,
+  '6+ bedroom contact for quotation': 0,
   '0 -540 ft square (0 – 50 square metre) £144': 144,
   '540-1070 ft square (51 -100 square metres) £180': 180,
   '1070-1610 ft square (101 – 150 square metres) £228': 228,
@@ -39,38 +40,30 @@ const PRICE_MAP = {
   '6+ Bedroom House Contact for Quote': 0,
 }
 
-// ── Stripe card form (inner component — needs Elements context) ───────────
-function StripeCardForm({ amount, bookingData, onSuccess, onError }) {
-  const stripe = useStripe()
+// ── Stripe Payment Form — uses PaymentElement (full Stripe hosted form) ──
+function StripePaymentForm({ amount, onSuccess, onError }) {
+  const stripe   = useStripe()
   const elements = useElements()
   const [processing, setProcessing] = useState(false)
-  const [cardError, setCardError] = useState('')
+  const [stripeError, setStripeError] = useState('')
 
-  const handleStripeSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     if (!stripe || !elements) return
     setProcessing(true)
-    setCardError('')
+    setStripeError('')
     try {
-      // 1. Create PaymentIntent on backend
-      const intentRes = await fetch(`${API_URL}/api/payment/stripe/create-intent`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount, currency: 'gbp', bookingData })
-      })
-      const intentData = await intentRes.json()
-      if (!intentData.success) throw new Error(intentData.message || 'Failed to create payment intent')
-
-      // 2. Confirm card payment
-      const { error, paymentIntent } = await stripe.confirmCardPayment(intentData.clientSecret, {
-        payment_method: { card: elements.getElement(CardElement) }
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: { return_url: window.location.href },
+        redirect: 'if_required',
       })
       if (error) throw new Error(error.message)
-      if (paymentIntent.status === 'succeeded') {
-        // 3. Save booking with payment ref
-        onSuccess({ paymentRef: paymentIntent.id, paymentMethod: 'stripe' })
+      if (paymentIntent && paymentIntent.status === 'succeeded') {
+        onSuccess({ paymentRef: paymentIntent.id })
       }
     } catch (err) {
-      setCardError(err.message)
+      setStripeError(err.message)
       onError(err.message)
     } finally {
       setProcessing(false)
@@ -78,29 +71,28 @@ function StripeCardForm({ amount, bookingData, onSuccess, onError }) {
   }
 
   return (
-    <div className="mt-3">
-      <div className="border border-gray-200 rounded-lg px-4 py-3 bg-white">
-        <CardElement options={{
-          style: {
-            base: { fontSize: '14px', color: '#374151', '::placeholder': { color: '#9ca3af' } }
-          }
-        }} />
-      </div>
-      {cardError && <p className="text-red-500 text-xs mt-1">{cardError}</p>}
+    <form onSubmit={handleSubmit} className="mt-4 p-4 border border-gray-200 rounded-xl bg-white space-y-4">
+      <p className="text-sm font-medium text-gray-700 mb-2">
+        Card Details — <span className="text-[#016837] font-semibold">£{amount}</span>
+      </p>
+      {/* Stripe's full Payment Element — renders card, Apple Pay, Google Pay etc. */}
+      <PaymentElement options={{ layout: 'tabs' }} />
+      {stripeError && (
+        <p className="text-red-500 text-xs mt-1">{stripeError}</p>
+      )}
       <button
-        type="button"
-        onClick={handleStripeSubmit}
+        type="submit"
         disabled={processing || !stripe}
-        className="mt-3 w-full py-2.5 bg-[#016837] text-white rounded-lg text-sm font-medium hover:bg-[#01572E] disabled:opacity-50 transition-all"
+        className="w-full py-2.5 bg-[#016837] text-white rounded-lg text-sm font-medium hover:bg-[#01572E] disabled:opacity-50 transition-all"
       >
         {processing ? (
           <span className="flex items-center justify-center gap-2">
             <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
-            Processing...
+            Processing payment...
           </span>
-        ) : `Pay £${amount} with Card`}
+        ) : `Pay £${amount} securely`}
       </button>
-    </div>
+    </form>
   )
 }
 
@@ -116,6 +108,8 @@ export default function BookingPage() {
   const [paymentMethod, setPaymentMethod]   = useState('cash')
   const [bookingDone, setBookingDone]       = useState(false)
   const [paymentError, setPaymentError]     = useState('')
+  const [stripeClientSecret, setStripeClientSecret] = useState('')
+  const [stripeLoading, setStripeLoading]   = useState(false)
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '',
     propertyType: 'domestic', propertyDetails: '',
@@ -125,12 +119,13 @@ export default function BookingPage() {
   const router = useRouter()
 
   const domesticOptions = [
-    { value: 'EPC for 1 bedroom £50',  label: 'EPC for 1 bedroom — £50'  },
-    { value: 'EPC for 2 bedroom £50',  label: 'EPC for 2 bedroom — £50'  },
-    { value: 'EPC for 3 bedroom £60',  label: 'EPC for 3 bedroom — £60'  },
-    { value: 'EPC for 4 bedroom £70',  label: 'EPC for 4 bedroom — £70'  },
-    { value: 'EPC for 5 bedroom £80',  label: 'EPC for 5 bedroom — £80'  },
-    { value: 'EPC for 6 bedroom £80',  label: 'EPC for 6 bedroom — £80'  },
+    { value: '1 bed. £50',                    label: '1 bed. — £50'                    },
+    { value: '2 bed. £55',                    label: '2 bed. — £55'                    },
+    { value: '3 bed. £60',                    label: '3 bed. — £60'                    },
+    { value: '4 bed. £65',                    label: '4 bed. — £65'                    },
+    { value: '5 bed. £70',                    label: '5 bed. — £70'                    },
+    { value: '6 bed. £75',                    label: '6 bed. — £75'                    },
+    { value: '6+ bedroom contact for quotation', label: '6+ bedroom — Contact for Quotation' },
   ]
   const commercialOptions = [
     { value: '0 -540 ft square (0 – 50 square metre) £144',        label: '0–540 ft² (0–50m²) — £144'   },
@@ -139,6 +134,7 @@ export default function BookingPage() {
     { value: '1610 – 2150 ft square (151 - 200 square metres) £264',label: '1610–2150 ft² (151–200m²) — £264' },
     { value: '2150-2690 ft square (201- 250 square metres) £312',   label: '2150–2690 ft² (201–250m²) — £312' },
     { value: '2690 – 3230 ft square (251 – 300 square metres) £360',label: '2690–3230 ft² (251–300m²) — £360' },
+    { value: 'commercial-get-quote',                                 label: 'For more area — Get a Quote'  },
   ]
   const eicrOptions = [
     { value: '1 Bedroom Flat £110',              label: '1 Bedroom Flat — £110'              },
@@ -216,6 +212,11 @@ export default function BookingPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    // Redirect to contact section if "get a quote" options selected
+    if (value === 'commercial-get-quote' || value === '6+ bedroom contact for quotation') {
+      router.push('/#contact')
+      return
+    }
     if (name === 'propertyType') setFormData({ ...formData, [name]: value, propertyDetails: '' })
     else setFormData({ ...formData, [name]: value })
   }
@@ -272,6 +273,35 @@ export default function BookingPage() {
       setBookingDone(true)
     } catch (err) { setPaymentError(err.message) }
     finally { setLoading(false) }
+  }
+
+  // ── Fetch Stripe PaymentIntent clientSecret ───────────────────────────
+  const fetchStripeIntent = async (price) => {
+    if (!price || price <= 0) return
+    setStripeLoading(true)
+    setStripeClientSecret('')
+    try {
+      const res = await fetch(`${API_URL}/api/payment/stripe/create-intent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: price,
+          currency: 'gbp',
+          bookingData: {
+            ...formData,
+            preferredDate: `${selectedSlot?.dateData?.date}T${selectedSlot?.startTime}`,
+            slotId: selectedSlot?.id
+          }
+        })
+      })
+      const data = await res.json()
+      if (data.success) setStripeClientSecret(data.clientSecret)
+      else setPaymentError(data.message || 'Could not initialise payment')
+    } catch (err) {
+      setPaymentError(err.message)
+    } finally {
+      setStripeLoading(false)
+    }
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────
@@ -664,7 +694,13 @@ export default function BookingPage() {
                     { id:'paypal', label:'PayPal',     sub:'Pay via PayPal',
                       icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H4.25L6.75 5.5H12c3.31 0 5.5 1.69 5.5 4.5 0 3.31-2.69 5.5-6 5.5H9L7.5 21ZM9.5 13h1.75c1.93 0 3.25-1.07 3.25-2.75 0-1.25-.93-2.25-2.75-2.25H9.25L9.5 13Z"/></svg> },
                   ].map(m => (
-                    <button key={m.id} type="button" onClick={() => setPaymentMethod(m.id)}
+                    <button key={m.id} type="button" onClick={() => {
+                      setPaymentMethod(m.id)
+                      setPaymentError('')
+                      if (m.id === 'stripe' && selectedPrice > 0) {
+                        fetchStripeIntent(selectedPrice)
+                      }
+                    }}
                       className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border transition-all text-center ${
                         paymentMethod === m.id ? 'border-[#016837] bg-[#016837]/5 shadow-sm' : 'border-gray-200 hover:border-gray-300'
                       }`}>
@@ -682,21 +718,40 @@ export default function BookingPage() {
                   </div>
                 )}
 
-                {/* Stripe card form */}
-                {paymentMethod === 'stripe' && selectedPrice > 0 && (
-                  <Elements stripe={stripePromise}>
-                    <StripeCardForm
-                      amount={selectedPrice}
-                      bookingData={{ ...formData, preferredDate: `${selectedSlot?.dateData?.date}T${selectedSlot?.startTime}`, slotId: selectedSlot?.id }}
-                      onSuccess={handleStripeSuccess}
-                      onError={(msg) => setPaymentError(msg)}
-                    />
-                  </Elements>
-                )}
+                {/* Stripe Payment Form */}
                 {paymentMethod === 'stripe' && !selectedPrice && (
                   <div className="mt-3 px-3 py-2 bg-blue-50 rounded-lg text-xs text-blue-600">
                     Please select a service option above to see the price before paying by card.
                   </div>
+                )}
+                {paymentMethod === 'stripe' && selectedPrice > 0 && (
+                  stripeLoading ? (
+                    <div className="mt-4 flex items-center justify-center gap-2 py-6">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#016837]"></div>
+                      <span className="text-sm text-gray-500">Loading payment form...</span>
+                    </div>
+                  ) : stripeClientSecret ? (
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        clientSecret: stripeClientSecret,
+                        appearance: {
+                          theme: 'stripe',
+                          variables: { colorPrimary: '#016837', borderRadius: '8px' }
+                        }
+                      }}
+                    >
+                      <StripePaymentForm
+                        amount={selectedPrice}
+                        onSuccess={handleStripeSuccess}
+                        onError={(msg) => setPaymentError(msg)}
+                      />
+                    </Elements>
+                  ) : (
+                    <div className="mt-3 px-3 py-2 bg-red-50 rounded-lg text-xs text-red-600">
+                      {paymentError || 'Could not load payment form. Please try again.'}
+                    </div>
+                  )
                 )}
 
                 {/* PayPal buttons */}
