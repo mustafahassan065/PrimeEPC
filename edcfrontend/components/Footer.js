@@ -76,9 +76,8 @@ export default function Footer() {
               
               <p className="text-white/70 text-sm">Sales: <span className="text-[#80C531] font-semibold">07308658247</span></p>
               <div className="pt-2 space-y-1 border-t border-[#80C531]/20 mt-2">
-                <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Mon - Fri:</span> 08:00 - 19:30</p>
-                <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat:</span> 08:00 - 18:00</p>
-                <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Bank Holidays:</span> 08:00 - 16:00</p>
+                <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Mon - Fri:</span>8:00am to 9:00pm</p>
+                <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat:</span>10:00am to 6:00pm</p>
               </div>
             </div>
           </div>

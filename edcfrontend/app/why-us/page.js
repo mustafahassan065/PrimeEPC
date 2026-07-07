@@ -256,7 +256,8 @@ export default function WhyUs() {
               <div className="flex items-center gap-6">
                 <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg">
                   <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                   <rect x="3" y="5" width="18" height="14" rx="2" strokeWidth={2}/>
+<polyline points="3,5 12,13 21,5" strokeWidth={2}/>
                   </svg>
                 </div>
                 <div>
