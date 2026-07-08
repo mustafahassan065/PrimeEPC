@@ -41,7 +41,8 @@ const PRICE_MAP = {
 }
 
 // ── Stripe Payment Form — custom card fields (image style) ───────────────
-function StripePaymentForm({ amount, onSuccess, onError }) {
+// ── Stripe Payment Form — custom card fields ──────────────────────────────
+function StripePaymentForm({ amount, clientSecret, onSuccess, onError }) {
   const stripe   = useStripe()
   const elements = useElements()
   const [processing, setProcessing] = useState(false)
@@ -73,9 +74,8 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
       })
       if (error) throw new Error(error.message)
 
-      // Confirm payment with clientSecret from Elements context
       const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(
-        elements._commonOptions.clientSecret,
+        clientSecret,
         { payment_method: paymentMethod.id }
       )
       if (confirmError) throw new Error(confirmError.message)
@@ -92,25 +92,18 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-
-      {/* Card Holder Name */}
-      <div>
-        <input
-          type="text"
-          placeholder="Card Holder Name"
-          value={cardholderName}
-          onChange={e => setCardholderName(e.target.value)}
-          required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] transition-all"
-        />
-      </div>
-
-      {/* Card Number */}
+      <input
+        type="text"
+        placeholder="Card Holder Name"
+        value={cardholderName}
+        onChange={e => setCardholderName(e.target.value)}
+        required
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#016837] focus:border-[#016837] transition-all"
+      />
       <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white flex items-center gap-3">
         <div className="flex-1">
           <CardNumberElement options={cardElementStyle} />
         </div>
-        {/* Card brand icons */}
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <span style={{background:'#1a1f71', borderRadius:'3px', padding:'2px 6px', fontSize:'9px', fontWeight:800, color:'white', letterSpacing:'0.5px'}}>VISA</span>
           <div style={{position:'relative', width:'28px', height:'18px', flexShrink:0}}>
@@ -120,23 +113,15 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
           <span style={{background:'#016fd0', borderRadius:'3px', padding:'2px 6px', fontSize:'9px', fontWeight:700, color:'white', letterSpacing:'0.3px'}}>AMEX</span>
         </div>
       </div>
-
-      {/* Expiry + CVC row */}
       <div className="grid grid-cols-2 gap-3">
         <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white">
-          <CardExpiryElement options={{ ...cardElementStyle, placeholder: 'MM/YY' }} />
+          <CardExpiryElement options={cardElementStyle} />
         </div>
         <div className="px-4 py-3 border border-gray-300 rounded-lg bg-white">
-          <CardCvcElement options={{ ...cardElementStyle, placeholder: 'CVC' }} />
+          <CardCvcElement options={cardElementStyle} />
         </div>
       </div>
-
-      {/* Error */}
-      {stripeError && (
-        <p className="text-red-500 text-xs">{stripeError}</p>
-      )}
-
-      {/* Pay button */}
+      {stripeError && <p className="text-red-500 text-xs">{stripeError}</p>}
       <button
         type="submit"
         disabled={processing || !stripe || !cardholderName}
@@ -156,7 +141,6 @@ function StripePaymentForm({ amount, onSuccess, onError }) {
           </>
         )}
       </button>
-
       <p className="text-center text-xs text-gray-400">
         🔒 Secured by Stripe — your card details are never stored
       </p>
@@ -787,39 +771,39 @@ export default function BookingPage() {
                 )}
 
                 {/* Stripe Payment Form */}
-                {paymentMethod === 'stripe' && !selectedPrice && (
-                  <div className="mt-3 px-3 py-2 bg-blue-50 rounded-lg text-xs text-blue-600">
-                    Please select a service option above to see the price before paying by card.
-                  </div>
-                )}
-                {paymentMethod === 'stripe' && selectedPrice > 0 && (
-                  stripeLoading ? (
-                    <div className="mt-4 flex items-center justify-center gap-2 py-6">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#016837]"></div>
-                      <span className="text-sm text-gray-500">Loading payment form...</span>
-                    </div>
-                  ) : stripeClientSecret ? (
-                    <Elements
-                      stripe={stripePromise}
-                      options={{
-                        clientSecret: stripeClientSecret,
-                        appearance: {
-                          theme: 'none',
-                        }
-                      }}
-                    >
-                      <StripePaymentForm
-                        amount={selectedPrice}
-                        onSuccess={handleStripeSuccess}
-                        onError={(msg) => setPaymentError(msg)}
-                      />
-                    </Elements>
-                  ) : (
-                    <div className="mt-3 px-3 py-2 bg-red-50 rounded-lg text-xs text-red-600">
-                      {paymentError || 'Could not load payment form. Please try again.'}
-                    </div>
-                  )
-                )}
+               {/* Stripe Payment Form */}
+{paymentMethod === 'stripe' && !selectedPrice && (
+  <div className="mt-3 px-3 py-2 bg-blue-50 rounded-lg text-xs text-blue-600">
+    Please select a service option above to see the price before paying by card.
+  </div>
+)}
+{paymentMethod === 'stripe' && selectedPrice > 0 && (
+  stripeLoading ? (
+    <div className="mt-4 flex items-center justify-center gap-2 py-6">
+      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#016837]"></div>
+      <span className="text-sm text-gray-500">Loading payment form...</span>
+    </div>
+  ) : stripeClientSecret ? (
+    <Elements
+      stripe={stripePromise}
+      options={{
+        clientSecret: stripeClientSecret,
+        appearance: { theme: 'none' }
+      }}
+    >
+      <StripePaymentForm
+        amount={selectedPrice}
+        clientSecret={stripeClientSecret}
+        onSuccess={handleStripeSuccess}
+        onError={(msg) => setPaymentError(msg)}
+      />
+    </Elements>
+  ) : (
+    <div className="mt-3 px-3 py-2 bg-red-50 rounded-lg text-xs text-red-600">
+      {paymentError || 'Could not load payment form. Please try again.'}
+    </div>
+  )
+)}
 
                 {/* PayPal buttons */}
                 {paymentMethod === 'paypal' && selectedPrice > 0 && (

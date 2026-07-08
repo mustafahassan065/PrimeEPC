@@ -202,7 +202,7 @@ export default function About() {
                 </div>
                 <div>
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Phone</p>
-                  <p className="text-white font-bold text-xl">+44 7469 340373</p>
+                  <p className="text-white font-bold text-xl">07308658247</p>
                 </div>
               </div>
               <div className="flex items-center gap-6">
@@ -211,7 +211,7 @@ export default function About() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Email</p>
-                  <p className="text-white font-bold text-base break-all">primeepc.design@gmail.com</p>
+                  <p className="text-white font-bold text-base break-all">info@primeepcdesign.co.uk</p>
                 </div>
               </div>
             </div>
