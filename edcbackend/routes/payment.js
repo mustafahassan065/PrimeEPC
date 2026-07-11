@@ -4,10 +4,10 @@ const express = require('express')
 const router  = express.Router()
 
 // ── Sandbox credentials (swap for live when ready) ────────────────────────
-const STRIPE_SECRET_KEY     = 'sk_test_51Tlnnu3jhQN3xMHfkSD7dcuupcm9zOxOL3sqSd27uMPWYhXVgqLD0daRXWfRTJh9KlD5TBOWKiiDrVXhnYAII3n800wZbDghnt'
-const PAYPAL_CLIENT_ID      = 'AUqAOcibpxfE2IyWwQOYBn6ovFPQMeE-VjHXUDGikAh6Mul88fHALjeoYe-lca-8Y13tUa5Dyy3yt6Sw'
-const PAYPAL_CLIENT_SECRET  = 'AUqAOcibpxfE2IyWwQOYBn6ovFPQMeE-VjHXUDGikAh6Mul88fHALjeoYe-lca-8Y13tUa5Dyy3yt6Sw'
-const PAYPAL_ENV            = 'sandbox' 
+const STRIPE_SECRET_KEY    = process.env.STRIPE_SECRET_KEY
+const PAYPAL_CLIENT_ID     = process.env.PAYPAL_CLIENT_ID
+const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET
+const PAYPAL_ENV           = process.env.PAYPAL_ENV || 'sandbox'
 
 // ── Stripe setup ──────────────────────────────────────────────────────────
 const Stripe = require('stripe')

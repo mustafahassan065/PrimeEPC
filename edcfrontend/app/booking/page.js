@@ -11,8 +11,8 @@ const API_URL = 'https://primeepcdesign.co.uk'
 // ── Sandbox keys (swap for live keys when ready) ──────────────────────────
 
 
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51Tlnnu3jhQN3xMHf8TghdEx8F6oEWaW3RCahjLMA4KUrzarmrHTIe82Wyg9DIvrXLQNeVJmC3B8NAAJFrFgr1vtc00mQMz2loA'
-const PAYPAL_CLIENT_ID       = 'AUqAOcibpxfE2IyWwQOYBn6ovFPQMeE-VjHXUDGikAh6Mul88fHALjeoYe-lca-8Y13tUa5Dyy3yt6Sw'
+const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
 
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
 

@@ -1,259 +1,231 @@
-// const express = require('express');
-// const nodemailer = require('nodemailer');
-// const router = express.Router();
+// routes/email.js
+// npm install nodemailer
+const express  = require('express')
+const nodemailer = require('nodemailer')
+const router   = express.Router()
 
-// // Configure nodemailer - FIXED: createTransport instead of createTransporter
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: process.env.EMAIL_USER || 'primeepc.design@gmail.com',
-//     pass: process.env.EMAIL_PASS || 'your_app_password_here'
-//   }
-// });
+// ── SMTP config — mustafaprogrammer786@gmail.com ──────────────────────────
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'mustafaprogrammer786@gmail.com',
+    pass: process.env.GMAIL_APP_PASSWORD   // add to .env: GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+  }
+})
 
-// // Send booking confirmation email
-// router.post('/send-booking-confirmation', async (req, res) => {
-//   try {
-//     const { 
-//       name, 
-//       email, 
-//       phone, 
-//       propertyType, 
-//       propertyAddress, 
-//       preferredDate, 
-//       message 
-//     } = req.body;
+const ADMIN_EMAIL = 'info@primeepcdesign.co.uk'
+const FROM_EMAIL  = '"Prime EPC" <mustafaprogrammer786@gmail.com>'
 
-//     // Format the date for display
-//     const formatDate = (dateString) => {
-//       const date = new Date(dateString);
-//       return date.toLocaleDateString('en-GB', {
-//         weekday: 'long',
-//         year: 'numeric',
-//         month: 'long',
-//         day: 'numeric'
-//       });
-//     };
+// ─────────────────────────────────────────────────────────────────────────
+// POST /api/email/send-booking-confirmation
+// Called after booking is saved — sends emails to admin + user
+// Body: { name, email, phone, propertyType, propertyDetails, postcode,
+//         propertyAddress, preferredDate, message, paymentMethod, amount }
+// ─────────────────────────────────────────────────────────────────────────
+router.post('/send-booking-confirmation', async (req, res) => {
+  try {
+    const {
+      name, email, phone, propertyType, propertyDetails,
+      postcode, propertyAddress, preferredDate, message,
+      paymentMethod, amount, paymentRef, paymentStatus
+    } = req.body
 
-//     const formatTime = (timeString) => {
-//       const [hours, minutes] = timeString.split(':');
-//       const hour = parseInt(hours);
-//       const ampm = hour >= 12 ? 'PM' : 'AM';
-//       const formattedHour = hour % 12 || 12;
-//       return `${formattedHour}:${minutes} ${ampm}`;
-//     };
+    // Bot check — honeypot (should never reach here but extra safety)
+    if (req.body.honeypot) return res.json({ success: true })
 
-//     // Extract date and time from preferredDate
-//     const [datePart, timePart] = preferredDate.split('T');
-//     const formattedDate = formatDate(datePart);
-//     const formattedTime = formatTime(timePart);
+    const dateStr = preferredDate
+      ? new Date(preferredDate).toLocaleDateString('en-GB', {
+          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        })
+      : 'Not specified'
 
-//     // Email to admin
-//     const adminMailOptions = {
-//       from: process.env.EMAIL_USER || 'primeepc.design@gmail.com',
-//       to: 'primeepc.design@gmail.com',
-//       subject: '📅 New EPC Assessment Booking - Prime EPC & Design Consultants',
-//       html: `
-//         <!DOCTYPE html>
-//         <html>
-//         <head>
-//             <style>
-//                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-//                 .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-//                 .header { background: #059669; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
-//                 .content { background: #f9fafb; padding: 20px; border-radius: 0 0 10px 10px; }
-//                 .details { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #059669; }
-//                 .footer { text-align: center; margin-top: 20px; color: #6b7280; font-size: 12px; }
-//             </style>
-//         </head>
-//         <body>
-//             <div class="container">
-//                 <div class="header">
-//                     <h1>📅 New Booking Received</h1>
-//                     <p>Prime EPC & Design Consultants</p>
-//                 </div>
-//                 <div class="content">
-//                     <h2>Booking Details</h2>
-                    
-//                     <div class="details">
-//                         <h3>👤 Customer Information</h3>
-//                         <p><strong>Name:</strong> ${name}</p>
-//                         <p><strong>Email:</strong> ${email}</p>
-//                         <p><strong>Phone:</strong> ${phone}</p>
-//                     </div>
+    const paymentLabel = {
+      cash:   'Cash (Pay on Arrival)',
+      stripe: 'Bank Card (Stripe)',
+      paypal: 'PayPal'
+    }[paymentMethod] || paymentMethod
 
-//                     <div class="details">
-//                         <h3>🏠 Property Details</h3>
-//                         <p><strong>Property Type:</strong> ${propertyType === 'domestic' ? 'Domestic Property' : 'Commercial Property'}</p>
-//                         <p><strong>Address:</strong> ${propertyAddress}</p>
-//                     </div>
+    const amountStr = amount ? `£${amount}` : 'To be confirmed'
 
-//                     <div class="details">
-//                         <h3>📅 Appointment Details</h3>
-//                         <p><strong>Date:</strong> ${formattedDate}</p>
-//                         <p><strong>Time:</strong> ${formattedTime}</p>
-//                     </div>
+    // ── Invoice section (only for cash) ──────────────────────────────────
+    const invoiceSection = paymentMethod === 'cash' ? `
+      <div style="margin-top:24px; padding:16px; background:#fffbeb; border:1px solid #f59e0b; border-radius:8px;">
+        <h3 style="color:#b45309; margin:0 0 8px;">📄 Invoice / Payment Due</h3>
+        <p style="margin:4px 0; color:#374151;"><strong>Amount Due:</strong> ${amountStr}</p>
+        <p style="margin:4px 0; color:#374151;"><strong>Payment Method:</strong> Cash on Arrival</p>
+        <p style="margin:4px 0; color:#374151;">Please have the exact amount ready on the day of your assessment.</p>
+      </div>` : `
+      <div style="margin-top:24px; padding:16px; background:#f0fdf4; border:1px solid #86efac; border-radius:8px;">
+        <h3 style="color:#166534; margin:0 0 8px;">✅ Payment Received</h3>
+        <p style="margin:4px 0; color:#374151;"><strong>Amount Paid:</strong> ${amountStr}</p>
+        <p style="margin:4px 0; color:#374151;"><strong>Payment Method:</strong> ${paymentLabel}</p>
+        ${paymentRef ? `<p style="margin:4px 0; color:#374151;"><strong>Reference:</strong> ${paymentRef}</p>` : ''}
+      </div>`
 
-//                     ${message ? `
-//                     <div class="details">
-//                         <h3>💬 Additional Message</h3>
-//                         <p>${message}</p>
-//                     </div>
-//                     ` : ''}
+    // ── Email to ADMIN ────────────────────────────────────────────────────
+    const adminHtml = `
+      <div style="font-family:Arial,sans-serif; max-width:600px; margin:0 auto;">
+        <div style="background:#016837; padding:20px; border-radius:8px 8px 0 0;">
+          <h1 style="color:white; margin:0; font-size:22px;">🗓️ New Booking Received</h1>
+        </div>
+        <div style="background:#f9fafb; padding:24px; border:1px solid #e5e7eb; border-top:none; border-radius:0 0 8px 8px;">
+          <h2 style="color:#016837; margin-top:0;">Customer Details</h2>
+          <table style="width:100%; border-collapse:collapse;">
+            <tr><td style="padding:6px 0; color:#6b7280; width:40%;">Name</td><td style="padding:6px 0; color:#111827; font-weight:600;">${name}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Email</td><td style="padding:6px 0; color:#111827; font-weight:600;">${email}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Phone</td><td style="padding:6px 0; color:#111827; font-weight:600;">${phone}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Service</td><td style="padding:6px 0; color:#111827; font-weight:600;">${propertyType} — ${propertyDetails}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Postcode</td><td style="padding:6px 0; color:#111827; font-weight:600;">${postcode}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Property Address</td><td style="padding:6px 0; color:#111827; font-weight:600;">${propertyAddress}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Appointment</td><td style="padding:6px 0; color:#016837; font-weight:700;">${dateStr}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Payment</td><td style="padding:6px 0; color:#111827; font-weight:600;">${paymentLabel} — ${amountStr}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Payment Status</td><td style="padding:6px 0; color:#111827; font-weight:600;">${paymentStatus || 'N/A'}</td></tr>
+            ${paymentRef ? `<tr><td style="padding:6px 0; color:#6b7280;">Payment Ref</td><td style="padding:6px 0; color:#111827; font-weight:600;">${paymentRef}</td></tr>` : ''}
+            ${message ? `<tr><td style="padding:6px 0; color:#6b7280; vertical-align:top;">Notes</td><td style="padding:6px 0; color:#111827;">${message}</td></tr>` : ''}
+          </table>
+        </div>
+      </div>`
 
-//                     <div class="details">
-//                         <h3>⏰ Booking Time</h3>
-//                         <p>${new Date().toLocaleString('en-GB', { 
-//                             weekday: 'long',
-//                             year: 'numeric',
-//                             month: 'long',
-//                             day: 'numeric',
-//                             hour: '2-digit',
-//                             minute: '2-digit'
-//                         })}</p>
-//                     </div>
-//                 </div>
-//                 <div class="footer">
-//                     <p>This email was automatically generated from your booking system.</p>
-//                     <p>Prime EPC & Design Consultants &copy; ${new Date().getFullYear()}</p>
-//                 </div>
-//             </div>
-//         </body>
-//         </html>
-//       `
-//     };
+    // ── Confirmation email to USER ─────────────────────────────────────────
+    const userHtml = `
+      <div style="font-family:Arial,sans-serif; max-width:600px; margin:0 auto;">
+        <div style="background:#016837; padding:20px; border-radius:8px 8px 0 0;">
+          <h1 style="color:white; margin:0; font-size:22px;">✅ Booking Confirmed — Prime EPC</h1>
+        </div>
+        <div style="background:#f9fafb; padding:24px; border:1px solid #e5e7eb; border-top:none; border-radius:0 0 8px 8px;">
+          <p style="color:#374151;">Dear <strong>${name}</strong>,</p>
+          <p style="color:#374151;">Thank you for booking with <strong>Prime EPC and Design Consultants</strong>. Your appointment has been confirmed.</p>
 
-//     // Email to customer
-//     const customerMailOptions = {
-//       from: process.env.EMAIL_USER || 'primeepc.design@gmail.com',
-//       to: email,
-//       subject: '✅ Your EPC Assessment Booking Confirmation - Prime EPC & Design Consultants',
-//       html: `
-//         <!DOCTYPE html>
-//         <html>
-//         <head>
-//             <style>
-//                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-//                 .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-//                 .header { background: #059669; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
-//                 .content { background: #f9fafb; padding: 20px; border-radius: 0 0 10px 10px; }
-//                 .details { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; border-left: 4px solid #059669; }
-//                 .footer { text-align: center; margin-top: 20px; color: #6b7280; font-size: 12px; }
-//                 .important { background: #fef3cd; padding: 15px; border-radius: 5px; border-left: 4px solid #f59e0b; }
-//             </style>
-//         </head>
-//         <body>
-//             <div class="container">
-//                 <div class="header">
-//                     <h1>✅ Booking Confirmed</h1>
-//                     <p>Prime EPC & Design Consultants</p>
-//                 </div>
-//                 <div class="content">
-//                     <p>Dear <strong>${name}</strong>,</p>
-//                     <p>Thank you for booking your EPC assessment with us. Your appointment has been confirmed.</p>
-                    
-//                     <div class="details">
-//                         <h3>📅 Your Appointment</h3>
-//                         <p><strong>Date:</strong> ${formattedDate}</p>
-//                         <p><strong>Time:</strong> ${formattedTime}</p>
-//                     </div>
+          <div style="background:white; padding:16px; border-radius:8px; border:1px solid #e5e7eb; margin:16px 0;">
+            <h3 style="color:#016837; margin-top:0;">📋 Booking Summary</h3>
+            <table style="width:100%; border-collapse:collapse;">
+              <tr><td style="padding:5px 0; color:#6b7280; width:40%;">Service</td><td style="padding:5px 0; color:#111827; font-weight:600;">${propertyDetails}</td></tr>
+              <tr><td style="padding:5px 0; color:#6b7280;">Property Address</td><td style="padding:5px 0; color:#111827; font-weight:600;">${propertyAddress}</td></tr>
+              <tr><td style="padding:5px 0; color:#6b7280;">Postcode</td><td style="padding:5px 0; color:#111827; font-weight:600;">${postcode}</td></tr>
+              <tr><td style="padding:5px 0; color:#6b7280;">Appointment</td><td style="padding:5px 0; color:#016837; font-weight:700;">${dateStr}</td></tr>
+              <tr><td style="padding:5px 0; color:#6b7280;">Payment</td><td style="padding:5px 0; color:#111827; font-weight:600;">${paymentLabel}</td></tr>
+            </table>
+          </div>
 
-//                     <div class="important">
-//                         <h3>📍 What to Expect</h3>
-//                         <p>Our assessor will visit your property at the scheduled time. The assessment usually takes 30-60 minutes.</p>
-//                         <p><strong>Please ensure:</strong></p>
-//                         <ul>
-//                             <li>Someone is available at the property</li>
-//                             <li>All rooms are accessible</li>
-//                             <li>Heating systems are operational</li>
-//                         </ul>
-//                     </div>
+          ${invoiceSection}
 
-//                     <div class="details">
-//                         <h3>📞 Contact Information</h3>
-//                         <p>If you need to reschedule or have any questions, please contact us:</p>
-//                         <p>📞 +44 7469 340373</p>
-//                         <p>📧 Primeepc.design@gmail.com</p>
-//                     </div>
-//                 </div>
-//                 <div class="footer">
-//                     <p>Prime EPC & Design Consultants &copy; ${new Date().getFullYear()}</p>
-//                     <p>Thank you for choosing us for your energy performance certificate needs.</p>
-//                 </div>
-//             </div>
-//         </body>
-//         </html>
-//       `
-//     };
+          <div style="margin-top:24px; padding:16px; background:#f0fdf4; border-radius:8px;">
+            <h3 style="color:#016837; margin:0 0 8px;">📞 Need Help?</h3>
+            <p style="margin:4px 0; color:#374151;">📞 07308658247</p>
+            <p style="margin:4px 0; color:#374151;">📧 info@primeepcdesign.co.uk</p>
+            <p style="margin:4px 0; color:#374151;">🌐 https://www.primeepcdesign.co.uk</p>
+          </div>
 
-//     // Send both emails
-//     await transporter.sendMail(adminMailOptions);
-//     await transporter.sendMail(customerMailOptions);
+          <p style="color:#6b7280; font-size:13px; margin-top:20px;">
+            If you need to reschedule or have any questions, please contact us as soon as possible.
+          </p>
+          <p style="color:#016837; font-weight:600;">Prime EPC and Design Consultants</p>
+        </div>
+      </div>`
 
-//     console.log('✅ Emails sent successfully');
-//     console.log('📧 Admin email sent to: primeepc.design@gmail.com');
-//     console.log('📧 Customer email sent to:', email);
+    // Send both emails
+    await Promise.all([
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: ADMIN_EMAIL,
+        subject: `New Booking — ${name} — ${dateStr}`,
+        html: adminHtml
+      }),
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'Booking Confirmed — Prime EPC and Design Consultants',
+        html: userHtml
+      })
+    ])
 
-//     res.json({
-//       success: true,
-//       message: 'Booking confirmation emails sent successfully'
-//     });
+    res.json({ success: true, message: 'Emails sent successfully' })
+  } catch (error) {
+    console.error('Booking email error:', error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+})
 
-//   } catch (error) {
-//     console.error('❌ Email sending error:', error);
-//     res.status(500).json({
-//       success: false,
-//       message: 'Failed to send confirmation emails: ' + error.message
-//     });
-//   }
-// });
+// ─────────────────────────────────────────────────────────────────────────
+// POST /api/email/send-contact-form
+// Body: { name, email, phone, service, message }
+// Bot protection: honeypot checked in frontend; rate limiting via express-rate-limit
+// ─────────────────────────────────────────────────────────────────────────
+router.post('/send-contact-form', async (req, res) => {
+  try {
+    const { name, email, phone, service, message, honeypot } = req.body
 
-// // Test email route
-// router.post('/test-email', async (req, res) => {
-//   try {
-//     const testMailOptions = {
-//       from: process.env.EMAIL_USER || 'primeepc.design@gmail.com',
-//       to: 'primeepc.design@gmail.com',
-//       subject: '✅ Test Email - Prime EPC Booking System',
-//       html: `
-//         <!DOCTYPE html>
-//         <html>
-//         <head>
-//             <style>
-//                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-//                 .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-//                 .header { background: #059669; color: white; padding: 20px; text-align: center; border-radius: 10px; }
-//             </style>
-//         </head>
-//         <body>
-//             <div class="container">
-//                 <div class="header">
-//                     <h1>✅ Test Successful</h1>
-//                     <p>Prime EPC & Design Consultants</p>
-//                 </div>
-//                 <div style="padding: 20px; text-align: center;">
-//                     <p>Your email system is working correctly!</p>
-//                     <p>Timestamp: ${new Date().toLocaleString('en-GB')}</p>
-//                 </div>
-//             </div>
-//         </body>
-//         </html>
-//       `
-//     };
+    // Server-side honeypot check
+    if (honeypot) return res.json({ success: true })
 
-//     await transporter.sendMail(testMailOptions);
-    
-//     res.json({
-//       success: true,
-//       message: 'Test email sent successfully'
-//     });
-//   } catch (error) {
-//     console.error('Test email error:', error);
-//     res.status(500).json({
-//       success: false,
-//       message: 'Test email failed: ' + error.message
-//     });
-//   }
-// });
+    // Basic validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ success: false, message: 'Name, email and message are required.' })
+    }
 
-// module.exports = router;
+    // ── Email to ADMIN ────────────────────────────────────────────────────
+    const adminHtml = `
+      <div style="font-family:Arial,sans-serif; max-width:600px; margin:0 auto;">
+        <div style="background:#016837; padding:20px; border-radius:8px 8px 0 0;">
+          <h1 style="color:white; margin:0; font-size:22px;">📩 New Contact Form Submission</h1>
+        </div>
+        <div style="background:#f9fafb; padding:24px; border:1px solid #e5e7eb; border-top:none; border-radius:0 0 8px 8px;">
+          <table style="width:100%; border-collapse:collapse;">
+            <tr><td style="padding:6px 0; color:#6b7280; width:30%;">Name</td><td style="padding:6px 0; color:#111827; font-weight:600;">${name}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Email</td><td style="padding:6px 0; color:#111827; font-weight:600;">${email}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Phone</td><td style="padding:6px 0; color:#111827; font-weight:600;">${phone || 'Not provided'}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280;">Service</td><td style="padding:6px 0; color:#111827; font-weight:600;">${service || 'Not specified'}</td></tr>
+            <tr><td style="padding:6px 0; color:#6b7280; vertical-align:top;">Message</td><td style="padding:6px 0; color:#111827;">${message}</td></tr>
+          </table>
+        </div>
+      </div>`
+
+    // ── Confirmation to USER ───────────────────────────────────────────────
+    const userHtml = `
+      <div style="font-family:Arial,sans-serif; max-width:600px; margin:0 auto;">
+        <div style="background:#016837; padding:20px; border-radius:8px 8px 0 0;">
+          <h1 style="color:white; margin:0; font-size:22px;">✅ Message Received — Prime EPC</h1>
+        </div>
+        <div style="background:#f9fafb; padding:24px; border:1px solid #e5e7eb; border-top:none; border-radius:0 0 8px 8px;">
+          <p style="color:#374151;">Dear <strong>${name}</strong>,</p>
+          <p style="color:#374151;">Thank you for contacting <strong>Prime EPC and Design Consultants</strong>. We have received your message and will get back to you within 24 hours.</p>
+
+          <div style="background:white; padding:16px; border-radius:8px; border:1px solid #e5e7eb; margin:16px 0;">
+            <h3 style="color:#016837; margin-top:0;">Your Message</h3>
+            <p style="color:#374151; white-space:pre-wrap;">${message}</p>
+          </div>
+
+          <div style="margin-top:16px; padding:16px; background:#f0fdf4; border-radius:8px;">
+            <h3 style="color:#016837; margin:0 0 8px;">Contact Us Directly</h3>
+            <p style="margin:4px 0; color:#374151;">📞 07308658247</p>
+            <p style="margin:4px 0; color:#374151;">📧 info@primeepcdesign.co.uk</p>
+            <p style="margin:4px 0; color:#374151;">🌐 https://www.primeepcdesign.co.uk</p>
+          </div>
+          <p style="color:#016837; font-weight:600; margin-top:20px;">Prime EPC and Design Consultants</p>
+        </div>
+      </div>`
+
+    await Promise.all([
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: ADMIN_EMAIL,
+        subject: `Contact Form — ${name} — ${service || 'General Enquiry'}`,
+        html: adminHtml
+      }),
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'We received your message — Prime EPC',
+        html: userHtml
+      })
+    ])
+
+    res.json({ success: true, message: 'Message sent successfully' })
+  } catch (error) {
+    console.error('Contact email error:', error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+})
+
+module.exports = router

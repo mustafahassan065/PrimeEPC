@@ -21,7 +21,7 @@ const Booking = sequelize.define('Booking', {
     allowNull: false,
   },
   propertyType: {
-    type: DataTypes.ENUM('domestic', 'commercial'),
+    type: DataTypes.ENUM('domestic', 'commercial', 'eicr'),
     allowNull: false,
   },
   propertyDetails: {
@@ -46,10 +46,26 @@ const Booking = sequelize.define('Booking', {
     type: DataTypes.ENUM('pending', 'confirmed', 'completed', 'cancelled'),
     defaultValue: 'pending',
   },
+  paymentMethod: {
+    type: DataTypes.STRING,
+    defaultValue: 'cash',
+  },
+  paymentRef: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  paymentStatus: {
+    type: DataTypes.STRING,
+    defaultValue: 'pending',
+  },
+  amount: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
+  },
 }, {
   tableName: 'bookings',
   timestamps: true,
-  underscored: true,   // 🔥 REQUIRED
+  underscored: true,
 });
 
 module.exports = Booking;

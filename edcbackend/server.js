@@ -142,7 +142,7 @@ app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/booking', require('./routes/booking'));
-//app.use('/api/email', require('./routes/email'));
+app.use('/api/email', require('./routes/email'))
 app.use('/api/contact', require('./routes/contact'));
 
 // Health Check
