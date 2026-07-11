@@ -812,13 +812,19 @@ export default function BookingPage() {
                       <PayPalButtons
                         style={{ layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' }}
                         createOrder={(data, actions) => {
-                          return actions.order.create({
-                            purchase_units: [{
-                              amount: { value: selectedPrice.toFixed(2), currency_code: 'GBP' },
-                              description: formData.propertyDetails || 'EPC Assessment'
-                            }]
-                          })
-                        }}
+  return actions.order.create({
+    purchase_units: [{
+      amount: {
+        value: selectedPrice.toFixed(2),
+        currency_code: 'GBP'
+      },
+      description: formData.propertyDetails || 'EPC Assessment'
+    }],
+    application_context: {
+      shipping_preference: 'NO_SHIPPING'  // ← yeh add karo
+    }
+  })
+}}
                         onApprove={async (data, actions) => {
                           const details = await actions.order.capture()
                           await handlePayPalSuccess(details)
