@@ -1,8 +1,43 @@
+'use client'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [subEmail, setSubEmail] = useState('')
+  const [subStatus, setSubStatus] = useState('') // 'sent' | 'error' | ''
+  const [subLoading, setSubLoading] = useState(false)
+
+  const handleSubscribe = async () => {
+    if (!subEmail || !subEmail.includes('@')) return
+    setSubLoading(true)
+    setSubStatus('')
+    try {
+      const res = await fetch('https://primeepcdesign.co.uk/api/email/send-contact-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Newsletter Subscriber',
+          email: subEmail,
+          phone: '',
+          service: 'Newsletter Subscription',
+          message: `New newsletter subscription request from: ${subEmail}`
+        })
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSubStatus('sent')
+        setSubEmail('')
+      } else {
+        setSubStatus('error')
+      }
+    } catch {
+      setSubStatus('error')
+    } finally {
+      setSubLoading(false)
+    }
+  }
 
   return (
     <footer className="bg-black text-white">
@@ -44,7 +79,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 - See More (Header wale links) */}
+          {/* Column 2 - See More */}
           <div>
             <h4 className="text-[#80C531] font-semibold mb-5 text-base">See More</h4>
             <div className="flex flex-col space-y-3">
@@ -56,7 +91,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3 - Useful Links (Ab Header wale links) */}
+          {/* Column 3 - Useful Links */}
           <div>
             <h4 className="text-[#80C531] font-semibold mb-5 text-base">Useful Links</h4>
             <div className="flex flex-col space-y-3">
@@ -73,8 +108,15 @@ export default function Footer() {
             <div className="flex flex-col space-y-3">
               <Link href="/#contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact us</Link>
               <Link href="/booking" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Book Your EPC</Link>
-              
-              <p className="text-white/70 text-sm">Sales: <span className="text-[#80C531] font-semibold">07308658247</span></p>
+              {/* Clickable phone → WhatsApp */}
+              <a
+                href="https://wa.me/447308658247"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200"
+              >
+                Sales: <span className="text-[#80C531] font-semibold">07308658247</span>
+              </a>
               <div className="pt-2 space-y-1 border-t border-[#80C531]/20 mt-2">
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Mon - Fri:</span> 8:00am to 9:00pm</p>
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat-Sun:</span> 10:00am to 6:00pm</p>
@@ -91,17 +133,36 @@ export default function Footer() {
             <p className="text-white font-semibold text-sm md:text-base">
               Sign up for special offers and discount vouchers
             </p>
-            <div className="flex w-full md:w-auto">
-              <input 
-                type="email" 
-                placeholder="enter your email" 
-                className="bg-white text-gray-800 px-4 py-3 rounded-l-lg w-full md:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-[#80C531]"
-              />
-              <button className="bg-[#016837] hover:bg-[#01572E] text-white px-5 py-3 rounded-r-lg transition-colors duration-200">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
+            <div className="flex flex-col w-full md:w-auto gap-2">
+              <div className="flex w-full md:w-auto">
+                <input
+                  type="email"
+                  placeholder="enter your email"
+                  value={subEmail}
+                  onChange={e => { setSubEmail(e.target.value); setSubStatus('') }}
+                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
+                  className="bg-white text-gray-800 px-4 py-3 rounded-l-lg w-full md:w-72 text-sm focus:outline-none focus:ring-2 focus:ring-[#80C531]"
+                />
+                <button
+                  onClick={handleSubscribe}
+                  disabled={subLoading}
+                  className="bg-[#016837] hover:bg-[#01572E] text-white px-5 py-3 rounded-r-lg transition-colors duration-200 disabled:opacity-60"
+                >
+                  {subLoading ? (
+                    <span className="animate-spin rounded-full h-4 w-4 border-b-2 border-white inline-block"></span>
+                  ) : (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+              {subStatus === 'sent' && (
+                <p className="text-[#80C531] text-xs">✅ Thank you! You have been subscribed.</p>
+              )}
+              {subStatus === 'error' && (
+                <p className="text-red-400 text-xs">❌ Something went wrong. Please try again.</p>
+              )}
             </div>
           </div>
         </div>
@@ -124,8 +185,9 @@ export default function Footer() {
                 </svg>
               </a>
             </div>
-            <p className="text-white/50 text-xs">
-              &copy; {currentYear} Prime EPC and Design Consultants. All rights reserved.
+            {/* Updated copyright with company name and number from Companies House */}
+            <p className="text-white/50 text-xs text-center md:text-right">
+              &copy; {currentYear} Prime EPC & Design Consultant Ltd. Company No. 17307524. All rights reserved.
             </p>
           </div>
         </div>

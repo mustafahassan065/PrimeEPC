@@ -1,93 +1,90 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
-// HARDCODED API URL - NO ENV VARIABLE ISSUES
 const API_URL = 'https://primeepcdesign.co.uk'
 
 export default function AdminDashboard() {
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [sessionExpired, setSessionExpired] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
-    checkAuth()
-    fetchBlogs()
+  const handleAuthError = useCallback(() => {
+    localStorage.removeItem('adminToken')
+    localStorage.removeItem('admin')
+    setSessionExpired(true)
+    setLoading(false)
   }, [])
 
-  const checkAuth = () => {
-    const token = localStorage.getItem('adminToken')
-    if (!token) {
-      router.push('/admin/login')
-    }
-  }
-
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     try {
       const token = localStorage.getItem('adminToken')
-      console.log('📝 Fetching blogs from:', `${API_URL}/api/admin/blogs`)
-      
+      if (!token) { handleAuthError(); return }
+
       const response = await fetch(`${API_URL}/api/admin/blogs`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       })
 
+      // Token expired or invalid
+      if (response.status === 401 || response.status === 403) {
+        handleAuthError()
+        return
+      }
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        setError('Failed to load blogs. Please refresh the page.')
+        return
       }
 
       const data = await response.json()
-      console.log('📝 Blogs response:', data)
-
       if (data.success) {
         setBlogs(data.data)
+        setError('')
       } else {
-        setError('❌ Failed to fetch blogs: ' + data.message)
+        setError('Failed to fetch blogs: ' + data.message)
       }
-    } catch (error) {
-      console.error('❌ Fetch blogs error:', error)
-      setError('❌ Network error: ' + error.message)
+    } catch {
+      setError('Unable to connect to server. Please check your connection.')
     } finally {
       setLoading(false)
     }
-  }
+  }, [handleAuthError])
+
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken')
+    if (!token) {
+      router.push('/admin/login')
+      return
+    }
+    fetchBlogs()
+  }, [router, fetchBlogs])
 
   const handleDelete = async (blogId) => {
     if (!confirm('Are you sure you want to delete this blog?')) return
-
     try {
       const token = localStorage.getItem('adminToken')
-      
-      console.log('🗑️ Deleting blog ID:', blogId)
-      console.log('🌐 API URL:', `${API_URL}/api/admin/blogs/${blogId}`)
-      
       const response = await fetch(`${API_URL}/api/admin/blogs/${blogId}`, {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       })
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+      if (response.status === 401 || response.status === 403) {
+        handleAuthError()
+        return
       }
 
       const data = await response.json()
-      console.log('🗑️ Delete response:', data)
-
       if (data.success) {
         setBlogs(blogs.filter(blog => blog.id !== blogId))
-        alert('✅ Blog deleted successfully')
       } else {
-        alert('❌ Failed to delete blog: ' + data.message)
+        alert('Failed to delete blog: ' + data.message)
       }
-    } catch (error) {
-      console.error('❌ Delete error:', error)
-      alert('❌ Network error: ' + error.message)
+    } catch {
+      alert('Unable to connect to server. Please try again.')
     }
   }
 
@@ -95,6 +92,29 @@ export default function AdminDashboard() {
     localStorage.removeItem('adminToken')
     localStorage.removeItem('admin')
     router.push('/admin/login')
+  }
+
+  // Session expired screen
+  if (sessionExpired) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-xl shadow-md p-8 max-w-sm w-full text-center">
+          <div className="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-7 h-7 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            </svg>
+          </div>
+          <h2 className="text-lg font-semibold text-gray-800 mb-2">Session Expired</h2>
+          <p className="text-gray-500 text-sm mb-6">You need to login again to continue.</p>
+          <button
+            onClick={() => router.push('/admin/login')}
+            className="w-full bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 transition-colors font-medium"
+          >
+            Go to Login
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (loading) {
@@ -110,11 +130,9 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header - Mobile responsive */}
       <header className="bg-white shadow">
         <div className="px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-4">
-            {/* Top row - Title */}
             <div className="flex justify-between items-center">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
               <button
@@ -124,27 +142,16 @@ export default function AdminDashboard() {
                 Logout
               </button>
             </div>
-
-            {/* Bottom row - Buttons */}
             <div className="flex flex-col xs:flex-row gap-3">
               <div className="flex flex-wrap gap-2">
-                <Link
-                  href="/admin/bookings"
-                  className="w-40 xs:w-48 bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-center text-sm sm:text-base"
-                >
+                <Link href="/admin/bookings" className="w-40 xs:w-48 bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-center text-sm sm:text-base">
                   Manage Bookings
                 </Link>
-                <Link
-                  href="/admin/schedule"
-                  className="w-40 xs:w-48 bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-purple-700 transition-colors text-center text-sm sm:text-base"
-                 > Manage Schedule
+                <Link href="/admin/schedule" className="w-40 xs:w-48 bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-purple-700 transition-colors text-center text-sm sm:text-base">
+                  Manage Schedule
                 </Link>
               </div>
-              <Link
-                href="/admin/create-blog"
-                className="w-full xs:w-40 sm:w-48 bg-green-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-green-700 transition-colors text-center text-sm sm:text-base"
-  >
-
+              <Link href="/admin/create-blog" className="w-full xs:w-40 sm:w-48 bg-green-600 text-white px-3 sm:px-4 py-2 rounded-md hover:bg-green-700 transition-colors text-center text-sm sm:text-base">
                 Create New Blog
               </Link>
             </div>
@@ -152,31 +159,26 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="py-4 sm:py-6 px-4 sm:px-6">
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded mb-4 sm:mb-6 text-sm sm:text-base">
-            {error}
+          <div className="bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-md flex items-start gap-2 mb-4 sm:mb-6 text-sm">
+            <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd"/>
+            </svg>
+            <span>{error}</span>
           </div>
         )}
 
         <div className="bg-white shadow overflow-hidden rounded-md">
           <div className="px-4 py-4 sm:px-6">
-            <h3 className="text-lg sm:text-xl leading-6 font-medium text-gray-900">
-              Blog Posts
-            </h3>
-            <p className="mt-1 text-sm text-gray-500">
-              Manage your blog posts and content
-            </p>
+            <h3 className="text-lg sm:text-xl leading-6 font-medium text-gray-900">Blog Posts</h3>
+            <p className="mt-1 text-sm text-gray-500">Manage your blog posts and content</p>
           </div>
 
           {blogs.length === 0 ? (
             <div className="px-4 py-8 sm:py-12 text-center">
               <p className="text-gray-500 mb-4">No blog posts found.</p>
-              <Link
-                href="/admin/create-blog"
-                className="inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 text-sm sm:text-base"
-              >
+              <Link href="/admin/create-blog" className="inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 text-sm sm:text-base">
                 Create Your First Blog
               </Link>
             </div>
@@ -191,24 +193,15 @@ export default function AdminDashboard() {
                         <p className="mt-1 text-sm text-gray-500 line-clamp-2 sm:line-clamp-3">
                           {blog.content?.substring(0, 150)}...
                         </p>
-                        <div className="mt-2 flex flex-col xs:flex-row xs:items-center text-xs sm:text-sm text-gray-500 gap-2">
-                          <span>
-                            Created: {new Date(blog.createdAt).toLocaleDateString()}
-                          </span>
-                          
+                        <div className="mt-2 text-xs sm:text-sm text-gray-500">
+                          Created: {new Date(blog.createdAt).toLocaleDateString()}
                         </div>
                       </div>
                       <div className="flex flex-col sm:flex-row gap-2">
-                        <Link
-                          href={`/admin/edit-blog/${blog.id}`}
-                          className="bg-blue-600 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-700 text-center"
-                        >
+                        <Link href={`/admin/edit-blog/${blog.id}`} className="bg-blue-600 text-white px-3 py-1.5 rounded text-sm hover:bg-blue-700 text-center">
                           Edit
                         </Link>
-                        <button
-                          onClick={() => handleDelete(blog.id)}
-                          className="bg-red-600 text-white px-3 py-1.5 rounded text-sm hover:bg-red-700"
-                        >
+                        <button onClick={() => handleDelete(blog.id)} className="bg-red-600 text-white px-3 py-1.5 rounded text-sm hover:bg-red-700">
                           Delete
                         </button>
                       </div>
