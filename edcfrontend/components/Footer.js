@@ -187,7 +187,7 @@ export default function Footer() {
             </div>
             {/* Updated copyright with company name and number from Companies House */}
             <p className="text-white/50 text-xs text-center md:text-right">
-              &copy; {currentYear} Prime EPC & Design Consultant Ltd. Company No. 17307524. All rights reserved.
+              &copy; {currentYear} Prime EPC & Design Consultant Ltd. Company No. 17307524.
             </p>
           </div>
         </div>

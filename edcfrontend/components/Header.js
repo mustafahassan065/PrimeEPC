@@ -14,9 +14,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             {/* Phone — opens WhatsApp on click */}
             <a
-              href="https://wa.me/447308658247"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+447308658247"
               className="hover:text-[#80C531] transition-colors duration-200"
             >
               📞 07308658247
