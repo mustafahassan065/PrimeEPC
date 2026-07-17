@@ -110,8 +110,7 @@ export default function Footer() {
               <Link href="/booking" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Book Your EPC</Link>
               {/* Clickable phone → WhatsApp */}
               <a
-                href="https://wa.me/447308658247"
-                target="_blank"
+               href="tel:+447308658247"
                 rel="noopener noreferrer"
                 className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200"
               >

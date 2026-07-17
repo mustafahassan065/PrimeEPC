@@ -202,7 +202,9 @@ export default function About() {
                 </div>
                 <div>
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Phone</p>
-                  <p className="text-white font-bold text-xl">07308658247</p>
+                  <a href="tel:+447308658247" className="text-white font-bold text-xl hover:text-[#80C531] transition-colors">
+          07308658247
+        </a>
                 </div>
               </div>
               <div className="flex items-center gap-6">
@@ -211,7 +213,9 @@ export default function About() {
                 </div>
                 <div className="min-w-0">
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Email</p>
-                  <p className="text-white font-bold text-base break-all">info@primeepcdesign.co.uk</p>
+                 <a href="mailto:info@primeepcdesign.co.uk" className="text-white font-bold text-base break-all hover:text-[#80C531] transition-colors">
+          info@primeepcdesign.co.uk
+        </a>
                 </div>
               </div>
             </div>
