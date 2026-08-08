@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Prime EPC and Design Consultants - Quick & Reliable EPC Certificates',
   description:
-    'Get your Energy Performance Certificate within 24-48 hours. Accredited assessors serving across the Manchester.',
+    'Get your Energy Performance Certificate within 24-48 hours. Accredited assessors serving across the Greater Manchester.',
   icons: {
     icon: '/images/logo3.png',
     shortcut: '/images/logo3.png',

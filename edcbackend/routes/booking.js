@@ -168,6 +168,91 @@ router.post('/admin/schedules', auth, async (req, res) => {
   }
 });
 
+// ✅ BULK Create schedules (Admin only) — FIXED for large batches
+router.post('/admin/schedules/bulk', auth, async (req, res) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const { slots } = req.body;
+
+    if (!Array.isArray(slots) || slots.length === 0) {
+      await transaction.rollback();
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Slots array is required' 
+      });
+    }
+
+    // Safety limit — max 500 per request
+    if (slots.length > 500) {
+      await transaction.rollback();
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Maximum 500 slots allowed per bulk request. Please split into smaller batches.' 
+      });
+    }
+
+    // Get all unique dates from incoming slots
+    const uniqueDates = [...new Set(slots.map(s => s.date))];
+
+    // Check existing slots for those dates (fast lookup)
+    const existingSlots = await Schedule.findAll({
+      where: { date: { [Op.in]: uniqueDates } },
+      attributes: ['date', 'startTime', 'endTime'],
+      transaction
+    });
+
+    const existingKeys = new Set(
+      existingSlots.map(e => `${e.date}_${e.startTime}_${e.endTime}`)
+    );
+
+    // Filter only new slots
+    const newSlots = slots.filter(s => 
+      !existingKeys.has(`${s.date}_${s.startTime}_${s.endTime}`)
+    );
+
+    const skipped = slots.length - newSlots.length;
+
+    if (newSlots.length === 0) {
+      await transaction.rollback();
+      return res.json({ 
+        success: true, 
+        created: 0, 
+        skipped,
+        message: 'All slots already exist' 
+      });
+    }
+
+    // Single query insert — PostgreSQL bulkCreate
+    const created = await Schedule.bulkCreate(newSlots, { 
+      transaction,
+      validate: true 
+    });
+
+    await transaction.commit();
+
+    res.json({
+      success: true,
+      created: created.length,
+      skipped,
+      message: `Created ${created.length} slots${skipped > 0 ? `, ${skipped} skipped (already exist)` : ''}`
+    });
+
+  } catch (error) {
+    await transaction.rollback();
+    console.error('Bulk create schedule error:', error);
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Some slots already exist. Please refresh and try again.' 
+      });
+    }
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error creating bulk schedules: ' + error.message 
+    });
+  }
+});
+
 // Cleanup past schedules
 const cleanupPastSchedules = async () => {
   try {

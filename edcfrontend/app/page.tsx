@@ -483,7 +483,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🛠️ OUR SERVICES</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Comprehensive EPC Services</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Professional Energy Performance Certificates for all property types across the Manchester</p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Professional Energy Performance Certificates for all property types across the Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
@@ -493,7 +493,7 @@ export default function Home() {
                 </div>
                 <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £55</p></div>
               </div>
-              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Manchester. Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.</p>
+              <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across the Greater Manchester. Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 {['Domestic EPCs','Commercial EPCs','New Build EPCs','Landlord EPCs','Property Sales EPCs','Rental Property EPCs'].map((service, index) => (
                   <div key={index} className="flex items-center gap-3 bg-gradient-to-r from-[#F8F8F8] to-white rounded-xl p-3 shadow-sm border border-[#80C531]/10">
@@ -684,7 +684,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#80C531] text-lg mb-1">Service Areas</h4>
-                      <p className="text-white font-semibold text-lg">Manchester Coverage</p>
+                      <p className="text-white font-semibold text-lg">Greater Manchester Coverage</p>
                     </div>
                   </div>
                 </div>

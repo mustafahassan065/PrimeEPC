@@ -21,7 +21,7 @@ export default function Header() {
             </a>
           </div>
           <div className="hidden sm:flex items-center space-x-4">
-            <span>We serve areas within a 50-mile radius of Manchester.</span>
+            <span>We serve areas within a 50-mile radius of Greater Manchester.</span>
           </div>
           <div className="hidden md:block">
             {/* Email — opens Gmail/mail client on click */}

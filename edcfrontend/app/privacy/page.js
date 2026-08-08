@@ -119,7 +119,7 @@ export default function PrivacyPolicy() {
                         <li>Withdraw consent for future communications.</li>
                       </ul>
                       <p className="mt-4">
-                        To exercise your rights, contact us at <strong>Primeepc.design@gmail.com</strong>.
+                        To exercise your rights, contact us at <strong>info@primeepcdesign.co.uk</strong>.
                       </p>
                     </div>
                   </div>

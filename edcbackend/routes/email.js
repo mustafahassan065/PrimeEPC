@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const ADMIN_EMAIL = 'info@primeepcdesign.co.uk'
-const FROM_EMAIL  = '"Prime EPC" <mustafaprogrammer786@gmail.com>'
+const FROM_EMAIL  = '"Prime EPC" <info@primeepcdesign.co.uk>'
 
 // ─────────────────────────────────────────────────────────────────────────
 // POST /api/email/send-booking-confirmation

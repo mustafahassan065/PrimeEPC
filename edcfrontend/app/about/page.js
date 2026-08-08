@@ -49,7 +49,7 @@ export default function About() {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🏢 OUR COMPANY</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Who We Are</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">Making energy certification accessible, affordable, and easy for everyone in Manchester</p>
+              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">Making energy certification accessible, affordable, and easy for everyone in Greater Manchester</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">
@@ -63,7 +63,7 @@ export default function About() {
                     <h3 className="text-2xl font-bold text-[#282828]">Our Mission</h3>
                   </div>
                   <p className="text-[#282828] opacity-90 leading-relaxed">
-                    To make energy certification accessible, affordable, and easy for everyone in Manchester. We aim to help property owners make smarter energy choices that benefit both their finances and the environment.
+                    To make energy certification accessible, affordable, and easy for everyone in Greater Manchester. We aim to help property owners make smarter energy choices that benefit both their finances and the environment.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white shadow-lg">
@@ -76,7 +76,7 @@ export default function About() {
                     <h3 className="text-2xl font-bold">Our Vision</h3>
                   </div>
                   <p className="text-white/80 leading-relaxed">
-                    To build a greener and more energy-efficient future where every home and business in Manchester contributes to a sustainable Britain. Through honesty, innovation, and dedication, we strive to become Manchester's most trusted name in EPC services.
+                    To build a greener and more energy-efficient future where every home and business in Greater Manchester contributes to a sustainable Britain. Through honesty, innovation, and dedication, we strive to become Manchester's most trusted name in EPC services.
                   </p>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function About() {
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">Ready to Get Your EPC Certificate?</h2>
           <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Join thousands of satisfied property owners across Manchester who trust Prime EPC for their energy certification needs.
+            Join thousands of satisfied property owners across Greater Manchester who trust Prime EPC for their energy certification needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <Link href="/contact" className="bg-white text-[#016837] font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl">

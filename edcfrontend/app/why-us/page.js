@@ -75,7 +75,7 @@ export default function WhyUs() {
                 <span className="block text-white"> Choose Us</span>
               </h1>
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Experience the difference with our professional, reliable, and customer-focused EPC services across Manchester. We're committed to making your certification process smooth, fast, and stress-free.
+                Experience the difference with our professional, reliable, and customer-focused EPC services across Greater Manchester. We're committed to making your certification process smooth, fast, and stress-free.
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function WhyUs() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY WE'RE DIFFERENT</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Property Owners Trust Prime EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">We combine professional expertise with exceptional customer service to deliver the best EPC experience in Manchester</p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">We combine professional expertise with exceptional customer service to deliver the best EPC experience in Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {features.map((feature, index) => (
@@ -119,7 +119,7 @@ export default function WhyUs() {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📊 OUR IMPACT</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Trusted by Property Professionals</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Numbers that speak to our commitment to quality and customer satisfaction in Manchester</p>
+              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Numbers that speak to our commitment to quality and customer satisfaction in Greater Manchester</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
