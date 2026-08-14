@@ -4,17 +4,19 @@ const express  = require('express')
 const nodemailer = require('nodemailer')
 const router   = express.Router()
 
-// ── SMTP config — mustafaprogrammer786@gmail.com ──────────────────────────
+// ── SMTP config — Hostinger domain email ─────────────────────────────────
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.hostinger.com',
+  port: 465,
+  secure: true,
   auth: {
-    user: 'mustafaprogrammer786@gmail.com',
-    pass: process.env.GMAIL_APP_PASSWORD   // add to .env: GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+    user: 'info@primeepcdesign.co.uk',
+    pass: process.env.DOMAIN_EMAIL_PASSWORD  // .env mein: DOMAIN_EMAIL_PASSWORD=YOUR_PASSWORD_HERE
   }
 })
 
 const ADMIN_EMAIL = 'info@primeepcdesign.co.uk'
-const FROM_EMAIL  = '"Prime EPC" <info@primeepcdesign.co.uk>'
+const FROM_EMAIL  = '"Prime EPC and Design Consultants" <info@primeepcdesign.co.uk>'
 
 // ─────────────────────────────────────────────────────────────────────────
 // POST /api/email/send-booking-confirmation
