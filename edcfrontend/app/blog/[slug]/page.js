@@ -20,17 +20,26 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const blog = await getBlog(slug);
   if (!blog) return { title: 'Blog Not Found | Prime EPC' };
+  const imageUrl = getImageUrl(blog.featured_image || blog.featuredImage);
   return {
-    title: `${blog.meta_title || blog.title} | Prime EPC & Design Consultants`,
-    description: blog.meta_description || blog.excerpt || 'EPC blog article',
-    keywords: Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC',
+    title: `${blog.meta_title || blog.title} | Prime EPC Manchester`,
+    description: blog.meta_description || blog.excerpt || 'EPC, EICR & MEES compliance insights for Greater Manchester property owners.',
+    keywords: Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC Manchester, MEES Compliance 2026, Landlord Rules',
+    alternates: {
+      canonical: `https://www.primeepcdesign.co.uk/blog/${slug}`,
+    },
     openGraph: {
       title: blog.meta_title || blog.title,
       description: blog.meta_description || blog.excerpt || 'EPC blog article',
       type: 'article',
-      images: (blog.featured_image || blog.featuredImage)
-        ? [{ url: getImageUrl(blog.featured_image || blog.featuredImage) }]
-        : [],
+      url: `https://www.primeepcdesign.co.uk/blog/${slug}`,
+      images: imageUrl ? [{ url: imageUrl }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.meta_title || blog.title,
+      description: blog.meta_description || blog.excerpt || 'EPC blog article',
+      images: imageUrl ? [imageUrl] : [],
     },
   };
 }

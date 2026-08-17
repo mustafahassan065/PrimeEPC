@@ -9,27 +9,47 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.primeepcdesign.co.uk'),
-  title: 'Prime EPC Manchester | Energy Performance Certificates & EICR',
+  title: {
+    default: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
+    template: '%s | Prime EPC Manchester'
+  },
   description:
-    'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. EICR reports & floor plans. 24-48h turnaround. Call 07308658247.',
+    'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. Official energy assessments, 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
   keywords: [
     'EPC Certificate Manchester',
     'Commercial EPC Manchester',
+    'Domestic EPC Manchester',
     'EICR Manchester',
     'Cheap EPC Manchester',
-    'Landlord EPC certificate',
+    'Landlord EPC certificate 2026',
+    'MEES compliance 2026',
     'EPC Bolton',
     'EICR Stockport',
     'Floor plans for estate agents Manchester',
-    'MEES compliance Manchester'
+    'Energy Performance Certificate Greater Manchester'
   ],
+  authors: [{ name: 'Prime EPC & Design Consultant Ltd' }],
+  creator: 'Prime EPC & Design Consultant Ltd',
+  publisher: 'Prime EPC & Design Consultant Ltd',
+  category: 'Real Estate & Energy Services',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.primeepcdesign.co.uk',
   },
   openGraph: {
-    title: 'Prime EPC Manchester | Energy Performance Certificates & EICR',
+    title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
     description:
-      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. EICR reports & floor plans. 24-48h turnaround. Call 07308658247.',
+      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
     url: 'https://www.primeepcdesign.co.uk',
     siteName: 'Prime EPC & Design Consultants',
     images: [
@@ -45,9 +65,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prime EPC Manchester | Energy Performance Certificates & EICR',
+    title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
     description:
-      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. EICR reports & floor plans. 24-48h turnaround.',
+      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. 2026 MEES compliance & EICR reports. 24-48h turnaround.',
     images: ['/images/logo3.png'],
   },
   icons: {
