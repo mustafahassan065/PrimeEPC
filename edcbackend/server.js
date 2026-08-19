@@ -109,7 +109,6 @@ app.use('/api/auth',    require('./routes/auth'));
 app.use('/api/booking', require('./routes/booking'));
 app.use('/api/payment', require('./routes/payment'));   // ✅ Stripe + PayPal backend
 app.use('/api/email',   require('./routes/email'));
-app.use('/api/contact', require('./routes/contact'));
 
 // Health Check
 app.get('/api/health', async (req, res) => {
@@ -196,7 +195,6 @@ initializeDatabase().then(() => {
 📅 Booking API:  http://localhost:${PORT}/api/booking/available-slots
 💳 Payment API:  http://localhost:${PORT}/api/payment/stripe/create-intent
 📧 Email API:    http://localhost:${PORT}/api/email
-📧 Contact API:  http://localhost:${PORT}/api/contact
 ──────────────────────
     `);
   });
