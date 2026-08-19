@@ -612,6 +612,12 @@ export default function BookingPage() {
                 </div>
               )}
             </div>
+            <div className="mb-4 px-4 py-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800 flex flex-wrap items-center gap-1">
+  <span>⚠️ If you are experiencing any payment or booking issues, please contact us via</span>
+  <a href="mailto:info@primeepcdesign.co.uk" className="font-semibold text-[#016837] underline">info@primeepcdesign.co.uk</a>
+  <span>or</span>
+  <a href="https://wa.me/447308658247" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#016837] underline">07308658247</a>
+</div>
 
             {/* Trust bar */}
             <div className="mt-4 bg-white rounded-2xl border border-gray-100 shadow-sm px-8 py-5">
@@ -868,7 +874,7 @@ export default function BookingPage() {
                         <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
                         Booking...
                       </span>
-                    ) : paymentMethod === 'bank_transfer' ? 'Confirm & Request Invoice' : 'Confirm Booking'}
+                    ) : paymentMethod === 'bank_transfer' ? 'Confirm' : 'Confirm Booking'}
                   </button>
                 </div>
               )}

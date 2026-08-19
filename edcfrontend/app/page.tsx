@@ -410,7 +410,7 @@ export default function Home() {
             {[
               { icon:'🚀', title:'Lightning Fast Service', description:'Get your EPC report within 24-48 hours of inspection with our streamlined process', features:['24-48 Hour Turnaround','Quick Online Booking','Fast Digital Delivery'] },
               { icon:'🏆', title:'Fully Accredited Experts', description:'Our assessors are fully qualified and accredited, following all government standards', features:['Government Approved','Regularly Trained','Quality Assured'] },
-              { icon:'📍', title:'Manchester Coverage', description:'Proudly serving customers across the Manchester for both domestic and commercial properties', features:['Manchesterwide Service','Flexible Scheduling','Local Assessors'] },
+              { icon:'📍', title:'Greater Manchester Coverage', description:'Proudly serving customers across the Greater Manchester for both domestic and commercial properties', features:['Manchesterwide Service','Flexible Scheduling','Local Assessors'] },
               { icon:'💷', title:'Transparent Pricing', description:'Clear, competitive pricing with no hidden fees or surprise charges', features:['Price Match Guarantee','No Hidden Costs','Instant Quotes'] }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
