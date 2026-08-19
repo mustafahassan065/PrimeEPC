@@ -45,7 +45,8 @@ router.post('/send-booking-confirmation', async (req, res) => {
     const paymentLabel = {
       cash:   'Cash (Pay on Arrival)',
       stripe: 'Bank Card (Stripe)',
-      paypal: 'PayPal'
+      paypal: 'PayPal',
+      bank_transfer: 'Bank Transfer (Invoice)'
     }[paymentMethod] || paymentMethod
 
     const amountStr = amount ? `£${amount}` : 'To be confirmed'

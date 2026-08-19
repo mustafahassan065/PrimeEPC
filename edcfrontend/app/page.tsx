@@ -173,7 +173,7 @@ export default function Home() {
               Safe Homes. Skilled Trades. Simple Solutions.
             </h1>
             <p className="text-lg text-white/90">
-              Your trusted partner for EPCs, EICRs, and full property trade services starting at <span className="font-bold text-[#80C531]">£55.00 Fixed Fee</span>.
+              Your trusted partner for EPCs, EICRs, and full property trade services starting at <span className="font-bold text-[#80C531]">£50.00 Fixed Fee</span>.
             </p>
           </div>
 

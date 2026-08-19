@@ -301,7 +301,9 @@ export default function BookingPage() {
     setLoading(true)
     setPaymentError('')
     try {
-      await saveBooking({ paymentMethod: 'cash', paymentStatus: 'pay_on_arrival' })
+      const pm = paymentMethod === 'bank_transfer' ? 'bank_transfer' : 'cash'
+      const ps = paymentMethod === 'bank_transfer' ? 'invoice_sent' : 'pay_on_arrival'
+      await saveBooking({ paymentMethod: pm, paymentStatus: ps })
       setBookingDone(true)
     } catch (err) { setPaymentError(err.message) }
     finally { setLoading(false) }
@@ -737,14 +739,16 @@ export default function BookingPage() {
               {/* ── Payment Method ── */}
               <div>
                 <p className="text-sm text-gray-600 mb-3 font-medium">Payment Method *</p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {[
-                    { id:'cash',   label:'Cash',      sub:'Pay on arrival',
+                    { id:'cash',          label:'Cash',          sub:'Pay on arrival',
                       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg> },
-                    { id:'stripe', label:'Bank Card',  sub:'Visa / Mastercard',
+                    { id:'stripe',        label:'Bank Card',     sub:'Visa / Mastercard',
                       icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg> },
-                    { id:'paypal', label:'PayPal',     sub:'Pay via PayPal',
+                    { id:'paypal',        label:'PayPal',        sub:'Pay via PayPal',
                       icon: <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7.5 21H4.25L6.75 5.5H12c3.31 0 5.5 1.69 5.5 4.5 0 3.31-2.69 5.5-6 5.5H9L7.5 21ZM9.5 13h1.75c1.93 0 3.25-1.07 3.25-2.75 0-1.25-.93-2.25-2.75-2.25H9.25L9.5 13Z"/></svg> },
+                    { id:'bank_transfer', label:'Bank Transfer',  sub:'Pay via invoice',
+                      icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg> },
                   ].map(m => (
                     <button key={m.id} type="button" onClick={() => {
                       setPaymentMethod(m.id)
@@ -767,6 +771,13 @@ export default function BookingPage() {
                 {paymentMethod === 'cash' && (
                   <div className="mt-3 px-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-700">
                     💵 Payment will be collected in cash on the day of your assessment. No payment is required now.
+                  </div>
+                )}
+
+                {/* Bank Transfer info */}
+                {paymentMethod === 'bank_transfer' && (
+                  <div className="mt-3 px-3 py-2.5 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-700">
+                    🏦 Secure bank transfer.place your order today. We’ll provide our bank details after assessment..
                   </div>
                 )}
 
@@ -841,8 +852,8 @@ export default function BookingPage() {
                 )}
               </div>
 
-              {/* Submit — only for cash (stripe/paypal have their own buttons) */}
-              {paymentMethod === 'cash' && (
+              {/* Submit — for cash and bank transfer */}
+              {(paymentMethod === 'cash' || paymentMethod === 'bank_transfer') && (
                 <div className="flex justify-end gap-3 pt-1">
                   <button type="button" onClick={() => setStep(1)}
                     className="px-5 py-2.5 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all text-sm">
@@ -857,11 +868,11 @@ export default function BookingPage() {
                         <span className="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-white"></span>
                         Booking...
                       </span>
-                    ) : 'Confirm Booking'}
+                    ) : paymentMethod === 'bank_transfer' ? 'Confirm & Request Invoice' : 'Confirm Booking'}
                   </button>
                 </div>
               )}
-              {paymentMethod !== 'cash' && (
+              {paymentMethod !== 'cash' && paymentMethod !== 'bank_transfer' && (
                 <div className="flex justify-start pt-1">
                   <button type="button" onClick={() => setStep(1)}
                     className="px-5 py-2.5 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 transition-all text-sm">
