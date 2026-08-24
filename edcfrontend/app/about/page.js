@@ -29,13 +29,13 @@ export default function About() {
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">ABOUT PRIME EPC</span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">ACCREDITED ENERGY ASSESSORS MANCHESTER</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                <span className="block text-white">About Us</span>
+                <span className="block text-white">About Prime EPC</span>
               </h1>
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Your trusted partner for professional Energy Performance Certificates and design consultancy services across Manchester.
+                Government-accredited domestic and commercial Energy Performance Certificates, EICRs, and design consultancy services across Greater Manchester &amp; Bolton.
               </p>
             </div>
           </div>
@@ -48,8 +48,8 @@ export default function About() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🏢 OUR COMPANY</div>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Who We Are</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">Making energy certification accessible, affordable, and easy for everyone in Manchester</p>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Accredited EPC Assessors in Greater Manchester</h2>
+              <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">Making energy certification and MEES compliance accessible, affordable, and fast for property owners</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8">

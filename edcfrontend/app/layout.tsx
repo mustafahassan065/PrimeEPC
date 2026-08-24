@@ -14,19 +14,24 @@ export const metadata: Metadata = {
     template: '%s | Prime EPC Manchester'
   },
   description:
-    'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. Official energy assessments, 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
+    'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester, Bolton, Salford & Stockport. Official energy assessments, 2026 MEES compliance, EICR reports & CAD floor plans. Fast 24-48h turnaround.',
   keywords: [
     'EPC Certificate Manchester',
     'Commercial EPC Manchester',
-    'Domestic EPC Manchester',
-    'EICR Manchester',
-    'Cheap EPC Manchester',
+    'Domestic EPC Certificate Greater Manchester',
+    'Cheap EPC Manchester £55',
+    'EICR Certificate Manchester',
     'Landlord EPC certificate 2026',
-    'MEES compliance 2026',
+    'MEES compliance Greater Manchester',
     'EPC Bolton',
-    'EICR Stockport',
+    'EPC Stockport',
+    'EPC Salford',
+    'EPC Oldham',
+    'EPC Rochdale',
+    'Energy Performance Certificate UK',
+    'Accredited Energy Assessor Manchester',
     'Floor plans for estate agents Manchester',
-    'Energy Performance Certificate Greater Manchester'
+    'Electrical Installation Condition Report EICR'
   ],
   authors: [{ name: 'Prime EPC & Design Consultant Ltd' }],
   creator: 'Prime EPC & Design Consultant Ltd',

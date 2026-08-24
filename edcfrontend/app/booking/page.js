@@ -422,11 +422,11 @@ export default function BookingPage() {
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="w-2 h-2 bg-[#80C531] rounded-full animate-pulse"></div>
-            <span className="text-[#016837] text-xs font-medium tracking-widest uppercase">Book Your EPC Assessment</span>
+            <span className="text-[#016837] text-xs font-medium tracking-widest uppercase">FAST ONLINE EPC &amp; EICR BOOKING</span>
           </div>
-          <h1 className="text-3xl font-semibold text-gray-800 mb-3">Book Your Assessment</h1>
+          <h1 className="text-3xl font-semibold text-gray-800 mb-3">Book Your EPC &amp; EICR Assessment Online</h1>
           <p className="text-gray-500 text-sm max-w-xl mx-auto leading-relaxed">
-            Select a date and time slot for your Energy Performance Certificate assessment.
+            Select your service, date, and time slot for fast accredited Energy Performance Certificates and landlord electrical safety reports across Greater Manchester.
           </p>
           <button
             onClick={() => setShowAreasBox(true)}

@@ -157,7 +157,7 @@ export default function Home() {
       {/* ── Hero Section ── */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image src="/images/bg.avif" alt="Hero background" fill priority className="object-cover object-center" sizes="100vw" />
+          <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Manchester" fill priority className="object-cover object-center" sizes="100vw" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
         <div className="absolute inset-0 overflow-hidden z-[1]">
@@ -170,10 +170,10 @@ export default function Home() {
           {/* Title */}
           <div className="text-center max-w-4xl mx-auto mb-10">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Safe Homes. Skilled Trades. Simple Solutions.
+              Accredited EPC Certificates &amp; Property Compliance Manchester
             </h1>
             <p className="text-lg text-white/90">
-              Your trusted partner for EPCs, EICRs, and full property trade services starting at <span className="font-bold text-[#80C531]">£55.00 Fixed Fee</span>.
+              Domestic &amp; Commercial EPCs, Landlord MEES Compliance, EICRs &amp; CAD Floor Plans starting at <span className="font-bold text-[#80C531]">£55.00 Fixed Fee</span>.
             </p>
           </div>
 
@@ -189,7 +189,7 @@ export default function Home() {
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   onKeyDown={handleSearchKeyDown}
-                  placeholder="Search for a Service (e.g., EPC, Gas Safety)"
+                  placeholder="Search Service (e.g. Domestic EPC, Commercial EPC, EICR)"
                   className="w-full py-3 text-gray-700 placeholder-gray-400 focus:outline-none bg-transparent"
                 />
               </div>
@@ -207,19 +207,19 @@ export default function Home() {
             {[
               {
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>,
-                label: 'Instant Service Quote', title: 'Residential EPC', price: '£55', priceColor: 'text-[#016837]'
+                label: 'Instant Service Quote', title: 'Domestic EPC Certificate', price: '£55', priceColor: 'text-[#016837]'
               },
               {
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>,
-                label: 'Instant Service Quote', title: 'Commercial EPC', price: '£144', priceColor: 'text-gray-700'
+                label: 'Instant Service Quote', title: 'Commercial EPC Assessment', price: '£144', priceColor: 'text-gray-700'
               },
               {
                 icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></>,
-                label: 'Instant Service Quote', title: 'Floor Plans', price: '(Get Quote)', priceColor: 'text-gray-700'
+                label: 'Instant Service Quote', title: 'CAD Floor Plans', price: '(Get Quote)', priceColor: 'text-gray-700'
               },
               {
                 icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>,
-                label: 'Instant Service Quote', title: 'EICR start from', price: '£110', priceColor: 'text-[#016837]'
+                label: 'Instant Service Quote', title: 'Landlord EICR Certificate', price: '£110', priceColor: 'text-[#016837]'
               }
             ].map((card, i) => (
               <Link key={i} href="/booking" className="bg-white rounded-xl p-5 shadow-lg text-center hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer block">
@@ -341,24 +341,24 @@ export default function Home() {
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 📋 UNDERSTANDING EPC
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">What is an Energy Performance Certificate?</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">What is an Energy Performance Certificate (EPC)?</h2>
               <p className="text-xl text-[#282828] opacity-90 max-w-3xl mx-auto">
-                Your complete guide to understanding EPCs and why they're essential for your property
+                Your comprehensive guide to UK energy efficiency ratings, MEES legal compliance, and landlord certificates across Greater Manchester
               </p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20">
                   <p className="text-lg text-[#282828] leading-relaxed mb-6">
-                    An <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> is a legal requirement that shows how energy-efficient your property is. It provides an energy efficiency rating from <strong className="text-[#016837]">A (most efficient)</strong> to <strong className="text-[#016837]">G (least efficient)</strong>, along with practical recommendations for improvement.
+                    An <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> is an official UK government document showing how energy-efficient your residential or commercial property is. It provides an energy efficiency rating from <strong className="text-[#016837]">A (most efficient)</strong> to <strong className="text-[#016837]">G (least efficient)</strong>, along with practical, cost-saving recommendations for improvement.
                   </p>
                   <div className="bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/5 border border-[#80C531]/30 rounded-2xl p-6 mb-6">
                     <h4 className="font-bold text-[#016837] mb-3 flex items-center gap-2">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
-                      Why You Need an EPC
+                      Why You Need an EPC Certificate
                     </h4>
                     <ul className="text-[#016837] space-y-2">
-                      {['Legal requirement for selling or renting property','Valid for 10 years from issue date','Helps attract buyers/tenants with better ratings','Identifies cost-saving energy improvements'].map((item, i) => (
+                      {['Legal requirement for selling, renting, or leasing property in the UK','Valid for 10 full years and lodged on the National EPC Register','Ensures compliance with 2026 Minimum Energy Efficiency Standards (MEES)','Identifies high-impact energy saving upgrades to boost property value'].map((item, i) => (
                         <li key={i} className="flex items-center gap-2"><div className="w-2 h-2 bg-[#80C531] rounded-full"></div>{item}</li>
                       ))}
                     </ul>
@@ -366,15 +366,15 @@ export default function Home() {
                 </div>
               </div>
               <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-6 text-center">EPC Rating Scale</h3>
+                <h3 className="text-2xl font-bold mb-6 text-center">UK EPC Energy Rating Scale</h3>
                 <div className="space-y-4 mb-6">
                   {[
                     { grade:'A', color:'from-green-400 to-green-500', label:'Most Efficient', score:'92-100', width:'100%' },
                     { grade:'B', color:'from-green-300 to-green-400', label:'Very Efficient', score:'81-91', width:'85%' },
                     { grade:'C', color:'from-lime-300 to-lime-400', label:'Good', score:'69-80', width:'70%' },
                     { grade:'D', color:'from-yellow-300 to-yellow-400', label:'Average', score:'55-68', width:'55%' },
-                    { grade:'E', color:'from-amber-300 to-amber-400', label:'Fair', score:'39-54', width:'40%' },
-                    { grade:'F', color:'from-orange-400 to-orange-500', label:'Poor', score:'21-38', width:'25%' },
+                    { grade:'E', color:'from-amber-300 to-amber-400', label:'Fair (Min Rental)', score:'39-54', width:'40%' },
+                    { grade:'F', color:'from-orange-400 to-orange-500', label:'Poor (Substandard)', score:'21-38', width:'25%' },
                     { grade:'G', color:'from-red-400 to-red-500', label:'Least Efficient', score:'1-20', width:'10%' }
                   ].map(item => (
                     <div key={item.grade} className="flex items-center gap-4">
@@ -391,7 +391,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="text-center text-white/80 text-sm">SAP Score = Standard Assessment Procedure</div>
+                <div className="text-center text-white/80 text-sm">SAP Score = Standard Assessment Procedure (UK National Calculation)</div>
               </div>
             </div>
           </div>
@@ -403,15 +403,15 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY CHOOSE US</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Manchester Landlords Trust Prime EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Experience the difference with our professional, reliable, and efficient EPC services</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Manchester Landlords &amp; Estate Agents Trust Prime EPC</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fast, accredited, and professional domestic &amp; commercial EPC services across Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {[
-              { icon:'🚀', title:'Lightning Fast Service', description:'Get your EPC report within 24-48 hours of inspection with our streamlined process', features:['24-48 Hour Turnaround','Quick Online Booking','Fast Digital Delivery'] },
-              { icon:'🏆', title:'Fully Accredited Experts', description:'Our assessors are fully qualified and accredited, following all government standards', features:['Government Approved','Regularly Trained','Quality Assured'] },
-              { icon:'📍', title:'Manchester Coverage', description:'Proudly serving customers across Greater Manchester for both domestic and commercial properties', features:['Manchesterwide Service','Flexible Scheduling','Local Assessors'] },
-              { icon:'💷', title:'Transparent Pricing', description:'Clear, competitive pricing with no hidden fees or surprise charges', features:['Price Match Guarantee','No Hidden Costs','Instant Quotes'] }
+              { icon:'🚀', title:'Fast 24-48h Turnaround', description:'Get your official lodged EPC certificate within 24 to 48 hours of assessment with our express service', features:['24-48 Hour Turnaround','Instant Online Booking','Direct National Register Lodgement'] },
+              { icon:'🏆', title:'Accredited Energy Assessors', description:'Our certified Elmhurst & Stroma assessors ensure 100% compliance with UK EPC and MEES standards', features:['Government Accredited','DBS Checked Assessors','Fully Insured & Certified'] },
+              { icon:'📍', title:'Greater Manchester Coverage', description:'Serving domestic & commercial properties across Manchester, Bolton, Stockport, Salford, Oldham & Rochdale', features:['50-Mile Service Radius','Flexible On-Site Visits','Local Knowledgeable Assessors'] },
+              { icon:'💷', title:'Fixed Price Guarantee', description:'Clear upfront pricing starting from £55 with zero hidden fees or unexpected call-out charges', features:['Fixed Fee From £55','Transparent Quotes','No Hidden Costs'] }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
                 <div className="flex items-start gap-6">
@@ -437,17 +437,17 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📝 HOW IT WORKS</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Get Your EPC in 3 Simple Steps</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Our streamlined process makes getting your Energy Performance Certificate quick and hassle-free</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Get Your EPC Certificate in 3 Simple Steps</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Our streamlined process makes ordering your Energy Performance Certificate quick, simple, and fully compliant</p>
           </div>
           <div className="max-w-5xl mx-auto">
             <div className="relative">
               <div className="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-[#016837] via-[#80C531] to-[#016837] -z-10"></div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { step:'01', icon:'📞', title:'Book Your Assessment', description:'Contact us via phone, email, or online form to schedule your EPC inspection at your convenience.', details:['Free Instant Quote','Flexible Scheduling','Online Booking Available'] },
-                  { step:'02', icon:'🏠', title:'Property Inspection', description:'Our accredited assessor visits your property for a comprehensive 30-60 minute inspection.', details:['Professional Assessment','Minimal Disruption','Comprehensive Check'] },
-                  { step:'03', icon:'📄', title:'Receive Certificate', description:'Get your official EPC digitally within 24-48 hours, with physical copies available.', details:['Digital Delivery','24-48 Hour Turnaround','Lodged on National Register'] }
+                  { step:'01', icon:'📞', title:'Book Assessment Online', description:'Select your property type and schedule a convenient inspection date via our instant booking system.', details:['Instant Online Quote','Flexible Booking Slots','Fixed Affordable Rates'] },
+                  { step:'02', icon:'🏠', title:'On-Site Survey', description:'Our certified energy assessor visits your property for a thorough, non-invasive 30-60 minute inspection.', details:['Accredited Surveyors','Minimal Disruption','Full Energy Check'] },
+                  { step:'03', icon:'📄', title:'Official EPC Lodgement', description:'Your EPC is lodged on the UK National Register and delivered digitally within 24 to 48 hours.', details:['Fast Digital PDF','National Register Lodged','10-Year Validity'] }
                 ].map((step, index) => (
                   <div key={index} className="text-center relative">
                     <div className="relative mb-8">
@@ -466,8 +466,8 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-12 bg-gradient-to-r from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 text-center">
-              <h3 className="text-2xl font-bold text-[#282828] mb-4">Ready to Start the Process?</h3>
-              <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">Get your EPC certificate quickly and professionally. Contact us today for a free, no-obligation quote.</p>
+              <h3 className="text-2xl font-bold text-[#282828] mb-4">Need an EPC or Electrical Safety Certificate in Manchester?</h3>
+              <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">Get certified fast with accredited assessors. Book online today or speak with our property compliance team.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/booking" className="bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">Book Assessment Now</Link>
                 <Link href="#contact" className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg border border-[#80C531] hover:border-[#016837] transform hover:scale-105 transition-all duration-300 shadow-lg">Get Instant Quote</Link>
@@ -482,8 +482,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">🛠️ OUR SERVICES</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Comprehensive EPC Services</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Professional Energy Performance Certificates for all property types across Greater Manchester</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Accredited EPC &amp; Property Compliance Services</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Complete energy certification, electrical inspection, and CAD drafting services across Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <div className="bg-gradient-to-br from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 group hover:shadow-xl transition-all duration-300">
@@ -601,8 +601,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">❓ FREQUENTLY ASKED QUESTIONS</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Common Questions About EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Find quick answers to the most frequently asked questions about Energy Performance Certificates</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Frequently Asked Questions About EPCs &amp; MEES</h2>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Answers to key questions about UK Energy Performance Certificates, landlord regulations, and assessment costs</p>
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -620,8 +620,8 @@ export default function Home() {
             </div>
             <div className="mt-12 text-center">
               <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white">
-                <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
-                <p className="text-white/80 mb-6 max-w-2xl mx-auto">Our team of EPC experts is here to help you with any questions about Energy Performance Certificates.</p>
+                <h3 className="text-2xl font-bold mb-4">Still Have Questions About Your Property EPC?</h3>
+                <p className="text-white/80 mb-6 max-w-2xl mx-auto">Our accredited Greater Manchester energy assessors are ready to provide expert advice on compliance and ratings.</p>
                 <Link href="#contact" className="bg-white text-[#282828] font-bold py-3 px-6 rounded-lg hover:bg-[#F8F8F8] transform hover:scale-105 transition-all duration-300 shadow-lg inline-block">Contact Our Experts</Link>
               </div>
             </div>
@@ -640,8 +640,8 @@ export default function Home() {
               <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
               <span className="text-[#016837] text-sm font-semibold tracking-wide bg-[#80C531]/10 backdrop-blur-sm px-4 py-2 rounded-full">GET IN TOUCH TODAY</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">Contact Us</h2>
-            <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">Ready to get your EPC or need expert design consultancy? Reach out to us for professional, stress-free service.</p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">Contact Our Manchester EPC Assessors</h2>
+            <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">Ready to order your EPC certificate or need MEES compliance advice? Reach out for fast, professional assistance across Greater Manchester.</p>
           </div>
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

@@ -68,14 +68,14 @@ export default function WhyUs() {
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">MANCHESTER'S TRUSTED EPC PROVIDER</span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">TOP-RATED EPC PROVIDER MANCHESTER</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Why Property Owners
-                <span className="block text-white"> Choose Us</span>
+                Why Landlords &amp; Owners
+                <span className="block text-white"> Choose Prime EPC</span>
               </h1>
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Experience the difference with our professional, reliable, and customer-focused EPC services across Manchester. We're committed to making your certification process smooth, fast, and stress-free.
+                Fast 24-48h turnaround, Elmhurst &amp; Stroma accredited assessors, fixed transparent pricing from £55, and complete 2026 MEES compliance across Greater Manchester.
               </p>
             </div>
           </div>
