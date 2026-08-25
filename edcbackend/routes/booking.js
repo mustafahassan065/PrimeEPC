@@ -293,4 +293,17 @@ router.delete('/admin/schedules/:id', auth, async (req, res) => {
   }
 });
 
+// Delete booking (Admin only)
+router.delete('/admin/bookings/:id', auth, async (req, res) => {
+  try {
+    const booking = await Booking.findByPk(req.params.id);
+    if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
+    await booking.destroy();
+    res.json({ success: true, message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error('Delete booking error:', error);
+    res.status(500).json({ success: false, message: 'Error deleting booking' });
+  }
+});
+
 module.exports = router;
