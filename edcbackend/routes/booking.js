@@ -38,50 +38,64 @@ router.post('/create', async (req, res) => {
       paymentMethod, paymentRef, paymentStatus, amount
     } = req.body;
 
+    const isManual = slotId === 'manual';
+
     // Validate required fields
-    if (!name || !email || !phone || !propertyType || !postcode || !propertyAddress || !preferredDate || !slotId) {
+    if (!name || !phone || !propertyType || !postcode || !propertyAddress || !preferredDate) {
       return res.status(400).json({ success: false, message: 'All required fields must be provided' });
     }
 
-    // Check if slot is still available
-    const slot = await Schedule.findByPk(slotId);
-    if (!slot || !slot.isAvailable || slot.currentBookings >= slot.maxBookings) {
-      return res.status(400).json({ success: false, message: 'Selected time slot is no longer available' });
+    // Website bookings must have a valid slotId
+    if (!isManual && !slotId) {
+      return res.status(400).json({ success: false, message: 'Please select a time slot' });
+    }
+
+    // Check slot only for website bookings (not manual admin bookings)
+    let slot = null;
+    if (!isManual) {
+      slot = await Schedule.findByPk(slotId);
+      if (!slot || !slot.isAvailable || slot.currentBookings >= slot.maxBookings) {
+        return res.status(400).json({ success: false, message: 'Selected time slot is no longer available' });
+      }
     }
 
     // Create booking
     const booking = await Booking.create({
-      name, email, phone, propertyType, propertyDetails,
+      name, email: email || '', phone, propertyType, propertyDetails,
       postcode, propertyAddress,
       preferredDate: new Date(preferredDate),
-      message,
+      message: message || (isManual ? 'Manual booking added by admin' : ''),
       paymentMethod: paymentMethod || 'cash',
       paymentRef:    paymentRef    || null,
       paymentStatus: paymentStatus || 'pending',
       amount:        amount        || 0
     });
 
-    // Update slot bookings count
-    await slot.update({ currentBookings: slot.currentBookings + 1 });
+    // Update slot bookings count only for website bookings
+    if (slot) {
+      await slot.update({ currentBookings: slot.currentBookings + 1 });
+    }
 
-    // Send confirmation emails (non-blocking)
-    try {
-      const emailRes = await fetch('http://localhost:5000/api/email/send-booking-confirmation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, email, phone, propertyType, propertyDetails,
-          postcode, propertyAddress, preferredDate, message,
-          paymentMethod: paymentMethod || 'cash',
-          paymentRef:    paymentRef    || '',
-          paymentStatus: paymentStatus || 'pending',
-          amount:        amount        || 0
-        })
-      });
-      const emailData = await emailRes.json();
-      console.log('✅ Email result:', emailData);
-    } catch (emailError) {
-      console.error('❌ Email failed (booking still saved):', emailError.message);
+    // Send confirmation emails (non-blocking) — only if email provided
+    if (email) {
+      try {
+        const emailRes = await fetch('http://localhost:5000/api/email/send-booking-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, email, phone, propertyType, propertyDetails,
+            postcode, propertyAddress, preferredDate, message,
+            paymentMethod: paymentMethod || 'cash',
+            paymentRef:    paymentRef    || '',
+            paymentStatus: paymentStatus || 'pending',
+            amount:        amount        || 0
+          })
+        });
+        const emailData = await emailRes.json();
+        console.log('✅ Email result:', emailData);
+      } catch (emailError) {
+        console.error('❌ Email failed (booking still saved):', emailError.message);
+      }
     }
 
     res.status(201).json({ success: true, message: 'Booking created successfully', data: booking });
