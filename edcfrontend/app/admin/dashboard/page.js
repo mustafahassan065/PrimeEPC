@@ -113,6 +113,7 @@ export default function AdminDashboard() {
     { label: 'Bookings',    href: '/admin/bookings',  icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
     { label: 'Schedule',    href: '/admin/schedule',  icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
     { label: 'Blog Posts',  href: '/admin/create-blog', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+    { label: 'Add Booking', href: '/admin/add-booking',  icon: 'M12 4v16m8-8H4' },
   ]
 
   return (
@@ -146,7 +147,11 @@ export default function AdminDashboard() {
 
         {/* Bottom */}
         <div className="px-3 py-4 border-t border-white/10">
-          
+          <div className="bg-white/5 rounded-xl p-3 mb-3">
+            <p className="text-white/60 text-xs font-medium mb-1">Need Help?</p>
+            <p className="text-white/40 text-xs">If you need any help please contact support.</p>
+            <button className="mt-2 w-full bg-[#016837] text-white text-xs py-1.5 rounded-lg hover:bg-[#01572E] transition-colors">Contact Support</button>
+          </div>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-[#016837] rounded-full flex items-center justify-center text-white text-xs font-bold">A</div>
             <div className="flex-1 min-w-0">
@@ -174,7 +179,13 @@ export default function AdminDashboard() {
             </button>
             <h1 className="text-lg font-semibold text-gray-800">Welcome back, Admin 👋</h1>
           </div>
-          
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1.5">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" placeholder="Search..." className="bg-transparent text-sm focus:outline-none w-32 text-gray-600 placeholder-gray-400"/>
+            </div>
+            <div className="w-8 h-8 bg-[#016837] rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+          </div>
         </header>
 
         {/* Content */}

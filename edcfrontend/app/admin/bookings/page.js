@@ -70,6 +70,35 @@ export default function AdminBookings() {
     } catch { alert('Unable to connect. Please try again.') }
   }
 
+  const sendInvoice = async (booking) => {
+    if (!booking.email) { alert('No email address for this booking.'); return }
+    const confirm_send = window.confirm(`Send invoice to ${booking.email}?`)
+    if (!confirm_send) return
+    try {
+      const res = await fetch(`${API_URL}/api/email/send-invoice`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:            booking.name,
+          email:           booking.email,
+          phone:           booking.phone,
+          propertyType:    booking.propertyType,
+          propertyDetails: booking.propertyDetails,
+          propertyAddress: booking.propertyAddress,
+          postcode:        booking.postcode,
+          preferredDate:   booking.preferredDate,
+          paymentMethod:   booking.paymentMethod || 'cash',
+          paymentStatus:   booking.paymentStatus || 'pending',
+          amount:          booking.amount || 0,
+          paymentRef:      booking.paymentRef || ''
+        })
+      })
+      const data = await res.json()
+      if (data.success) alert(`✅ Invoice sent to ${booking.email}`)
+      else alert('❌ Failed to send invoice: ' + data.message)
+    } catch { alert('❌ Unable to connect. Please try again.') }
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('adminToken')
     localStorage.removeItem('admin')
@@ -216,7 +245,7 @@ export default function AdminBookings() {
                         <th className="text-left text-xs text-gray-400 font-medium px-5 py-3 whitespace-nowrap">DATE & TIME</th>
                         <th className="text-left text-xs text-gray-400 font-medium px-5 py-3">PAYMENT</th>
                         <th className="text-left text-xs text-gray-400 font-medium px-5 py-3">STATUS</th>
-                        <th className="text-left text-xs text-gray-400 font-medium px-5 py-3">UPDATE</th>
+                        <th className="text-left text-xs text-gray-400 font-medium px-5 py-3">ACTIONS</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
@@ -270,6 +299,15 @@ export default function AdminBookings() {
                               >
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                              </button>
+                              <button
+                                onClick={() => sendInvoice(b)}
+                                title="Send Invoice"
+                                className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors flex-shrink-0"
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                                 </svg>
                               </button>
                             </div>
@@ -334,6 +372,15 @@ export default function AdminBookings() {
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => sendInvoice(b)}
+                            className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors"
+                            title="Send Invoice"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                           </button>
                         </div>
