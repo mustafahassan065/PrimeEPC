@@ -75,7 +75,7 @@ export default function WhyUs() {
                 <span className="block text-white"> Choose Prime EPC</span>
               </h1>
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Fast 24-48h turnaround, Elmhurst &amp; Stroma accredited assessors, fixed transparent pricing from £55, and complete 2026 MEES compliance across Greater Manchester.
+                Fast 24-48h turnaround, Elmhurst &amp; Stroma accredited assessors, fixed transparent pricing from £50, and complete 2026 MEES compliance across Greater Manchester.
               </p>
             </div>
           </div>

@@ -173,7 +173,7 @@ export default function Home() {
               Accredited EPC Certificates &amp; Property Compliance Manchester
             </h1>
             <p className="text-lg text-white/90">
-              Domestic &amp; Commercial EPCs, Landlord MEES Compliance, EICRs &amp; CAD Floor Plans starting at <span className="font-bold text-[#80C531]">£55.00 Fixed Fee</span>.
+              Domestic &amp; Commercial EPCs, Landlord MEES Compliance, EICRs &amp; CAD Floor Plans starting at <span className="font-bold text-[#80C531]">£50.00 Fixed Fee</span>.
             </p>
           </div>
 
@@ -182,7 +182,7 @@ export default function Home() {
             <div className="bg-white rounded-xl p-2 shadow-xl flex items-center gap-2">
               <div className="flex-1 flex items-center gap-3 px-4">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <input
                   type="text"
@@ -206,19 +206,19 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
             {[
               {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>,
-                label: 'Instant Service Quote', title: 'Domestic EPC Certificate', price: '£55', priceColor: 'text-[#016837]'
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />,
+                label: 'Instant Service Quote', title: 'Domestic EPC Certificate', price: '£50', priceColor: 'text-[#016837]'
               },
               {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>,
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />,
                 label: 'Instant Service Quote', title: 'Commercial EPC Assessment', price: '£144', priceColor: 'text-gray-700'
               },
               {
-                icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/></>,
+                icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></>,
                 label: 'Instant Service Quote', title: 'CAD Floor Plans', price: '(Get Quote)', priceColor: 'text-gray-700'
               },
               {
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>,
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />,
                 label: 'Instant Service Quote', title: 'Landlord EICR Certificate', price: '£110', priceColor: 'text-[#016837]'
               }
             ].map((card, i) => (
@@ -239,19 +239,19 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
               {
-                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />,
                 label: 'Fast 24-48 Hour\nTurnaround'
               },
               {
-                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
                 label: 'Fully Accredited\nPros'
               },
               {
-                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>,
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
                 label: 'Fixed Price\nGuarantee'
               },
               {
-                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>,
+                path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,
                 label: 'Bespoke Trade\nPortal'
               }
             ].map((feat, i) => (
@@ -264,7 +264,7 @@ export default function Home() {
                 <div>
                   <p className="text-white font-bold text-xs uppercase leading-tight">
                     {feat.label.split('\n').map((line, li) => (
-                      <span key={li}>{line}{li === 0 && <br/>}</span>
+                      <span key={li}>{line}{li === 0 && <br />}</span>
                     ))}
                   </p>
                 </div>
@@ -280,54 +280,54 @@ export default function Home() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-wrap items-center justify-center gap-0">
             <div className="flex items-center px-5 py-2">
-              <div style={{background:'#1a1a3e', borderRadius:'4px', padding:'5px 12px'}}>
-                <div style={{display:'flex', alignItems:'baseline', gap:'1px'}}>
-                  <span style={{fontFamily:'Georgia,serif', fontSize:'20px', fontWeight:700, color:'white', lineHeight:1}}>Q</span>
-                  <span style={{fontFamily:'Georgia,serif', fontSize:'13px', color:'white'}}>uidos</span>
+              <div style={{ background: '#1a1a3e', borderRadius: '4px', padding: '5px 12px' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '1px' }}>
+                  <span style={{ fontFamily: 'Georgia,serif', fontSize: '20px', fontWeight: 700, color: 'white', lineHeight: 1 }}>Q</span>
+                  <span style={{ fontFamily: 'Georgia,serif', fontSize: '13px', color: 'white' }}>uidos</span>
                 </div>
-                <div style={{fontSize:'7.5px', color:'#aab0cc', letterSpacing:'0.4px', marginTop:'1px'}}>Accredited Assessor</div>
+                <div style={{ fontSize: '7.5px', color: '#aab0cc', letterSpacing: '0.4px', marginTop: '1px' }}>Accredited Assessor</div>
               </div>
             </div>
             <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
             <div className="flex items-center px-5 py-2">
-              <div style={{border:'1px solid #ccc', borderRadius:'4px', padding:'5px 10px', display:'flex', alignItems:'center', gap:'8px'}}>
-                <div style={{display:'flex', flexDirection:'column'}}>
-                  <span style={{fontSize:'8px', color:'#555', letterSpacing:'1px', fontWeight:600}}>STROMA</span>
-                  <span style={{fontSize:'11px', color:'#006B3C', fontWeight:800, letterSpacing:'0.3px'}}>CERTIFIED</span>
-                  <span style={{fontSize:'8px', color:'#006B3C', letterSpacing:'0.2px'}}>ENERGY ASSESSOR</span>
+              <div style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '5px 10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontSize: '8px', color: '#555', letterSpacing: '1px', fontWeight: 600 }}>STROMA</span>
+                  <span style={{ fontSize: '11px', color: '#006B3C', fontWeight: 800, letterSpacing: '0.3px' }}>CERTIFIED</span>
+                  <span style={{ fontSize: '8px', color: '#006B3C', letterSpacing: '0.2px' }}>ENERGY ASSESSOR</span>
                 </div>
                 <svg viewBox="0 0 28 28" width="30" height="30">
-                  <circle cx="14" cy="14" r="13" fill="#e8f5e9"/>
-                  <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                  <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                  <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                  <circle cx="14" cy="14" r="13" fill="#e8f5e9" />
+                  <path d="M14 4 C8 4 4 8.5 4 14 C4 19.5 8 24 14 24" stroke="#006B3C" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                  <path d="M14 7 C10 7 7 10 7 14 C7 18 10 21 14 21" stroke="#80C531" strokeWidth="2" fill="none" strokeLinecap="round" />
+                  <path d="M14 10 C12 10 10 12 10 14 C10 16 12 18 14 18" stroke="#006B3C" strokeWidth="1.5" fill="none" strokeLinecap="round" />
                 </svg>
               </div>
             </div>
             <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
             <div className="flex items-center gap-2 px-5 py-2">
-              <div style={{display:'flex', flexDirection:'column'}}>
-                <div style={{display:'flex', alignItems:'baseline', gap:'4px'}}>
-                  <span style={{fontSize:'20px', fontWeight:900, color:'#222', lineHeight:1, fontFamily:'Arial,sans-serif'}}>DBS</span>
-                  <span style={{fontSize:'9px', color:'#555'}}>(formerly CRB)</span>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+                  <span style={{ fontSize: '20px', fontWeight: 900, color: '#222', lineHeight: 1, fontFamily: 'Arial,sans-serif' }}>DBS</span>
+                  <span style={{ fontSize: '9px', color: '#555' }}>(formerly CRB)</span>
                 </div>
-                <span style={{fontSize:'14px', fontWeight:900, color:'#222', fontFamily:'Arial,sans-serif', lineHeight:1}}>CHECKED</span>
-                <span style={{fontSize:'7.5px', color:'#777', marginTop:'1px'}}>Disclosure and Barring Service</span>
+                <span style={{ fontSize: '14px', fontWeight: 900, color: '#222', fontFamily: 'Arial,sans-serif', lineHeight: 1 }}>CHECKED</span>
+                <span style={{ fontSize: '7.5px', color: '#777', marginTop: '1px' }}>Disclosure and Barring Service</span>
               </div>
               <svg viewBox="0 0 32 32" width="30" height="30">
-                <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2"/>
-                <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                <rect x="2" y="2" width="28" height="28" rx="4" fill="white" stroke="#333" strokeWidth="2" />
+                <path d="M8 16 L13 21 L24 10" stroke="#006B3C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
               </svg>
             </div>
             <div className="h-10 w-px bg-gray-200 hidden sm:block"></div>
             <div className="flex items-center gap-2 px-5 py-2">
-              <span style={{fontSize:'13px', fontWeight:800, color:'#222', lineHeight:1.3, fontFamily:'Arial,sans-serif'}}>City&amp;<br/>Guilds</span>
+              <span style={{ fontSize: '13px', fontWeight: 800, color: '#222', lineHeight: 1.3, fontFamily: 'Arial,sans-serif' }}>City&amp;<br />Guilds</span>
               <svg viewBox="0 0 22 28" width="22" height="28">
-                <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000"/>
+                <path d="M11 1 L2 5 L2 18 C2 23 6.5 26.5 11 28 C15.5 26.5 20 23 20 18 L20 5 Z" fill="#cc0000" />
                 <text x="11" y="14" fontFamily="serif" fontSize="8" fontWeight="bold" fill="white" textAnchor="middle">C&amp;G</text>
                 <text x="11" y="23" fontFamily="serif" fontSize="6" fill="#ffcccc" textAnchor="middle">★★★</text>
               </svg>
-              <span style={{fontSize:'9px', color:'#555'}}>Qualified</span>
+              <span style={{ fontSize: '9px', color: '#555' }}>Qualified</span>
             </div>
           </div>
         </div>
@@ -358,7 +358,7 @@ export default function Home() {
                       Why You Need an EPC Certificate
                     </h4>
                     <ul className="text-[#016837] space-y-2">
-                      {['Legal requirement for selling, renting, or leasing property in the UK','Valid for 10 full years and lodged on the National EPC Register','Ensures compliance with 2026 Minimum Energy Efficiency Standards (MEES)','Identifies high-impact energy saving upgrades to boost property value'].map((item, i) => (
+                      {['Legal requirement for selling, renting, or leasing property in the UK', 'Valid for 10 full years and lodged on the National EPC Register', 'Ensures compliance with 2026 Minimum Energy Efficiency Standards (MEES)', 'Identifies high-impact energy saving upgrades to boost property value'].map((item, i) => (
                         <li key={i} className="flex items-center gap-2"><div className="w-2 h-2 bg-[#80C531] rounded-full"></div>{item}</li>
                       ))}
                     </ul>
@@ -369,13 +369,13 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-6 text-center">UK EPC Energy Rating Scale</h3>
                 <div className="space-y-4 mb-6">
                   {[
-                    { grade:'A', color:'from-green-400 to-green-500', label:'Most Efficient', score:'92-100', width:'100%' },
-                    { grade:'B', color:'from-green-300 to-green-400', label:'Very Efficient', score:'81-91', width:'85%' },
-                    { grade:'C', color:'from-lime-300 to-lime-400', label:'Good', score:'69-80', width:'70%' },
-                    { grade:'D', color:'from-yellow-300 to-yellow-400', label:'Average', score:'55-68', width:'55%' },
-                    { grade:'E', color:'from-amber-300 to-amber-400', label:'Fair (Min Rental)', score:'39-54', width:'40%' },
-                    { grade:'F', color:'from-orange-400 to-orange-500', label:'Poor (Substandard)', score:'21-38', width:'25%' },
-                    { grade:'G', color:'from-red-400 to-red-500', label:'Least Efficient', score:'1-20', width:'10%' }
+                    { grade: 'A', color: 'from-green-400 to-green-500', label: 'Most Efficient', score: '92-100', width: '100%' },
+                    { grade: 'B', color: 'from-green-300 to-green-400', label: 'Very Efficient', score: '81-91', width: '85%' },
+                    { grade: 'C', color: 'from-lime-300 to-lime-400', label: 'Good', score: '69-80', width: '70%' },
+                    { grade: 'D', color: 'from-yellow-300 to-yellow-400', label: 'Average', score: '55-68', width: '55%' },
+                    { grade: 'E', color: 'from-amber-300 to-amber-400', label: 'Fair (Min Rental)', score: '39-54', width: '40%' },
+                    { grade: 'F', color: 'from-orange-400 to-orange-500', label: 'Poor (Substandard)', score: '21-38', width: '25%' },
+                    { grade: 'G', color: 'from-red-400 to-red-500', label: 'Least Efficient', score: '1-20', width: '10%' }
                   ].map(item => (
                     <div key={item.grade} className="flex items-center gap-4">
                       <div className={`w-12 h-12 bg-gradient-to-r ${item.color} rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-lg`}>{item.grade}</div>
@@ -385,7 +385,7 @@ export default function Home() {
                           <span className="text-green-200 text-sm">{item.score} SAP</span>
                         </div>
                         <div className="w-full bg-green-900 rounded-full h-2">
-                          <div className={`bg-gradient-to-r ${item.color} h-2 rounded-full`} style={{width:item.width}}></div>
+                          <div className={`bg-gradient-to-r ${item.color} h-2 rounded-full`} style={{ width: item.width }}></div>
                         </div>
                       </div>
                     </div>
@@ -408,10 +408,10 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {[
-              { icon:'🚀', title:'Fast 24-48h Turnaround', description:'Get your official lodged EPC certificate within 24 to 48 hours of assessment with our express service', features:['24-48 Hour Turnaround','Instant Online Booking','Direct National Register Lodgement'] },
-              { icon:'🏆', title:'Accredited Energy Assessors', description:'Our certified Elmhurst & Stroma assessors ensure 100% compliance with UK EPC and MEES standards', features:['Government Accredited','DBS Checked Assessors','Fully Insured & Certified'] },
-              { icon:'📍', title:'Greater Manchester Coverage', description:'Serving domestic & commercial properties across Manchester, Bolton, Stockport, Salford, Oldham & Rochdale', features:['50-Mile Service Radius','Flexible On-Site Visits','Local Knowledgeable Assessors'] },
-              { icon:'💷', title:'Fixed Price Guarantee', description:'Clear upfront pricing starting from £55 with zero hidden fees or unexpected call-out charges', features:['Fixed Fee From £55','Transparent Quotes','No Hidden Costs'] }
+              { icon: '🚀', title: 'Fast 24-48h Turnaround', description: 'Get your official lodged EPC certificate within 24 to 48 hours of assessment with our express service', features: ['24-48 Hour Turnaround', 'Instant Online Booking', 'Direct National Register Lodgement'] },
+              { icon: '🏆', title: 'Accredited Energy Assessors', description: 'Our certified Elmhurst & Stroma assessors ensure 100% compliance with UK EPC and MEES standards', features: ['Government Accredited', 'DBS Checked Assessors', 'Fully Insured & Certified'] },
+              { icon: '📍', title: 'Greater Manchester Coverage', description: 'Serving domestic & commercial properties across Manchester, Bolton, Stockport, Salford, Oldham & Rochdale', features: ['50-Mile Service Radius', 'Flexible On-Site Visits', 'Local Knowledgeable Assessors'] },
+              { icon: '💷', title: 'Fixed Price Guarantee', description: 'Clear upfront pricing starting from £50 with zero hidden fees or unexpected call-out charges', features: ['Fixed Fee From £50', 'Transparent Quotes', 'No Hidden Costs'] }
             ].map((feature, index) => (
               <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
                 <div className="flex items-start gap-6">
@@ -445,9 +445,9 @@ export default function Home() {
               <div className="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-[#016837] via-[#80C531] to-[#016837] -z-10"></div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { step:'01', icon:'📞', title:'Book Assessment Online', description:'Select your property type and schedule a convenient inspection date via our instant booking system.', details:['Instant Online Quote','Flexible Booking Slots','Fixed Affordable Rates'] },
-                  { step:'02', icon:'🏠', title:'On-Site Survey', description:'Our certified energy assessor visits your property for a thorough, non-invasive 30-60 minute inspection.', details:['Accredited Surveyors','Minimal Disruption','Full Energy Check'] },
-                  { step:'03', icon:'📄', title:'Official EPC Lodgement', description:'Your EPC is lodged on the UK National Register and delivered digitally within 24 to 48 hours.', details:['Fast Digital PDF','National Register Lodged','10-Year Validity'] }
+                  { step: '01', icon: '📞', title: 'Book Assessment Online', description: 'Select your property type and schedule a convenient inspection date via our instant booking system.', details: ['Instant Online Quote', 'Flexible Booking Slots', 'Fixed Affordable Rates'] },
+                  { step: '02', icon: '🏠', title: 'On-Site Survey', description: 'Our certified energy assessor visits your property for a thorough, non-invasive 30-60 minute inspection.', details: ['Accredited Surveyors', 'Minimal Disruption', 'Full Energy Check'] },
+                  { step: '03', icon: '📄', title: 'Official EPC Lodgement', description: 'Your EPC is lodged on the UK National Register and delivered digitally within 24 to 48 hours.', details: ['Fast Digital PDF', 'National Register Lodged', '10-Year Validity'] }
                 ].map((step, index) => (
                   <div key={index} className="text-center relative">
                     <div className="relative mb-8">
@@ -491,11 +491,11 @@ export default function Home() {
                 <div className="w-14 h-14 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center">
                   <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
-                <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £55</p></div>
+                <div><h3 className="text-2xl font-bold text-[#282828]">EPC Services</h3><p className="text-[#016837] font-semibold">From £50</p></div>
               </div>
               <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">We provide comprehensive Energy Performance Certificates for both domestic and commercial properties across Greater Manchester. Every property transaction requires a valid EPC, and we ensure complete compliance with UK regulations.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                {['Domestic EPCs','Commercial EPCs','New Build EPCs','Landlord EPCs','Property Sales EPCs','Rental Property EPCs'].map((service, index) => (
+                {['Domestic EPCs', 'Commercial EPCs', 'New Build EPCs', 'Landlord EPCs', 'Property Sales EPCs', 'Rental Property EPCs'].map((service, index) => (
                   <div key={index} className="flex items-center gap-3 bg-gradient-to-r from-[#F8F8F8] to-white rounded-xl p-3 shadow-sm border border-[#80C531]/10">
                     <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center"><svg className="w-3 h-3 text-[#016837]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg></div>
                     <span className="font-semibold text-[#282828]">{service}</span>
@@ -513,7 +513,7 @@ export default function Home() {
               </div>
               <p className="text-[#282828] opacity-90 mb-6 leading-relaxed">Strategic design consultancy isn't just an expense—it's an investment that pays for itself. We provide expert guidance from concept to completion, ensuring your project achieves optimal efficiency and value.</p>
               <div className="space-y-4 mb-8">
-                {['Expert guidance from concept to completion','Save time and reduce project costs','Innovative sustainable design solutions','Compliance and safety assurance','Energy efficiency optimization','Cost-benefit analysis'].map((item, index) => (
+                {['Expert guidance from concept to completion', 'Save time and reduce project costs', 'Innovative sustainable design solutions', 'Compliance and safety assurance', 'Energy efficiency optimization', 'Cost-benefit analysis'].map((item, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-gradient-to-r from-[#80C531]/20 to-[#80C531]/10 rounded-full flex items-center justify-center flex-shrink-0"><svg className="w-3 h-3 text-[#80C531]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg></div>
                     <span className="font-semibold text-[#282828]">{item}</span>
@@ -545,7 +545,7 @@ export default function Home() {
                   <div className="flex gap-0.5 mb-4">
                     {[...Array(review.rating)].map((_, i) => (
                       <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
@@ -564,7 +564,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-1">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                      <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z" fill="#4285F4"/>
+                      <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z" fill="#4285F4" />
                     </svg>
                     <span className="text-xs text-gray-400 font-medium">{review.source}</span>
                   </div>
@@ -581,7 +581,7 @@ export default function Home() {
                 <div className="flex gap-0.5 mb-1">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
@@ -632,7 +632,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{backgroundImage:`url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23016837' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,backgroundSize:'80px 80px'}}></div>
+          <div className="absolute inset-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23016837' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`, backgroundSize: '80px 80px' }}></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
@@ -663,17 +663,17 @@ export default function Home() {
                   </div>
                   {/* Email — fixed icon (no distortion on mobile) */}
                   <div className="flex items-center gap-6">
-  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
-    <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <polyline points="3,5 12,13 21,5"/>
-    </svg>
-  </div>
-  <div className="min-w-0">
-    <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
-    <p className="text-white font-bold text-base break-all">info@primeepcdesign.co.uk</p>
-  </div>
-</div>
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+                      <svg className="w-7 h-7 text-[#016837]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <polyline points="3,5 12,13 21,5" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="font-semibold text-[#80C531] text-lg mb-1">Email</h4>
+                      <p className="text-white font-bold text-base break-all">info@primeepcdesign.co.uk</p>
+                    </div>
+                  </div>
                   {/* Location */}
                   <div className="flex items-center gap-6">
                     <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
@@ -693,10 +693,10 @@ export default function Home() {
                   <h4 className="font-semibold text-[#80C531] text-lg mb-6">Follow Us</h4>
                   <div className="flex gap-4">
                     {[
-                      { name:'Facebook', color:'bg-blue-600 hover:bg-blue-700', icon:<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/> },
-                      { name:'Twitter', color:'bg-blue-400 hover:bg-blue-500', icon:<path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/> },
-                      { name:'LinkedIn', color:'bg-blue-800 hover:bg-blue-900', icon:<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/> },
-                      { name:'Instagram', color:'bg-pink-600 hover:bg-pink-700', icon:<path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.2 14.816 3.71 13.665 3.71 12.368s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z"/> }
+                      { name: 'Facebook', color: 'bg-blue-600 hover:bg-blue-700', icon: <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /> },
+                      { name: 'Twitter', color: 'bg-blue-400 hover:bg-blue-500', icon: <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" /> },
+                      { name: 'LinkedIn', color: 'bg-blue-800 hover:bg-blue-900', icon: <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /> },
+                      { name: 'Instagram', color: 'bg-pink-600 hover:bg-pink-700', icon: <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.2 14.816 3.71 13.665 3.71 12.368s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z" /> }
                     ].map((social, index) => (
                       <a key={index} href="#" className={`w-14 h-14 ${social.color} rounded-2xl flex items-center justify-center text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl`} aria-label={social.name}>
                         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">{social.icon}</svg>
@@ -721,16 +721,16 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-[#016837] mb-3">Full Name *</label>
-                      <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="Your full name"/>
+                      <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="Your full name" />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-semibold text-[#016837] mb-3">Email Address *</label>
-                      <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="your@email.com"/>
+                      <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="your@email.com" />
                     </div>
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-semibold text-[#016837] mb-3">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="+44 XXX XXX XXXX"/>
+                    <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} className="w-full px-4 py-4 bg-[#F8F8F8] border border-[#80C531]/30 rounded-2xl focus:ring-2 focus:ring-[#80C531] focus:border-transparent transition-all duration-300 text-[#282828] placeholder-[#282828]/60" placeholder="+44 XXX XXX XXXX" />
                   </div>
                   <div>
                     <label htmlFor="service" className="block text-sm font-semibold text-[#016837] mb-3">Service Required</label>
@@ -769,8 +769,8 @@ export default function Home() {
         aria-label="Chat on WhatsApp"
       >
         <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.556 4.118 1.528 5.845L.057 23.882l6.04-1.452A11.931 11.931 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.719.894.937-3.618-.235-.372A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.556 4.118 1.528 5.845L.057 23.882l6.04-1.452A11.931 11.931 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.719.894.937-3.618-.235-.372A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z" />
         </svg>
       </a>
     </div>

@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     template: '%s | Prime EPC Manchester'
   },
   description:
-    'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester, Bolton, Salford & Stockport. Official energy assessments, 2026 MEES compliance, EICR reports & CAD floor plans. Fast 24-48h turnaround.',
+    'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester, Bolton, Salford & Stockport. Official energy assessments, 2026 MEES compliance, EICR reports & CAD floor plans. Fast 24-48h turnaround.',
   keywords: [
     'EPC Certificate Manchester',
     'Commercial EPC Manchester',
     'Domestic EPC Certificate Greater Manchester',
-    'Cheap EPC Manchester £55',
+    'Cheap EPC Manchester £50',
     'EICR Certificate Manchester',
     'Landlord EPC certificate 2026',
     'MEES compliance Greater Manchester',
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
     description:
-      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
+      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
     url: 'https://www.primeepcdesign.co.uk',
     siteName: 'Prime EPC & Design Consultants',
     images: [
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
     description:
-      'Accredited domestic & commercial EPC certificates from £55 across Greater Manchester. 2026 MEES compliance & EICR reports. 24-48h turnaround.',
+      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. 2026 MEES compliance & EICR reports. 24-48h turnaround.',
     images: ['/images/logo3.png'],
   },
   icons: {
@@ -94,7 +94,7 @@ const jsonLdSchema = {
       image: 'https://www.primeepcdesign.co.uk/images/logo3.png',
       telephone: '+447308658247',
       email: 'info@primeepcdesign.co.uk',
-      priceRange: '£55 - £250',
+      priceRange: '£50 - £250',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '17 Bromwich Street',
@@ -153,7 +153,7 @@ const jsonLdSchema = {
       areaServed: 'Greater Manchester',
       'offers': {
         '@type': 'Offer',
-        price: '55.00',
+        price: '50.00',
         priceCurrency: 'GBP'
       }
     },
@@ -200,7 +200,7 @@ const jsonLdSchema = {
           name: 'What is the cost of a domestic EPC certificate?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Domestic EPC certificates with Prime EPC start from just £55 with clear, transparent pricing and no hidden fees.'
+            text: 'Domestic EPC certificates with Prime EPC start from just £50 with clear, transparent pricing and no hidden fees.'
           }
         },
         {

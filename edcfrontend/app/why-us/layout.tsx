@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: "Why Choose Prime EPC | Manchester's Trusted Energy Assessors",
   description:
-    'Discover why landlords and property managers trust Prime EPC. Accredited assessors, transparent pricing from £55, 24-48h turnaround, and 4.9-star Trustpilot rating across Greater Manchester.',
+    'Discover why landlords and property managers trust Prime EPC. Accredited assessors, transparent pricing from £50, 24-48h turnaround, and 4.9-star Trustpilot rating across Greater Manchester.',
   keywords: [
     'Why Choose Prime EPC',
     'Best EPC Assessor Manchester',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Why Choose Prime EPC | Manchester's Trusted Energy Assessors",
     description:
-      'Accredited assessors, transparent pricing from £55, and 4.9-star Trustpilot rating across Greater Manchester.',
+      'Accredited assessors, transparent pricing from £50, and 4.9-star Trustpilot rating across Greater Manchester.',
   },
 }
 
