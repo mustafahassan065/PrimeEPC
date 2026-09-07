@@ -316,146 +316,173 @@ router.post('/send-invoice', async (req, res) => {
       </div>`
 
     const invoiceHtml = `
-      <div style="font-family:Arial,Helvetica,sans-serif; max-width:700px; margin:0 auto; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-        <table style="width:100%; border-collapse:collapse;" cellpadding="0" cellspacing="0">
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f6;padding:20px 0;">
+  <tr><td align="center">
+    <table width="680" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;">
 
-          <!-- Main Two-Column Layout -->
-          <tr>
-            <!-- LEFT SIDEBAR -->
-            <td style="width:220px; background:#016837; vertical-align:top; padding:28px 20px; color:#ffffff;">
+      <!-- TWO COLUMN -->
+      <tr>
 
-              <!-- Logo Area -->
-              <div style="text-align:center; margin-bottom:28px;">
-                <div style="width:56px; height:56px; background:#ffffff; border-radius:10px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center;">
-                  <span style="color:#016837; font-size:26px; font-weight:800;">P</span>
-                </div>
-                <p style="margin:0; font-size:13px; font-weight:700; line-height:1.3;">Prime EPC &<br>Design Consultants</p>
-              </div>
+        <!-- LEFT GREEN SIDEBAR -->
+        <td width="220" style="background:#016837;vertical-align:top;padding:28px 18px;">
 
-              <!-- BILL TO -->
-              <div style="margin-bottom:28px;">
-                <p style="margin:0 0 10px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#80C531;">BILL TO</p>
-                <p style="margin:0 0 4px; font-size:14px; font-weight:600;">${name}</p>
-                <p style="margin:0 0 4px; font-size:12px; color:#c8e6c9;">${phone || 'N/A'}</p>
-                <p style="margin:0; font-size:12px; color:#c8e6c9; line-height:1.4;">${propertyAddress || ''}<br>${postcode || ''}</p>
-              </div>
+          <!-- Logo box -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+            <tr><td align="center">
+              <table cellpadding="0" cellspacing="0">
+                <tr><td style="width:60px;height:60px;background:#ffffff;border-radius:10px;text-align:center;vertical-align:middle;">
+                  <span style="color:#016837;font-size:28px;font-weight:900;line-height:60px;">P</span>
+                </td></tr>
+              </table>
+              <p style="margin:8px 0 0;font-size:13px;font-weight:700;color:#ffffff;text-align:center;line-height:1.4;">Prime EPC &amp;<br>Design Consultants</p>
+            </td></tr>
+          </table>
 
-              <!-- Contact Info -->
-              <div style="margin-bottom:28px;">
-                <p style="margin:0 0 6px; font-size:12px; color:#c8e6c9;">📞 07308658247</p>
-                <p style="margin:0 0 6px; font-size:12px; color:#c8e6c9;">✉️ info@primeepcdesign.co.uk</p>
-                <p style="margin:0; font-size:12px; color:#c8e6c9;">🌐 www.primeepcdesign.co.uk</p>
-              </div>
+          <!-- BILL TO -->
+          <p style="margin:0 0 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#80C531;">BILL TO</p>
+          <p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#ffffff;">${name}</p>
+          <p style="margin:0 0 4px;font-size:12px;color:#c8e6c9;">${phone || 'N/A'}</p>
+          <p style="margin:0 0 24px;font-size:12px;color:#c8e6c9;line-height:1.5;">${propertyAddress || ''}, ${postcode || ''}</p>
 
-              <!-- Amount Due Box -->
-              <div style="background:#014d2a; border-radius:8px; padding:16px; text-align:center; border:1px solid #80C531;">
-                <p style="margin:0 0 6px; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#80C531;">Amount Due</p>
-                <p style="margin:0; font-size:28px; font-weight:800; color:#ffffff;">${amountStr}</p>
-                <div style="border-top:1px solid #1b5e20; margin:10px 0;"></div>
-                <p style="margin:0 0 4px; font-size:10px; color:#80C531;">Payment Method</p>
-                <p style="margin:0; font-size:12px; font-weight:600;">${paymentLabel}</p>
-              </div>
+          <!-- Contact -->
+          <p style="margin:0 0 5px;font-size:12px;color:#c8e6c9;">&#128222; 07308658247</p>
+          <p style="margin:0 0 5px;font-size:12px;color:#c8e6c9;">&#9993; info@primeepcdesign.co.uk</p>
+          <p style="margin:0 0 24px;font-size:12px;color:#c8e6c9;">&#127760; www.primeepcdesign.co.uk</p>
 
-            </td>
+          <!-- Amount Due Box -->
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr><td style="background:#014d2a;border:1px solid #80C531;border-radius:8px;padding:14px;text-align:center;">
+              <p style="margin:0 0 4px;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#80C531;">AMOUNT DUE</p>
+              <p style="margin:0 0 10px;font-size:30px;font-weight:900;color:#ffffff;">${amountStr}</p>
+              <p style="margin:0 0 4px;font-size:10px;color:#80C531;">Payment Method</p>
+              <p style="margin:0;font-size:12px;font-weight:700;color:#ffffff;">${paymentLabel}</p>
+            </td></tr>
+          </table>
 
-            <!-- RIGHT CONTENT -->
-            <td style="vertical-align:top; padding:28px 28px 28px 32px; background:#ffffff;">
+        </td>
 
-              <!-- Header -->
-              <table style="width:100%; margin-bottom:20px;">
+        <!-- RIGHT CONTENT -->
+        <td style="vertical-align:top;padding:28px 28px 28px 28px;background:#ffffff;">
+
+          <!-- INVOICE Header -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:18px;">
+            <tr>
+              <td><h1 style="margin:0;font-size:34px;font-weight:900;color:#111827;letter-spacing:3px;">INVOICE</h1></td>
+              <td align="right">
+                <p style="margin:0 0 3px;font-size:12px;color:#6b7280;">Date: ${new Date().toLocaleDateString('en-GB')}</p>
+                <p style="margin:0;font-size:12px;color:#6b7280;">Invoice #: INV-${Date.now().toString().slice(-8)}</p>
+              </td>
+            </tr>
+          </table>
+
+          <p style="color:#374151;font-size:13px;line-height:1.6;margin:0 0 18px;">
+            Thank you for choosing <strong>Prime EPC and Design Consultants</strong>. Please find your invoice details below.
+          </p>
+
+          <!-- SERVICE DETAILS -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;">
+            <tr><td style="background:#f0fdf4;padding:10px 14px;border-bottom:2px solid #016837;">
+              <p style="margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#016837;">SERVICE DETAILS</p>
+            </td></tr>
+            <tr><td style="background:#fafafa;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr style="border-bottom:1px solid #e5e7eb;">
+                  <td style="padding:9px 14px;color:#6b7280;font-size:12px;width:38%;">Customer</td>
+                  <td style="padding:9px 14px;color:#111827;font-size:13px;font-weight:700;">${name}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e5e7eb;">
+                  <td style="padding:9px 14px;color:#6b7280;font-size:12px;">Phone</td>
+                  <td style="padding:9px 14px;color:#111827;font-size:13px;font-weight:700;">${phone || 'N/A'}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e5e7eb;">
+                  <td style="padding:9px 14px;color:#6b7280;font-size:12px;">Service</td>
+                  <td style="padding:9px 14px;color:#111827;font-size:13px;font-weight:700;">${propertyDetails || propertyType}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e5e7eb;">
+                  <td style="padding:9px 14px;color:#6b7280;font-size:12px;">Property Address</td>
+                  <td style="padding:9px 14px;color:#111827;font-size:13px;font-weight:700;">${propertyAddress}, ${postcode}</td>
+                </tr>
                 <tr>
-                  <td>
-                    <h1 style="margin:0; font-size:32px; font-weight:800; color:#111827; letter-spacing:2px;">INVOICE</h1>
-                  </td>
-                  <td style="text-align:right;">
-                    <p style="margin:0 0 4px; font-size:12px; color:#6b7280;">Date: ${new Date().toLocaleDateString('en-GB')}</p>
-                    <p style="margin:0; font-size:12px; color:#6b7280;">Invoice #: INV-${Date.now().toString().slice(-8)}</p>
-                  </td>
+                  <td style="padding:9px 14px;color:#6b7280;font-size:12px;">Assessment Date</td>
+                  <td style="padding:9px 14px;color:#016837;font-size:13px;font-weight:700;">${dateStr}</td>
                 </tr>
               </table>
+            </td></tr>
+          </table>
 
-              <!-- Thank You Message -->
-              <p style="color:#374151; font-size:13px; line-height:1.6; margin:0 0 20px;">
-                Thank you for choosing <strong>Prime EPC and Design Consultants</strong>. Please find your invoice details below.
+          <!-- TOTAL AMOUNT -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;background:#f0fdf4;border:1px solid #86efac;border-radius:6px;">
+            <tr>
+              <td style="padding:12px 16px;font-size:13px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:0.5px;">TOTAL AMOUNT</td>
+              <td style="padding:12px 16px;text-align:right;font-size:22px;font-weight:900;color:#016837;">${amountStr}</td>
+            </tr>
+          </table>
+
+          <!-- PAYMENT DETAILS -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:16px;border:1px solid #e5e7eb;border-radius:6px;overflow:hidden;">
+            <tr><td style="background:#f9fafb;padding:10px 14px;border-bottom:1px solid #e5e7eb;">
+              <p style="margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#111827;">PAYMENT DETAILS</p>
+            </td></tr>
+            <tr><td style="padding:14px;">
+              <p style="margin:0 0 12px;color:#374151;font-size:13px;line-height:1.5;">
+                ${paymentMethod === 'cash'
+                  ? 'Your payment is due on the day of your assessment. Please have the exact amount ready.'
+                  : paymentMethod === 'bank_transfer'
+                  ? 'Please make your bank transfer using the details below before your assessment date.'
+                  : 'Your payment has been received. No further action is required.'}
               </p>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr style="border-bottom:1px solid #f3f4f6;">
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;width:45%;">Amount Due</td>
+                  <td style="padding:7px 0;color:#b45309;font-weight:700;font-size:16px;">${amountStr}</td>
+                </tr>
+                <tr ${paymentMethod === 'bank_transfer' ? 'style="border-bottom:1px solid #f3f4f6;"' : ''}>
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;">Payment Method</td>
+                  <td style="padding:7px 0;color:#111827;font-weight:600;font-size:13px;">${paymentLabel}</td>
+                </tr>
+                ${paymentMethod === 'bank_transfer' ? `
+                <tr style="border-bottom:1px solid #f3f4f6;">
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;">Bank Name</td>
+                  <td style="padding:7px 0;color:#111827;font-weight:600;font-size:13px;">${ACCOUNT_BANK}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f3f4f6;">
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;">Account Name</td>
+                  <td style="padding:7px 0;color:#111827;font-weight:600;font-size:13px;">${BANK_NAME}</td>
+                </tr>
+                <tr style="border-bottom:1px solid #f3f4f6;">
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;">Sort Code</td>
+                  <td style="padding:7px 0;color:#111827;font-weight:700;font-size:13px;">${SORT_CODE}</td>
+                </tr>
+                <tr>
+                  <td style="padding:7px 0;color:#6b7280;font-size:12px;">Account Number</td>
+                  <td style="padding:7px 0;color:#111827;font-weight:700;font-size:13px;">${ACCOUNT_NO}</td>
+                </tr>` : ''}
+              </table>
+            </td></tr>
+          </table>
 
-              <!-- Service Details -->
-              <div style="margin-bottom:20px;">
-                <div style="background:#f0fdf4; padding:10px 14px; border-radius:6px 6px 0 0; border-bottom:2px solid #016837;">
-                  <h3 style="margin:0; color:#016837; font-size:12px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Service Details</h3>
-                </div>
-                <table style="width:100%; border-collapse:collapse; background:#fafafa; border-radius:0 0 6px 6px;">
-                  <tr style="border-bottom:1px solid #e5e7eb;">
-                    <td style="padding:10px 14px; color:#6b7280; font-size:12px; width:40%;">Customer</td>
-                    <td style="padding:10px 14px; color:#111827; font-size:13px; font-weight:600;">${name}</td>
-                  </tr>
-                  <tr style="border-bottom:1px solid #e5e7eb;">
-                    <td style="padding:10px 14px; color:#6b7280; font-size:12px;">Phone</td>
-                    <td style="padding:10px 14px; color:#111827; font-size:13px; font-weight:600;">${phone || 'N/A'}</td>
-                  </tr>
-                  <tr style="border-bottom:1px solid #e5e7eb;">
-                    <td style="padding:10px 14px; color:#6b7280; font-size:12px;">Service</td>
-                    <td style="padding:10px 14px; color:#111827; font-size:13px; font-weight:600;">${propertyDetails || propertyType}</td>
-                  </tr>
-                  <tr style="border-bottom:1px solid #e5e7eb;">
-                    <td style="padding:10px 14px; color:#6b7280; font-size:12px;">Property Address</td>
-                    <td style="padding:10px 14px; color:#111827; font-size:13px; font-weight:600;">${propertyAddress}, ${postcode}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding:10px 14px; color:#6b7280; font-size:12px;">Assessment Date</td>
-                    <td style="padding:10px 14px; color:#016837; font-size:13px; font-weight:700;">${dateStr}</td>
-                  </tr>
-                </table>
-              </div>
+          <!-- FOOTER -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #e5e7eb;padding-top:14px;">
+            <tr><td align="center">
+              <p style="margin:0 0 4px;font-size:12px;color:#016837;font-weight:700;">Prime EPC and Design Consultants</p>
+              <p style="margin:0 0 4px;font-size:11px;color:#9ca3af;">07308658247 | info@primeepcdesign.co.uk | www.primeepcdesign.co.uk</p>
+              <p style="margin:0;font-size:10px;color:#9ca3af;">Company No. 17307524</p>
+            </td></tr>
+          </table>
 
-              <!-- Total Amount Bar -->
-              <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:14px 18px; margin-bottom:20px;">
-                <table style="width:100%;">
-                  <tr>
-                    <td style="font-size:13px; font-weight:700; color:#374151; text-transform:uppercase; letter-spacing:0.5px;">Total Amount</td>
-                    <td style="text-align:right; font-size:22px; font-weight:800; color:#016837;">${amountStr}</td>
-                  </tr>
-                </table>
-              </div>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`
 
-              <!-- Payment Details -->
-              <div style="margin-bottom:20px;">
-                <div style="display:flex; align-items:center; margin-bottom:10px;">
-                  <span style="font-size:16px; margin-right:6px;">💳</span>
-                  <h3 style="margin:0; color:#111827; font-size:12px; text-transform:uppercase; letter-spacing:1px; font-weight:700;">Payment Details</h3>
-                </div>
-                <div style="background:#fafafa; border:1px solid #e5e7eb; border-radius:8px; padding:14px;">
-                  <p style="margin:0 0 8px; color:#374151; font-size:13px; line-height:1.5;">
-                    ${paymentMethod === 'cash'
-                      ? 'Your payment is due on the day of your assessment. Please have the exact amount ready.'
-                      : 'Please make your bank transfer using the details below before your assessment date.'}
-                  </p>
-                  <table style="width:100%; border-collapse:collapse;">
-                    <tr style="border-bottom:1px solid #e5e7eb;">
-                      <td style="padding:8px 0; color:#6b7280; font-size:12px; width:45%;">Amount Due</td>
-                      <td style="padding:8px 0; color:#b45309; font-weight:700; font-size:16px;">${amountStr}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:8px 0; color:#6b7280; font-size:12px;">Payment Method</td>
-                      <td style="padding:8px 0; color:#111827; font-weight:600; font-size:13px;">${paymentLabel}</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-
-              <!-- Footer Contact -->
-              <div style="border-top:1px solid #e5e7eb; padding-top:16px; text-align:center;">
-                <p style="margin:0 0 4px; font-size:12px; color:#016837; font-weight:700;">Prime EPC and Design Consultants</p>
-                <p style="margin:0; font-size:11px; color:#9ca3af;">📞 07308658247 &nbsp;|&nbsp; ✉️ info@primeepcdesign.co.uk &nbsp;|&nbsp; 🌐 www.primeepcdesign.co.uk</p>
-                <p style="margin:6px 0 0; font-size:10px; color:#9ca3af;">Company No. 17307524</p>
-              </div>
-
-            </td>
-          </tr>
-        </table>
-      </div>`
-
-    await transporter.sendMail({
+        await transporter.sendMail({
       from: FROM_EMAIL,
       to: email,
       subject: `Invoice — Prime EPC Assessment — ${amountStr}`,
