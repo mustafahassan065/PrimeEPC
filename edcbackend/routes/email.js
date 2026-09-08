@@ -344,8 +344,8 @@ router.post('/send-invoice', async (req, res) => {
 
     <!-- Contact -->
     <p style="margin:0 0 4px;font-size:11px;color:#c8e6c9;">Tel: 07308658247</p>
-    <p style="margin:0 0 4px;font-size:11px;color:#c8e6c9;">info@primeepcdesign.co.uk</p>
-    <p style="margin:0 0 20px;font-size:11px;color:#c8e6c9;">www.primeepcdesign.co.uk</p>
+    <p style="margin:0 0 4px;font-size:11px;color:#c8e6c9;"><span style="color:#c8e6c9 !important;text-decoration:none !important;">info@primeepcdesign.co.uk</span></p>
+    <p style="margin:0 0 20px;font-size:11px;color:#c8e6c9;"><span style="color:#c8e6c9 !important;text-decoration:none !important;">www.primeepcdesign.co.uk</span></p>
 
     <!-- Amount Due Box -->
     <table width="100%" cellpadding="0" cellspacing="0">
