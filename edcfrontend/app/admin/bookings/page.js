@@ -7,12 +7,16 @@ import Link from 'next/link'
 const API_URL = 'https://primeepcdesign.co.uk'
 
 export default function AdminBookings() {
-  const [bookings, setBookings]   = useState([])
-  const [loading, setLoading]     = useState(true)
-  const [error, setError]         = useState('')
+  const [bookings, setBookings]     = useState([])
+  const [loading, setLoading]       = useState(true)
+  const [error, setError]           = useState('')
   const [sessionExpired, setSessionExpired] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [expanded, setExpanded]   = useState(null)
+  const [expanded, setExpanded]     = useState(null)
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [editBooking, setEditBooking]   = useState(null)
+  const [editForm, setEditForm]         = useState({})
+  const [editLoading, setEditLoading]   = useState(false)
   const router = useRouter()
 
   const handleAuthError = useCallback(() => {
@@ -99,11 +103,77 @@ export default function AdminBookings() {
     } catch { alert('❌ Unable to connect. Please try again.') }
   }
 
+  const openEdit = (b) => {
+    setEditBooking(b)
+    const d = new Date(b.preferredDate)
+    const dateStr = d.toISOString().split('T')[0]
+    const timeStr = d.toTimeString().slice(0,5)
+    setEditForm({
+      name: b.name || '',
+      email: b.email || '',
+      phone: b.phone || '',
+      propertyType: b.propertyType || 'domestic',
+      propertyDetails: b.propertyDetails || '',
+      propertyAddress: b.propertyAddress || '',
+      postcode: b.postcode || '',
+      date: dateStr,
+      time: timeStr,
+      paymentMethod: b.paymentMethod || 'cash',
+      amount: b.amount || 0,
+      status: b.status || 'pending',
+    })
+  }
+
+  const saveEdit = async () => {
+    if (!editBooking) return
+    setEditLoading(true)
+    const token = localStorage.getItem('adminToken')
+    try {
+      const preferredDate = editForm.date && editForm.time
+        ? `${editForm.date}T${editForm.time}`
+        : editForm.date
+      const res = await fetch(`${API_URL}/api/booking/admin/bookings/${editBooking.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type':'application/json', Authorization:`Bearer ${token}` },
+        body: JSON.stringify({
+          name:            editForm.name,
+          email:           editForm.email,
+          phone:           editForm.phone,
+          propertyType:    editForm.propertyType,
+          propertyDetails: editForm.propertyDetails,
+          propertyAddress: editForm.propertyAddress,
+          postcode:        editForm.postcode,
+          preferredDate,
+          paymentMethod:   editForm.paymentMethod,
+          amount:          editForm.amount,
+          status:          editForm.status,
+        })
+      })
+      if (res.status === 401) { handleAuthError(); return }
+      const data = await res.json()
+      if (data.success) {
+        setBookings(bookings.map(b => b.id === editBooking.id
+          ? { ...b, ...editForm, preferredDate }
+          : b
+        ))
+        setEditBooking(null)
+      } else alert('Failed to update: ' + data.message)
+    } catch { alert('Unable to connect. Please try again.') }
+    finally { setEditLoading(false) }
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('adminToken')
     localStorage.removeItem('admin')
     router.push('/admin/login')
   }
+
+  // Filtered bookings based on active filter
+  const filteredBookings = activeFilter === 'all'
+    ? bookings
+    : activeFilter === 'total'
+    ? bookings
+    : bookings.filter(b => b.status === activeFilter)
 
   const statusColor = (s) => ({
     confirmed: 'bg-green-100 text-green-700',
@@ -209,18 +279,20 @@ export default function AdminBookings() {
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4 text-sm">{error}</div>
           )}
 
-          {/* Stats strip */}
+          {/* Stats strip — clickable filters */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
             {[
-              { label:'Total', value: bookings.length, color:'text-gray-800' },
-              { label:'Pending', value: bookings.filter(b=>b.status==='pending').length, color:'text-yellow-600' },
-              { label:'Confirmed', value: bookings.filter(b=>b.status==='confirmed').length, color:'text-green-600' },
-              { label:'Completed', value: bookings.filter(b=>b.status==='completed').length, color:'text-blue-600' },
+              { label:'Total Bookings', value: bookings.length, color:'text-gray-800', filter:'all', ring:'ring-gray-400' },
+              { label:'Pending', value: bookings.filter(b=>b.status==='pending').length, color:'text-yellow-600', filter:'pending', ring:'ring-yellow-400' },
+              { label:'Confirmed', value: bookings.filter(b=>b.status==='confirmed').length, color:'text-green-600', filter:'confirmed', ring:'ring-green-400' },
+              { label:'Completed', value: bookings.filter(b=>b.status==='completed').length, color:'text-blue-600', filter:'completed', ring:'ring-blue-400' },
             ].map(s => (
-              <div key={s.label} className="bg-white rounded-xl px-4 py-3 shadow-sm">
+              <button key={s.label} onClick={() => setActiveFilter(s.filter)}
+                className={`bg-white rounded-xl px-4 py-3 shadow-sm text-left transition-all hover:shadow-md ${activeFilter === s.filter ? `ring-2 ${s.ring}` : ''}`}>
                 <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
                 <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
-              </div>
+                {activeFilter === s.filter && <p className="text-xs font-medium mt-1" style={{color: 'inherit'}}>● Active filter</p>}
+              </button>
             ))}
           </div>
 
@@ -249,7 +321,7 @@ export default function AdminBookings() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
-                      {bookings.map(b => (
+                      {filteredBookings.map(b => (
                         <tr key={b.id} className="hover:bg-gray-50 transition-colors">
                           <td className="px-5 py-3">
                             <div className="flex items-center gap-3">
@@ -293,6 +365,15 @@ export default function AdminBookings() {
                                 <option value="cancelled">Cancelled</option>
                               </select>
                               <button
+                                onClick={() => openEdit(b)}
+                                title="Edit booking"
+                                className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0"
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                </svg>
+                              </button>
+                              <button
                                 onClick={() => deleteBooking(b.id, b.name)}
                                 title="Delete booking"
                                 className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
@@ -320,7 +401,7 @@ export default function AdminBookings() {
 
                 {/* Mobile cards */}
                 <div className="lg:hidden divide-y divide-gray-100">
-                  {bookings.map(b => (
+                  {filteredBookings.map(b => (
                     <div key={b.id} className="px-4 py-4">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-start gap-3">
@@ -393,6 +474,104 @@ export default function AdminBookings() {
           </div>
         </main>
       </div>
+
+      {/* ── Edit Booking Modal ── */}
+      {editBooking && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+              <h2 className="text-base font-semibold text-gray-800">Edit Booking</h2>
+              <button onClick={() => setEditBooking(null)} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+            </div>
+            <div className="px-6 py-5 space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  {key:'name',  label:'Full Name'},
+                  {key:'email', label:'Email'},
+                  {key:'phone', label:'Phone'},
+                  {key:'postcode', label:'Postcode'},
+                ].map(f => (
+                  <div key={f.key}>
+                    <label className="block text-xs text-gray-500 mb-1">{f.label}</label>
+                    <input type="text" value={editForm[f.key] || ''} onChange={e => setEditForm({...editForm, [f.key]: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">Property Address</label>
+                <input type="text" value={editForm.propertyAddress || ''} onChange={e => setEditForm({...editForm, propertyAddress: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Service Type</label>
+                  <select value={editForm.propertyType || 'domestic'} onChange={e => setEditForm({...editForm, propertyType: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837] bg-white">
+                    <option value="domestic">Domestic</option>
+                    <option value="commercial">Commercial</option>
+                    <option value="eicr">EICR</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Amount (£)</label>
+                  <input type="number" value={editForm.amount || ''} onChange={e => setEditForm({...editForm, amount: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+                </div>
+              </div>
+              <div>
+                <label className="block text-xs text-gray-500 mb-1">Property Details</label>
+                <input type="text" value={editForm.propertyDetails || ''} onChange={e => setEditForm({...editForm, propertyDetails: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Date</label>
+                  <input type="date" value={editForm.date || ''} onChange={e => setEditForm({...editForm, date: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Time</label>
+                  <input type="time" value={editForm.time || ''} onChange={e => setEditForm({...editForm, time: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Payment Method</label>
+                  <select value={editForm.paymentMethod || 'cash'} onChange={e => setEditForm({...editForm, paymentMethod: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837] bg-white">
+                    <option value="cash">Cash</option>
+                    <option value="stripe">Bank Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1">Status</label>
+                  <select value={editForm.status || 'pending'} onChange={e => setEditForm({...editForm, status: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837] bg-white">
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-gray-100 flex gap-3">
+              <button onClick={() => setEditBooking(null)}
+                className="flex-1 py-2.5 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 text-sm transition-colors">
+                Cancel
+              </button>
+              <button onClick={saveEdit} disabled={editLoading}
+                className="flex-1 py-2.5 bg-[#016837] text-white rounded-lg hover:bg-[#01572E] text-sm font-medium disabled:opacity-50 transition-colors">
+                {editLoading ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

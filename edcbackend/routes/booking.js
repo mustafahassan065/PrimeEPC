@@ -120,10 +120,25 @@ router.get('/admin/bookings', auth, async (req, res) => {
 // Update booking status (Admin only)
 router.put('/admin/bookings/:id', auth, async (req, res) => {
   try {
-    const { status } = req.body;
+    const {
+      status, name, email, phone, propertyType, propertyDetails,
+      propertyAddress, postcode, preferredDate, paymentMethod, amount
+    } = req.body;
     const booking = await Booking.findByPk(req.params.id);
     if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
-    await booking.update({ status });
+    await booking.update({
+      ...(status          && { status }),
+      ...(name            && { name }),
+      ...(email           !== undefined && { email }),
+      ...(phone           && { phone }),
+      ...(propertyType    && { propertyType }),
+      ...(propertyDetails !== undefined && { propertyDetails }),
+      ...(propertyAddress !== undefined && { propertyAddress }),
+      ...(postcode        !== undefined && { postcode }),
+      ...(preferredDate   && { preferredDate: new Date(preferredDate) }),
+      ...(paymentMethod   && { paymentMethod }),
+      ...(amount          !== undefined && { amount: parseFloat(amount) }),
+    });
     res.json({ success: true, message: 'Booking updated successfully', data: booking });
   } catch (error) {
     console.error('Update booking error:', error);
