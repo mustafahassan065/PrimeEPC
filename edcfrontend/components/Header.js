@@ -88,7 +88,7 @@ export default function Header() {
               <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Blog</Link>
               <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>FAQs</Link>
               <Link href="/#contact" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</Link>
-              <Link href="/booking" className="bg-[#016837] text-white px-6 py-3 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium text-center shadow-md hover:shadow-lg" onClick={() => setIsMenuOpen(false)}>Book Your EPC</Link>
+              <Link href="/booking" className="bg-[#016837] text-white px-6 py-3 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium text-center shadow-md hover:shadow-lg" onClick={() => setIsMenuOpen(false)}>Book Your Assessment</Link>
             </div>
           </div>
         )}

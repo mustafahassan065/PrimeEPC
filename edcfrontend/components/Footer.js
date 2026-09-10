@@ -57,26 +57,31 @@ export default function Footer() {
               />
             </Link>
 
-            <div className="bg-white/5 rounded-lg p-4 border border-[#80C531]/20">
-              <div className="flex items-center gap-2 mb-2">
-                <svg className="w-5 h-5 text-[#80C531]" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0L14.5 9.5L24 9.5L16.2 15.3L18.7 24L12 18.2L5.3 24L7.8 15.3L0 9.5L9.5 9.5L12 0Z"/>
-                </svg>
-                <span className="text-white font-bold text-sm">Trustpilot</span>
+            <a
+              href="https://uk.trustpilot.com/review/primeepcdesign.co.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block mt-4"
+            >
+              <div className="bg-white/5 rounded-lg p-4 border border-[#80C531]/20 hover:border-[#00b67a]/50 transition-colors cursor-pointer">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-white font-semibold text-sm">Excellent</span>
+                  <svg className="w-5 h-5 text-[#00b67a]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0L14.5 9.5L24 9.5L16.2 15.3L18.7 24L12 18.2L5.3 24L7.8 15.3L0 9.5L9.5 9.5L12 0Z"/>
+                  </svg>
+                  <span className="text-white font-bold text-sm">Trustpilot</span>
+                </div>
+                <div className="flex gap-1">
+                  {[1,2,3,4,5].map((star) => (
+                    <div key={star} className="w-8 h-8 bg-[#00b67a] flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0L14.5 9.5L24 9.5L16.2 15.3L18.7 24L12 18.2L5.3 24L7.8 15.3L0 9.5L9.5 9.5L12 0Z"/>
+                      </svg>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex gap-1 mb-2">
-                {[1,2,3,4,5].map((star) => (
-                  <div key={star} className="w-8 h-8 bg-[#80C531] flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0L14.5 9.5L24 9.5L16.2 15.3L18.7 24L12 18.2L5.3 24L7.8 15.3L0 9.5L9.5 9.5L12 0Z"/>
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              <p className="text-white/70 text-xs">
-                TrustScore <span className="text-[#80C531] font-semibold">4.9</span> | <span className="text-white font-semibold">1049 reviews</span>
-              </p>
-            </div>
+            </a>
           </div>
 
           {/* Column 2 - See More */}
