@@ -473,4 +473,92 @@ router.post('/send-invoice', async (req, res) => {
   }
 })
 
+// ─────────────────────────────────────────────────────────────────────────
+// POST /api/email/send-booking-update
+// Admin booking edit kare — customer ko updated details email jaye
+// ─────────────────────────────────────────────────────────────────────────
+router.post('/send-booking-update', async (req, res) => {
+  try {
+    const { name, email, phone, propertyType, propertyDetails,
+            propertyAddress, postcode, preferredDate,
+            paymentMethod, amount, status } = req.body
+
+    if (!email) return res.json({ success: true })
+
+    const dateStr = preferredDate
+      ? new Date(preferredDate).toLocaleDateString('en-GB', {
+          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        })
+      : 'To be confirmed'
+
+    const amountStr    = amount ? `£${amount}` : 'To be confirmed'
+    const paymentLabel = { cash: 'Cash (Pay on Arrival)', stripe: 'Bank Card', paypal: 'PayPal', bank_transfer: 'Bank Transfer' }[paymentMethod] || paymentMethod || 'Cash'
+    const statusLabel  = { pending: 'Pending', confirmed: 'Confirmed', completed: 'Completed', cancelled: 'Cancelled' }[status] || status
+
+    const html = `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
+        <div style="background:#016837;padding:20px;border-radius:8px 8px 0 0;">
+          <h1 style="color:white;margin:0;font-size:20px;">📋 Booking Updated — Prime EPC</h1>
+        </div>
+        <div style="background:#f9fafb;padding:24px;border:1px solid #e5e7eb;border-top:none;border-radius:0 0 8px 8px;">
+          <p style="color:#374151;margin:0 0 12px;">Dear <strong>${name}</strong>,</p>
+          <p style="color:#374151;margin:0 0 16px;">Your booking details have been updated by our team. Please find the updated information below:</p>
+
+          <div style="background:white;padding:16px;border-radius:8px;border:1px solid #e5e7eb;margin:0 0 16px;">
+            <h3 style="color:#016837;margin:0 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:0.5px;">Updated Booking Details</h3>
+            <table style="width:100%;border-collapse:collapse;">
+              <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;width:40%;">Service</td>
+                <td style="padding:8px 0;color:#111827;font-weight:600;font-size:13px;">${propertyDetails || propertyType}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;">Property Address</td>
+                <td style="padding:8px 0;color:#111827;font-weight:600;font-size:13px;">${propertyAddress || ''}, ${postcode || ''}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;">Assessment Date</td>
+                <td style="padding:8px 0;color:#016837;font-weight:700;font-size:13px;">${dateStr}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;">Amount</td>
+                <td style="padding:8px 0;color:#111827;font-weight:600;font-size:13px;">${amountStr}</td>
+              </tr>
+              <tr style="border-bottom:1px solid #f3f4f6;">
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;">Payment Method</td>
+                <td style="padding:8px 0;color:#111827;font-weight:600;font-size:13px;">${paymentLabel}</td>
+              </tr>
+              <tr>
+                <td style="padding:8px 0;color:#6b7280;font-size:13px;">Booking Status</td>
+                <td style="padding:8px 0;color:#016837;font-weight:700;font-size:13px;">${statusLabel}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div style="padding:14px;background:#f0fdf4;border-radius:8px;margin-bottom:16px;">
+            <p style="margin:0 0 6px;color:#374151;font-size:13px;">If you have any questions about your updated booking, please contact us:</p>
+            <p style="margin:3px 0;color:#374151;font-size:13px;">📞 07308658247</p>
+            <p style="margin:3px 0;color:#374151;font-size:13px;">📧 info@primeepcdesign.co.uk</p>
+            <p style="margin:3px 0;color:#374151;font-size:13px;">🌐 https://www.primeepcdesign.co.uk</p>
+          </div>
+
+          <p style="color:#016837;font-weight:600;margin:0;">Prime EPC and Design Consultants</p>
+          <p style="color:#9ca3af;font-size:11px;margin:4px 0 0;">Company No. 17307524</p>
+        </div>
+      </div>`
+
+    await transporter.sendMail({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Booking Updated — Prime EPC and Design Consultants',
+      html
+    })
+
+    res.json({ success: true, message: 'Update email sent successfully' })
+  } catch (error) {
+    console.error('Booking update email error:', error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+})
+
 module.exports = router

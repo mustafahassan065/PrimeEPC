@@ -157,6 +157,30 @@ export default function AdminBookings() {
           : b
         ))
         setEditBooking(null)
+
+        // Send update email to customer if email exists
+        if (editForm.email) {
+          try {
+            await fetch(`${API_URL}/api/email/send-booking-update`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name:            editForm.name,
+                email:           editForm.email,
+                phone:           editForm.phone,
+                propertyType:    editForm.propertyType,
+                propertyDetails: editForm.propertyDetails,
+                propertyAddress: editForm.propertyAddress,
+                postcode:        editForm.postcode,
+                preferredDate,
+                paymentMethod:   editForm.paymentMethod,
+                amount:          editForm.amount,
+                status:          editForm.status,
+              })
+            })
+          } catch { /* email fail hone par booking update still successful */ }
+        }
+
       } else alert('Failed to update: ' + data.message)
     } catch { alert('Unable to connect. Please try again.') }
     finally { setEditLoading(false) }
