@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import TrustStrip from '../components/TrustStrip'
+import CoverageAreas from '../components/CoverageAreas'
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -86,7 +88,7 @@ export default function Home() {
     { question: 'Can I get an EPC for a commercial property?', answer: 'Yes. Commercial buildings also require EPCs when sold or rented, but the assessment criteria differ slightly from domestic properties.' },
     { question: 'Do new builds automatically have EPCs?', answer: 'Yes. Every new build in the UK must have an EPC before completion — it\'s arranged by the builder or developer before the property is listed.' },
     { question: 'What is the difference between an EPC and a Home Energy Report?', answer: 'An EPC is an official government certificate, while a Home Energy Report provides more detailed advice and data to help you plan improvements.' },
-    { question: 'How much does an EPC cost?', answer: 'The cost depends on property size, type, and location. It can vary widely, but a normal domestic EPC is usually modest — contact us for a quote.' },
+    { question: 'How much does an EPC cost in Greater Manchester?', answer: 'At Prime EPC, domestic Energy Performance Certificates start from just £50 fixed fee with complete transparent pricing and no hidden costs across Greater Manchester. Commercial EPCs start from £144.' },
     { question: 'Who can issue an EPC?', answer: 'Only accredited energy assessors approved under UK schemes can issue valid EPCs. Assessors must follow government standards.' },
     { question: 'What property details are checked during an EPC?', answer: 'The assessor checks things like wall/roof/floor insulation, heating systems, windows, lighting, and size/floor area of the property.' },
     { question: 'Where can I find out if a property already has an EPC?', answer: 'You can search the EPC Register (UK government site) by address or postcode to see if there\'s a valid certificate.' },
@@ -120,7 +122,7 @@ export default function Home() {
     {
       initials: 'NK',
       name: 'Nadia K.',
-      location: 'Didsbury, Manchester',
+      location: 'Didsbury, Greater Manchester',
       rating: 5,
       text: '"The assessor was knowledgeable and pointed out a few quick wins to improve my rating. That extra advice alone was worth it. Fast, friendly, and professional."',
       source: 'Google'
@@ -157,7 +159,7 @@ export default function Home() {
       {/* ── Hero Section ── */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Manchester" fill priority className="object-cover object-center" sizes="100vw" />
+          <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Greater Manchester" fill priority className="object-cover object-center" sizes="100vw" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
         <div className="absolute inset-0 overflow-hidden z-[1]">
@@ -168,17 +170,17 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
 
           {/* Title */}
-          <div className="text-center max-w-4xl mx-auto mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
-              Accredited EPC Certificates &amp; Property Compliance Manchester
+          <div className="text-center max-w-4xl mx-auto mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight">
+              Energy Performance Certificates (EPC) in Greater Manchester | From £50
             </h1>
-            <p className="text-lg text-white/90">
-              Domestic &amp; Commercial EPCs, Landlord MEES Compliance, EICRs &amp; CAD Floor Plans starting at <span className="font-bold text-[#80C531]">£50.00 Fixed Fee</span>.
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              Fast, Quidos-accredited Domestic &amp; Commercial EPCs. Serving landlords and homeowners across a 50-mile radius, including Bolton, Stockport, and Merseyside. No estate agent mark-ups.
             </p>
           </div>
 
           {/* Search Bar — functional: Enter or button click → /booking */}
-          <div className="max-w-3xl mx-auto mb-8">
+          <div className="max-w-3xl mx-auto mb-4">
             <div className="bg-white rounded-xl p-2 shadow-xl flex items-center gap-2">
               <div className="flex-1 flex items-center gap-3 px-4">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,6 +203,9 @@ export default function Home() {
               </button>
             </div>
           </div>
+
+          {/* Trust Strip sitting immediately below main Hero CTA / Search */}
+          <TrustStrip />
 
           {/* Service Cards — all 4 are clickable links to /booking */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
@@ -333,6 +338,79 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Anti-Middleman Direct Booking & Landlord Compliance Bundle Section */}
+      <section className="py-14 bg-gradient-to-b from-[#F8F8F8] to-white border-b border-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* Card 1: Anti-Middleman / Direct Booking */}
+            <div className="bg-white rounded-2xl p-7 shadow-md border-2 border-[#80C531]/30 hover:border-[#016837] transition-all flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-[#80C531]/10 text-[#016837] px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                  ⭐ No Middleman Fees
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  Direct Quidos-Accredited Assessor
+                </h3>
+                <p className="text-gray-700 text-base leading-relaxed mb-4">
+                  Book direct with a local accredited assessor. Avoid expensive estate agent mark-ups and hidden fees. Same-day appointments available.
+                </p>
+                <ul className="space-y-2 text-sm text-gray-600 mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#016837] font-bold">✓</span> Direct assessor contact — no agency commission
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#016837] font-bold">✓</span> Fixed £50 starting rate with official national lodgement
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#016837] font-bold">✓</span> Same-day appointments across 50-mile NW radius
+                  </li>
+                </ul>
+              </div>
+              <Link
+                href="/booking"
+                className="w-full bg-[#016837] hover:bg-[#01572E] text-white font-bold py-3 px-5 rounded-xl text-center shadow-md transition-all block"
+              >
+                Book Direct for £50 →
+              </Link>
+            </div>
+
+            {/* Card 2: Landlord Compliance Bundle */}
+            <div className="bg-gradient-to-br from-[#016837] to-[#01572E] text-white rounded-2xl p-7 shadow-md border-2 border-[#80C531]/40 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 bg-[#80C531] text-gray-900 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                  ⚡ Save Time &amp; Call-Outs
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  EPC + EICR Landlord Compliance Bundle
+                </h3>
+                <p className="text-white/90 text-base leading-relaxed mb-4">
+                  Need to meet landlord compliance? Book your EPC and EICR together in one visit to save time and call-out fees.
+                </p>
+                <ul className="space-y-2 text-sm text-white/85 mb-6">
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#80C531] font-bold">✓</span> One seamless inspection visit for all certificates
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#80C531] font-bold">✓</span> 100% MEES &amp; UK rental safety regulations compliant
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="text-[#80C531] font-bold">✓</span> Fast 24–48 hour digital delivery for tenants/agents
+                  </li>
+                </ul>
+              </div>
+              <Link
+                href="/booking"
+                className="w-full bg-[#80C531] hover:bg-[#72b329] text-gray-950 font-bold py-3 px-5 rounded-xl text-center shadow-md transition-all block"
+              >
+                Book Landlord Bundle →
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* What is EPC Section */}
       <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
@@ -403,7 +481,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY CHOOSE US</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Manchester Landlords &amp; Estate Agents Trust Prime EPC</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Greater Manchester Landlords &amp; Estate Agents Trust Prime EPC</h2>
             <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fast, accredited, and professional domestic &amp; commercial EPC services across Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -466,7 +544,7 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-12 bg-gradient-to-r from-white to-[#F8F8F8] rounded-3xl p-8 shadow-lg border border-[#80C531]/20 text-center">
-              <h3 className="text-2xl font-bold text-[#282828] mb-4">Need an EPC or Electrical Safety Certificate in Manchester?</h3>
+              <h3 className="text-2xl font-bold text-[#282828] mb-4">Need an EPC or Electrical Safety Certificate in Greater Manchester?</h3>
               <p className="text-[#282828] opacity-90 mb-6 max-w-2xl mx-auto">Get certified fast with accredited assessors. Book online today or speak with our property compliance team.</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/booking" className="bg-gradient-to-r from-[#016837] to-[#80C531] hover:from-[#01572E] hover:to-[#70B52B] text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">Book Assessment Now</Link>
@@ -525,6 +603,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── Regional Coverage Hub ── */}
+      <CoverageAreas />
 
       {/* ── Reviews Section ── */}
       <section className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
@@ -596,6 +677,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Programmatic Coverage Areas Hub */}
+      <CoverageAreas />
+
       {/* FAQ Section */}
       <section id="faqs" className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
         <div className="container mx-auto px-4">
@@ -640,7 +724,7 @@ export default function Home() {
               <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
               <span className="text-[#016837] text-sm font-semibold tracking-wide bg-[#80C531]/10 backdrop-blur-sm px-4 py-2 rounded-full">GET IN TOUCH TODAY</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">Contact Our Manchester EPC Assessors</h2>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight text-[#016837]">Contact Our Greater Manchester EPC Assessors</h2>
             <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">Ready to order your EPC certificate or need MEES compliance advice? Reach out for fast, professional assistance across Greater Manchester.</p>
           </div>
           <div className="max-w-6xl mx-auto">
@@ -684,7 +768,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-[#80C531] text-lg mb-1">Service Areas</h4>
-                      <p className="text-white font-semibold text-lg">Manchester Coverage</p>
+                      <p className="text-white font-semibold text-lg">Greater Manchester Coverage</p>
                     </div>
                   </div>
                 </div>

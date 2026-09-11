@@ -29,7 +29,7 @@ export default function FloorPlansAndDrafting() {
                 
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                   Floor Plans &amp; CAD
-                  <span className="block text-white">Drafting Manchester</span>
+                  <span className="block text-white">Drafting Greater Manchester</span>
                 </h1>
                 
                 <p className="text-xl text-white opacity-90 mb-8 leading-relaxed">

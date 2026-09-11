@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import MobileStickyBar from '../components/MobileStickyBar'
 import type { ReactNode } from "react"
 import type { Metadata } from 'next'
 
@@ -10,17 +11,21 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.primeepcdesign.co.uk'),
   title: {
-    default: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
-    template: '%s | Prime EPC Manchester'
+    default: 'Energy Performance Certificates (EPC) in Greater Manchester | From £50',
+    template: '%s | Prime EPC',
   },
-  description:
-    'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester, Bolton, Salford & Stockport. Official energy assessments, 2026 MEES compliance, EICR reports & CAD floor plans. Fast 24-48h turnaround.',
+  description: 'Fast, accredited domestic and commercial EPC certificates across Greater Manchester and a 50-mile radius. Fixed pricing from £50 with 24–48 hour turnaround.',
   keywords: [
-    'EPC Certificate Manchester',
-    'Commercial EPC Manchester',
+    'EPC',
+    'EPC Manchester',
+    'EPC Greater Manchester',
+    'EPC in Manchester',
+    'EPC in Greater Manchester',
+    'EPC Certificate Greater Manchester',
+    'Commercial EPC Greater Manchester',
     'Domestic EPC Certificate Greater Manchester',
-    'Cheap EPC Manchester £50',
-    'EICR Certificate Manchester',
+    'Cheap EPC Greater Manchester £50',
+    'EICR Certificate Greater Manchester',
     'Landlord EPC certificate 2026',
     'MEES compliance Greater Manchester',
     'EPC Bolton',
@@ -29,8 +34,8 @@ export const metadata: Metadata = {
     'EPC Oldham',
     'EPC Rochdale',
     'Energy Performance Certificate UK',
-    'Accredited Energy Assessor Manchester',
-    'Floor plans for estate agents Manchester',
+    'Accredited Energy Assessor Greater Manchester',
+    'Floor plans for estate agents Greater Manchester',
     'Electrical Installation Condition Report EICR'
   ],
   authors: [{ name: 'Prime EPC & Design Consultant Ltd' }],
@@ -52,9 +57,9 @@ export const metadata: Metadata = {
     canonical: 'https://www.primeepcdesign.co.uk',
   },
   openGraph: {
-    title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
+    title: 'EPC Greater Manchester from £50 | Prime EPC Certificates & Compliance',
     description:
-      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. 2026 MEES compliance, EICR reports & floor plans. 24-48h turnaround.',
+      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. Quidos-accredited assessors, 2026 MEES compliance & EICR reports. 24-48h turnaround.',
     url: 'https://www.primeepcdesign.co.uk',
     siteName: 'Prime EPC & Design Consultants',
     images: [
@@ -70,9 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prime EPC Manchester | EPC Certificates, EICR & Floor Plans',
+    title: 'EPC Greater Manchester from £50 | Prime EPC Certificates & Compliance',
     description:
-      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. 2026 MEES compliance & EICR reports. 24-48h turnaround.',
+      'Accredited domestic & commercial EPC certificates from £50 across Greater Manchester. Quidos-accredited assessors, 2026 MEES compliance & EICR reports. 24-48h turnaround.',
     images: ['/images/logo3.png'],
   },
   icons: {
@@ -94,13 +99,13 @@ const jsonLdSchema = {
       image: 'https://www.primeepcdesign.co.uk/images/logo3.png',
       telephone: '+447308658247',
       email: 'info@primeepcdesign.co.uk',
-      priceRange: '£50 - £250',
+      priceRange: '£50 - £144',
       address: {
         '@type': 'PostalAddress',
         streetAddress: '17 Bromwich Street',
         addressLocality: 'Bolton',
         addressRegion: 'Greater Manchester',
-        postalCode: 'BL2 1JE',
+        postalCode: 'BL2 1JF',
         addressCountry: 'GB'
       },
       geo: {
@@ -108,15 +113,23 @@ const jsonLdSchema = {
         latitude: 53.578,
         longitude: -2.429
       },
+      serviceArea: [
+        'Greater Manchester',
+        'Bolton',
+        'Stockport',
+        'Salford',
+        'Merseyside',
+        'Lancashire',
+        'Cheshire'
+      ],
       areaServed: [
         { '@type': 'AdministrativeArea', name: 'Greater Manchester' },
-        { '@type': 'City', name: 'Manchester' },
         { '@type': 'City', name: 'Bolton' },
         { '@type': 'City', name: 'Stockport' },
         { '@type': 'City', name: 'Salford' },
-        { '@type': 'City', name: 'Oldham' },
-        { '@type': 'City', name: 'Wigan' },
-        { '@type': 'City', name: 'Didsbury' }
+        { '@type': 'AdministrativeArea', name: 'Merseyside' },
+        { '@type': 'AdministrativeArea', name: 'Lancashire' },
+        { '@type': 'AdministrativeArea', name: 'Cheshire' }
       ],
       openingHoursSpecification: [
         {
@@ -147,7 +160,7 @@ const jsonLdSchema = {
     {
       '@type': 'Service',
       '@id': 'https://www.primeepcdesign.co.uk/#domestic-epc',
-      name: 'Domestic Energy Performance Certificate (EPC) Manchester',
+      name: 'Domestic Energy Performance Certificate (EPC) Greater Manchester',
       serviceType: 'Energy Assessment',
       provider: { '@id': 'https://www.primeepcdesign.co.uk/#organization' },
       areaServed: 'Greater Manchester',
@@ -160,7 +173,7 @@ const jsonLdSchema = {
     {
       '@type': 'Service',
       '@id': 'https://www.primeepcdesign.co.uk/#commercial-epc',
-      name: 'Commercial Energy Performance Certificate (EPC) Manchester',
+      name: 'Commercial Energy Performance Certificate (EPC) Greater Manchester',
       serviceType: 'Commercial Energy Assessment',
       provider: { '@id': 'https://www.primeepcdesign.co.uk/#organization' },
       areaServed: 'Greater Manchester',
@@ -173,7 +186,7 @@ const jsonLdSchema = {
     {
       '@type': 'Service',
       '@id': 'https://www.primeepcdesign.co.uk/#eicr-report',
-      name: 'Electrical Installation Condition Report (EICR) Manchester',
+      name: 'Electrical Installation Condition Report (EICR) Greater Manchester',
       serviceType: 'Electrical Inspection',
       provider: { '@id': 'https://www.primeepcdesign.co.uk/#organization' },
       areaServed: 'Greater Manchester',
@@ -189,26 +202,42 @@ const jsonLdSchema = {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'How quickly can I get an EPC certificate in Manchester?',
+          name: 'How much does an EPC cost in Greater Manchester?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'We provide fast 24 to 48-hour turnaround on domestic and commercial EPC certificates after property inspection across Greater Manchester.'
+            text: 'Domestic Energy Performance Certificates start from just £50 fixed fee with clear, transparent pricing and no hidden costs or estate agent mark-ups. Commercial EPCs start from £144.'
           }
         },
         {
           '@type': 'Question',
-          name: 'What is the cost of a domestic EPC certificate?',
+          name: 'Why should I book an EPC direct instead of through an estate agent?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Domestic EPC certificates with Prime EPC start from just £50 with clear, transparent pricing and no hidden fees.'
+            text: 'Booking direct with a local Quidos-accredited assessor eliminates expensive estate agent mark-ups and hidden commission fees. Same-day appointments and 24–48 hour certificate turnaround are available.'
           }
         },
         {
           '@type': 'Question',
-          name: 'Do you provide commercial EPCs and EICR safety reports?',
+          name: 'Can I book an EPC and EICR together for landlord compliance?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes, we provide commercial EPCs from £144, EICR landlord electrical safety inspection reports from £110, and professional floor plans.'
+            text: 'Yes. Landlords needing compliance can book an EPC and EICR together in one visit to save time and call-out fees.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What areas do you cover for EPC certificates?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'We cover a 50-mile radius across the North West, including Greater Manchester, Bolton, Stockport, Salford, Merseyside, Lancashire, and Cheshire.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How quickly will I receive my EPC certificate?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'We provide fast 24 to 48-hour turnaround on domestic and commercial EPC certificates after property inspection, with direct lodgement on the UK National Register.'
           }
         }
       ]
@@ -237,8 +266,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={inter.className}>
         <Header />
-        <main>{children}</main>
+        <main className="pb-16 md:pb-0">{children}</main>
         <Footer />
+        <MobileStickyBar />
       </body>
     </html>
   )

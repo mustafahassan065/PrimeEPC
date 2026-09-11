@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us | Accredited EPC Assessors Manchester & Bolton',
+  title: 'About Us | Accredited EPC Assessors Greater Manchester & Bolton',
   description:
-    'Learn about Prime EPC & Design Consultant Ltd. Government-accredited Elmhurst and Stroma certified domestic and commercial energy assessors across Greater Manchester.',
+    'Learn about Prime EPC & Design Consultant Ltd. Government-accredited Elmhurst, Stroma & Quidos certified domestic and commercial energy assessors across Greater Manchester.',
   keywords: [
     'About Prime EPC',
-    'Accredited EPC Assessors Manchester',
+    'Accredited EPC Assessors Greater Manchester',
     'Certified Energy Assessors Bolton',
     'Commercial EPC Specialists Greater Manchester',
     'Property Compliance Experts 2026'
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: 'https://www.primeepcdesign.co.uk/about',
   },
   openGraph: {
-    title: 'About Us | Accredited EPC Assessors Manchester & Bolton',
+    title: 'About Us | Accredited EPC Assessors Greater Manchester & Bolton',
     description:
       'Learn about Prime EPC & Design Consultant Ltd. Government-accredited energy assessors serving landlords & property owners across Greater Manchester.',
     url: 'https://www.primeepcdesign.co.uk/about',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us | Accredited EPC Assessors Manchester',
+    title: 'About Us | Accredited EPC Assessors Greater Manchester',
     description:
       'Government-accredited energy assessors serving landlords & property owners across Greater Manchester.',
   },

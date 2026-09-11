@@ -109,7 +109,7 @@ export default function Footer() {
               <p className="text-white font-medium">Prime EPC & Design Consultant Ltd</p>
               <p className="text-white/70 flex items-start gap-2">
                 <span className="text-[#80C531]">📍</span>
-                <span>17 Bromwich Street, Bolton, BL2 1JE, Greater Manchester</span>
+                <span>17 Bromwich Street, Bolton, BL2 1JF, Greater Manchester</span>
               </p>
               <a href="tel:+447308658247" className="text-white/70 hover:text-[#80C531] flex items-center gap-2 transition-colors duration-200">
                 <span className="text-[#80C531]">📞</span>
@@ -124,6 +124,36 @@ export default function Footer() {
                 <p className="text-white/70 text-sm"><span className="text-[#80C531] font-semibold">Sat - Sun:</span> 10:00am to 6:00pm</p>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Regional Locations SEO Internal Links Strip */}
+      <div className="border-t border-[#80C531]/20 bg-white/5 py-4">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-xs font-semibold text-[#80C531] uppercase tracking-wider mb-2">
+            Local Energy Performance Certificate Locations:
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1.5 text-xs text-white/80">
+            <Link href="/locations/bolton" className="hover:text-[#80C531] transition-colors">EPC Bolton</Link>
+            <span>•</span>
+            <Link href="/locations/manchester" className="hover:text-[#80C531] transition-colors">EPC Manchester</Link>
+            <span>•</span>
+            <Link href="/locations/salford" className="hover:text-[#80C531] transition-colors">EPC Salford</Link>
+            <span>•</span>
+            <Link href="/locations/oldham" className="hover:text-[#80C531] transition-colors">EPC Oldham</Link>
+            <span>•</span>
+            <Link href="/locations/blackburn" className="hover:text-[#80C531] transition-colors">EPC Blackburn</Link>
+            <span>•</span>
+            <Link href="/locations/stockport" className="hover:text-[#80C531] transition-colors">EPC Stockport</Link>
+            <span>•</span>
+            <Link href="/locations/rochdale" className="hover:text-[#80C531] transition-colors">EPC Rochdale</Link>
+            <span>•</span>
+            <Link href="/locations/warrington" className="hover:text-[#80C531] transition-colors">EPC Warrington</Link>
+            <span>•</span>
+            <Link href="/locations/liverpool" className="hover:text-[#80C531] transition-colors">EPC Liverpool</Link>
+            <span>•</span>
+            <span className="text-white/50">Covering 50-Mile North West Radius</span>
           </div>
         </div>
       </div>

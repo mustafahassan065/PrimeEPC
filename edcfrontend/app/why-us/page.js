@@ -8,38 +8,38 @@ export default function WhyUs() {
     {
       icon: '⚡',
       title: 'Fast and Reliable Service',
-      description: 'We know how important deadlines are, especially when you are selling, renting, or managing a property in Manchester. Our assessors deliver accurate EPC reports quickly often within 24 to 48 hours of inspection.',
+      description: 'We know how important deadlines are, especially when you are selling, renting, or managing a property in Greater Manchester. Our assessors deliver accurate EPC reports quickly often within 24 to 48 hours of inspection.',
       highlights: ['24-48 Hour Turnaround', 'Quick Online Booking', 'Fast Digital Delivery']
     },
     {
       icon: '💷',
       title: 'Affordable Pricing',
-      description: 'We believe in fair and transparent pricing for Manchester property owners. With no hidden fees or surprise charges, you always know what you are paying for. Quality service should not cost a fortune and with Prime EPC, it does not.',
-      highlights: ['Transparent Pricing', 'No Hidden Fees', 'Competitive Manchester Rates']
+      description: 'We believe in fair and transparent pricing for Greater Manchester property owners. With no hidden fees or surprise charges, you always know what you are paying for. Quality service should not cost a fortune and with Prime EPC, it does not.',
+      highlights: ['Transparent Pricing', 'No Hidden Fees', 'Competitive Greater Manchester Rates']
     },
     {
       icon: '🏠',
       title: 'Certified Energy Assessors',
-      description: 'All our Manchester-based assessors are fully qualified and accredited, following strict government guidelines to ensure every certificate is 100% compliant and reliable.',
+      description: 'All our Greater Manchester-based assessors are fully qualified and accredited, following strict government guidelines to ensure every certificate is 100% compliant and reliable.',
       highlights: ['Fully Accredited', 'Government Approved', 'Quality Assured']
     },
     {
       icon: '📍',
-      title: 'Manchester Coverage',
-      description: 'We proudly serve customers across Greater Manchester and surrounding areas. Our local network ensures fast EPC services wherever you are in the Manchester region.',
-      highlights: ['Greater Manchester Service', 'Local Manchester Assessors', 'Flexible Scheduling']
+      title: 'Greater Manchester Coverage',
+      description: 'We proudly serve customers across Greater Manchester and surrounding areas. Our local network ensures fast EPC services wherever you are in Greater Manchester.',
+      highlights: ['Greater Manchester Service', 'Local Greater Manchester Assessors', 'Flexible Scheduling']
     },
     {
       icon: '🤝',
       title: 'Customer-Focused Approach',
-      description: 'We are not just here to issue certificates we are here to help Manchester property owners. Our friendly team is always available to answer your questions and guide you through the EPC process from start to finish.',
-      highlights: ['Personal Manchester Support', 'Expert Guidance', 'Friendly Local Service']
+      description: 'We are not just here to issue certificates we are here to help Greater Manchester property owners. Our friendly team is always available to answer your questions and guide you through the EPC process from start to finish.',
+      highlights: ['Greater Manchester Support', 'Expert Guidance', 'Friendly Local Service']
     },
     {
       icon: '💡',
       title: 'Trusted by Homeowners and Landlords',
-      description: 'Over the years, we have earned the trust of homeowners, estate agents, and landlords across Manchester. Our goal is simple to provide EPCs that are fast, fair, and fully dependable.',
-      highlights: ['Proven Manchester Track Record', 'Local Client Testimonials', 'Manchester Industry Experience']
+      description: 'Over the years, we have earned the trust of homeowners, estate agents, and landlords across Greater Manchester. Our goal is simple to provide EPCs that are fast, fair, and fully dependable.',
+      highlights: ['Greater Manchester Track Record', 'Local Client Testimonials', 'Industry Experience']
     }
   ]
 
@@ -68,7 +68,7 @@ export default function WhyUs() {
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">TOP-RATED EPC PROVIDER MANCHESTER</span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">TOP-RATED EPC PROVIDER GREATER MANCHESTER</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                 Why Landlords &amp; Owners
@@ -88,7 +88,7 @@ export default function WhyUs() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY WE'RE DIFFERENT</div>
             <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Property Owners Trust Prime EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">We combine professional expertise with exceptional customer service to deliver the best EPC experience in Manchester</p>
+            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">We combine professional expertise with exceptional customer service to deliver the best EPC experience in Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {features.map((feature, index) => (
@@ -119,7 +119,7 @@ export default function WhyUs() {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📊 OUR IMPACT</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Trusted by Property Professionals</h2>
-              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Numbers that speak to our commitment to quality and customer satisfaction in Manchester</p>
+              <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Numbers that speak to our commitment to quality and customer satisfaction in Greater Manchester</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -150,7 +150,7 @@ export default function WhyUs() {
             <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">READY TO GET STARTED</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">Ready to Get Your EPC Certificate?</h2>
-          <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-3xl mx-auto">Join thousands of satisfied property owners across Manchester who trust Prime EPC for their energy certification needs.</p>
+          <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-3xl mx-auto">Join thousands of satisfied property owners across Greater Manchester who trust Prime EPC for their energy certification needs.</p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <Link href="/contact" className="bg-white hover:from-[#01572E] hover:to-[#70B52B] text-[#016837] font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl">
               <span>Contact Us Today</span>

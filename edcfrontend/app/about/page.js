@@ -29,7 +29,7 @@ export default function About() {
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">ACCREDITED ENERGY ASSESSORS MANCHESTER</span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">ACCREDITED ENERGY ASSESSORS GREATER MANCHESTER</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
                 <span className="block text-white">About Prime EPC</span>
@@ -63,7 +63,7 @@ export default function About() {
                     <h3 className="text-2xl font-bold text-[#282828]">Our Mission</h3>
                   </div>
                   <p className="text-[#282828] opacity-90 leading-relaxed">
-                    To make energy certification accessible, affordable, and easy for everyone in Manchester. We aim to help property owners make smarter energy choices that benefit both their finances and the environment.
+                    To make energy certification accessible, affordable, and easy for everyone in Greater Manchester. We aim to help property owners make smarter energy choices that benefit both their finances and the environment.
                   </p>
                 </div>
                 <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-3xl p-8 text-white shadow-lg">
@@ -76,18 +76,18 @@ export default function About() {
                     <h3 className="text-2xl font-bold">Our Vision</h3>
                   </div>
                   <p className="text-white/80 leading-relaxed">
-                    To build a greener and more energy-efficient future where every home and business in Manchester contributes to a sustainable Britain. Through honesty, innovation, and dedication, we strive to become Manchester's most trusted name in EPC services.
+                    To build a greener and more energy-efficient future where every home and business in Greater Manchester contributes to a sustainable Britain. Through honesty, innovation, and dedication, we strive to become Greater Manchester's most trusted name in EPC services.
                   </p>
                 </div>
               </div>
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-3 h-3 bg-[#80C531] rounded-full"></div>
-                  <h3 className="text-2xl font-bold text-[#282828]">Professional EPC Services</h3>
+                  <h3 className="text-2xl font-bold text-[#282828]">Who We Are</h3>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <p className="text-[#282828] opacity-90 leading-relaxed">
-                    At <strong className="text-[#016837]">Prime EPC and Design Consultants</strong>, we make getting your <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> simple, fast, and stress-free. We are a team of certified energy assessors providing reliable EPC services to <strong className="text-[#016837]">homeowners, landlords, estate agents, and property managers</strong> across Manchester.
+                    At <strong className="text-[#016837]">Prime EPC and Design Consultants</strong>, we make getting your <strong className="text-[#016837]">Energy Performance Certificate (EPC)</strong> simple, fast, and stress-free. We are a team of certified energy assessors providing reliable EPC services to <strong className="text-[#016837]">homeowners, landlords, estate agents, and property managers</strong> across Greater Manchester.
                   </p>
                   <p className="text-[#282828] opacity-90 leading-relaxed">
                     With years of experience and a strong focus on customer satisfaction, we ensure every EPC inspection is carried out with accuracy, honesty, and professionalism. Whether you need a domestic or commercial EPC, our assessors deliver quick turnaround times and fully compliant certificates you can trust.
@@ -116,8 +116,8 @@ export default function About() {
                 { icon: '🚀', title: 'Fast & Hassle-Free EPC', description: "Quick and professional EPC assessments with minimal disruption to your schedule.", features: ['Quick Inspection', 'Minimal Disruption', 'Efficient Process'] },
                 { icon: '💷', title: 'Competitive Pricing', description: "Affordable rates with no hidden fees - quality service that doesn't cost a fortune.", features: ['No Hidden Fees', 'Price Match', 'Transparent Quotes'] },
                 { icon: '🏆', title: 'Qualified Assessors', description: 'Fully accredited and insured energy assessors following strict government guidelines.', features: ['Fully Accredited', 'Regular Training', 'Quality Standards'] },
-                { icon: '📍', title: 'Manchester Coverage', description: 'Proudly serving customers across Manchester for both domestic and commercial properties.', features: ['Nationwide Service', 'Flexible Scheduling', 'Local Experts'] },
-                { icon: '🤝', title: 'Friendly Support', description: 'Dedicated customer support team always available to answer your questions.', features: ['24/7 Support', 'Quick Responses', 'Expert Advice'] },
+                { icon: '📍', title: 'Greater Manchester Coverage', description: 'Proudly serving customers across Greater Manchester for both domestic and commercial properties.', features: ['50-Mile Radius', 'Flexible Scheduling', 'Local Experts'] },
+                { icon: '🤝', title: 'Dedicated Support', description: 'Responsive customer support team available during fixed hours to answer your questions.', features: ['Mon-Fri 8am-9pm', 'Sat-Sun 10am-6pm', 'Expert Advice'] },
                 { icon: '📄', title: 'Quick Certificates', description: 'Receive your EPC certificate within 24-48 hours after inspection.', features: ['Fast Turnaround', 'Digital Delivery', 'Online Tracking'] }
               ].map((feature, index) => (
                 <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 group">
@@ -139,8 +139,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* Our Values */}
-      <section className="py-24 bg-gradient-to-br from-[#F8F8F8] via-white to-[#E1EED4]/50">
+      {/* Core Values Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -153,7 +153,7 @@ export default function About() {
                 { icon: '🎯', title: 'Accuracy', description: 'Precise assessments and reliable certificates you can trust.', color: 'from-[#016837] to-[#80C531]' },
                 { icon: '⚡', title: 'Efficiency', description: 'Quick service without compromising on quality or compliance.', color: 'from-[#016837] to-[#80C531]' },
                 { icon: '🤝', title: 'Integrity', description: 'Honest, transparent service with no hidden surprises.', color: 'from-[#016837] to-[#80C531]' },
-                { icon: '🌱', title: 'Sustainability', description: 'Helping create a greener, more energy-efficient Manchester.', color: 'from-[#016837] to-[#80C531]' }
+                { icon: '🌱', title: 'Sustainability', description: 'Helping create a greener, more energy-efficient Greater Manchester.', color: 'from-[#016837] to-[#80C531]' }
               ].map((value, index) => (
                 <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300 text-center group">
                   <div className={`w-16 h-16 bg-gradient-to-r ${value.color} rounded-2xl flex items-center justify-center text-2xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>{value.icon}</div>
@@ -179,7 +179,7 @@ export default function About() {
           </div>
           <h2 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">Ready to Get Your EPC Certificate?</h2>
           <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Join thousands of satisfied property owners across Manchester who trust Prime EPC for their energy certification needs.
+            Join thousands of satisfied property owners across Greater Manchester who trust Prime EPC for their energy certification needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <Link href="/contact" className="bg-white text-[#016837] font-bold py-4 px-8 rounded-lg flex items-center justify-center gap-3 group text-lg transition-all duration-300 shadow-lg hover:shadow-xl">
