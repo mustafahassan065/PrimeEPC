@@ -23,17 +23,17 @@ export default function FloorPlansAndDrafting() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
                   <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                    PROFESSIONAL DRAFTING SERVICES
+                    ESTATE AGENT &amp; COMMERCIAL CAD DRAFTING
                   </span>
                 </div>
                 
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                  Precision in 
-                  <span className="block text-white">Every Line</span>
+                  Floor Plans &amp; CAD
+                  <span className="block text-white">Drafting Greater Manchester</span>
                 </h1>
                 
                 <p className="text-xl text-white opacity-90 mb-8 leading-relaxed">
-                  At Prime EPC & Design Firm, we transform property surveys into high-accuracy floor plans, lease plans, and architectural drafts. Presentation and compliance, handled in one go.
+                  Accurate 2D &amp; 3D floor plans, Land Registry-compliant lease plans, and architectural CAD drafts for estate agents, landlords, and commercial developers across Greater Manchester.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
