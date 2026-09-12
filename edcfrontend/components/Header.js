@@ -86,6 +86,7 @@ export default function Header() {
               <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</Link>
               <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Why Us</Link>
+              <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Areas We Serve</Link>
               <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Blog</Link>
               <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>FAQs</Link>
               <Link href="/#contact" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</Link>

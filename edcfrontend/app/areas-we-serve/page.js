@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 
 export default function Home() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [openFaq, setOpenFaq] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [formData, setFormData] = useState({
     name: '',
@@ -22,24 +22,24 @@ export default function Home() {
   const [formSuccess, setFormSuccess] = useState(false)
   const router = useRouter()
 
-  const toggleFaq = (index: number) => {
+  const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index)
   }
 
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearchKeyDown = (e) => {
     if (e.key === 'Enter') {
       router.push('/booking')
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     // Bot protection — honeypot field must be empty
