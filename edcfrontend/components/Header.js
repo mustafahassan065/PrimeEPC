@@ -55,6 +55,7 @@ export default function Header() {
             <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Home</Link>
             <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">About</Link>
             <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Why Us</Link>
+            <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Areas We Serve</Link>
             <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Floor Plans & Drafting</Link>
             <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Blog</Link>
             <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">FAQs</Link>
