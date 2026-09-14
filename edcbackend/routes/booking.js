@@ -38,50 +38,64 @@ router.post('/create', async (req, res) => {
       paymentMethod, paymentRef, paymentStatus, amount
     } = req.body;
 
+    const isManual = slotId === 'manual';
+
     // Validate required fields
-    if (!name || !email || !phone || !propertyType || !postcode || !propertyAddress || !preferredDate || !slotId) {
+    if (!name || !phone || !propertyType || !postcode || !propertyAddress || !preferredDate) {
       return res.status(400).json({ success: false, message: 'All required fields must be provided' });
     }
 
-    // Check if slot is still available
-    const slot = await Schedule.findByPk(slotId);
-    if (!slot || !slot.isAvailable || slot.currentBookings >= slot.maxBookings) {
-      return res.status(400).json({ success: false, message: 'Selected time slot is no longer available' });
+    // Website bookings must have a valid slotId
+    if (!isManual && !slotId) {
+      return res.status(400).json({ success: false, message: 'Please select a time slot' });
+    }
+
+    // Check slot only for website bookings (not manual admin bookings)
+    let slot = null;
+    if (!isManual) {
+      slot = await Schedule.findByPk(slotId);
+      if (!slot || !slot.isAvailable || slot.currentBookings >= slot.maxBookings) {
+        return res.status(400).json({ success: false, message: 'Selected time slot is no longer available' });
+      }
     }
 
     // Create booking
     const booking = await Booking.create({
-      name, email, phone, propertyType, propertyDetails,
+      name, email: email || '', phone, propertyType, propertyDetails,
       postcode, propertyAddress,
       preferredDate: new Date(preferredDate),
-      message,
+      message: message || (isManual ? 'Manual booking added by admin' : ''),
       paymentMethod: paymentMethod || 'cash',
       paymentRef:    paymentRef    || null,
       paymentStatus: paymentStatus || 'pending',
       amount:        amount        || 0
     });
 
-    // Update slot bookings count
-    await slot.update({ currentBookings: slot.currentBookings + 1 });
+    // Update slot bookings count only for website bookings
+    if (slot) {
+      await slot.update({ currentBookings: slot.currentBookings + 1 });
+    }
 
-    // Send confirmation emails (non-blocking)
-    try {
-      const emailRes = await fetch('http://localhost:5000/api/email/send-booking-confirmation', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name, email, phone, propertyType, propertyDetails,
-          postcode, propertyAddress, preferredDate, message,
-          paymentMethod: paymentMethod || 'cash',
-          paymentRef:    paymentRef    || '',
-          paymentStatus: paymentStatus || 'pending',
-          amount:        amount        || 0
-        })
-      });
-      const emailData = await emailRes.json();
-      console.log('✅ Email result:', emailData);
-    } catch (emailError) {
-      console.error('❌ Email failed (booking still saved):', emailError.message);
+    // Send confirmation emails (non-blocking) — only if email provided
+    if (email) {
+      try {
+        const emailRes = await fetch('http://localhost:5000/api/email/send-booking-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, email, phone, propertyType, propertyDetails,
+            postcode, propertyAddress, preferredDate, message,
+            paymentMethod: paymentMethod || 'cash',
+            paymentRef:    paymentRef    || '',
+            paymentStatus: paymentStatus || 'pending',
+            amount:        amount        || 0
+          })
+        });
+        const emailData = await emailRes.json();
+        console.log('✅ Email result:', emailData);
+      } catch (emailError) {
+        console.error('❌ Email failed (booking still saved):', emailError.message);
+      }
     }
 
     res.status(201).json({ success: true, message: 'Booking created successfully', data: booking });
@@ -106,10 +120,25 @@ router.get('/admin/bookings', auth, async (req, res) => {
 // Update booking status (Admin only)
 router.put('/admin/bookings/:id', auth, async (req, res) => {
   try {
-    const { status } = req.body;
+    const {
+      status, name, email, phone, propertyType, propertyDetails,
+      propertyAddress, postcode, preferredDate, paymentMethod, amount
+    } = req.body;
     const booking = await Booking.findByPk(req.params.id);
     if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
-    await booking.update({ status });
+    await booking.update({
+      ...(status          && { status }),
+      ...(name            && { name }),
+      ...(email           !== undefined && { email }),
+      ...(phone           && { phone }),
+      ...(propertyType    && { propertyType }),
+      ...(propertyDetails !== undefined && { propertyDetails }),
+      ...(propertyAddress !== undefined && { propertyAddress }),
+      ...(postcode        !== undefined && { postcode }),
+      ...(preferredDate   && { preferredDate: new Date(preferredDate) }),
+      ...(paymentMethod   && { paymentMethod }),
+      ...(amount          !== undefined && { amount: parseFloat(amount) }),
+    });
     res.json({ success: true, message: 'Booking updated successfully', data: booking });
   } catch (error) {
     console.error('Update booking error:', error);
@@ -168,6 +197,91 @@ router.post('/admin/schedules', auth, async (req, res) => {
   }
 });
 
+// ✅ BULK Create schedules (Admin only) — FIXED for large batches
+router.post('/admin/schedules/bulk', auth, async (req, res) => {
+  const transaction = await sequelize.transaction();
+  try {
+    const { slots } = req.body;
+
+    if (!Array.isArray(slots) || slots.length === 0) {
+      await transaction.rollback();
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Slots array is required' 
+      });
+    }
+
+    // Safety limit — max 500 per request
+    if (slots.length > 500) {
+      await transaction.rollback();
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Maximum 500 slots allowed per bulk request. Please split into smaller batches.' 
+      });
+    }
+
+    // Get all unique dates from incoming slots
+    const uniqueDates = [...new Set(slots.map(s => s.date))];
+
+    // Check existing slots for those dates (fast lookup)
+    const existingSlots = await Schedule.findAll({
+      where: { date: { [Op.in]: uniqueDates } },
+      attributes: ['date', 'startTime', 'endTime'],
+      transaction
+    });
+
+    const existingKeys = new Set(
+      existingSlots.map(e => `${e.date}_${e.startTime}_${e.endTime}`)
+    );
+
+    // Filter only new slots
+    const newSlots = slots.filter(s => 
+      !existingKeys.has(`${s.date}_${s.startTime}_${s.endTime}`)
+    );
+
+    const skipped = slots.length - newSlots.length;
+
+    if (newSlots.length === 0) {
+      await transaction.rollback();
+      return res.json({ 
+        success: true, 
+        created: 0, 
+        skipped,
+        message: 'All slots already exist' 
+      });
+    }
+
+    // Single query insert — PostgreSQL bulkCreate
+    const created = await Schedule.bulkCreate(newSlots, { 
+      transaction,
+      validate: true 
+    });
+
+    await transaction.commit();
+
+    res.json({
+      success: true,
+      created: created.length,
+      skipped,
+      message: `Created ${created.length} slots${skipped > 0 ? `, ${skipped} skipped (already exist)` : ''}`
+    });
+
+  } catch (error) {
+    await transaction.rollback();
+    console.error('Bulk create schedule error:', error);
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Some slots already exist. Please refresh and try again.' 
+      });
+    }
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error creating bulk schedules: ' + error.message 
+    });
+  }
+});
+
 // Cleanup past schedules
 const cleanupPastSchedules = async () => {
   try {
@@ -205,6 +319,19 @@ router.delete('/admin/schedules/:id', auth, async (req, res) => {
   } catch (error) {
     console.error('Delete schedule error:', error);
     res.status(500).json({ success: false, message: 'Error deleting schedule' });
+  }
+});
+
+// Delete booking (Admin only)
+router.delete('/admin/bookings/:id', auth, async (req, res) => {
+  try {
+    const booking = await Booking.findByPk(req.params.id);
+    if (!booking) return res.status(404).json({ success: false, message: 'Booking not found' });
+    await booking.destroy();
+    res.json({ success: true, message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error('Delete booking error:', error);
+    res.status(500).json({ success: false, message: 'Error deleting booking' });
   }
 });
 

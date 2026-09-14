@@ -1,4 +1,4 @@
-// migrateBlogs.js — Delete all old blogs, insert 7 new ones
+// migrateBlogs.js — Delete all old blogs, insert 9 new ones
 const Blog = require('../models/Blog');
 const { sequelize } = require('../database');
 
@@ -1006,8 +1006,127 @@ For larger or more complex properties, turnaround times may vary. Contact us dir
 For residential properties, someone needs to be present to provide access to all rooms. For commercial properties, a keyholder or site contact should be available. The assessor will confirm the access requirements when the booking is confirmed.
 
 *Prime EPC and Designing Consultants — Urgent EPC Bookings for Residential and Commercial Properties Across Manchester*`
-  }
+  },
 
+
+  // ── BLOG 8 ─────────────────────────────────────────────────────────────
+  {
+    title: "Top Ways to Improve Your EPC Rating Before Selling or Renting in Manchester",
+    slug: "improve-epc-rating-manchester",
+    metaTitle: "How to Improve Your EPC Rating in Manchester | Prime EPC",
+    metaDescription: "Discover practical, cost-effective ways to improve your property's EPC rating before selling or renting in Manchester. Book your £55 Domestic EPC today!",
+    keywords: ["EPC rating Manchester","improve EPC rating","domestic EPC Manchester","Energy Performance Certificate","energy efficiency"],
+    featuredImage: "/images/blog18.jpg",
+    status: "published",
+    author: "Prime EPC",
+    excerpt: "A higher EPC rating can increase your property's value and attract better tenants. Here are the most effective ways to boost your energy efficiency rating before selling or renting.",
+    content: `# Top Ways to Improve Your EPC Rating Before Selling or Renting in Manchester
+
+## Why Does Your EPC Rating Matter?
+
+If you are preparing to sell or rent out a property in Greater Manchester, you already know that an Energy Performance Certificate (EPC) is a legal requirement. But did you know that a higher EPC rating can actually increase your property's value and attract better tenants?
+
+At Prime EPC and Design Consultants, we provide Domestic EPCs across a 50-mile radius of Manchester for a fixed fee of just £55. Before you book your assessment, here are the most effective ways to boost your property's energy efficiency rating.
+
+An EPC grades your property on a scale from **A (most efficient) to G (least efficient)**. For landlords, current Minimum Energy Efficiency Standards (MEES) dictate that a rented property must have a rating of **E or higher**.
+
+For sellers, a strong rating (A–C) is a massive selling point. With rising energy costs, buyers are actively looking for well-insulated homes with low utility bills.
+
+## 5 Quick Wins to Boost Your EPC Rating
+
+If your current rating is lower than you would like, don't panic. Here are five improvements you can make:
+
+### 1. Upgrade Your Lighting to LED
+
+This is the cheapest and fastest way to gain a few extra points. Replacing old incandescent or halogen bulbs with energy-efficient LED lighting across your entire property is a simple fix that our assessors always look out for.
+
+### 2. Top Up Your Loft Insulation
+
+Heat rises, and an uninsulated roof lets your expensive heating escape. Current regulations recommend loft insulation to be at least **270mm thick**. Topping this up is highly cost-effective and significantly impacts your overall EPC score.
+
+### 3. Upgrade to a Condensing Boiler
+
+If your boiler is over 15 years old, it is likely dragging your EPC rating down. Modern **A-rated condensing boilers** are highly efficient and are one of the biggest factors in a good energy assessment.
+
+### 4. Install Heating Controls
+
+You don't always need a new boiler to get a better rating. Simply adding a modern room thermostat, a timer, and **Thermostatic Radiator Valves (TRVs)** on your radiators gives you more control over your heating, which improves your score.
+
+### 5. Check Your Glazing
+
+Single-glazed windows are poor insulators. Upgrading to **double or triple glazing** will dramatically improve your property's heat retention and reduce outside noise, making it far more appealing to potential buyers or tenants.
+
+## Ready to Book Your Manchester EPC?
+
+Whether you have just made these improvements or you need a baseline assessment to see where you stand, we are here to help.
+
+At Prime EPC, our fully accredited assessors provide fast, professional service with a **24–48 hour turnaround**.
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
+
+*Prime EPC and Design Consultants — Domestic EPC Assessments Across Manchester*`
+  },
+
+  // ── BLOG 9 ─────────────────────────────────────────────────────────────
+  {
+    title: "What is an EICR? 2026 Guide for Manchester Landlords",
+    slug: "what-is-eicr-manchester-landlords-guide",
+    metaTitle: "What is an EICR? 2026 Guide for Manchester Landlords | Prime EPC",
+    metaDescription: "Need an EICR in Manchester? Learn what an Electrical Installation Condition Report is, why landlords need it, and how much it costs. EICRs from £110.",
+    keywords: ["EICR Manchester","electrical installation condition report","EICR landlord Manchester","EICR cost Manchester","landlord electrical safety","EICR 2026"],
+    featuredImage: "/images/blog19.jpg",
+    status: "published",
+    author: "Prime EPC",
+    excerpt: "Managing a rental property in Manchester? Here is everything you need to know about EICRs — what they are, why they are legally required, and what to expect during an inspection.",
+    content: `# What is an EICR and Why Do Manchester Landlords Need One?
+
+## Introduction
+
+When managing a rental property in Greater Manchester, staying compliant with UK safety regulations is your top priority. While most landlords are familiar with EPCs and gas safety checks, the **Electrical Installation Condition Report (EICR)** is equally critical.
+
+If you are renting out a property, here is everything you need to know about EICRs, why they are legally required, and what you can expect during an inspection.
+
+## What Does EICR Stand For?
+
+EICR stands for **Electrical Installation Condition Report**. It is a formal document produced following a comprehensive assessment of the electrical installations within a property.
+
+The inspection checks the condition of the **wiring, plug sockets, light fittings, and the fuse box (consumer unit)** to ensure everything is safe, functional, and compliant with the national safety standard for electrical installations.
+
+## Is an EICR a Legal Requirement for Landlords?
+
+**Yes.** As of 2021, it is a strict legal requirement for all landlords in England to have the electrical installations in their rental properties inspected and tested by a qualified and competent person **at least every 5 years**.
+
+Failing to provide a valid EICR to your tenants can result in severe financial penalties from your local authority. It also puts your tenants at risk of electrical shocks or fire hazards.
+
+## What Happens During an EICR Inspection?
+
+During the assessment, one of our accredited professionals will visit your property to:
+
+- Identify any **defective electrical work**
+- Find any potential **fire hazards or electric shock risks**
+- Check for a lack of proper **earthing or bonding**
+- Highlight any circuits that are **overloaded**
+
+Once the inspection is complete, you will receive your certificate. If the electrical system is safe, the report will be marked as **"Satisfactory."** If issues are found, it will be marked **"Unsatisfactory,"** and you will be given a detailed list of remedial work that must be completed.
+
+## How Much Does an EICR Cost in Manchester?
+
+Prices for an EICR usually depend on the size of the property and the complexity of the electrical systems.
+
+At **Prime EPC and Design Consultants**, we believe in transparent, fixed pricing. Our comprehensive EICR services for properties in the Manchester area **start from just £110**. We guarantee no hidden costs and a rapid turnaround so you can get your property on the rental market without delay.
+
+## Book Your EICR with Prime EPC Today
+
+Don't leave your landlord compliance to chance. Partner with a trusted, local company that understands the Manchester property market.
+
+📞 07308658247
+📧 info@primeepcdesign.co.uk
+🌐 https://www.primeepcdesign.co.uk/
+
+*Prime EPC and Design Consultants — EICR and EPC Assessments Across Manchester*`
+  }
 ];
 
 async function migrateBlogs() {

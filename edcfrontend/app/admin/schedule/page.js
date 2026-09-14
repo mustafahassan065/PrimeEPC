@@ -17,6 +17,10 @@ export default function AdminSchedule() {
   const [showBulkUnavailable, setShowBulkUnavailable] = useState(false)
   const [bulkProgress, setBulkProgress] = useState({ active: false, done: 0, total: 0, errors: 0 })
 
+  // ✅ NEW: Pagination state
+  const [currentPage, setCurrentPage] = useState(1)
+  const ITEMS_PER_PAGE = 50
+
   // Single add
   const [formData, setFormData] = useState({
     date: '', startTime: '09:00', endTime: '10:00', isAvailable: true, maxBookings: 1
@@ -54,6 +58,8 @@ export default function AdminSchedule() {
   }
 
   const fetchSchedules = async () => {
+    setLoading(true)
+    setCurrentPage(1) // ✅ Reset to page 1 on fresh load
     try {
       const token = localStorage.getItem('adminToken')
       const res = await fetch(`${API_URL}/api/booking/admin/schedules`, {
@@ -101,7 +107,7 @@ export default function AdminSchedule() {
     setDayEnabled(prev => ({ ...prev, [dayIdx]: !prev[dayIdx] }))
   }
 
-  // ── Bulk Add ──
+  // ── Bulk Add ── ✅ FIXED: Single API call instead of N+1 loop
   const handleBulkAdd = async () => {
     if (!bulkStartDate || !bulkEndDate) return alert('Please select start and end dates.')
     if (!Object.values(dayEnabled).some(Boolean)) return alert('Enable at least one day.')
@@ -118,33 +124,54 @@ export default function AdminSchedule() {
       const day = String(d.getDate()).padStart(2, '0')
       const dateStr = `${y}-${m}-${day}`
       for (const slot of daySlots[dow]) {
-        slotsToAdd.push({ date: dateStr, startTime: slot.startTime, endTime: slot.endTime, isAvailable: true, maxBookings: bulkMaxBookings })
+        slotsToAdd.push({ 
+          date: dateStr, 
+          startTime: slot.startTime, 
+          endTime: slot.endTime, 
+          isAvailable: true, 
+          maxBookings: bulkMaxBookings 
+        })
       }
     }
 
     if (!slotsToAdd.length) return alert('No matching dates found.')
+
     setShowBulkAdd(false)
     setBulkProgress({ active: true, done: 0, total: slotsToAdd.length, errors: 0 })
 
-    const token = localStorage.getItem('adminToken')
-    let done = 0, errors = 0
-    const newSchedules = []
-    for (const slot of slotsToAdd) {
-      try {
-        const res = await fetch(`${API_URL}/api/booking/admin/schedules`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-          body: JSON.stringify(slot)
+    try {
+      const token = localStorage.getItem('adminToken')
+
+      // ✅ SINGLE API CALL — no more N+1 loop!
+      const res = await fetch(`${API_URL}/api/booking/admin/schedules/bulk`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({ slots: slotsToAdd })
+      })
+
+      const data = await res.json()
+
+      if (data.success) {
+        setBulkProgress({ 
+          active: false, 
+          done: data.created, 
+          total: slotsToAdd.length, 
+          errors: data.skipped || 0 
         })
-        const data = await res.json()
-        if (data.success) newSchedules.push(data.data); else errors++
-      } catch { errors++ }
-      done++
-      setBulkProgress({ active: true, done, total: slotsToAdd.length, errors })
+        alert(`✅ Done! ${data.message}`)
+
+        // ✅ Fresh fetch instead of manual state append
+        await fetchSchedules()
+      } else {
+        throw new Error(data.message)
+      }
+    } catch (err) {
+      setBulkProgress({ active: false, done: 0, total: slotsToAdd.length, errors: 1 })
+      alert('❌ ' + err.message)
     }
-    setSchedules(prev => [...prev, ...newSchedules])
-    setBulkProgress({ active: false, done, total: slotsToAdd.length, errors })
-    alert(`✅ Done! Added ${done - errors} slots.${errors ? ` ${errors} skipped (already exist).` : ''}`)
   }
 
   // ── Bulk Unavailable ──
@@ -482,7 +509,10 @@ export default function AdminSchedule() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {schedules.map((schedule) => (
+                  {/* ✅ PAGINATED rows only */}
+                  {schedules
+                    .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+                    .map((schedule) => (
                     <tr key={schedule.id} className="hover:bg-gray-50">
                       <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-900">{formatDateDisplay(schedule.date)}</td>
                       <td className="px-3 py-3 whitespace-nowrap text-sm text-gray-900">{formatTime(schedule.startTime)} – {formatTime(schedule.endTime)}</td>
@@ -513,6 +543,34 @@ export default function AdminSchedule() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* ✅ Pagination Controls */}
+          {!loading && schedules.length > ITEMS_PER_PAGE && (
+            <div className="px-4 py-4 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <p className="text-sm text-gray-500">
+                Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, schedules.length)} of {schedules.length} slots
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1.5 border border-gray-300 rounded-md text-sm disabled:opacity-50 hover:bg-gray-50"
+                >
+                  ← Previous
+                </button>
+                <span className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-md">
+                  Page {currentPage} of {Math.ceil(schedules.length / ITEMS_PER_PAGE)}
+                </span>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(Math.ceil(schedules.length / ITEMS_PER_PAGE), p + 1))}
+                  disabled={currentPage >= Math.ceil(schedules.length / ITEMS_PER_PAGE)}
+                  className="px-3 py-1.5 border border-gray-300 rounded-md text-sm disabled:opacity-50 hover:bg-gray-50"
+                >
+                  Next →
+                </button>
+              </div>
             </div>
           )}
         </div>

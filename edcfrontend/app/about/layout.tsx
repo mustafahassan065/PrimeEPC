@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us | Accredited EPC Assessors Greater Manchester & Bolton',
+  title: 'About Us | Accredited EPC Assessors Greater Manchester',
   description:
     'Learn about Prime EPC & Design Consultant Ltd. Government-accredited Elmhurst, Stroma & Quidos certified domestic and commercial energy assessors across Greater Manchester.',
   keywords: [

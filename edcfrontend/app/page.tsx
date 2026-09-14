@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import TrustStrip from '../components/TrustStrip'
-import CoverageAreas from '../components/CoverageAreas'
+
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -204,8 +203,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Trust Strip sitting immediately below main Hero CTA / Search */}
-          <TrustStrip />
+          
 
           {/* Service Cards — all 4 are clickable links to /booking */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
@@ -604,9 +602,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Regional Coverage Hub ── */}
-      <CoverageAreas />
-
       {/* ── Reviews Section ── */}
       <section className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
         <div className="container mx-auto px-4">
@@ -676,9 +671,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Programmatic Coverage Areas Hub */}
-      <CoverageAreas />
 
       {/* FAQ Section */}
       <section id="faqs" className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">

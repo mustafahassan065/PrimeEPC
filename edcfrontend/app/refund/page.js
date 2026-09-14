@@ -86,7 +86,7 @@ export default function RefundPolicy() {
                         To request a refund, please contact us directly via email or phone with your booking details:
                       </p>
                       <div className="mb-4">
-                        <p><strong>Email:</strong> Primeepc.design@gmail.com</p>
+                        <p><strong>Email:</strong>info@primeepcdesign.co.uk</p>
                         <p><strong>Phone:</strong> +44 7469 340373</p>
                       </div>
                       <p>
