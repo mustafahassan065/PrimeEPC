@@ -59,7 +59,7 @@ export default function Header() {
             <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Floor Plans & Drafting</Link>
             <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Blog</Link>
             <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">FAQs</Link>
-            <Link href="/#contact" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Contact</Link>
+           
             <Link
               href="/booking"
               className="bg-[#016837] text-white px-6 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg"

@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     siteName: 'Prime EPC & Design Consultants',
     images: [
       {
-        url: '/images/logo3.png',
+        url: '/images/logo4.jpeg',
         width: 800,
         height: 600,
         alt: 'Prime EPC and Design Consultants Logo',
