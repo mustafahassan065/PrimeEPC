@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main Pages -->
+  <url><loc>https://www.primeepcdesign.co.uk/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/why-us</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/booking</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/floor-plans-drafting</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/privacy</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/refund</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/terms</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+
+  <!-- Blog -->
+  <url><loc>https://www.primeepcdesign.co.uk/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/commercial-epcs-manchester-rules</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/epc-certificate-pricing-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/epc-regulations-commercial-property-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/how-long-does-an-epc-last-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/how-to-get-home-epc-c-rating-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/how-to-get-property-epc-c-rating-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/urgent-epc-booking-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/improve-epc-rating-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/what-is-eicr-manchester-landlords-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/landlord-compliance-checklist-2026-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/sap-calculations-new-build-epc-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/strategic-design-consultancy-energy-efficiency-manchester</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/blog/epc-band-c-2030-mees-manchester-landlords</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Areas -->
+  <url><loc>https://www.primeepcdesign.co.uk/areas</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Location Pages -->
+  <url><loc>https://www.primeepcdesign.co.uk/locations/bolton</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/manchester</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/salford</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/oldham</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/stockport</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/rochdale</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/warrington</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/liverpool</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.primeepcdesign.co.uk/locations/blackburn</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+</urlset>
