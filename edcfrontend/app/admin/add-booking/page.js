@@ -40,7 +40,8 @@ export default function AddBookingPage() {
     propertyType: 'domestic', propertyDetails: '',
     doorNumber: '', addressLine1: '', city: '', postcode: '',
     date: '', time: '',
-    paymentMethod: 'cash', amount: ''
+    paymentMethod: 'cash', amount: '',
+    notes: ''
   })
 
   const domesticOptions = [
@@ -106,7 +107,7 @@ export default function AddBookingPage() {
           paymentStatus:   'pending',
           amount:          form.amount || 0,
           slotId:          'manual',   // manual booking — no slot
-          message:         'Manual booking added by admin'
+          message:         form.notes || 'Manual booking added by admin'
         })
       })
       const data = await res.json()
@@ -288,6 +289,19 @@ export default function AddBookingPage() {
                     </button>
                   ))}
                 </div>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Notes <span className="text-gray-400">(optional)</span></label>
+                <textarea
+                  name="notes"
+                  rows={3}
+                  value={form.notes}
+                  onChange={handleChange}
+                  placeholder="Any additional notes about this booking..."
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837] resize-none"
+                />
               </div>
 
               {/* Submit */}
