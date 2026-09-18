@@ -36,33 +36,33 @@ export default function Header() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center flex-shrink-0">
             <Image
               src="/images/logo3.png"
               alt="Prime EPC Logo"
               width={180}
               height={48}
               priority
-              className="h-12 w-auto"
+              className="h-10 lg:h-12 w-auto"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-            <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Home</Link>
-            <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">About</Link>
-            <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Why Us</Link>
-            <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Areas We Serve</Link>
-            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Floor Plans & Drafting</Link>
-            <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Blog</Link>
-            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">FAQs</Link>
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
+            <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Home</Link>
+            <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">About</Link>
+            <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Why Us</Link>
+            <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Areas We Serve</Link>
+            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Floor Plans & Drafting</Link>
+            <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Blog</Link>
+            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">FAQs</Link>
            
             <Link
               href="/booking"
-              className="bg-[#016837] text-white px-3 lg:px-6 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg text-sm lg:text-base"
+              className="bg-[#016837] text-white px-4 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg text-sm xl:text-base whitespace-nowrap flex-shrink-0"
             >
               Book Your EPC
             </Link>
@@ -70,7 +70,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-[#282828]"
+            className="lg:hidden text-[#282828]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-[#80C531] border-opacity-20">
+          <div className="lg:hidden mt-4 pb-4 border-t border-[#80C531] border-opacity-20">
             <div className="flex flex-col space-y-4 mt-4">
               <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</Link>
