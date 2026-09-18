@@ -7,7 +7,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm sticky top-0 z-50">
       {/* Topbar */}
       <div className="bg-[#016837] text-white py-2">
         <div className="container mx-auto px-4 md:px-12 flex justify-between items-center text-sm">
@@ -51,18 +51,18 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Home</Link>
-            <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">About</Link>
-            <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Why Us</Link>
-            <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Areas We Serve</Link>
-            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Floor Plans & Drafting</Link>
-            <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">Blog</Link>
-            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200">FAQs</Link>
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+            <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Home</Link>
+            <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">About</Link>
+            <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Why Us</Link>
+            <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Areas We Serve</Link>
+            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Floor Plans & Drafting</Link>
+            <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">Blog</Link>
+            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm lg:text-base">FAQs</Link>
            
             <Link
               href="/booking"
-              className="bg-[#016837] text-white px-6 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg"
+              className="bg-[#016837] text-white px-3 lg:px-6 py-2 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium shadow-md hover:shadow-lg text-sm lg:text-base"
             >
               Book Your EPC
             </Link>

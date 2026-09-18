@@ -369,8 +369,8 @@ export default function AdminBookings() {
                             <p className="text-xs text-gray-400 font-mono mt-0.5">{b.postcode}</p>
                           </td>
                           <td className="px-5 py-3 whitespace-nowrap">
-                            <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
-                            <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</p>
+                            <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})}</p>
+                            <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}</p>
                           </td>
                           <td className="px-5 py-3">
                             <p className="text-gray-700 capitalize text-xs">{b.paymentMethod || 'cash'}</p>
@@ -453,7 +453,7 @@ export default function AdminBookings() {
                         </div>
                         <div className="flex gap-2 text-xs">
                           <span className="text-gray-400 w-16 flex-shrink-0">Date</span>
-                          <span className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>
+                          <span className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}</span>
                         </div>
                         {b.amount > 0 && (
                           <div className="flex gap-2 text-xs">
