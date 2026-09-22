@@ -40,19 +40,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-GB">
       <head>
-        {/* Favicon — circular, crisp, no blur */}
-        <link rel="icon" href="/images/logo3.png" type="image/png" sizes="32x32" />
-        <link rel="shortcut icon" href="/images/logo3.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/logo3.png" />
-        <style>{`
-          /* Force browser tab icon to render as circle */
-          link[rel="icon"] {
-            border-radius: 50%;
-          }
-        `}</style>
+        {/* Google Tag — GA4 + Google Ads */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2E8V6DX7ZB"></script>
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-2E8V6DX7ZB');
+              gtag('config', 'AW-18180554443');
+              gtag('config', 'GT-K4LVL5MM');
+            `
+          }}
         />
       </head>
       <body className={inter.className}>
