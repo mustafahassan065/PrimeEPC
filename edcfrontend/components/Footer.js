@@ -97,14 +97,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 3 - Useful Links */}
+          {/* Column 3 - Services */}
           <div>
-            <h4 className="text-[#80C531] font-semibold mb-5 text-base">Useful Links</h4>
+            <h4 className="text-[#80C531] font-semibold mb-5 text-base">Services</h4>
             <div className="flex flex-col space-y-3">
-              <Link href="/booking" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Book Your EPC</Link>
-              <Link href="/#contact" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Contact Us</Link>
-              <Link href="/blog" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Blog</Link>
-              <Link href="/terms" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Terms & Policies</Link>
+              <Link href="/domestic-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Domestic EPC</Link>
+              <Link href="/commercial-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Commercial EPC</Link>
+              <Link href="/eicr" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">EICR</Link>
+              <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans</Link>
+              <Link href="/pricing" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Prices</Link>
+              <Link href="/faq" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQs</Link>
             </div>
           </div>
 

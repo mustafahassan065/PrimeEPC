@@ -5,6 +5,15 @@ import Image from 'next/image'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+
+  const services = [
+    { href: '/domestic-epc', label: 'Domestic EPC' },
+    { href: '/commercial-epc', label: 'Commercial EPC' },
+    { href: '/eicr', label: 'EICR' },
+    { href: '/floor-plans-drafting', label: 'Floor Plans' },
+    { href: '/pricing', label: 'Prices' },
+  ]
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -55,6 +64,17 @@ export default function Header() {
             <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Home</Link>
             <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">About</Link>
             <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Why Us</Link>
+            <div className="relative group">
+              <button className="text-[#282828] hover:text-[#016837] font-medium text-sm xl:text-base whitespace-nowrap flex items-center gap-1" aria-haspopup="true">
+                Services
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div className="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white shadow-xl rounded-xl py-2 w-48 z-50 border border-gray-100">
+                {services.map((s) => (
+                  <Link key={s.href} href={s.href} className="block px-4 py-2 text-sm text-[#282828] hover:bg-gray-50 hover:text-[#016837]">{s.label}</Link>
+                ))}
+              </div>
+            </div>
             <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Areas We Serve</Link>
             <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Floor Plans & Drafting</Link>
             <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Blog</Link>
@@ -86,6 +106,14 @@ export default function Header() {
               <Link href="/" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Home</Link>
               <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>About</Link>
               <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Why Us</Link>
+              <div>
+                <p className="text-[#282828] font-medium py-2">Services</p>
+                <div className="pl-4 space-y-1">
+                  {services.map((s) => (
+                    <Link key={s.href} href={s.href} className="block text-[#282828] hover:text-[#016837] text-sm py-1" onClick={() => setIsMenuOpen(false)}>{s.label}</Link>
+                  ))}
+                </div>
+              </div>
               <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Areas We Serve</Link>
               <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Blog</Link>
               <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>FAQs</Link>

@@ -1,12 +1,13 @@
 // app/blog/[slug]/page.js
-import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-const API_URL = 'https://primeepcdesign.co.uk'
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://www.primeepcdesign.co.uk'
 
 async function getBlog(slug) {
   try {
-    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { next: { revalidate: 3600 } });
     if (!res.ok) return null;
     const data = await res.json();
     return data.success ? data.data : null;
@@ -21,9 +22,9 @@ export async function generateMetadata({ params }) {
   const blog = await getBlog(slug);
   if (!blog) return { title: 'Blog Not Found | Prime EPC' };
   return {
-    title: `${blog.meta_title || blog.title} | Prime EPC & Design Consultants`,
+    title: { absolute: blog.meta_title || blog.title },
     description: blog.meta_description || blog.excerpt || 'EPC blog article',
-    keywords: Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC',
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       title: blog.meta_title || blog.title,
       description: blog.meta_description || blog.excerpt || 'EPC blog article',
