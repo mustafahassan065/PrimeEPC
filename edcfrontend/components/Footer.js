@@ -105,7 +105,6 @@ export default function Footer() {
               <Link href="/commercial-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Commercial EPC</Link>
               <Link href="/eicr" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">EICR</Link>
               <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans</Link>
-              <Link href="/pricing" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Prices</Link>
               <Link href="/faq" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQs</Link>
             </div>
           </div>

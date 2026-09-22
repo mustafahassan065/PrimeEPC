@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumbs from '@/components/seo/Breadcrumbs'
-import FaqBlock from '@/components/seo/FaqBlock'
 import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
@@ -15,26 +14,11 @@ export const metadata: Metadata = {
 }
 
 const faqs = [
-  {
-    q: 'How much does an EICR cost in Bolton?',
-    a: 'Our landlord EICR starts from £110 for a 1-3 bedroom property. Larger properties are priced by the number of circuits — contact us for a quote.',
-  },
-  {
-    q: 'How often do landlords need an EICR?',
-    a: 'Private landlords in England must have electrical installations inspected at least every five years, give tenants a copy within 28 days, and provide a copy to the council within 7 days if requested.',
-  },
-  {
-    q: 'What do the codes C1, C2, C3 and FI mean?',
-    a: 'C1 means danger present — immediate action required. C2 means potentially dangerous. FI means further investigation needed. C3 is an improvement recommendation only. Any C1, C2 or FI makes the report Unsatisfactory, and remedial work must be completed within 28 days.',
-  },
-  {
-    q: 'How long does an EICR take?',
-    a: 'Usually 2-4 hours for a standard house or flat. The power will need to be off for part of the inspection.',
-  },
-  {
-    q: 'Can I get my EPC and EICR on the same day?',
-    a: 'Yes. We can carry out both in one visit, saving you arranging access twice. See our landlord package for combined pricing.',
-  },
+  { q: 'How much does an EICR cost in Bolton?', a: 'Our landlord EICR starts from £110 for a 1-3 bedroom property. Larger properties are priced by the number of circuits — contact us for a quote.' },
+  { q: 'How often do landlords need an EICR?', a: 'Private landlords in England must have electrical installations inspected at least every five years, give tenants a copy within 28 days, and provide a copy to the council within 7 days if requested.' },
+  { q: 'What do the codes C1, C2, C3 and FI mean?', a: 'C1 means danger present — immediate action required. C2 means potentially dangerous. FI means further investigation needed. C3 is an improvement recommendation only. Any C1, C2 or FI makes the report Unsatisfactory, and remedial work must be completed within 28 days.' },
+  { q: 'How long does an EICR take?', a: 'Usually 2-4 hours for a standard house or flat. The power will need to be off for part of the inspection.' },
+  { q: 'Can I get my EPC and EICR on the same day?', a: 'Yes. We can carry out both in one visit, saving you arranging access twice. See our landlord package for combined pricing.' },
 ]
 
 export default function EicrPage() {
@@ -45,7 +29,7 @@ export default function EicrPage() {
         path="/eicr"
         serviceType="Electrical inspection and testing"
         price={BUSINESS.prices.eicrFrom}
-        areas={['Bolton', 'Manchester', 'Salford', 'Bury', 'Wigan', 'Leigh', 'Chorley', 'Oldham', 'Rochdale', 'Stockport']}
+        areas={['Bolton','Manchester','Salford','Bury','Wigan','Leigh','Chorley','Oldham','Rochdale','Stockport']}
       />
 
       {/* Hero */}
@@ -61,14 +45,8 @@ export default function EicrPage() {
             from <strong>£110</strong> — and can do your EPC in the same visit.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/booking"
-              className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">
-              Book an EICR — from £110
-            </Link>
-            <a href={`tel:${BUSINESS.phoneIntl}`}
-               className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">
-              📞 {BUSINESS.phoneDisplay}
-            </a>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book an EICR — from £110</Link>
+            <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>
       </section>
@@ -94,80 +72,38 @@ export default function EicrPage() {
 
       {/* Content */}
       <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
-
         <div>
           <h2 className="text-3xl font-bold mb-4">Who needs an EICR?</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Since 1 July 2020, all private landlords in England must have an Electrical Installation
-            Condition Report carried out at least every five years. An EICR is also recommended for
-            anyone buying an older home, for HMO properties, and for businesses that need to demonstrate
-            electrical safety under workplace legislation or for insurance purposes. If you have recently
-            had renovation work done, an EICR confirms the installation is still sound.
-          </p>
+          <p className="text-gray-600 leading-relaxed">Since 1 July 2020, all private landlords in England must have an Electrical Installation Condition Report carried out at least every five years. An EICR is also recommended for anyone buying an older home, for HMO properties, and for businesses that need to demonstrate electrical safety under workplace legislation or for insurance purposes.</p>
         </div>
-
         <div>
           <h2 className="text-3xl font-bold mb-4">What happens during the inspection</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Our qualified electrician will carry out a visual inspection and test every circuit in the
-            property. This includes checking the consumer unit (fuse board), earthing and bonding,
-            RCD protection and the condition of sockets, switches and light fittings. The power will
-            be switched off circuit by circuit during testing — usually for around 20-30 seconds per
-            circuit. You will receive your certificate by email, typically within 24-48 hours.
-          </p>
+          <p className="text-gray-600 leading-relaxed">Our qualified electrician will carry out a visual inspection and test every circuit in the property. This includes checking the consumer unit, earthing and bonding, RCD protection and the condition of sockets, switches and light fittings. The power will be switched off circuit by circuit during testing. You will receive your certificate by email within 24-48 hours.</p>
         </div>
-
         <div>
           <h2 className="text-3xl font-bold mb-4">EICR prices in Bolton &amp; Manchester</h2>
           <div className="border border-gray-200 rounded-xl overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-[#016837] text-white">
-                <tr>
-                  <th className="text-left p-4">Property</th>
-                  <th className="text-left p-4">Price</th>
-                </tr>
+                <tr><th className="text-left p-4">Property</th><th className="text-left p-4">Price</th></tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {[
-                  ['1-2 bedroom flat or house', '£110'],
-                  ['3-4 bedroom house', '£140'],
-                  ['5+ bedroom house', '£180'],
-                  ['Commercial / HMO', 'Contact us'],
-                ].map(([prop, price], i) => (
-                  <tr key={i} className="hover:bg-gray-50">
-                    <td className="p-4 text-gray-700">{prop}</td>
-                    <td className="p-4 font-bold text-[#016837]">{price}</td>
-                  </tr>
+                {[['1-2 bedroom flat or house','£110'],['3-4 bedroom house','£140'],['5+ bedroom house','£180'],['Commercial / HMO','Contact us']].map(([prop,price],i) => (
+                  <tr key={i} className="hover:bg-gray-50"><td className="p-4 text-gray-700">{prop}</td><td className="p-4 font-bold text-[#016837]">{price}</td></tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-gray-500 mt-3">
-            Prices include VAT. No travel charge across Bolton and Greater Manchester.
-            See our <Link href="/pricing" className="text-[#016837] underline">full price list</Link>.
-          </p>
+          <p className="text-sm text-gray-500 mt-3">Prices include VAT. No travel charge across Bolton and Greater Manchester.</p>
         </div>
-
         <div>
           <h2 className="text-3xl font-bold mb-4">EICR for Bolton landlords</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Many of the properties we inspect in Bolton — particularly the Victorian and Edwardian
-            terraces in areas like Halliwell, Daubhill and Great Lever — still have older wiring
-            or consumer units without RCD protection. C2 codes are common in these properties.
-            If your report comes back Unsatisfactory, you have 28 days to complete the remedial
-            work and obtain a new certificate. We can advise on qualified local electricians if needed.
-          </p>
+          <p className="text-gray-600 leading-relaxed">Many of the properties we inspect in Bolton — particularly the Victorian and Edwardian terraces in areas like Halliwell, Daubhill and Great Lever — still have older wiring or consumer units without RCD protection. C2 codes are common in these properties. If your report comes back Unsatisfactory, you have 28 days to complete the remedial work and obtain a new certificate.</p>
         </div>
-
         <div>
           <h2 className="text-3xl font-bold mb-4">EPC and EICR in one visit</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Landlords need both certificates. Book them together and we cover access once,
-            produce both certificates and send one invoice.
-            See our <Link href="/landlord-certificates" className="text-[#016837] underline">landlord package</Link>.
-          </p>
+          <p className="text-gray-600 leading-relaxed">Landlords need both certificates. Book them together and we cover access once, produce both certificates and send one invoice. <Link href="/landlord-certificates" className="text-[#016837] underline">See our landlord package</Link>.</p>
         </div>
-
         <div>
           <h2 className="text-3xl font-bold mb-4">Areas we cover</h2>
           <p className="text-gray-600 leading-relaxed">
@@ -175,16 +111,29 @@ export default function EicrPage() {
             <Link href="/locations/manchester" className="text-[#016837] underline">Manchester</Link>,{' '}
             <Link href="/locations/salford" className="text-[#016837] underline">Salford</Link>,{' '}
             <Link href="/locations/oldham" className="text-[#016837] underline">Oldham</Link>,{' '}
-            <Link href="/locations/stockport" className="text-[#016837] underline">Stockport</Link>,{' '}
-            <Link href="/locations/rochdale" className="text-[#016837] underline">Rochdale</Link>{' '}
-            and the rest of Greater Manchester within a 50-mile radius.{' '}
-            <Link href="/areas-we-serve" className="text-[#016837] underline">See all areas</Link>.
+            <Link href="/locations/stockport" className="text-[#016837] underline">Stockport</Link> and more.{' '}
+            <Link href="/areas-we-serve" className="text-[#016837] underline">See all areas →</Link>
           </p>
         </div>
-
       </section>
 
-      <FaqBlock title="EICR questions answered" faqs={faqs} />
+      {/* FAQs — homepage style */}
+      <section className="py-16 bg-[#f8fffe]" id="faqs">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#282828] mb-8 text-center">EICR Questions Answered</h2>
+          <div className="space-y-3">
+            {faqs.map((f, i) => (
+              <details key={i} className="bg-white rounded-2xl border border-[#80C531]/20 shadow-sm open:shadow-md group">
+                <summary className="cursor-pointer px-6 py-5 font-semibold text-lg text-[#282828] flex justify-between items-center list-none">
+                  {f.q}
+                  <span className="ml-4 text-[#016837] group-open:rotate-180 transition-transform duration-200 flex-shrink-0">▼</span>
+                </summary>
+                <p className="px-6 pb-5 text-[#282828]/80 leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <section className="bg-[#016837] text-white py-14">
@@ -192,14 +141,8 @@ export default function EicrPage() {
           <h2 className="text-3xl font-bold mb-4">Book Your EICR Today</h2>
           <p className="text-white/80 mb-8">From £110 · Accredited inspector · Certificate within 24-48 hours</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/booking"
-              className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">
-              Book Online — from £110
-            </Link>
-            <a href={`tel:${BUSINESS.phoneIntl}`}
-               className="border-2 border-white text-white hover:bg-white hover:text-[#016837] font-bold px-8 py-4 rounded-lg transition-all">
-              📞 {BUSINESS.phoneDisplay}
-            </a>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — from £110</Link>
+            <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white text-white hover:bg-white hover:text-[#016837] font-bold px-8 py-4 rounded-lg transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>
       </section>
