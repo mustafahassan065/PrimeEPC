@@ -6,7 +6,7 @@ import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
   title: { absolute: 'Domestic EPC Bolton & Manchester | £50 Fixed Price' },
-  description: 'Need an EPC to sell or let your home? Accredited assessor, £50 fixed fee, lodged within 24-48 hours across Greater Manchester. Book online today.',
+  description: 'Need an EPC to sell or let your home? Accredited assessor,Starting from £50, lodged within 24-48 hours across Greater Manchester. Book online today.',
   alternates: { canonical: '/domestic-epc' },
   openGraph: { url: '/domestic-epc' },
 }
@@ -38,10 +38,10 @@ export default function DomesticEpcPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
             Domestic EPC for Homes in Bolton &amp; Greater Manchester
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-3">Fixed fee of <strong className="text-[#80C531]">£50</strong> — any size home, any area across Greater Manchester.</p>
+          <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any size home, any area across Greater Manchester.</p>
           <p className="text-white/80 mb-8 max-w-2xl">Whether you are selling, letting or remortgaging, we provide accredited Energy Performance Certificates lodged on the national register within 24-48 hours of inspection.</p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — £50 Fixed Fee</Link>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function DomesticEpcPage() {
       <section className="bg-[#016837] text-white py-14">
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="text-3xl font-bold mb-4">Book Your Domestic EPC Today</h2>
-          <p className="text-white/80 mb-8">£50 fixed fee · Any size home · Certificate within 24-48 hours</p>
+          <p className="text-white/80 mb-8">Starting from £50· Any size home · Certificate within 24-48 hours</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white text-white hover:bg-white hover:text-[#016837] font-bold px-8 py-4 rounded-lg transition-all">📞 {BUSINESS.phoneDisplay}</a>

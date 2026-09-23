@@ -175,19 +175,7 @@ export default async function BlogPost({ params }) {
   const { slug } = await params;
   const blog = await getBlog(slug);
 
-  if (!blog) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Blog not found</h1>
-          <p className="text-gray-600">The blog post could not be found.</p>
-          <a href="/blog" className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            Back to Blog List
-          </a>
-        </div>
-      </div>
-    );
-  }
+  if (!blog) { notFound(); }
 
   const featuredImage = getImageUrl(blog.featured_image || blog.featuredImage);
 
