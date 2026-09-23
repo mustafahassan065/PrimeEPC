@@ -38,7 +38,7 @@ export default function DomesticEpcPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
             Domestic EPC for Homes in Bolton &amp; Greater Manchester
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any size home, any area across Greater Manchester.</p>
+          <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any area across Greater Manchester.</p>
           <p className="text-white/80 mb-8 max-w-2xl">Whether you are selling, letting or remortgaging, we provide accredited Energy Performance Certificates lodged on the national register within 24-48 hours of inspection.</p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — £50</Link>
@@ -51,7 +51,7 @@ export default function DomesticEpcPage() {
       <section className="bg-gray-50 py-6 border-b border-gray-200">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex flex-wrap justify-center gap-8 text-center">
-            {[{ val: '£50', label: 'Fixed Fee — Any Size' },{ val: '24-48h', label: 'Turnaround' },{ val: '100%', label: 'Accredited' },{ val: '10 yrs', label: 'Certificate Valid' }].map((s,i) => (
+            {[{ val: '£50', label: 'Starting From' },{ val: '24-48h', label: 'Turnaround' },{ val: '100%', label: 'Accredited' },{ val: '10 yrs', label: 'Certificate Valid' }].map((s,i) => (
               <div key={i}><p className="text-2xl font-bold text-[#016837]">{s.val}</p><p className="text-xs text-gray-500">{s.label}</p></div>
             ))}
           </div>
