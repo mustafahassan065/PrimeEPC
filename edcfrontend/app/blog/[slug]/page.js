@@ -1,13 +1,12 @@
 // app/blog/[slug]/page.js
+import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://www.primeepcdesign.co.uk'
+const API_URL = 'https://primeepcdesign.co.uk'
 
 async function getBlog(slug) {
   try {
-    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { cache: 'no-store' });
     if (!res.ok) return null;
     const data = await res.json();
     return data.success ? data.data : null;
@@ -21,17 +20,26 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const blog = await getBlog(slug);
   if (!blog) return { title: 'Blog Not Found | Prime EPC' };
+  const imageUrl = getImageUrl(blog.featured_image || blog.featuredImage);
   return {
-    title: { absolute: blog.meta_title || blog.title },
-    description: blog.meta_description || blog.excerpt || 'EPC blog article',
-    alternates: { canonical: `/blog/${slug}` },
+    title: `${blog.meta_title || blog.title} | Prime EPC Manchester`,
+    description: blog.meta_description || blog.excerpt || 'EPC, EICR & MEES compliance insights for Greater Manchester property owners.',
+    keywords: Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC Manchester, MEES Compliance 2026, Landlord Rules',
+    alternates: {
+      canonical: `https://www.primeepcdesign.co.uk/blog/${slug}`,
+    },
     openGraph: {
       title: blog.meta_title || blog.title,
       description: blog.meta_description || blog.excerpt || 'EPC blog article',
       type: 'article',
-      images: (blog.featured_image || blog.featuredImage)
-        ? [{ url: getImageUrl(blog.featured_image || blog.featuredImage) }]
-        : [],
+      url: `https://www.primeepcdesign.co.uk/blog/${slug}`,
+      images: imageUrl ? [{ url: imageUrl }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.meta_title || blog.title,
+      description: blog.meta_description || blog.excerpt || 'EPC blog article',
+      images: imageUrl ? [imageUrl] : [],
     },
   };
 }
@@ -175,7 +183,19 @@ export default async function BlogPost({ params }) {
   const { slug } = await params;
   const blog = await getBlog(slug);
 
-  if (!blog) { notFound(); }
+  if (!blog) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Blog not found</h1>
+          <p className="text-gray-600">The blog post could not be found.</p>
+          <a href="/blog" className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Back to Blog List
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const featuredImage = getImageUrl(blog.featured_image || blog.featuredImage);
 
