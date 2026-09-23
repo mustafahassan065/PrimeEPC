@@ -75,8 +75,8 @@ router.post('/send-booking-confirmation', async (req, res) => {
 <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <tr><td style="background:linear-gradient(135deg,#016837 0%,#014d28 100%);padding:20px 32px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      
-      <td style="vertical-align:middle;"><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">&amp; Design Consultants</p></td>
+      <td style="vertical-align:middle;"><img src="https://www.primeepcdesign.co.uk/images/logo3.png" width="60" height="60" alt="Prime EPC" style="border-radius:8px;display:block;" /></td>
+      <td style="padding-left:14px;vertical-align:middle;"><p style="margin:0;font-size:17px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:10px;color:#80C531;letter-spacing:1px;text-transform:uppercase;">EPC Portal</p></td>
       <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.7);">Property Assessments &amp; Compliance</p></td>
     </tr></table>
   </td></tr>
@@ -116,7 +116,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
   </td></tr>
   <tr><td style="background:#012d1a;padding:16px 32px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      
+      <td><img src="https://www.primeepcdesign.co.uk/images/logo3.png" width="44" height="44" alt="Prime EPC" style="border-radius:6px;" /></td>
       <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.4);">📞 07308 658247 | ✉️ info@primeepcdesign.co.uk</p></td>
     </tr></table>
   </td></tr>
