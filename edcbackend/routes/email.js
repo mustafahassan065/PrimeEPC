@@ -131,10 +131,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
 <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <tr><td style="background:linear-gradient(135deg,#016837 0%,#014d28 100%);padding:24px 32px 0;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle;">
-        <p style="margin:0;font-size:28px;font-weight:900;color:#ffffff;letter-spacing:2px;text-transform:uppercase;line-height:1.1;">PRIME EPC</p>
-        <p style="margin:4px 0 0;font-size:11px;font-weight:700;color:#80C531;letter-spacing:3px;text-transform:uppercase;">&amp; Design Consultants</p>
-      </td>
+      <td style="vertical-align:middle;"><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">&amp; Design Consultants</p></td>
       <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Your Property.</p><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Our Expertise.</p><p style="margin:0;font-size:11px;color:#80C531;">A Greener Tomorrow.</p></td>
     </tr></table>
     <div style="margin-top:24px;padding:28px 32px;text-align:center;">
@@ -165,13 +162,9 @@ router.post('/send-booking-confirmation', async (req, res) => {
         </tr></table>
       </td></tr>
     </table>
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;">
-      <tr><td align="center">
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=EPC+Assessment+%E2%80%94+Prime+EPC&dates=${preferredDate ? new Date(preferredDate).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z/'+new Date(new Date(preferredDate).getTime()+3600000).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z' : '00000000T000000Z/00000000T010000Z'}&details=Service%3A+${encodeURIComponent(propertyDetails||propertyType)}%0AAddress%3A+${encodeURIComponent(propertyAddress+', '+postcode)}%0APhone%3A+07308+658247&location=${encodeURIComponent(propertyAddress+', '+postcode)}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 28px;border-radius:30px;">
-          📅 Add to Calendar &nbsp;&rarr;
-        </a>
-      </td></tr>
-    </table>
+    <div style="text-align:center;margin-top:16px;">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=EPC+Assessment+%E2%80%94+Prime+EPC&dates=${preferredDate ? new Date(preferredDate).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z/'+new Date(new Date(preferredDate).getTime()+3600000).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z' : ''}&details=Service%3A+${encodeURIComponent(propertyDetails||propertyType)}%0AAddress%3A+${encodeURIComponent(propertyAddress+', '+postcode)}&location=${encodeURIComponent(propertyAddress+', '+postcode)}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 28px;border-radius:30px;">📅 Add to Calendar &rarr;</a>
+    </div>
   </td></tr>
   <tr><td style="background:#014d28;padding:20px 32px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
@@ -181,9 +174,14 @@ router.post('/send-booking-confirmation', async (req, res) => {
       <td style="text-align:center;padding:0 8px;"><p style="margin:0;font-size:11px;color:#80C531;">❤️ Local<br>&amp; Reliable</p></td>
     </tr></table>
   </td></tr>
-  <tr><td style="background:#012d1a;padding:16px 32px;text-align:center;">
-    <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);">📞 07308 658247 &nbsp;|&nbsp; ✉️ info@primeepcdesign.co.uk &nbsp;|&nbsp; 🌐 www.primeepcdesign.co.uk</p>
-    <p style="margin:4px 0 0;font-size:10px;color:rgba(255,255,255,0.3);">Prime EPC &amp; Design Consultant Ltd | Company No. 17307524</p>
+  <tr><td style="background:#012d1a;padding:20px 32px;">
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:14px;color:#80C531;font-style:italic;font-weight:600;">Thank you<br>for your booking!</p></td>
+    </tr>
+    <tr><td colspan="2" style="padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
+      <p style="margin:4px 0;font-size:11px;color:rgba(255,255,255,0.5);">📞 07308 658247 | ✉️ info@primeepcdesign.co.uk | 🌐 www.primeepcdesign.co.uk</p>
+      <p style="margin:4px 0;font-size:10px;color:rgba(255,255,255,0.3);">Prime EPC &amp; Design Consultant Ltd | Company No. 17307524</p>
+    </td></tr></table>
   </td></tr>
 </table></td></tr></table></body></html>`
 
