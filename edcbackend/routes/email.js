@@ -63,8 +63,9 @@ router.post('/send-booking-confirmation', async (req, res) => {
   <!-- HEADER: logo left, tagline right -->
   <tr><td style="background:#016837;padding:20px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle;width:180px;">
-        <img src="` + LOGO + `" width="110" height="auto" alt="Prime EPC & Design Consultants" style="display:block;max-width:110px;" />
+      <td style="vertical-align:middle;padding-right:20px;">
+        <p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;letter-spacing:0.5px;">Prime EPC</p>
+        <p style="margin:3px 0 0;font-size:11px;color:#80C531;letter-spacing:1px;text-transform:uppercase;">and Design Consultants</p>
       </td>
       <td style="border-left:1px solid rgba(255,255,255,0.3);padding-left:20px;vertical-align:middle;">
         <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;">Your Property.<br>Our Expertise.<br><span style="color:#80C531;font-style:italic;font-weight:600;">A Greener Tomorrow.</span></p>
@@ -167,9 +168,8 @@ router.post('/send-booking-confirmation', async (req, res) => {
         <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">Bolton &amp; Surrounding Areas</p>
       </td>
       <td style="text-align:center;padding:0 6px;">
-        <img src="` + LOGO + `" width="42" height="42" alt="Prime EPC" style="display:block;margin:0 auto;border-radius:50%;" />
-        <p style="margin:4px 0 0;font-size:9px;font-weight:700;color:#80C531;">PRIME EPC</p>
-        <p style="margin:1px 0 0;font-size:8px;color:rgba(255,255,255,0.5);">&amp; Design Consultants</p>
+        <p style="margin:0;font-size:10px;font-weight:900;color:#80C531;">PRIME EPC</p>
+        <p style="margin:2px 0 0;font-size:8px;color:rgba(255,255,255,0.5);">&amp; Design Consultants</p>
       </td>
     </tr></table>
   </td></tr>
@@ -189,8 +189,9 @@ router.post('/send-booking-confirmation', async (req, res) => {
   <!-- ADMIN HEADER -->
   <tr><td style="background:#016837;padding:16px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle;width:120px;">
-        <img src="` + LOGO + `" width="90" height="auto" alt="Prime EPC" style="display:block;max-width:90px;" />
+      <td style="vertical-align:middle;padding-right:16px;">
+        <p style="margin:0;font-size:18px;font-weight:900;color:#ffffff;">Prime EPC</p>
+        <p style="margin:3px 0 0;font-size:10px;color:#80C531;letter-spacing:1px;text-transform:uppercase;">and Design Consultants</p>
       </td>
       <td style="padding-left:16px;border-left:1px solid rgba(255,255,255,0.3);vertical-align:middle;">
         <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.7);">Property Assessments &amp; Compliance</p>
