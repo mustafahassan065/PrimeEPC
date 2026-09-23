@@ -131,7 +131,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
 <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <tr><td style="background:linear-gradient(135deg,#016837 0%,#014d28 100%);padding:24px 32px 0;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle;"><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">&amp; Design Consultants</p></td>
+      <td style="padding-left:16px;vertical-align:middle;"><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">&amp; Design Consultants</p></td>
       <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Your Property.</p><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Our Expertise.</p><p style="margin:0;font-size:11px;color:#80C531;">A Greener Tomorrow.</p></td>
     </tr></table>
     <div style="margin-top:24px;padding:28px 32px;text-align:center;">
