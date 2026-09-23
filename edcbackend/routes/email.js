@@ -32,171 +32,238 @@ router.post('/send-booking-confirmation', async (req, res) => {
       paymentMethod, amount, paymentRef, paymentStatus
     } = req.body
 
-    // Bot check — honeypot (should never reach here but extra safety)
     if (req.body.honeypot) return res.json({ success: true })
 
-    const dateStr = preferredDate
-      ? new Date(preferredDate).toLocaleDateString('en-GB', {
-          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-          hour: '2-digit', minute: '2-digit'
-        })
+    const dateObj = preferredDate ? new Date(preferredDate) : null
+    const dateStr = dateObj
+      ? dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
       : 'Not specified'
+    const timeStr = dateObj
+      ? dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC', hour12: false })
+      : ''
 
     const paymentLabel = {
-      cash:   'Cash (Pay on Arrival)',
+      cash: 'Cash (Pay on Arrival)',
       stripe: 'Bank Card (Stripe)',
       paypal: 'PayPal',
       bank_transfer: 'Bank Transfer (Invoice)'
     }[paymentMethod] || paymentMethod
 
     const amountStr = amount ? `£${amount}` : 'To be confirmed'
+    const service = propertyDetails || propertyType || 'EPC Assessment'
 
-    // ── Invoice section (only for cash) ──────────────────────────────────
-    const invoiceSection = paymentMethod === 'cash' ? `
-      <div style="margin-top:24px; padding:16px; background:#fffbeb; border:1px solid #f59e0b; border-radius:8px;">
-        <h3 style="color:#b45309; margin:0 0 8px;">📄 Invoice / Payment Due</h3>
-        <p style="margin:4px 0; color:#374151;"><strong>Amount Due:</strong> ${amountStr}</p>
-        <p style="margin:4px 0; color:#374151;"><strong>Payment Method:</strong> Cash on Arrival</p>
-        <p style="margin:4px 0; color:#374151;">Please have the exact amount ready on the day of your assessment.</p>
-      </div>` : `
-      <div style="margin-top:24px; padding:16px; background:#f0fdf4; border:1px solid #86efac; border-radius:8px;">
-        <h3 style="color:#166534; margin:0 0 8px;">✅ Payment Received</h3>
-        <p style="margin:4px 0; color:#374151;"><strong>Amount Paid:</strong> ${amountStr}</p>
-        <p style="margin:4px 0; color:#374151;"><strong>Payment Method:</strong> ${paymentLabel}</p>
-        ${paymentRef ? `<p style="margin:4px 0; color:#374151;"><strong>Reference:</strong> ${paymentRef}</p>` : ''}
-      </div>`
-
-    // ── Email to ADMIN ────────────────────────────────────────────────────
-    const adminHtml = `
-<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,sans-serif;">
+    // ── USER confirmation email ───────────────────────────────────────────
+    const userHtml = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,Helvetica,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:20px 0;">
 <tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-  <tr><td style="background:linear-gradient(135deg,#016837 0%,#014d28 100%);padding:20px 32px;">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;max-width:600px;width:100%;border-radius:8px;overflow:hidden;">
+
+  <!-- HEADER: logo left, tagline right -->
+  <tr><td style="background:#016837;padding:20px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="vertical-align:middle;"><img src="https://www.primeepcdesign.co.uk/images/logo3.png" width="60" height="60" alt="Prime EPC" style="border-radius:8px;display:block;" /></td>
-      <td style="padding-left:14px;vertical-align:middle;"><p style="margin:0;font-size:17px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:10px;color:#80C531;letter-spacing:1px;text-transform:uppercase;">EPC Portal</p></td>
-      <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.7);">Property Assessments &amp; Compliance</p></td>
+      <td style="vertical-align:middle;width:180px;">
+        <img src="` + LOGO + `" width="110" height="auto" alt="Prime EPC & Design Consultants" style="display:block;max-width:110px;" />
+      </td>
+      <td style="border-left:1px solid rgba(255,255,255,0.3);padding-left:20px;vertical-align:middle;">
+        <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;">Your Property.<br>Our Expertise.<br><span style="color:#80C531;font-style:italic;font-weight:600;">A Greener Tomorrow.</span></p>
+      </td>
     </tr></table>
   </td></tr>
-  <tr><td style="background:#016837;padding:18px 32px;">
+
+  <!-- BOOKING CONFIRMED BANNER -->
+  <tr><td style="padding:32px 28px 20px;">
     <table cellpadding="0" cellspacing="0"><tr>
-      <td style="width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:8px;text-align:center;vertical-align:middle;font-size:22px;">📅</td>
-      <td style="padding-left:14px;"><h1 style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">New Booking Received</h1><p style="margin:2px 0 0;font-size:11px;color:#80C531;text-transform:uppercase;letter-spacing:1px;">CUSTOMER DETAILS</p></td>
+      <td style="width:64px;height:64px;background:#016837;border-radius:50%;text-align:center;vertical-align:middle;">
+        <span style="color:white;font-size:32px;line-height:64px;">&#10003;</span>
+      </td>
+      <td style="padding-left:18px;vertical-align:middle;">
+        <h1 style="margin:0;font-size:30px;font-weight:900;color:#016837;line-height:1.15;">Booking<br>Confirmed!</h1>
+      </td>
     </tr></table>
+    <p style="margin:20px 0 4px;font-size:14px;color:#374151;">Hi <strong>${name}</strong>,</p>
+    <p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#111827;">Thank you for choosing Prime EPC &amp; Design Consultants.</p>
+    <p style="margin:4px 0 0;font-size:13px;color:#6b7280;">Your appointment has been successfully confirmed.</p>
+    <p style="margin:10px 0 0;font-size:13px;color:#6b7280;">We look forward to visiting your property and helping you with your EPC assessment.</p>
   </td></tr>
-  <tr><td style="padding:24px 32px;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="border-radius:10px;border:1px solid #e5e7eb;overflow:hidden;">
-      <tr><td style="padding:14px 20px;border-bottom:1px solid #e5e7eb;background:#f9fafb;">
+
+  <!-- BOOKING DETAILS CARD -->
+  <tr><td style="padding:0 28px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fffe;border:1px solid #d1ead8;border-radius:10px;overflow:hidden;">
+      <!-- Card header -->
+      <tr><td style="padding:14px 18px;border-bottom:1px solid #d1ead8;">
         <table cellpadding="0" cellspacing="0"><tr>
-          <td style="width:32px;height:32px;background:#e8f5e9;border-radius:50%;text-align:center;vertical-align:middle;font-size:16px;">👤</td>
-          <td style="padding-left:10px;font-size:14px;font-weight:700;color:#111827;">Customer Details</td>
+          <td style="width:32px;height:32px;background:#016837;border-radius:6px;text-align:center;vertical-align:middle;font-size:16px;">&#128197;</td>
+          <td style="padding-left:10px;font-size:13px;font-weight:800;color:#016837;text-transform:uppercase;letter-spacing:0.5px;border-left:3px solid #016837;padding-left:10px;">BOOKING DETAILS</td>
         </tr></table>
       </td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">👤</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Name</td><td style="color:#111827;font-weight:600;font-size:13px;">${name}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">✉️</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Email</td><td style="color:#111827;font-weight:600;font-size:13px;">${email}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">📞</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Phone</td><td style="color:#111827;font-weight:600;font-size:13px;">${phone}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">🔧</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Service</td><td style="color:#111827;font-weight:600;font-size:13px;">${propertyDetails || propertyType}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">📍</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Postcode</td><td style="color:#111827;font-weight:600;font-size:13px;">${postcode}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">🏠</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Property Address</td><td style="color:#111827;font-weight:600;font-size:13px;">${propertyAddress}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;background:#f0fff4;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">📅</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Appointment</td><td style="color:#016837;font-weight:700;font-size:14px;">${dateStr}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">💳</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Payment</td><td style="color:#111827;font-weight:600;font-size:13px;">${paymentLabel} — ${amountStr}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #f3f4f6;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;">🔖</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;">Payment Status</td><td style="font-size:13px;"><span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">${paymentStatus || 'Pending'}</span></td></tr></table></td></tr>
-      ${message ? `<tr><td style="padding:12px 20px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:15px;vertical-align:top;">📝</td><td style="padding-left:8px;width:35%;color:#6b7280;font-size:13px;vertical-align:top;">Notes</td><td style="color:#111827;font-weight:600;font-size:13px;">${message}</td></tr></table></td></tr>` : ''}
-    </table>
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;background:#f0fdf4;border-radius:8px;border:1px solid #86efac;">
+      <!-- Service -->
+      <tr><td style="padding:14px 18px;border-bottom:1px solid #e8f4ee;">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="width:36px;height:36px;background:#e8f5e9;border-radius:50%;text-align:center;vertical-align:middle;font-size:18px;">&#128295;</td>
+          <td style="padding-left:12px;"><p style="margin:0;font-size:11px;color:#6b7280;">Service</p><p style="margin:3px 0 0;font-size:14px;font-weight:700;color:#111827;">${service}</p></td>
+        </tr></table>
+      </td></tr>
+      <!-- Address -->
+      <tr><td style="padding:14px 18px;border-bottom:1px solid #e8f4ee;">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="width:36px;height:36px;background:#e8f5e9;border-radius:50%;text-align:center;vertical-align:middle;font-size:18px;">&#127968;</td>
+          <td style="padding-left:12px;"><p style="margin:0;font-size:11px;color:#6b7280;">Property Address</p><p style="margin:3px 0 0;font-size:14px;font-weight:700;color:#111827;">${propertyAddress},<br>${postcode}</p></td>
+        </tr></table>
+      </td></tr>
+      <!-- Date -->
+      <tr><td style="padding:14px 18px;border-bottom:1px solid #e8f4ee;">
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="width:36px;height:36px;background:#e8f5e9;border-radius:50%;text-align:center;vertical-align:middle;font-size:18px;">&#128197;</td>
+          <td style="padding-left:12px;"><p style="margin:0;font-size:11px;color:#6b7280;">Date</p><p style="margin:3px 0 0;font-size:14px;font-weight:700;color:#111827;">${dateStr}</p></td>
+        </tr></table>
+      </td></tr>
+      <!-- Time -->
       <tr><td style="padding:14px 18px;">
         <table cellpadding="0" cellspacing="0"><tr>
-          <td style="width:32px;height:32px;background:#016837;border-radius:50%;text-align:center;vertical-align:middle;color:white;font-size:16px;">🛡️</td>
-          <td style="padding-left:10px;"><p style="margin:0;font-size:13px;font-weight:700;color:#016837;">Please confirm with the customer</p><p style="margin:3px 0 0;font-size:12px;color:#4b7a5e;">and ensure all details are updated in your system.</p></td>
+          <td style="width:36px;height:36px;background:#e8f5e9;border-radius:50%;text-align:center;vertical-align:middle;font-size:18px;">&#128336;</td>
+          <td style="padding-left:12px;"><p style="margin:0;font-size:11px;color:#6b7280;">Time</p><p style="margin:3px 0 0;font-size:14px;font-weight:700;color:#111827;">${timeStr}</p></td>
         </tr></table>
       </td></tr>
     </table>
   </td></tr>
-  <tr><td style="background:#012d1a;padding:16px 32px;">
+
+  <!-- ADD TO CALENDAR BUTTON -->
+  <tr><td style="padding:0 28px 24px;" align="center">
+    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=EPC+Assessment+%E2%80%94+Prime+EPC&details=Your+EPC+assessment+with+Prime+EPC+%26+Design+Consultants.+Contact%3A+07308658247&location=${encodeURIComponent(propertyAddress + ', ' + postcode)}&dates=${dateObj ? dateObj.toISOString().replace(/-|:|\.\d+/g,'').slice(0,15) + '00Z/' + new Date(dateObj.getTime()+3600000).toISOString().replace(/-|:|\.\d+/g,'').slice(0,15) + '00Z' : ''}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 32px;border-radius:30px;">
+      &#128197; Add to Calendar
+    </a>
+  </td></tr>
+
+  <!-- NEED CHANGES BOX -->
+  <tr><td style="padding:0 28px 28px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fffe;border:1px solid #d1ead8;border-left:4px solid #016837;border-radius:0 8px 8px 0;padding:14px 18px;">
+      <tr><td>
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;">&#127807;</td>
+          <td style="padding-left:10px;"><p style="margin:0;font-size:13px;font-weight:700;color:#111827;">Need to make changes?</p><p style="margin:3px 0 0;font-size:12px;color:#6b7280;">Just reply to this email or get in touch with our team.</p></td>
+        </tr></table>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- FOOTER TRUST BAR -->
+  <tr><td style="background:#014d28;padding:20px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td><img src="https://www.primeepcdesign.co.uk/images/logo3.png" width="44" height="44" alt="Prime EPC" style="border-radius:6px;" /></td>
-      <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.4);">📞 07308 658247 | ✉️ info@primeepcdesign.co.uk</p></td>
+      <td style="text-align:center;padding:0 6px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">&#128737;</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Trusted Experts</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">Accurate &amp; Compliant</p>
+      </td>
+      <td style="text-align:center;padding:0 6px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">&#127807;</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Energy Efficient</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">A Greener Future</p>
+      </td>
+      <td style="text-align:center;padding:0 6px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">&#127968;</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Local Service</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">Bolton &amp; Surrounding Areas</p>
+      </td>
+      <td style="text-align:center;padding:0 6px;">
+        <img src="` + LOGO + `" width="42" height="42" alt="Prime EPC" style="display:block;margin:0 auto;border-radius:50%;" />
+        <p style="margin:4px 0 0;font-size:9px;font-weight:700;color:#80C531;">PRIME EPC</p>
+        <p style="margin:1px 0 0;font-size:8px;color:rgba(255,255,255,0.5);">&amp; Design Consultants</p>
+      </td>
     </tr></table>
   </td></tr>
-</table></td></tr></table></body></html>`
 
-    // ── Confirmation email to USER ─────────────────────────────────────────
-    const userHtml = `
-<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,sans-serif;">
+</table>
+</td></tr></table>
+</body></html>`
+
+    // ── ADMIN notification email ───────────────────────────────────────────
+    const adminHtml = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,Helvetica,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:20px 0;">
 <tr><td align="center">
-<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-  <tr><td style="background:linear-gradient(135deg,#016837 0%,#014d28 100%);padding:24px 32px 0;">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;max-width:600px;width:100%;border-radius:8px;overflow:hidden;">
+
+  <!-- ADMIN HEADER -->
+  <tr><td style="background:#016837;padding:16px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="padding-left:16px;vertical-align:middle;"><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">&amp; Design Consultants</p></td>
-      <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Your Property.</p><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.6);">Our Expertise.</p><p style="margin:0;font-size:11px;color:#80C531;">A Greener Tomorrow.</p></td>
-    </tr></table>
-    <div style="margin-top:24px;padding:28px 32px;text-align:center;">
-      <div style="width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:50%;margin:0 auto 12px;line-height:56px;font-size:28px;">✅</div>
-      <h1 style="margin:0 0 8px;font-size:26px;font-weight:900;color:#ffffff;">Booking Confirmed!</h1>
-      <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.85);">Thank you for choosing Prime EPC.<br>Your appointment has been confirmed.</p>
-    </div>
-  </td></tr>
-  <tr><td style="padding:28px 32px;">
-    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fffe;border-radius:10px;border:1px solid #e0f0e8;overflow:hidden;">
-      <tr><td style="padding:16px 20px;border-bottom:1px solid #e0f0e8;">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="font-size:20px;">📋</td>
-          <td style="padding-left:10px;font-size:15px;font-weight:700;color:#016837;">Booking Summary</td>
-        </tr></table>
-      </td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #e8f4ee;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">🔧</td><td style="padding-left:8px;width:38%;color:#6b7280;font-size:13px;">Service</td><td style="color:#111827;font-weight:600;font-size:13px;">${propertyDetails || propertyType}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #e8f4ee;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">🏠</td><td style="padding-left:8px;width:38%;color:#6b7280;font-size:13px;">Property Address</td><td style="color:#111827;font-weight:600;font-size:13px;">${propertyAddress}, ${postcode}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;border-bottom:1px solid #e8f4ee;background:#f0fff4;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">📅</td><td style="padding-left:8px;width:38%;color:#6b7280;font-size:13px;">Appointment</td><td style="color:#016837;font-weight:700;font-size:14px;">${dateStr}</td></tr></table></td></tr>
-      <tr><td style="padding:12px 20px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">💳</td><td style="padding-left:8px;width:38%;color:#6b7280;font-size:13px;">Payment</td><td style="color:#111827;font-weight:600;font-size:13px;">${paymentLabel}</td></tr></table></td></tr>
-    </table>
-    ${invoiceSection}
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;background:#f0fdf4;border-radius:10px;border:1px solid #86efac;">
-      <tr><td style="padding:16px 20px;">
-        <table cellpadding="0" cellspacing="0"><tr>
-          <td style="width:36px;height:36px;background:#016837;border-radius:50%;text-align:center;vertical-align:middle;color:white;font-size:18px;">🌿</td>
-          <td style="padding-left:12px;"><p style="margin:0;font-size:14px;font-weight:700;color:#016837;">You&apos;re all set!</p><p style="margin:4px 0 0;font-size:12px;color:#4b7a5e;">We look forward to meeting you and helping bring your project to life.</p></td>
-        </tr></table>
-      </td></tr>
-    </table>
-    <div style="text-align:center;margin-top:16px;">
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=EPC+Assessment+%E2%80%94+Prime+EPC&dates=${preferredDate ? new Date(preferredDate).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z/'+new Date(new Date(preferredDate).getTime()+3600000).toISOString().replace(/-|:|\.\d{3}/g,'').slice(0,15)+'00Z' : ''}&details=Service%3A+${encodeURIComponent(propertyDetails||propertyType)}%0AAddress%3A+${encodeURIComponent(propertyAddress+', '+postcode)}&location=${encodeURIComponent(propertyAddress+', '+postcode)}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 28px;border-radius:30px;">📅 Add to Calendar &rarr;</a>
-    </div>
-  </td></tr>
-  <tr><td style="background:#014d28;padding:20px 32px;">
-    <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td style="text-align:center;padding:0 8px;"><p style="margin:0;font-size:11px;color:#80C531;">🛡️ Trusted<br>&amp; Professional</p></td>
-      <td style="text-align:center;padding:0 8px;"><p style="margin:0;font-size:11px;color:#80C531;">🏠 Accurate<br>EPC Assessments</p></td>
-      <td style="text-align:center;padding:0 8px;"><p style="margin:0;font-size:11px;color:#80C531;">🌿 Energy<br>Efficient Homes</p></td>
-      <td style="text-align:center;padding:0 8px;"><p style="margin:0;font-size:11px;color:#80C531;">❤️ Local<br>&amp; Reliable</p></td>
+      <td style="vertical-align:middle;width:120px;">
+        <img src="` + LOGO + `" width="90" height="auto" alt="Prime EPC" style="display:block;max-width:90px;" />
+      </td>
+      <td style="padding-left:16px;border-left:1px solid rgba(255,255,255,0.3);vertical-align:middle;">
+        <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.7);">Property Assessments &amp; Compliance</p>
+      </td>
     </tr></table>
   </td></tr>
-  <tr><td style="background:#012d1a;padding:20px 32px;">
-    <table width="100%" cellpadding="0" cellspacing="0"><tr>
-      <td align="right" style="vertical-align:middle;"><p style="margin:0;font-size:14px;color:#80C531;font-style:italic;font-weight:600;">Thank you<br>for your booking!</p></td>
-    </tr>
-    <tr><td colspan="2" style="padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
-      <p style="margin:4px 0;font-size:11px;color:rgba(255,255,255,0.5);">📞 07308 658247 | ✉️ info@primeepcdesign.co.uk | 🌐 www.primeepcdesign.co.uk</p>
-      <p style="margin:4px 0;font-size:10px;color:rgba(255,255,255,0.3);">Prime EPC &amp; Design Consultant Ltd | Company No. 17307524</p>
-    </td></tr></table>
+
+  <!-- NEW BOOKING BANNER -->
+  <tr><td style="background:#014d28;padding:14px 24px;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:8px;text-align:center;vertical-align:middle;font-size:20px;">&#128197;</td>
+      <td style="padding-left:12px;">
+        <h1 style="margin:0;font-size:18px;font-weight:900;color:#ffffff;">New Booking Received</h1>
+        <p style="margin:2px 0 0;font-size:10px;color:#80C531;text-transform:uppercase;letter-spacing:1px;">Customer Details</p>
+      </td>
+    </tr></table>
   </td></tr>
-</table></td></tr></table></body></html>`
+
+  <!-- CUSTOMER DETAILS TABLE -->
+  <tr><td style="padding:20px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+      <tr><td colspan="2" style="background:#f9fafb;padding:10px 16px;border-bottom:1px solid #e5e7eb;">
+        <p style="margin:0;font-size:12px;font-weight:700;color:#016837;text-transform:uppercase;letter-spacing:0.5px;">&#128100; Customer Info</p>
+      </td></tr>
+      ${[
+        ['&#128100;','Name', name],
+        ['&#9993;','Email', email],
+        ['&#128222;','Phone', phone],
+        ['&#128295;','Service', service + (amount ? ' &#8212; &#163;' + amount : '')],
+        ['&#128205;','Postcode', postcode],
+        ['&#127968;','Address', propertyAddress],
+        ['&#128197;','Date', dateStr],
+        ['&#128336;','Time', timeStr],
+        ['&#128179;','Payment', paymentLabel],
+        ['&#128278;','Status', paymentStatus || 'Pending'],
+        ...(message ? [['&#128221;','Notes', message]] : []),
+      ].map(([icon, label, val], i) => `
+      <tr style="background:${i % 2 === 0 ? '#ffffff' : '#f9fafb'};">
+        <td style="padding:10px 16px;width:38%;color:#6b7280;font-size:12px;border-bottom:1px solid #f3f4f6;">${icon} ${label}</td>
+        <td style="padding:10px 16px;color:#111827;font-weight:600;font-size:12px;border-bottom:1px solid #f3f4f6;">${val || 'N/A'}</td>
+      </tr>`).join('')}
+    </table>
+
+    <!-- CONFIRM NOTE -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:14px;background:#f0fdf4;border-left:4px solid #016837;border-radius:0 6px 6px 0;">
+      <tr><td style="padding:12px 16px;">
+        <p style="margin:0;font-size:12px;font-weight:700;color:#016837;">&#128737; Please confirm with the customer</p>
+        <p style="margin:3px 0 0;font-size:11px;color:#4b7a5e;">Ensure all details are updated in your system.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- ADMIN FOOTER -->
+  <tr><td style="background:#014d28;padding:12px 24px;">
+    <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);">&#128222; 07308 658247 &nbsp;|&nbsp; &#9993; info@primeepcdesign.co.uk &nbsp;|&nbsp; &#127760; primeepcdesign.co.uk</p>
+  </td></tr>
+
+</table>
+</td></tr></table>
+</body></html>`
 
     // Send both emails
     await Promise.all([
       transporter.sendMail({
         from: FROM_EMAIL,
         to: ADMIN_EMAIL,
-        subject: `New Booking — ${name} — ${dateStr}`,
+        subject: `New Booking \u2014 ${name} \u2014 ${dateStr}`,
         html: adminHtml
       }),
       transporter.sendMail({
         from: FROM_EMAIL,
         to: email,
-        subject: 'Booking Confirmed — Prime EPC and Design Consultants',
+        subject: 'Booking Confirmed \u2014 Prime EPC and Design Consultants',
         html: userHtml
       })
     ])
@@ -208,7 +275,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
   }
 })
 
-// ─────────────────────────────────────────────────────────────────────────
+
 // POST /api/email/send-contact-form
 // Body: { name, email, phone, service, message }
 // Bot protection: honeypot checked in frontend; rate limiting via express-rate-limit
