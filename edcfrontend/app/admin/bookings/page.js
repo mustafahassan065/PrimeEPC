@@ -434,8 +434,8 @@ export default function AdminBookings() {
                           </div>
                           <div>
                             <p className="font-medium text-gray-800 text-sm">{b.name}</p>
-                            <p className="text-xs text-gray-400">{b.email}</p>
-                            <p className="text-xs text-gray-400">{b.phone}</p>
+                            {b.email && <a href={`mailto:${b.email}`} className="text-xs text-blue-500 hover:underline block">{b.email}</a>}
+                            {b.phone && <a href={`tel:${b.phone}`} className="text-xs text-green-600 hover:underline block">{b.phone}</a>}
                           </div>
                         </div>
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full capitalize flex-shrink-0 ${statusColor(b.status)}`}>{b.status}</span>

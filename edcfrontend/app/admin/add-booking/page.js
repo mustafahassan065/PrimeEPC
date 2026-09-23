@@ -6,20 +6,7 @@ import Link from 'next/link'
 
 const API_URL = 'https://primeepcdesign.co.uk'
 
-const PRICE_MAP = {
-  '1 bed. £50': 50, '2 bed. £55': 55, '3 bed. £60': 60,
-  '4 bed. £65': 65, '5 bed. £70': 70, '6 bed. £75': 75,
-  '6+ bedroom contact for quotation': 0,
-  '0 -540 ft square (0 – 50 square metre) £144': 144,
-  '540-1070 ft square (51 -100 square metres) £180': 180,
-  '1070-1610 ft square (101 – 150 square metres) £228': 228,
-  '1610 – 2150 ft square (151 - 200 square metres) £264': 264,
-  '2150-2690 ft square (201- 250 square metres) £312': 312,
-  '2690 – 3230 ft square (251 – 300 square metres) £360': 360,
-  '1 Bedroom Flat £110': 110, '2 Bedroom Flat £120': 120,
-  '2 Bedroom House £130': 130, '3 Bedroom House £140': 140,
-  '4 Bedroom House £160': 160, '5 Bedroom House £180': 180,
-}
+
 
 const navItems = [
   { label:'Dashboard',   href:'/admin/dashboard',   icon:'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -44,21 +31,7 @@ export default function AddBookingPage() {
     notes: ''
   })
 
-  const domesticOptions = [
-    '1 bed. £50','2 bed. £55','3 bed. £60','4 bed. £65','5 bed. £70','6 bed. £75','6+ bedroom contact for quotation'
-  ]
-  const commercialOptions = [
-    '0 -540 ft square (0 – 50 square metre) £144','540-1070 ft square (51 -100 square metres) £180',
-    '1070-1610 ft square (101 – 150 square metres) £228','1610 – 2150 ft square (151 - 200 square metres) £264',
-    '2150-2690 ft square (201- 250 square metres) £312','2690 – 3230 ft square (251 – 300 square metres) £360'
-  ]
-  const eicrOptions = [
-    '1 Bedroom Flat £110','2 Bedroom Flat £120','2 Bedroom House £130',
-    '3 Bedroom House £140','4 Bedroom House £160','5 Bedroom House £180'
-  ]
 
-  const options = form.propertyType === 'domestic' ? domesticOptions
-    : form.propertyType === 'eicr' ? eicrOptions : commercialOptions
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -67,9 +40,7 @@ export default function AddBookingPage() {
       return
     }
     const updated = { ...form, [name]: value }
-    if (name === 'propertyDetails') {
-      updated.amount = PRICE_MAP[value] || ''
-    }
+    // amount handled directly by number input
     setForm(updated)
   }
 
@@ -227,22 +198,20 @@ export default function AddBookingPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Property / Price *</label>
-                  <select name="propertyDetails" value={form.propertyDetails} onChange={handleChange} required
-                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837] bg-white">
-                    <option value="">Select option</option>
-                    {options.map((o,i) => <option key={i} value={o}>{o}</option>)}
-                  </select>
+                  <label className="block text-sm text-gray-600 mb-1">Price (£) *</label>
+                  <input type="number" name="amount" value={form.amount} onChange={handleChange} required min="0"
+                    placeholder="e.g. 55"
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
                 </div>
               </div>
 
-              {/* Price display */}
-              {form.amount > 0 && (
-                <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                  <span className="text-sm text-gray-600">Assessment fee</span>
-                  <span className="text-lg font-semibold text-[#016837]">£{form.amount}</span>
-                </div>
-              )}
+              {/* Property details — manual free text */}
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">Property Details *</label>
+                <input type="text" name="propertyDetails" value={form.propertyDetails} onChange={handleChange} required
+                  placeholder="e.g. 3 bed semi-detached, 2 bed flat, Office 150m²"
+                  className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+              </div>
 
               {/* Address */}
               <div>
