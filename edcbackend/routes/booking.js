@@ -109,15 +109,7 @@ router.post('/create', async (req, res) => {
 // Get all bookings (Admin only)
 router.get('/admin/bookings', auth, async (req, res) => {
   try {
-    const bookings = await Booking.findAll({
-      order: [['createdAt', 'DESC']],
-      include: [{
-        model: Schedule,
-        as: 'slot',
-        attributes: ['startTime', 'endTime'],
-        required: false
-      }]
-    });
+    const bookings = await Booking.findAll({ order: [['createdAt', 'DESC']] });
     res.json({ success: true, data: bookings });
   } catch (error) {
     console.error('Get bookings error:', error);
