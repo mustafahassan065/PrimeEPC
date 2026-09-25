@@ -107,7 +107,7 @@ export default function AdminBookings() {
     setEditBooking(b)
     const d = new Date(b.preferredDate)
     const dateStr = d.toISOString().split('T')[0]
-    const timeStr = d.toTimeString().slice(0,5)
+    const timeStr = d.toISOString().split('T')[1].slice(0,5)
     setEditForm({
       name: b.name || '',
       email: b.email || '',
@@ -370,7 +370,10 @@ export default function AdminBookings() {
                           </td>
                           <td className="px-5 py-3 whitespace-nowrap">
                             <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})}</p>
-                            <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}</p>
+                            <p className="text-xs text-gray-400">
+                              {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
+                              {b.slot?.endTime ? ` – ${b.slot.endTime}` : ''}
+                            </p>
                           </td>
                           <td className="px-5 py-3">
                             <p className="text-gray-700 capitalize text-xs">{b.paymentMethod || 'cash'}</p>
@@ -453,7 +456,10 @@ export default function AdminBookings() {
                         </div>
                         <div className="flex gap-2 text-xs">
                           <span className="text-gray-400 w-16 flex-shrink-0">Date</span>
-                          <span className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}</span>
+                          <span className="text-gray-700">
+                            {new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
+                            {b.slot?.endTime ? ` – ${b.slot.endTime}` : ''}
+                          </span>
                         </div>
                         {b.amount > 0 && (
                           <div className="flex gap-2 text-xs">

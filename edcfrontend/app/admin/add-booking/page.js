@@ -57,7 +57,7 @@ export default function AddBookingPage() {
     try {
       const token = localStorage.getItem('adminToken')
       const propertyAddress = [form.doorNumber, form.addressLine1, form.city].filter(Boolean).join(', ')
-      const preferredDate = form.date && form.time ? `${form.date}T${form.time}` : form.date
+      const preferredDate = form.date && form.time ? `${form.date}T${form.time}:00` : form.date
 
       const res = await fetch(`${API_URL}/api/booking/create`, {
         method: 'POST',
