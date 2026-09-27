@@ -372,7 +372,10 @@ export default function AdminBookings() {
                             <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})}</p>
                             <p className="text-xs text-gray-400">
                               {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
-                              {b.slot?.endTime ? ` – ${b.slot.endTime}` : ''}
+                              {b.slot?.endTime
+                                ? ` – ${b.slot.endTime}`
+                                : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
+                              }
                             </p>
                           </td>
                           <td className="px-5 py-3">
@@ -458,7 +461,10 @@ export default function AdminBookings() {
                           <span className="text-gray-400 w-16 flex-shrink-0">Date</span>
                           <span className="text-gray-700">
                             {new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
-                            {b.slot?.endTime ? ` – ${b.slot.endTime}` : ''}
+                            {b.slot?.endTime
+                              ? ` – ${b.slot.endTime}`
+                              : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
+                            }
                           </span>
                         </div>
                         {b.amount > 0 && (

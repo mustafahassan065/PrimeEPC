@@ -276,8 +276,8 @@ export default function AdminDashboard() {
                         <p className="text-xs text-gray-400 max-w-[180px] whitespace-normal break-words">{b.propertyAddress}</p>
                       </td>
                       <td className="px-5 py-3 whitespace-nowrap">
-                        <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
-                        <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</p>
+                        <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</p>
+                        <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}</p>
                       </td>
                       <td className="px-5 py-3">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full capitalize ${statusColor(b.status)}`}>{b.status}</span>
