@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     siteName: 'Prime EPC & Design Consultants',
     locale: 'en_GB',
     type: 'website',
-    images: [{ url: '/images/logo3.png', width: 800, height: 600, alt: 'Prime EPC & Design Consultants' }],
+    images: [{ url: '/images/logo4.jpeg', width: 800, height: 600, alt: 'Prime EPC & Design Consultants' }],
   },
   twitter: { card: 'summary_large_image' },
-  icons: { icon: '/images/logo3.png', apple: '/images/logo3.png' },
+  icons: { icon: '/images/logo4.jpeg', apple: '/images/logo4.jpeg' },
   verification: { google: 'mQxn7SVa8G1rV70dryF0VWbsfZKSAj11i2zR7MgFCTk' },
 }
 
