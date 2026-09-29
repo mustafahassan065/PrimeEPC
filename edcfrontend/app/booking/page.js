@@ -14,7 +14,11 @@ const API_URL = 'https://primeepcdesign.co.uk'
 const STRIPE_PUBLISHABLE_KEY = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
 
-const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
+let stripePromise = null
+const getStripe = () => {
+  if (!stripePromise) stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY)
+  return stripePromise
+}
 
 // ── Price map (Option B — clean, no regex risk) ───────────────────────────
 const PRICE_MAP = {
@@ -802,7 +806,7 @@ export default function BookingPage() {
     </div>
   ) : stripeClientSecret ? (
     <Elements
-      stripe={stripePromise}
+      stripe={getStripe()}
       options={{
         clientSecret: stripeClientSecret,
         appearance: { theme: 'none' }

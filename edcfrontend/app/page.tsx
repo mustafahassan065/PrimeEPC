@@ -158,7 +158,7 @@ export default function Home() {
       {/* ── Hero Section ── */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Greater Manchester" fill priority className="object-cover object-center" sizes="100vw" />
+          <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Greater Manchester" fill priority fetchPriority="high" decoding="sync" className="object-cover object-center" sizes="(max-width: 768px) 100vw, 100vw" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#80C531]/70 via-[#016837]/80 to-[#016837]/90"></div>
         <div className="absolute inset-0 overflow-hidden z-[1]">
