@@ -51,10 +51,11 @@ export default function Header() {
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
               src="/images/logo3.png"
-              alt="Prime EPC Logo"
+              alt="Prime EPC and Design Consultants"
               width={180}
               height={48}
               priority
+              fetchPriority="high"
               className="h-10 lg:h-12 w-auto"
             />
           </Link>
@@ -65,9 +66,9 @@ export default function Header() {
             <Link href="/about" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">About</Link>
             <Link href="/why-us" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Why Us</Link>
             <div className="relative group">
-              <button className="text-[#282828] hover:text-[#016837] font-medium text-sm xl:text-base whitespace-nowrap flex items-center gap-1" aria-haspopup="true">
+              <button className="text-[#282828] hover:text-[#016837] font-medium text-sm xl:text-base whitespace-nowrap flex items-center gap-1" aria-haspopup="true" aria-label="Services menu">
                 Services
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>
               </button>
               <div className="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white shadow-xl rounded-xl py-2 w-48 z-50 border border-gray-100">
                 {services.map((s) => (
@@ -92,8 +93,10 @@ export default function Header() {
           <button
             className="lg:hidden text-[#282828]"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
