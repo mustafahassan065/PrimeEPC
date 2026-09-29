@@ -1,4 +1,5 @@
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -40,20 +41,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-GB">
       <head>
-        {/* Google Tag — GA4 + Google Ads */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-2E8V6DX7ZB"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-2E8V6DX7ZB');
-              gtag('config', 'AW-18180554443');
-              gtag('config', 'GT-K4LVL5MM');
-            `
-          }}
-        />
+        {/* Preload hero image — LCP fix */}
+        <link rel="preload" as="image" href="/images/bg.avif" type="image/avif" />
       </head>
       <body className={inter.className}>
         <LocalBusinessSchema />
@@ -61,6 +50,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className="pb-16 md:pb-0">{children}</main>
         <Footer />
         <MobileStickyBar />
+        {/* Google Tag — lazyOnload so it doesn't block render */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-2E8V6DX7ZB"
+          strategy="lazyOnload"
+        />
+        <Script id="gtag-init" strategy="lazyOnload">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2E8V6DX7ZB');
+            gtag('config', 'AW-18180554443');
+            gtag('config', 'GT-K4LVL5MM');
+          `}
+        </Script>
       </body>
     </html>
   )
