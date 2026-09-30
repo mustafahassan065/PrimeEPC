@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import type { ChangeEvent } from 'react'
 import Link from 'next/link'
 
 export default function BulkEpcPage() {
@@ -20,12 +21,13 @@ export default function BulkEpcPage() {
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://www.primeepcdesign.co.uk'
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target
+    const checked = (e.target as HTMLInputElement).checked
     setForm({ ...form, [name]: type === 'checkbox' ? checked : value })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.agreed) { setError('Please agree to the privacy policy and terms.'); return }
     setLoading(true)
