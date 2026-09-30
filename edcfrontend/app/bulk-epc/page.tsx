@@ -13,13 +13,12 @@ export default function BulkEpcPage() {
     email: '',
     phone: '',
     additionalInfo: '',
-    agreed: false,
   })
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://www.primeepcdesign.co.uk'
+  const API_URL = 'https://www.primeepcdesign.co.uk'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target
@@ -29,7 +28,6 @@ export default function BulkEpcPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.agreed) { setError('Please agree to the privacy policy and terms.'); return }
     setLoading(true)
     setError('')
     try {
@@ -64,14 +62,14 @@ export default function BulkEpcPage() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-              <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">DISCOUNTED EPC ORDERS FOR LANDLORDS &amp; AGENTS</span>
+              <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">DISCOUNTED RATES FOR MULTIPLE PROPERTIES</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
               <span className="block text-white">Bulk EPC Orders</span>
               <span className="block text-[#80C531]">Save More, Order More</span>
             </h1>
             <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Landlords, letting agents and property developers — get significant discounts on multiple EPCs across Greater Manchester and the North West. Fast turnaround, fully accredited assessors.
+              Landlords, letting agents and property developers — get discounted rates on multiple EPCs. Standard EPC from <strong className="text-[#80C531]">£50</strong> — the more properties you book, the more you save. Fast turnaround, fully accredited assessors across Greater Manchester and the North West.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#bulk-form" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg">
@@ -93,6 +91,14 @@ export default function BulkEpcPage() {
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📦 BULK EPC ORDERS</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-4">Request a Bulk EPC Quote</h2>
               <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fill in the form and we will get back to you within 1 working day with a tailored quote and discounted pricing.</p>
+              <div className="flex flex-wrap justify-center gap-4 mt-6">
+                {[['£50', 'Standard EPC'],['Discounted','Bulk Rates'],['24-48h','Turnaround'],['100%','Accredited']].map(([val, label], i) => (
+                  <div key={i} className="bg-white rounded-2xl px-5 py-3 shadow-sm border border-gray-100 text-center">
+                    <p className="text-xl font-black text-[#016837]">{val}</p>
+                    <p className="text-xs text-gray-500">{label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -187,15 +193,6 @@ export default function BulkEpcPage() {
                         placeholder="Any specific requirements? (e.g. floor plans needed, urgent turnaround, HMO licensing, etc.)"
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#016837] transition-colors resize-none"/>
                       <p className="text-right text-xs text-gray-400 mt-1">{form.additionalInfo.length}/500</p>
-                    </div>
-
-                    {/* Terms */}
-                    <div className="flex items-start gap-3">
-                      <input type="checkbox" name="agreed" checked={form.agreed} onChange={handleChange}
-                        className="mt-1 w-4 h-4 accent-[#016837]" id="bulk-terms"/>
-                      <label htmlFor="bulk-terms" className="text-sm text-[#282828] opacity-80">
-                        I agree to the <Link href="/privacy" className="text-[#016837] underline hover:no-underline">privacy policy</Link> and <Link href="/terms" className="text-[#016837] underline hover:no-underline">terms of service</Link>.
-                      </label>
                     </div>
 
                     {error && <p className="text-red-500 text-sm bg-red-50 px-4 py-3 rounded-xl">{error}</p>}

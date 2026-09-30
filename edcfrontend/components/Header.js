@@ -11,6 +11,7 @@ export default function Header() {
     { href: '/domestic-epc', label: 'Domestic EPC' },
     { href: '/commercial-epc', label: 'Commercial EPC' },
     { href: '/eicr', label: 'EICR' },
+    { href: '/floor-plans-drafting', label: 'Floor Plans' },
     { href: '/bulk-epc', label: 'Bulk EPC Orders' },
     
   ]
