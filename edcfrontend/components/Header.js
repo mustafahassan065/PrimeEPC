@@ -11,7 +11,7 @@ export default function Header() {
     { href: '/domestic-epc', label: 'Domestic EPC' },
     { href: '/commercial-epc', label: 'Commercial EPC' },
     { href: '/eicr', label: 'EICR' },
-    { href: '/floor-plans-drafting', label: 'Floor Plans' },
+    { href: '/bulk-epc', label: 'Bulk EPC Orders' },
     
   ]
 
@@ -76,7 +76,7 @@ export default function Header() {
               </div>
             </div>
             <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Areas We Serve</Link>
-            <Link href="/floor-plans-drafting" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Floor Plans & Drafting</Link>
+            <Link href="/bulk-epc" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Bulk EPC Orders</Link>
             <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Blog</Link>
             <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">FAQs</Link>
            
