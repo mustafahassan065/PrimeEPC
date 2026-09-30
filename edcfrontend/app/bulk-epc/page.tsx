@@ -31,7 +31,14 @@ export default function BulkEpcPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch(`${API_URL}/api/bulk-order/create`, {
+      // Save to database
+      await fetch(`${API_URL}/api/bulk-order/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      // Send confirmation emails
+      const res = await fetch(`${API_URL}/api/email/send-bulk-epc`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

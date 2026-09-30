@@ -13,6 +13,17 @@ router.post('/create', async (req, res) => {
     const order = await BulkOrder.create({
       name, email, phone, propertyType, numberOfProperties, postcodes, additionalInfo
     });
+
+    // Send email via email route
+    try {
+      const fetch = require('node-fetch');
+      await fetch('http://localhost:5000/api/email/send-bulk-epc', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, propertyType, numberOfProperties, postcodes, additionalInfo })
+      });
+    } catch (e) { console.error('Bulk email error:', e.message); }
+
     res.json({ success: true, message: 'Quote request submitted successfully', data: order });
   } catch (error) {
     console.error('Bulk order create error:', error);
