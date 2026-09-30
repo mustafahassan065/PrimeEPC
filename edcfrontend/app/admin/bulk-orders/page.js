@@ -13,6 +13,8 @@ export default function BulkOrdersPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
 
+  const API_URL = 'https://www.primeepcdesign.co.uk'
+
   useEffect(() => {
     const token = localStorage.getItem('adminToken')
     if (!token) { router.push('/admin/login'); return }
@@ -21,13 +23,13 @@ export default function BulkOrdersPage() {
 
   const fetchOrders = async (token) => {
     try {
-      const res = await fetch(`${API_URL}/api/email/bulk-orders`, {
+      const res = await fetch(`${API_URL}/api/bulk-order/admin/all`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (res.status === 401) { router.push('/admin/login'); return }
       const data = await res.json()
       if (data.success) setOrders(data.data || [])
-      else setError('Failed to fetch bulk orders')
+      else setError('No bulk orders yet.')
     } catch { setError('Unable to connect.') }
     setLoading(false)
   }
@@ -95,7 +97,7 @@ export default function BulkOrdersPage() {
           ) : orders.length === 0 ? (
             <div className="bg-white rounded-2xl p-12 text-center border border-gray-100">
               <p className="text-4xl mb-3">📦</p>
-              <p className="text-gray-500">No bulk EPC orders yet.</p>
+              <p className="text-gray-500 text-sm">No bulk EPC quote requests yet.</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -104,17 +106,18 @@ export default function BulkOrdersPage() {
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                     <div>
                       <p className="font-semibold text-gray-800 text-base">{order.name}</p>
-                      <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</p>
+                      <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
                     </div>
                     <span className="bg-[#f0fdf4] text-[#016837] text-xs font-semibold px-3 py-1 rounded-full border border-[#86efac]">
                       {order.numberOfProperties} properties
                     </span>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     <div><p className="text-xs text-gray-400">Email</p><a href={`mailto:${order.email}`} className="text-blue-500 hover:underline text-xs">{order.email}</a></div>
                     <div><p className="text-xs text-gray-400">Phone</p><a href={`tel:${order.phone}`} className="text-green-600 hover:underline text-xs">{order.phone}</a></div>
-                    <div><p className="text-xs text-gray-400">Property Type</p><p className="font-medium text-xs text-gray-700">{order.propertyType}</p></div>
+                    <div><p className="text-xs text-gray-400">Property Type</p><p className="font-medium text-xs text-gray-700 capitalize">{order.propertyType}</p></div>
                     <div><p className="text-xs text-gray-400">Postcodes</p><p className="font-medium text-xs text-gray-700">{order.postcodes || 'N/A'}</p></div>
+                    <div><p className="text-xs text-gray-400">Status</p><span className="text-xs font-semibold text-[#016837] capitalize">{order.status}</span></div>
                     {order.additionalInfo && (
                       <div className="col-span-2 md:col-span-3"><p className="text-xs text-gray-400">Notes</p><p className="text-xs text-gray-700">{order.additionalInfo}</p></div>
                     )}

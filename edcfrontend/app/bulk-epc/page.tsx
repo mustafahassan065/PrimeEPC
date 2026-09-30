@@ -31,7 +31,7 @@ export default function BulkEpcPage() {
     setLoading(true)
     setError('')
     try {
-      const res = await fetch(`${API_URL}/api/email/send-bulk-epc`, {
+      const res = await fetch(`${API_URL}/api/bulk-order/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -39,8 +39,8 @@ export default function BulkEpcPage() {
       const data = await res.json()
       if (data.success) setSuccess(true)
       else setError(data.message || 'Something went wrong. Please try again.')
-    } catch {
-      setError('Unable to submit. Please try again or call us directly.')
+    } catch (err) {
+      setError('Unable to submit. Please call us on 07308 658247.')
     }
     setLoading(false)
   }
