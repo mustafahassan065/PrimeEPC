@@ -687,4 +687,153 @@ router.post('/send-booking-update', async (req, res) => {
   }
 })
 
+
+// ─────────────────────────────────────────────────────────────────────────
+// POST /api/email/send-bulk-epc — Bulk EPC quote request
+// ─────────────────────────────────────────────────────────────────────────
+router.post('/send-bulk-epc', async (req, res) => {
+  try {
+    const { name, email, phone, propertyType, numberOfProperties, postcodes, additionalInfo } = req.body
+    if (!name || !email || !phone) return res.status(400).json({ success: false, message: 'Name, email and phone are required' })
+
+    const propTypeLabel = {
+      domestic: 'Domestic (Houses/Flats)', commercial: 'Commercial',
+      hmo: 'HMO', mixed: 'Mixed (Domestic + Commercial)', 'new-build': 'New Build'
+    }[propertyType] || propertyType
+
+    // ── Admin notification ─────────────────────────────────────────────
+    const adminHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:20px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;">
+  <tr><td style="background:#016837;padding:16px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td><p style="margin:0;font-size:18px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:10px;color:#80C531;text-transform:uppercase;letter-spacing:1px;">and Design Consultants</p></td>
+      <td align="right"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.7);">Bulk EPC Portal</p></td>
+    </tr></table>
+  </td></tr>
+  <tr><td style="background:#014d28;padding:14px 24px;">
+    <h1 style="margin:0;font-size:18px;font-weight:900;color:#ffffff;">📦 New Bulk EPC Quote Request</h1>
+    <p style="margin:2px 0 0;font-size:10px;color:#80C531;text-transform:uppercase;letter-spacing:1px;">Review and respond within 1 working day</p>
+  </td></tr>
+  <tr><td style="padding:20px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
+      <tr><td colspan="2" style="background:#f9fafb;padding:10px 16px;border-bottom:1px solid #e5e7eb;font-size:12px;font-weight:700;color:#016837;text-transform:uppercase;">Quote Details</td></tr>
+      ${[
+        ['👤','Name', name],
+        ['✉️','Email', email],
+        ['📞','Phone', phone],
+        ['🏠','Property Type', propTypeLabel],
+        ['🔢','Number of Properties', numberOfProperties],
+        ['📍','Postcodes / Areas', postcodes || 'Not specified'],
+        ...(additionalInfo ? [['📝','Additional Info', additionalInfo]] : []),
+      ].map(([icon, label, val]) => `
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td style="padding:10px 16px;width:38%;color:#6b7280;font-size:12px;">${icon} ${label}</td>
+        <td style="padding:10px 16px;color:#111827;font-weight:600;font-size:12px;">${val}</td>
+      </tr>`).join('')}
+    </table>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:14px;background:#f0fdf4;border-left:4px solid #016837;border-radius:0 6px 6px 0;">
+      <tr><td style="padding:12px 16px;">
+        <p style="margin:0;font-size:12px;font-weight:700;color:#016837;">🛡️ Action required</p>
+        <p style="margin:3px 0 0;font-size:11px;color:#4b7a5e;">Please respond to this quote request within 1 working day.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="background:#014d28;padding:12px 24px;">
+    <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);">📞 07308 658247 | ✉️ info@primeepcdesign.co.uk</p>
+  </td></tr>
+</table></td></tr></table></body></html>`
+
+    // ── Customer confirmation ──────────────────────────────────────────
+    const userHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f0f4f0;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f4f0;padding:20px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;">
+  <tr><td style="background:#016837;padding:20px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td><p style="margin:0;font-size:20px;font-weight:900;color:#ffffff;">PRIME EPC</p><p style="margin:2px 0 0;font-size:11px;color:#80C531;letter-spacing:1.5px;text-transform:uppercase;">and Design Consultants</p></td>
+      <td align="right"><p style="margin:0;font-size:11px;color:rgba(255,255,255,0.8);line-height:1.7;">Your Property.<br>Our Expertise.<br><span style="color:#80C531;font-style:italic;">A Greener Tomorrow.</span></p></td>
+    </tr></table>
+  </td></tr>
+  <tr><td style="padding:28px 24px 20px;">
+    <table cellpadding="0" cellspacing="0"><tr>
+      <td style="width:60px;height:60px;background:#016837;border-radius:50%;text-align:center;vertical-align:middle;">
+        <span style="color:white;font-size:28px;line-height:60px;">✓</span>
+      </td>
+      <td style="padding-left:16px;vertical-align:middle;">
+        <h1 style="margin:0;font-size:26px;font-weight:900;color:#016837;line-height:1.2;">Quote Request<br>Received!</h1>
+      </td>
+    </tr></table>
+    <p style="margin:16px 0 4px;font-size:14px;color:#374151;">Hi <strong>${name}</strong>,</p>
+    <p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#111827;">Thank you for your bulk EPC quote request.</p>
+    <p style="margin:4px 0 16px;font-size:13px;color:#6b7280;">We have received your request and will get back to you within <strong>1 working day</strong> with a tailored quote.</p>
+  </td></tr>
+  <tr><td style="padding:0 24px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fffe;border:1px solid #d1ead8;border-radius:10px;overflow:hidden;">
+      <tr><td style="padding:14px 18px;border-bottom:2px solid #016837;">
+        <p style="margin:0;font-size:13px;font-weight:800;color:#016837;text-transform:uppercase;letter-spacing:0.5px;">📦 Your Quote Summary</p>
+      </td></tr>
+      <tr><td style="padding:12px 18px;border-bottom:1px solid #e8f4ee;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">🏠</td><td style="padding-left:10px;width:38%;color:#6b7280;font-size:13px;">Property Type</td><td style="color:#111827;font-weight:600;font-size:13px;">${propTypeLabel}</td></tr></table></td></tr>
+      <tr><td style="padding:12px 18px;border-bottom:1px solid #e8f4ee;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">🔢</td><td style="padding-left:10px;width:38%;color:#6b7280;font-size:13px;">No. of Properties</td><td style="color:#111827;font-weight:600;font-size:13px;">${numberOfProperties}</td></tr></table></td></tr>
+      <tr><td style="padding:12px 18px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:28px;font-size:16px;">📍</td><td style="padding-left:10px;width:38%;color:#6b7280;font-size:13px;">Areas</td><td style="color:#111827;font-weight:600;font-size:13px;">${postcodes || 'Not specified'}</td></tr></table></td></tr>
+    </table>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;background:#f8fffe;border:1px solid #d1ead8;border-left:4px solid #016837;border-radius:0 8px 8px 0;padding:14px 18px;">
+      <tr><td>
+        <table cellpadding="0" cellspacing="0"><tr>
+          <td style="font-size:20px;">🌿</td>
+          <td style="padding-left:10px;"><p style="margin:0;font-size:13px;font-weight:700;color:#111827;">What happens next?</p><p style="margin:3px 0 0;font-size:12px;color:#6b7280;">Our team will review your request and contact you within 1 working day with a tailored quote and next steps.</p></td>
+        </tr></table>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="background:#014d28;padding:20px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+      <td style="text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">🛡️</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Trusted Experts</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">Accredited &amp; Compliant</p>
+      </td>
+      <td style="text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">💰</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Bulk Savings</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">Discounted Rates</p>
+      </td>
+      <td style="text-align:center;padding:0 8px;border-right:1px solid rgba(255,255,255,0.15);">
+        <p style="margin:0;font-size:18px;">⚡</p>
+        <p style="margin:4px 0 0;font-size:10px;font-weight:700;color:#80C531;">Fast Turnaround</p>
+        <p style="margin:2px 0 0;font-size:9px;color:rgba(255,255,255,0.5);">24-48 Hours</p>
+      </td>
+      <td style="text-align:center;padding:0 8px;">
+        <p style="margin:0;font-size:10px;font-weight:900;color:#80C531;">PRIME EPC</p>
+        <p style="margin:2px 0 0;font-size:8px;color:rgba(255,255,255,0.5);">&amp; Design Consultants</p>
+      </td>
+    </tr></table>
+  </td></tr>
+</table></td></tr></table></body></html>`
+
+    await Promise.all([
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: ADMIN_EMAIL,
+        subject: `Bulk EPC Quote — ${name} — ${numberOfProperties} properties`,
+        html: adminHtml
+      }),
+      transporter.sendMail({
+        from: FROM_EMAIL,
+        to: email,
+        subject: 'Bulk EPC Quote Request Received — Prime EPC and Design Consultants',
+        html: userHtml
+      })
+    ])
+
+    res.json({ success: true, message: 'Quote request submitted successfully' })
+  } catch (error) {
+    console.error('Bulk EPC email error:', error)
+    res.status(500).json({ success: false, message: error.message })
+  }
+})
+
 module.exports = router
