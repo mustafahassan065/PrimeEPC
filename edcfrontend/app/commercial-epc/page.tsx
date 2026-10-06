@@ -5,8 +5,8 @@ import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Commercial EPC Bolton & Manchester from £144' },
-  description: 'Non-domestic EPCs for shops, offices and industrial units in Bolton and Greater Manchester. MEES advice for commercial landlords. Fast quotes.',
+  title: { absolute: 'Commercial EPC Bolton & Manchester from £144 | Prime EPC' },
+  description: 'Non-domestic EPCs for shops, offices, warehouses, and industrial units. Commercial MEES compliance guidance. Transparent quotes from £144.',
   alternates: { canonical: '/commercial-epc' },
   openGraph: { url: '/commercial-epc' },
 }
@@ -34,11 +34,10 @@ export default function CommercialEpcPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Commercial EPC', path: '/commercial-epc' }]} />
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            Commercial EPC Assessments in Bolton &amp; Manchester
+            Commercial Energy Performance Assessments (Non-Domestic EPC)
           </h1>
           <p className="text-lg text-white/90 mb-8 max-w-2xl">
-            We carry out non-domestic EPCs for shops, offices, industrial units and mixed-use properties
-            across Greater Manchester. Prices start from <strong className="text-[#80C531]">£144</strong>. Fast turnaround, MEES advice included.
+            We carry out non-domestic EPCs for shops, offices, industrial units and mixed-use properties across Greater Manchester using government-approved SBEM software. Prices start from <strong className="text-[#80C531]">£144</strong>. Fast turnaround, MEES compliance guidance included.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Get a Quote</Link>
@@ -61,8 +60,8 @@ export default function CommercialEpcPage() {
       {/* Content */}
       <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
         <div>
-          <h2 className="text-3xl font-bold mb-4">Which commercial buildings need an EPC?</h2>
-          <p className="text-gray-600 leading-relaxed">A commercial EPC is required whenever a non-domestic building is sold, let or constructed. This includes retail units, offices, warehouses, factories, restaurants, pubs and mixed-use buildings. Buildings that are listed, temporary, or used for worship are exempt.</p>
+          <h2 className="text-3xl font-bold mb-4">Non-Domestic Certification &amp; SBEM Analysis</h2>
+          <p className="text-gray-600 leading-relaxed">Commercial EPCs are required by law whenever a commercial premises is constructed, sold, leased, or assigned across England and Wales. Our accredited Non-Domestic Energy Assessors survey Level 3 and Level 4 buildings — including retail premises, commercial offices, healthcare facilities, and industrial warehouses — using government-approved Simplified Building Energy Model (SBEM) software to assess activity zones, mechanical HVAC air systems, lighting lux efficiencies, and envelope thermal performance.</p>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-4">Commercial EPC levels explained</h2>
@@ -80,8 +79,8 @@ export default function CommercialEpcPage() {
           </div>
         </div>
         <div>
-          <h2 className="text-3xl font-bold mb-4">MEES for commercial landlords</h2>
-          <p className="text-gray-600 leading-relaxed">Commercial landlords in England and Wales cannot grant or renew a lease for a property rated below E. Properties rated F or G must be improved before letting. We include MEES compliance advice with every commercial EPC.</p>
+          <h2 className="text-3xl font-bold mb-4">Commercial MEES Regulations &amp; Financial Risk</h2>
+          <p className="text-gray-600 leading-relaxed">Under Minimum Energy Efficiency Standards (MEES) legislation, it is unlawful for commercial landlords to let or continue letting commercial properties with an EPC rating below Band E without a registered exemption on the PRS register. Penalties for non-compliance are severe, reaching up to £150,000 based on rateable value. We work with business owners, landlords, and commercial agents across Greater Manchester to identify energy risks, evaluate improvement costs, and secure compliant certifications.</p>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-4">Areas we cover</h2>

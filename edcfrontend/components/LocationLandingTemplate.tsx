@@ -9,6 +9,9 @@ interface LocationLandingTemplateProps {
   citySlug: string
   housingContext: string
   postcodes: string[]
+  neighbourhoods?: string
+  content?: string
+  content2?: string
 }
 
 export default function LocationLandingTemplate({
@@ -16,6 +19,9 @@ export default function LocationLandingTemplate({
   housingContext,
   postcodes,
   h1,
+  neighbourhoods,
+  content,
+  content2,
 }: LocationLandingTemplateProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
@@ -113,10 +119,9 @@ export default function LocationLandingTemplate({
             {h1 || `EPC ${cityName}: Energy Performance Certificates from £50`}
           </h1>
 
-          {/* Bio / Description — screenshot style */}
+          {/* Bio / Description */}
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6">
-            {cityName} is covered by Prime EPC for Energy Performance Certificates (EPC) and floorplans
-            for Residential and Commercial properties in {cityName}. {housingContext}
+            {content || housingContext}
           </p>
 
           {/* Postcode chips */}

@@ -6,9 +6,7 @@ import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
   title: { absolute: 'EICR Bolton & Manchester from £110 | Landlord Electrical Report' },
-  description:
-    'Electrical Installation Condition Reports for landlords, sellers and businesses in ' +
-    'Bolton and Greater Manchester. From £110. Book with your EPC and save a visit.',
+  description: 'Electrical Installation Condition Reports for landlords, sellers and businesses in Bolton and Greater Manchester. From £110. Book with your EPC and save.',
   alternates: { canonical: '/eicr' },
   openGraph: { url: '/eicr' },
 }
@@ -73,12 +71,26 @@ export default function EicrPage() {
       {/* Content */}
       <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
         <div>
-          <h2 className="text-3xl font-bold mb-4">Who needs an EICR?</h2>
-          <p className="text-gray-600 leading-relaxed">Since 1 July 2020, all private landlords in England must have an Electrical Installation Condition Report carried out at least every five years. An EICR is also recommended for anyone buying an older home, for HMO properties, and for businesses that need to demonstrate electrical safety under workplace legislation or for insurance purposes.</p>
+          <h2 className="text-3xl font-bold mb-4">Statutory Electrical Safety Standards for Private Landlords</h2>
+          <p className="text-gray-600 leading-relaxed">Under the Electrical Safety Standards in the Private Rented Sector (England) Regulations 2020, private landlords must have all electrical installations inspected and tested by a qualified person at intervals of no more than five years. A copy of the Electrical Installation Condition Report (EICR) must be supplied to existing tenants within 28 days of testing and provided to the local housing authority within 7 days upon formal request. Failure to comply can result in local council financial penalties of up to £30,000.</p>
         </div>
         <div>
-          <h2 className="text-3xl font-bold mb-4">What happens during the inspection</h2>
-          <p className="text-gray-600 leading-relaxed">Our qualified electrician will carry out a visual inspection and test every circuit in the property. This includes checking the consumer unit, earthing and bonding, RCD protection and the condition of sockets, switches and light fittings. The power will be switched off circuit by circuit during testing. You will receive your certificate by email within 24-48 hours.</p>
+          <h2 className="text-3xl font-bold mb-4">Understanding Electrical Observation Codes</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">During testing, our qualified electricians test consumer units, earthing, bonding, and fixed wiring circuits, recording any safety defects under standard classification codes:</p>
+          <div className="space-y-3">
+            {[
+              { code: 'Code C1 — Danger Present', desc: 'Immediate risk of injury or electric shock. Requires urgent make-safe action.' },
+              { code: 'Code C2 — Potentially Dangerous', desc: 'Critical safety issue requiring urgent remedial attention.' },
+              { code: 'Code FI — Further Investigation', desc: 'Unverified safety hazard requiring further diagnostic tracing.' },
+              { code: 'Code C3 — Improvement Recommended', desc: 'Non-compliance with modern 18th Edition wiring standards that does not present immediate danger.' },
+            ].map((item, i) => (
+              <div key={i} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <p className="font-bold text-[#016837] mb-1">{item.code}</p>
+                <p className="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-gray-600 leading-relaxed mt-4">If an EICR records any C1, C2, or FI observation, the overall outcome is declared Unsatisfactory. The landlord is legally required to complete necessary remedial repairs via a certified electrician within 28 days.</p>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-4">EICR prices in Bolton &amp; Manchester</h2>

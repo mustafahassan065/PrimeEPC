@@ -14,82 +14,82 @@ const cityMeta: Record<string, { title: string; h1: string; description: string 
   bolton: {
     title: 'EPC Bolton from £50 | Local Assessor, BL1-BL7 | Prime EPC',
     h1: 'EPC Bolton: Local Energy Performance Certificates from £50',
-    description: 'Accredited EPC assessor based in Bolton. Domestic EPC starting from  £50 fee for BL1-BL7. Book online for a 24-48 hour turnaround — no hidden fees.',
+    description: 'Bolton-based accredited EPC assessor. Fixed £50 domestic fee, commercial from £144, EICR from £110. Fast same-day and 24–48h delivery across all BL postcodes.',
+  },
+  bury: {
+    title: 'EPC Bury from £50 | Ramsbottom, Radcliffe | Prime EPC',
+    h1: 'EPC Bury: Local Energy Assessor for Homes & Landlords',
+    description: 'Accredited EPC certificates across Bury, Radcliffe, Whitefield, and Ramsbottom. Fixed £50 domestic fee, 24–48h lodgement. Direct assessor booking.',
   },
   manchester: {
     title: 'EPC Manchester from £50 | Accredited Assessor | Prime EPC',
-    h1: 'EPC Manchester: Energy Performance Certificates from £50',
-    description: 'Domestic and commercial EPC certificates across Manchester. Starting from £50 fee, accredited assessor, lodged on the national register within 24-48 hours.',
-  },
-  salford: {
-    title: 'EPC Salford from £50 | Eccles, Swinton, Quays | Prime EPC',
-    h1: 'EPC Salford: Certificates for Homes and Businesses',
-    description: 'EPC certificates across Salford, Eccles, Swinton and Salford Quays.Starting from £50 domestic fee. Accredited assessor, fast turnaround.',
+    h1: 'EPC Manchester: Accredited Energy Assessments Across Greater Manchester',
+    description: 'Domestic EPC in Manchester for £50, commercial from £144. Fast assessments for city centre flats, student HMOs, and residential sales across M postcodes.',
   },
   oldham: {
     title: 'EPC Oldham from £50 | Chadderton, Royton, Shaw | Prime EPC',
-    h1: 'EPC Oldham: Energy Performance Certificates',
-    description: 'Accredited EPC assessments across Oldham, Chadderton, Royton and Shaw. Starting from £50 domestic fee. Book online today.',
-  },
-  blackburn: {
-    title: 'EPC Blackburn from £50 | BB1-BB12 | Prime EPC',
-    h1: 'EPC Blackburn: Energy Performance Certificates from £50',
-    description: 'EPC certificates across Blackburn, Darwen and surrounding areas.Starting from £50 domestic fee. Accredited assessor, 24-48 hour turnaround.',
-  },
-  stockport: {
-    title: 'EPC Stockport from £50 | SK1-SK8 | Prime EPC',
-    h1: 'EPC Stockport: Accredited Energy Assessments',
-    description: 'Domestic and commercial EPC certificates across Stockport.Starting from £50 fee. Accredited assessor covering SK1 to SK8, fast digital certificate.',
+    h1: 'EPC Oldham: Local Energy Performance Certificates',
+    description: 'Book your domestic EPC in Oldham directly with an accredited assessor. Fixed £50 rate across OL1-OL9. 24–48 hour official national lodgement guaranteed.',
   },
   rochdale: {
     title: 'EPC Rochdale from £50 | Heywood, Middleton | Prime EPC',
-    h1: 'EPC Rochdale: Certificates for Sales and Lettings',
-    description: 'EPC assessments across Rochdale, Heywood and Middleton.Starting from £50 domestic fee. Fully accredited, 24-48 hour certificate turnaround.',
+    h1: 'EPC Rochdale: Energy Performance Surveys for Sales & Lettings',
+    description: 'Accredited EPC assessments in Rochdale, Heywood, and Middleton. Fixed £50 domestic fee, fast digital certificate delivery, zero agency commissions.',
   },
-  warrington: {
-    title: 'EPC Warrington from £50 | WA1-WA5 | Prime EPC',
-    h1: 'EPC Warrington: Energy Performance Certificates from £50',
-    description: 'Accredited EPC certificates across Warrington and Cheshire.Starting from £50 domestic fee, 24-48 hour turnaround. Book online today.',
+  salford: {
+    title: 'EPC Salford from £50 | Eccles, Swinton, Quays | Prime EPC',
+    h1: 'EPC Salford: Energy Certificates for Homes and Businesses',
+    description: 'Accredited EPC surveys across Salford, MediaCityUK, Eccles, and Swinton. Fixed £50 domestic fee, fast appointments, 24–48h certificate delivery.',
   },
-  liverpool: {
-    title: 'EPC Liverpool from £50 | Accredited Assessor | Prime EPC',
-    h1: 'EPC Liverpool: Energy Performance Certificates from £50',
-    description: 'Domestic and commercial EPC certificates across Liverpool and Merseyside.Starting from £50 fee. Accredited assessor, fast digital certificate.',
-  },
-  bury: {
-    title: 'EPC Bury from £50 | Radcliffe, Whitefield, Ramsbottom | Prime EPC',
-    h1: 'EPC Bury: Energy Performance Certificates from £50',
-    description: 'Accredited EPC certificates across Bury, Radcliffe, Whitefield, Prestwich and Ramsbottom.Starting from £50 domestic fee, 24-48 hour turnaround.',
+  stockport: {
+    title: 'EPC Stockport from £50 | SK1-SK8 | Prime EPC',
+    h1: 'EPC Stockport: Certified Energy Assessments for Landlords & Sellers',
+    description: 'Direct assessor booking across Stockport. Fixed £50 domestic EPC fee, commercial from £144. 24–48 hour turnaround for sellers and letting agents.',
   },
   tameside: {
     title: 'EPC Tameside from £50 | Ashton, Hyde, Stalybridge | Prime EPC',
-    h1: 'EPC Tameside: Energy Performance Certificates from £50',
-    description: 'EPC certificates across Tameside — Ashton-under-Lyne, Hyde, Stalybridge, Denton and Droylsden.Starting from £50 fee, accredited assessor.',
+    h1: 'EPC Tameside: Local Energy Performance Certificates from £50',
+    description: 'Accredited domestic and commercial EPCs across Tameside. Fixed £50 residential rate, fast 24–48h turnaround in Ashton-under-Lyne, Hyde, and Denton.',
   },
   trafford: {
     title: 'EPC Trafford from £50 | Altrincham, Sale, Stretford | Prime EPC',
-    h1: 'EPC Trafford: Energy Performance Certificates from £50',
-    description: 'Accredited EPC certificates across Trafford — Altrincham, Sale, Stretford, Urmston and Old Trafford.Starting from £50 domestic fee.',
+    h1: 'EPC Trafford: Energy Certificates for Homes & Commercial Buildings',
+    description: 'Accredited EPC certificates across Trafford including Altrincham, Sale, Stretford, and Urmston. Fixed £50 domestic fee, fast 24–48h register lodgement.',
   },
   wigan: {
-    title: 'EPC Wigan from £50 | Leigh, Atherton, Hindley | Prime EPC',
-    h1: 'EPC Wigan: Energy Performance Certificates from £50',
-    description: 'EPC certificates across Wigan, Leigh, Atherton, Hindley and Ashton-in-Makerfield.Starting from £50 domestic fee, 24-48 hour turnaround.',
+    title: 'EPC Wigan from £50 | Standish, Leigh, Orrell | Prime EPC',
+    h1: 'EPC Wigan: Fast Energy Performance Certificates from £50',
+    description: 'Certified domestic and commercial EPCs in Wigan from £50. Quick turnaround across WN1 to WN7 for home sellers and rental landlords.',
   },
-  'st-helens': {
-    title: 'EPC St Helens from £50 | Haydock, Prescot, Rainhill | Prime EPC',
-    h1: 'EPC St Helens: Energy Performance Certificates from £50',
-    description: 'Accredited EPC certificates across St Helens, Haydock, Prescot and Rainhill.Starting from £50 domestic fee, fast turnaround.',
+  blackburn: {
+    title: 'EPC Blackburn from £50 | Darwen, Accrington | Prime EPC',
+    h1: 'EPC Blackburn: Direct Energy Assessments Across BB Postcodes',
+    description: 'Accredited domestic EPCs across Blackburn and Darwen for a fixed £50 fee. Fast 24–48h certificate lodgement for landlords and private home sellers.',
   },
   chorley: {
-    title: 'EPC Chorley from £50 | Leyland, Adlington, Euxton | Prime EPC',
-    h1: 'EPC Chorley: Energy Performance Certificates from £50',
-    description: 'EPC certificates across Chorley, Leyland, Adlington, Euxton and Buckshaw Village.Starting from £50 domestic fee, accredited assessor.',
+    title: 'EPC Chorley from £50 | Adlington, Buckshaw | Prime EPC',
+    h1: 'EPC Chorley: Accredited Energy Assessor Across PR6 & PR7',
+    description: 'Local accredited EPC assessments in Chorley, Adlington, and Buckshaw Village. Fixed £50 fee with official national register lodgement.',
+  },
+  liverpool: {
+    title: 'EPC Liverpool from £50 | Merseyside Energy Certificates | Prime EPC',
+    h1: 'EPC Liverpool: Accredited Energy Assessments Across Merseyside',
+    description: 'Professional domestic and commercial EPCs across Liverpool and Merseyside. Fixed £50 domestic fee, fast 24–48h turnaround for landlords and sellers.',
   },
   rossendale: {
     title: 'EPC Rossendale from £50 | Rawtenstall, Bacup, Haslingden | Prime EPC',
     h1: 'EPC Rossendale: Energy Performance Certificates from £50',
-    description: 'Accredited EPC certificates across Rossendale, Rawtenstall, Bacup and Haslingden.Starting from £50 domestic fee, 24-48 hour turnaround.',
+    description: 'Local accredited energy assessments across the Rossendale Valley. Fixed £50 domestic rate, 24–48h certificate lodgement in Rawtenstall and Bacup.',
+  },
+  'st-helens': {
+    title: 'EPC St Helens from £50 | Haydock, Prescot, Rainhill | Prime EPC',
+    h1: 'EPC St Helens: Certified Energy Assessments for Sales & Lettings',
+    description: 'Accredited EPC certificates across St Helens, Haydock, Prescot, and Rainhill. Fixed £50 domestic fee with prompt 24–48h digital lodgement.',
+  },
+  warrington: {
+    title: 'EPC Warrington from £50 | Stockton Heath, Lymm | Prime EPC',
+    h1: 'EPC Warrington: Energy Performance Certificates from £50',
+    description: 'Professional EPC surveys across Warrington, Stockton Heath, Lymm, and Culcheth. Fixed £50 residential fee, fast lodgement, no agency mark-ups.',
   },
 }
 
@@ -173,6 +173,9 @@ export default async function DynamicLocationPage({ params }: Props) {
         housingContext={location.description}
         postcodes={location.postcodes.split(', ')}
         h1={meta.h1}
+        neighbourhoods={location.neighbourhoods}
+        content={location.content}
+        content2={location.content2}
       />
     </>
   );

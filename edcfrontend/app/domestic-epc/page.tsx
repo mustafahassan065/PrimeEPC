@@ -5,14 +5,14 @@ import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Domestic EPC Bolton & Manchester | £50 Fixed Price' },
-  description: 'Need an EPC to sell or let your home? Accredited assessor,Starting from £50, lodged within 24-48 hours across Greater Manchester. Book online today.',
+  title: { absolute: 'Domestic EPC Bolton & Manchester | From £50' },
+  description: 'Need an EPC to sell or let your home? Accredited assessor, rates from £50, official lodgement within 24-48 hours across Greater Manchester. Book online.',
   alternates: { canonical: '/domestic-epc' },
   openGraph: { url: '/domestic-epc' },
 }
 
 const faqs = [
-  { q: 'Do I need to be home during the EPC assessment?', a: 'Yes, someone needs to be present to give access to all rooms, the loft, and the boiler. The assessment takes around 30-45 minutes.' },
+  { q: 'Do I need to be home during the EPC assessment?', a: 'No. Provided access is arranged via an adult representative, on-site key safe, or direct key collection from your estate or letting agent, you do not need to attend.' },
   { q: 'How long is a domestic EPC valid for?', a: 'A domestic EPC is valid for 10 years. You can reuse an existing EPC if it was issued within the last 10 years and the property has not changed significantly.' },
   { q: 'Can I use an old EPC for a new tenancy?', a: 'Yes, as long as it is less than 10 years old and the property has not had significant improvements or changes since it was issued.' },
   { q: 'What if my EPC rating is low?', a: 'If your rating is F or G, you cannot legally let the property until it reaches at least E. We can advise on cost-effective improvements to raise your rating.' },
@@ -36,7 +36,7 @@ export default function DomesticEpcPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Domestic EPC', path: '/domestic-epc' }]} />
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            Domestic EPC for Homes in Bolton &amp; Greater Manchester
+            Domestic Energy Performance Certificates Across Greater Manchester
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any area across Greater Manchester.</p>
           <p className="text-white/80 mb-8 max-w-2xl">Whether you are selling, letting or remortgaging, we provide accredited Energy Performance Certificates lodged on the national register within 24-48 hours of inspection.</p>
@@ -61,7 +61,8 @@ export default function DomesticEpcPage() {
       {/* Content */}
       <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
         <div>
-          <h2 className="text-3xl font-bold mb-4">When do you need a domestic EPC?</h2>
+          <h2 className="text-3xl font-bold mb-4">When is a Domestic EPC Legally Mandatory?</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">An Energy Performance Certificate is required by law whenever a residential property is built, sold, or rented in the UK. If you are listing your property with an estate agent, private marketing portal, or letting agency, an EPC must be commissioned prior to marketing. The certificate remains valid for 10 years and grades building efficiency on an A to G scale, alongside a Standard Assessment Procedure (SAP) score from 1 to 100.</p>
           <ul className="space-y-2 text-gray-600">
             {['Selling your home — required before listing with an estate agent','Renting out a property — must be provided to tenants before they move in','Remortgaging — some lenders require a current EPC','New build completion — required before the property can be occupied'].map((item,i) => (
               <li key={i} className="flex items-start gap-2"><span className="text-[#016837] font-bold mt-0.5">✓</span><span>{item}</span></li>
@@ -69,8 +70,19 @@ export default function DomesticEpcPage() {
           </ul>
         </div>
         <div>
-          <h2 className="text-3xl font-bold mb-4">What does the assessor check?</h2>
-          <p className="text-gray-600 leading-relaxed">Our accredited domestic energy assessor will inspect the construction type, loft and wall insulation, glazing, heating system, hot water cylinder, lighting and any renewable technology. The assessment takes around 30-45 minutes for a standard house or flat. We just need access to all rooms, the loft hatch and the boiler.</p>
+          <h2 className="text-3xl font-bold mb-4">What Does the Assessor Check During the Inspection?</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">Our non-invasive on-site assessment takes approximately 30 to 50 minutes. Operating under standard RdSAP 10 methodology, our certified Domestic Energy Assessor evaluates:</p>
+          <ul className="space-y-2 text-gray-600">
+            {[
+              'Building Fabric & Construction: Wall types (solid stone, solid brick, or cavity brickwork), property age bands, extensions, and cavity wall insulation retrofits.',
+              'Roof Space & Loft Insulation: Measuring insulation depth at the loft hatch against the current 270mm standard, examining joist insulation, and checking party wall construction.',
+              'Space & Water Heating Systems: Main boiler make and model, fuel type, heating programmer controls, room thermostats, thermostatic radiator valves (TRVs), and hot water cylinder insulation.',
+              'Glazing & Draught Proofing: Window installation eras (single, pre-2002 double, or modern low-E double glazing) and secondary glazing seals.',
+              'Low-Carbon Technology & Lighting: Solar PV array output, domestic heat pumps, and the percentage of fixed low-energy LED lighting.',
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-2"><span className="text-[#016837] font-bold mt-0.5">•</span><span>{item}</span></li>
+            ))}
+          </ul>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-4">Understanding your EPC rating A to G</h2>
@@ -84,8 +96,9 @@ export default function DomesticEpcPage() {
           </div>
         </div>
         <div>
-          <h2 className="text-3xl font-bold mb-4">Improving your EPC rating</h2>
-          <p className="text-gray-600 leading-relaxed">Your EPC includes a list of recommended improvements and their estimated cost and saving. Common quick wins include switching to LED lighting, adding loft insulation to 270mm, installing a smart thermostat and upgrading to a modern condensing boiler. See our guide on <Link href="/blog/improve-epc-rating-manchester" className="text-[#016837] underline">improving your EPC rating</Link>.</p>
+          <h2 className="text-3xl font-bold mb-4">Understanding the Recommendation Report</h2>
+          <p className="text-gray-600 leading-relaxed mb-3">Every certificate comes with a detailed recommendation report indicating practical energy-saving measures. We walk through these recommendations on site, advising homeowners and landlords on affordable upgrades — such as topping up loft insulation to 270mm or fitting radiator thermostatic valves — that provide the greatest efficiency gain for your investment.</p>
+          <p className="text-gray-600 leading-relaxed">See our guide on <Link href="/blog/improve-epc-rating-manchester" className="text-[#016837] underline">improving your EPC rating</Link>.</p>
         </div>
         <div>
           <h2 className="text-3xl font-bold mb-4">Areas we cover</h2>

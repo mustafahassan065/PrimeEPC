@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'About Us | Accredited EPC Assessors Greater Manchester',
+  title: 'About Prime EPC | Accredited EPC Assessor in Bolton',
   description:
-    'Learn about Prime EPC & Design Consultant Ltd. Government-accredited Elmhurst, Stroma & Quidos certified domestic and commercial energy assessors across Greater Manchester.',
+    'Learn about Prime EPC & Design Consultants. Accredited energy assessors based at 17 Bromwich Street, Bolton. Fast, independent compliance.',
   keywords: [
     'About Prime EPC',
     'Accredited EPC Assessors Greater Manchester',
@@ -15,17 +15,17 @@ export const metadata: Metadata = {
     canonical: 'https://www.primeepcdesign.co.uk/about',
   },
   openGraph: {
-    title: 'About Us | Accredited EPC Assessors Greater Manchester & Bolton',
+    title: 'About Prime EPC | Accredited EPC Assessor in Bolton',
     description:
-      'Learn about Prime EPC & Design Consultant Ltd. Government-accredited energy assessors serving landlords & property owners across Greater Manchester.',
+      'Learn about Prime EPC & Design Consultants. Accredited energy assessors based at 17 Bromwich Street, Bolton. Fast, independent compliance.',
     url: 'https://www.primeepcdesign.co.uk/about',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us | Accredited EPC Assessors Greater Manchester',
+    title: 'About Prime EPC | Accredited EPC Assessor in Bolton',
     description:
-      'Government-accredited energy assessors serving landlords & property owners across Greater Manchester.',
+      'Accredited energy assessors based at 17 Bromwich Street, Bolton. Fast, independent compliance across Greater Manchester.',
   },
 }
 
