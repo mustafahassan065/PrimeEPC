@@ -474,39 +474,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-24 bg-gradient-to-b from-white to-[#F8F8F8]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY CHOOSE US</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Greater Manchester Landlords &amp; Estate Agents Trust Prime EPC</h2>
-            <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fast, accredited, and professional domestic &amp; commercial EPC services across Greater Manchester</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {[
-              { icon: '🚀', title: 'Fast 24-48h Turnaround', description: 'Get your official lodged EPC certificate within 24 to 48 hours of assessment with our express service', features: ['24-48 Hour Turnaround', 'Instant Online Booking', 'Direct National Register Lodgement'] },
-              { icon: '🏆', title: 'Accredited Energy Assessors', description: 'Our certified Elmhurst & Stroma assessors ensure 100% compliance with UK EPC and MEES standards', features: ['Government Accredited', 'DBS Checked Assessors', 'Fully Insured & Certified'] },
-              { icon: '📍', title: 'Greater Manchester Coverage', description: 'Serving domestic & commercial properties across Manchester, Bolton, Stockport, Salford, Oldham & Rochdale', features: ['50-Mile Service Radius', 'Flexible On-Site Visits', 'Local Knowledgeable Assessors'] },
-              { icon: '💷', title: 'Fixed Price Guarantee', description: 'Clear upfront pricing starting from £50 with zero hidden fees or unexpected call-out charges', features: ['Fixed Fee From £50', 'Transparent Quotes', 'No Hidden Costs'] }
-            ].map((feature, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-white group hover:border-[#80C531] transition-all duration-300 hover:shadow-xl">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center text-2xl text-white group-hover:scale-110 transition-transform duration-300 shadow-lg">{feature.icon}</div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-[#282828] mb-3">{feature.title}</h3>
-                    <p className="text-[#282828] opacity-90 mb-4 leading-relaxed">{feature.description}</p>
-                    <div className="space-y-2">
-                      {feature.features.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-[#282828]"><div className="w-2 h-2 bg-[#80C531] rounded-full"></div><span className="text-sm font-semibold">{item}</span></div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* 3-Step Process */}
       <section className="py-24 bg-gradient-to-br from-[#F8F8F8] via-white to-[#E1EED4]/50">
@@ -602,57 +570,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Reviews Section ── */}
-      <section className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">
-              ⭐ CUSTOMER REVIEWS
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-4">What Our Customers Say</h2>
-            <p className="text-xl text-[#282828] opacity-80 max-w-2xl mx-auto">Real reviews from verified customers across Greater Manchester</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {reviews.map((review, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col justify-between">
-                {/* Stars */}
-                <div>
-                  <div className="flex gap-0.5 mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <svg key={i} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <p className="text-gray-700 text-sm leading-relaxed mb-6">{review.text}</p>
-                </div>
-                {/* Reviewer */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center">
-                      <span className="text-xs font-semibold text-gray-600">{review.initials}</span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-gray-800">{review.name}</p>
-                      <p className="text-xs text-gray-400">{review.location}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
-                      <path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z" fill="#4285F4" />
-                    </svg>
-                    <span className="text-xs text-gray-400 font-medium">{review.source}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          
-          
-        </div>
-      </section>
+      
 
       {/* FAQ Section */}
       <section id="faqs" className="py-24 bg-gradient-to-b from-[#F8F8F8] to-white">
