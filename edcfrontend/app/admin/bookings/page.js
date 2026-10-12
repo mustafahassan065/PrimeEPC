@@ -107,7 +107,7 @@ export default function AdminBookings() {
     setEditBooking(b)
     const d = new Date(b.preferredDate)
     const dateStr = d.toISOString().split('T')[0]
-    const timeStr = d.toTimeString().slice(0,5)
+    const timeStr = d.toISOString().split('T')[1].slice(0,5)
     setEditForm({
       name: b.name || '',
       email: b.email || '',
@@ -354,8 +354,8 @@ export default function AdminBookings() {
                               </div>
                               <div>
                                 <p className="font-medium text-gray-800">{b.name}</p>
-                                <p className="text-xs text-gray-400">{b.email}</p>
-                                <p className="text-xs text-gray-400">{b.phone}</p>
+                                {b.email && <a href={`mailto:${b.email}`} className="text-xs text-blue-500 hover:underline block">{b.email}</a>}
+                                {b.phone && <a href={`tel:${b.phone}`} className="text-xs text-green-600 hover:underline block">{b.phone}</a>}
                               </div>
                             </div>
                           </td>
@@ -369,8 +369,14 @@ export default function AdminBookings() {
                             <p className="text-xs text-gray-400 font-mono mt-0.5">{b.postcode}</p>
                           </td>
                           <td className="px-5 py-3 whitespace-nowrap">
-                            <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
-                            <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</p>
+                            <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})}</p>
+                            <p className="text-xs text-gray-400">
+                              {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
+                              {b.slot?.endTime
+                                ? ` – ${b.slot.endTime}`
+                                : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
+                              }
+                            </p>
                           </td>
                           <td className="px-5 py-3">
                             <p className="text-gray-700 capitalize text-xs">{b.paymentMethod || 'cash'}</p>
@@ -434,8 +440,8 @@ export default function AdminBookings() {
                           </div>
                           <div>
                             <p className="font-medium text-gray-800 text-sm">{b.name}</p>
-                            <p className="text-xs text-gray-400">{b.email}</p>
-                            <p className="text-xs text-gray-400">{b.phone}</p>
+                            {b.email && <a href={`mailto:${b.email}`} className="text-xs text-blue-500 hover:underline block">{b.email}</a>}
+                            {b.phone && <a href={`tel:${b.phone}`} className="text-xs text-green-600 hover:underline block">{b.phone}</a>}
                           </div>
                         </div>
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full capitalize flex-shrink-0 ${statusColor(b.status)}`}>{b.status}</span>
@@ -453,7 +459,13 @@ export default function AdminBookings() {
                         </div>
                         <div className="flex gap-2 text-xs">
                           <span className="text-gray-400 w-16 flex-shrink-0">Date</span>
-                          <span className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</span>
+                          <span className="text-gray-700">
+                            {new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
+                            {b.slot?.endTime
+                              ? ` – ${b.slot.endTime}`
+                              : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
+                            }
+                          </span>
                         </div>
                         {b.amount > 0 && (
                           <div className="flex gap-2 text-xs">
@@ -470,6 +482,15 @@ export default function AdminBookings() {
                             <option value="completed">Completed</option>
                             <option value="cancelled">Cancelled</option>
                           </select>
+                          <button
+                            onClick={() => openEdit(b)}
+                            title="Edit booking"
+                            className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                          </button>
                           <button
                             onClick={() => deleteBooking(b.id, b.name)}
                             className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"

@@ -43,6 +43,7 @@ async function initializeDatabase() {
       const Schedule = require('./models/Schedule');
       const Contact = require('./models/Contact');
 
+      const BulkOrder = require('./models/BulkOrder');
       await sequelize.sync({ alter: true });
       console.log('✅ All database tables synchronized with PostgreSQL');
 
@@ -108,7 +109,8 @@ app.use('/api/admin',   require('./routes/admin'));
 app.use('/api/auth',    require('./routes/auth'));
 app.use('/api/booking', require('./routes/booking'));
 app.use('/api/payment', require('./routes/payment'));   // ✅ Stripe + PayPal backend
-app.use('/api/email',   require('./routes/email'));
+app.use('/api/email',      require('./routes/email'));
+app.use('/api/bulk-order', require('./routes/bulkOrder'));
 
 // Health Check
 app.get('/api/health', async (req, res) => {

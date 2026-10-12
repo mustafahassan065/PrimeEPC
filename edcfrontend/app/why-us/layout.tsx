@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Why Choose Prime EPC | Greater Manchester's Trusted Energy Assessors",
+  title: 'Why Choose Prime EPC | Bolton EPC & EICR Specialists',
   description:
-    'Discover why landlords and property managers trust Prime EPC. Accredited assessors, transparent pricing from £50, 24-48h turnaround, and 4.9-star rating across Greater Manchester.',
+    'Discover the Prime EPC advantage: direct assessor booking, rates from £50, fast 24-48h lodgement, and combined EPC and EICR surveys in one visit.',
   keywords: [
     'Why Choose Prime EPC',
     'Best EPC Assessor Greater Manchester',
@@ -15,17 +15,17 @@ export const metadata: Metadata = {
     canonical: 'https://www.primeepcdesign.co.uk/why-us',
   },
   openGraph: {
-    title: "Why Choose Prime EPC | Greater Manchester's Trusted Energy Assessors",
+    title: 'Why Choose Prime EPC | Bolton EPC & EICR Specialists',
     description:
-      'Discover why landlords and property managers trust Prime EPC. Accredited assessors, transparent pricing, and 4.9-star rating across Greater Manchester.',
+      'Discover the Prime EPC advantage: direct assessor booking, rates from £50, fast 24-48h lodgement, and combined EPC and EICR surveys in one visit.',
     url: 'https://www.primeepcdesign.co.uk/why-us',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Why Choose Prime EPC | Greater Manchester's Trusted Energy Assessors",
+    title: 'Why Choose Prime EPC | Bolton EPC & EICR Specialists',
     description:
-      'Accredited assessors, transparent pricing from £50, and 4.9-star rating across Greater Manchester.',
+      'Direct assessor booking, rates from £50, fast 24-48h lodgement across Greater Manchester.',
   },
 }
 

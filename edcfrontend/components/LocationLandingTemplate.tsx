@@ -5,15 +5,23 @@ import { useState } from 'react'
 
 interface LocationLandingTemplateProps {
   cityName: string
+  h1?: string
   citySlug: string
   housingContext: string
   postcodes: string[]
+  neighbourhoods?: string
+  content?: string
+  content2?: string
 }
 
 export default function LocationLandingTemplate({
   cityName,
   housingContext,
   postcodes,
+  h1,
+  neighbourhoods,
+  content,
+  content2,
 }: LocationLandingTemplateProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
@@ -108,13 +116,12 @@ export default function LocationLandingTemplate({
 
           {/* Main Heading — dynamic SEO title style */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight">
-            Residential / Domestic EPC in {cityName} for £50
+            {h1 || `EPC ${cityName}: Energy Performance Certificates from £50`}
           </h1>
 
           {/* Bio / Description */}
           <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-6">
-            {cityName} is covered by Prime EPC for Energy Performance Certificates (EPC) and floorplans
-            for Residential and Commercial properties in {cityName}. {housingContext}
+            {content || housingContext}
           </p>
 
           {/* Postcode chips */}

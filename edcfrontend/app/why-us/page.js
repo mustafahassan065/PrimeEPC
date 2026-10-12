@@ -6,40 +6,40 @@ import Image from 'next/image'
 export default function WhyUs() {
   const features = [
     {
-      icon: '⚡',
-      title: 'Fast and Reliable Service',
-      description: 'We know how important deadlines are, especially when you are selling, renting, or managing a property in Greater Manchester. Our assessors deliver accurate EPC reports quickly often within 24 to 48 hours of inspection.',
-      highlights: ['24-48 Hour Turnaround', 'Quick Online Booking', 'Fast Digital Delivery']
+      icon: '📞',
+      title: 'Direct Assessor Booking',
+      description: 'You speak and schedule directly with the accredited professional inspecting your building. No customer service queues, no call centres, and no third-party mark-ups.',
+      highlights: ['No Call Centres', 'Direct Contact', 'No Third-Party Fees']
     },
     {
       icon: '💷',
-      title: 'Affordable Pricing',
-      description: 'We believe in fair and transparent pricing for Greater Manchester property owners. With no hidden fees or surprise charges, you always know what you are paying for. Quality service should not cost a fortune and with Prime EPC, it does not.',
-      highlights: ['Transparent Pricing', 'No Hidden Fees', 'Competitive Greater Manchester Rates']
+      title: 'Competitive Tiered Pricing from £50',
+      description: 'Transparent fee structures based on property footprint with no hidden travel fees across Greater Manchester. Commercial EPCs from £144, landlord EICRs from £110.',
+      highlights: ['Domestic from £50', 'Commercial from £144', 'No Travel Charges']
+    },
+    {
+      icon: '⚡',
+      title: 'Prompt 24-48 Hour Digital Delivery',
+      description: 'We know property transactions move quickly. Your official certificate is registered on the national database and emailed to you within 24 to 48 hours of our inspection.',
+      highlights: ['24-48 Hour Turnaround', 'National Register Lodgement', 'Digital Certificate']
     },
     {
       icon: '🏠',
-      title: 'Certified Energy Assessors',
-      description: 'All our Greater Manchester-based assessors are fully qualified and accredited, following strict government guidelines to ensure every certificate is 100% compliant and reliable.',
-      highlights: ['Fully Accredited', 'Government Approved', 'Quality Assured']
+      title: 'Combined Dual Certification',
+      description: 'Complete your domestic EPC and statutory 5-year landlord EICR in one coordinated visit, saving time and call-out expenses.',
+      highlights: ['EPC + EICR One Visit', 'Single Invoice', 'Less Tenant Disturbance']
     },
     {
       icon: '📍',
-      title: 'Greater Manchester Coverage',
-      description: 'We proudly serve customers across Greater Manchester and surrounding areas. Our local network ensures fast EPC services wherever you are in Greater Manchester.',
-      highlights: ['Greater Manchester Service', 'Local Greater Manchester Assessors', 'Flexible Scheduling']
+      title: 'Regional Building Familiarity',
+      description: 'Based in Bolton, our team understands regional housing stock — from pre-1919 Pennine gritstone cottages to modern city-centre apartment developments.',
+      highlights: ['Bolton Based', 'Local Expertise', 'Greater Manchester Coverage']
     },
     {
-      icon: '🤝',
-      title: 'Customer-Focused Approach',
-      description: 'We are not just here to issue certificates we are here to help Greater Manchester property owners. Our friendly team is always available to answer your questions and guide you through the EPC process from start to finish.',
-      highlights: ['Greater Manchester Support', 'Expert Guidance', 'Friendly Local Service']
-    },
-    {
-      icon: '💡',
-      title: 'Trusted by Homeowners and Landlords',
-      description: 'Over the years, we have earned the trust of homeowners, estate agents, and landlords across Greater Manchester. Our goal is simple to provide EPCs that are fast, fair, and fully dependable.',
-      highlights: ['Greater Manchester Track Record', 'Local Client Testimonials', 'Industry Experience']
+      icon: '⭐',
+      title: 'Verified Client Reviews',
+      description: 'We hold an established 4.6 TrustScore on Trustpilot based on 18 verified reviews from genuine landlords, buyers, and estate agents across Bolton, Manchester, and Lancashire.',
+      highlights: ['4.6 TrustScore', '18 Verified Reviews', 'Trustpilot Accredited']
     }
   ]
 
@@ -68,14 +68,13 @@ export default function WhyUs() {
             <div className="text-white animate-fade-in-up">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
-                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">TOP-RATED EPC PROVIDER GREATER MANCHESTER</span>
+                <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">BOLTON EPC & EICR SPECIALISTS</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Why Landlords &amp; Owners
-                <span className="block text-white"> Choose Prime EPC</span>
+                Why Choose Prime EPC &amp; Design Consultants?
               </h1>
               <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-                Experience the difference with our professional, reliable, and customer-focused EPC services across Greater Manchester. We're committed to making your certification process smooth, fast, and stress-free.
+                Direct assessor booking, transparent pricing from £50, and combined EPC and EICR surveys in a single visit across Greater Manchester.
               </p>
             </div>
           </div>
@@ -87,7 +86,7 @@ export default function WhyUs() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">⭐ WHY WE'RE DIFFERENT</div>
-            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">Why Property Owners Trust Prime EPC</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">The Benefits of Working Directly With Our Assessor Team</h2>
             <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">We combine professional expertise with exceptional customer service to deliver the best EPC experience in Greater Manchester</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -142,7 +141,7 @@ export default function WhyUs() {
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-green-600 to-green-800 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{backgroundImage:`url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`,backgroundSize:'80px 80px'}}></div>
+          <div className="absolute inset-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E")`, backgroundSize: '80px 80px' }}></div>
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -175,8 +174,8 @@ export default function WhyUs() {
                 <div>
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Phone</p>
                   <a href="tel:+447308658247" className="text-white font-bold text-xl hover:text-[#80C531] transition-colors">
-          07308658247
-        </a>
+                    07308658247
+                  </a>
                 </div>
               </div>
               <div className="flex items-center gap-6">
@@ -186,8 +185,8 @@ export default function WhyUs() {
                 <div className="min-w-0">
                   <p className="text-[#80C531] font-semibold text-lg mb-1">Email</p>
                   <a href="mailto:info@primeepcdesign.co.uk" className="text-white font-bold text-base break-all hover:text-[#80C531] transition-colors">
-          info@primeepcdesign.co.uk
-        </a>
+                    info@primeepcdesign.co.uk
+                  </a>
                 </div>
               </div>
             </div>

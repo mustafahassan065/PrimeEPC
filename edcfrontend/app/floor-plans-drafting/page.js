@@ -23,17 +23,17 @@ export default function FloorPlansAndDrafting() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
                   <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-                    ESTATE AGENT &amp; COMMERCIAL CAD DRAFTING
+                    PROFESSIONAL FLOOR PLANS &amp; CAD DRAFTING
                   </span>
                 </div>
                 
                 <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                  Floor Plans &amp; CAD
+                  Professional Floor Plans &amp; CAD Drafting Services
                   <span className="block text-white">Drafting Greater Manchester</span>
                 </h1>
                 
                 <p className="text-xl text-white opacity-90 mb-8 leading-relaxed">
-                  Accurate 2D &amp; 3D floor plans, Land Registry-compliant lease plans, and architectural CAD drafts for estate agents, landlords, and commercial developers across Greater Manchester.
+High-quality floor plans are a fundamental asset in residential marketing, helping prospective buyers and tenants visualize room layouts, spatial flow, and usable square footage. Prime EPC provides professional 2D and 3D layout floor plans for estate agents, private sellers, and property landlords across Greater Manchester.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -137,7 +137,7 @@ export default function FloorPlansAndDrafting() {
               {
                 icon: '📐',
                 title: 'Marketing Floor Plans',
-                description: 'Enhance your property listings with clear, professional visuals. We convert sketches and site surveys into engaging floor plans that help buyers visualize the space.',
+                description: 'Using precision laser measuring tools during our on-site survey, we capture gross internal areas (GIA), room dimensions, window openings, and storage spaces to RICS measurement standards for estate agents and private sellers.',
                 features: [
                   'Standard 2D & Premium 3D',
                   'Agency Branding Applied',
@@ -148,7 +148,7 @@ export default function FloorPlansAndDrafting() {
               {
                 icon: '📄',
                 title: 'Compliant Lease Plans',
-                description: 'Leasehold transactions require strict adherence to Land Registry Practice Guide 40. We take the stress out of compliance with rejection-free guarantees.',
+                description: 'Leasehold transactions require strict adherence to Land Registry Practice Guide 40. We produce fully compliant lease plans for solicitors and conveyancers with rejection-free accuracy.',
                 features: [
                   '1:1250 / 1:500 Scales',
                   'Red-Line Boundary Edging',
@@ -159,7 +159,7 @@ export default function FloorPlansAndDrafting() {
               {
                 icon: '🏗️',
                 title: 'Architectural Drafting',
-                description: 'Support for architects, developers, and property managers. We digitize old blueprints and hand sketches into fully editable formats.',
+                description: 'Support for architects, developers, and property managers. We digitize old blueprints and hand sketches into fully editable CAD formats for planning applications and building control submissions.',
                 features: [
                   'Paper-to-CAD Conversion',
                   'Space Planning & Layouts',
@@ -233,7 +233,7 @@ export default function FloorPlansAndDrafting() {
                   {
                     step: '01',
                     title: 'Book Your Survey',
-                    description: 'Schedule a combined visit. We can perform your EPC assessment and Floor Plan survey in a single appointment.'
+                    description: 'Booking a measured floor plan alongside an energy assessment eliminates duplicate visits, providing complete marketing assets in one convenient booking.'
                   },
                   {
                     step: '02',

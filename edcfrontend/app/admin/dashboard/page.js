@@ -114,6 +114,7 @@ export default function AdminDashboard() {
     { label: 'Schedule',    href: '/admin/schedule',  icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
     { label: 'Blog Posts',  href: '/admin/create-blog', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
     { label: 'Add Booking', href: '/admin/add-booking',  icon: 'M12 4v16m8-8H4' },
+    { label: 'Bulk Orders', href: '/admin/bulk-orders',  icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V7' },
   ]
 
   return (
@@ -276,8 +277,8 @@ export default function AdminDashboard() {
                         <p className="text-xs text-gray-400 max-w-[180px] whitespace-normal break-words">{b.propertyAddress}</p>
                       </td>
                       <td className="px-5 py-3 whitespace-nowrap">
-                        <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
-                        <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</p>
+                        <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</p>
+                        <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}</p>
                       </td>
                       <td className="px-5 py-3">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full capitalize ${statusColor(b.status)}`}>{b.status}</span>
