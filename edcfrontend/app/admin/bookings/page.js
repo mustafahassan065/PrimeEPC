@@ -192,12 +192,14 @@ export default function AdminBookings() {
     router.push('/admin/login')
   }
 
-  // Filtered bookings based on active filter
+  // Sort by preferredDate descending (most recent first), then filter
+  const sortedBookings = [...bookings].sort((a, b) => new Date(b.preferredDate) - new Date(a.preferredDate))
+
   const filteredBookings = activeFilter === 'all'
-    ? bookings
+    ? sortedBookings
     : activeFilter === 'total'
-    ? bookings
-    : bookings.filter(b => b.status === activeFilter)
+    ? sortedBookings
+    : sortedBookings.filter(b => b.status === activeFilter)
 
   const statusColor = (s) => ({
     confirmed: 'bg-green-100 text-green-700',

@@ -70,7 +70,7 @@ export default function AdminDashboard() {
   const pending         = bookings.filter(b => b.status === 'pending').length
   const completed       = bookings.filter(b => b.status === 'completed').length
   const uniqueCustomers = new Set(bookings.map(b => b.email)).size
-  const recentBookings  = [...bookings].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 6)
+  const recentBookings  = [...bookings].sort((a,b) => new Date(b.preferredDate) - new Date(a.preferredDate)).slice(0, 6)
 
   const statusColor = (s) => ({
     confirmed: 'bg-green-100 text-green-700',
