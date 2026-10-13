@@ -1,6 +1,6 @@
 export default function TrustStrip() {
   const trustPoints = [
-    { label: 'Fixed Fee £50' },
+    { label: 'From £50' },
     { label: '50-Mile NW Coverage' },
     { label: 'Quidos Accredited' },
     { label: '24–48 Hr Turnaround' }

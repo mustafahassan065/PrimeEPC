@@ -10,7 +10,7 @@ export default function CoverageAreas() {
             Areas We Cover Across a 50-Mile Radius
           </h2>
           <p className="mt-4 text-lg text-gray-600">
-            Book directly with a local Quidos-accredited assessor for a transparent £50 fixed fee.
+            Book directly with a local Quidos-accredited assessor with rates starting from £50.
           </p>
         </div>
 
@@ -21,7 +21,7 @@ export default function CoverageAreas() {
                 <h3 className="text-xl font-bold text-gray-900 hover:text-emerald-600 transition-colors">
                   EPC {loc.name}
                 </h3>
-                <span className="text-sm font-bold text-emerald-600">£50</span>
+                <span className="text-sm font-bold text-emerald-600">From £50</span>
               </div>
               <p className="text-gray-600 text-sm mb-4">{loc.description}</p>
               <div className="text-xs font-semibold text-gray-500 bg-gray-100 inline-block px-2 py-1 rounded font-mono">

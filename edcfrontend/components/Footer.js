@@ -71,7 +71,7 @@ export default function Footer() {
                   </svg>
                   <span className="text-white font-bold text-sm">Trustpilot</span>
                 </div>
-                <div className="flex gap-1">
+                <div className="flex gap-1 mb-2">
                   {[1,2,3,4,5].map((star) => (
                     <div key={star} className="w-8 h-8 bg-[#00b67a] flex items-center justify-center">
                       <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -80,6 +80,9 @@ export default function Footer() {
                     </div>
                   ))}
                 </div>
+                <p className="text-xs text-white/80">
+                  Rated 4.6 on Trustpilot based on 18 verified customer reviews
+                </p>
               </div>
             </a>
           </div>
@@ -103,9 +106,10 @@ export default function Footer() {
             <div className="flex flex-col space-y-3">
               <Link href="/domestic-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Domestic EPC</Link>
               <Link href="/commercial-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Commercial EPC</Link>
-              <Link href="/eicr" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">EICR</Link>
+              <Link href="/eicr" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Landlord EICR</Link>
+              <Link href="/landlord-certificates" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Landlord Package</Link>
+              <Link href="/bulk-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Bulk EPCs</Link>
               <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans</Link>
-              <Link href="/faq" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQs</Link>
             </div>
           </div>
 
@@ -116,11 +120,11 @@ export default function Footer() {
               <p className="text-white font-medium">Prime EPC & Design Consultant Ltd</p>
               <p className="text-white/70 flex items-start gap-2">
                 <span className="text-[#80C531]">📍</span>
-                <span>17 Bromwich Street, Bolton, BL2 1JF, Greater Manchester</span>
+                <span>17 Bromwich Street, Bolton, BL2 1JF</span>
               </p>
               <a href="tel:+447308658247" className="text-white/70 hover:text-[#80C531] flex items-center gap-2 transition-colors duration-200">
                 <span className="text-[#80C531]">📞</span>
-                <span>07308658247</span>
+                <span>07308 658247</span>
               </a>
               <a href="mailto:info@primeepcdesign.co.uk" className="text-white/70 hover:text-[#80C531] flex items-center gap-2 transition-colors duration-200">
                 <span className="text-[#80C531]">✉️</span>

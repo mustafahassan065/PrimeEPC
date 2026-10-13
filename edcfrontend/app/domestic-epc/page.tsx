@@ -17,7 +17,7 @@ const faqs = [
   { q: 'Can I use an old EPC for a new tenancy?', a: 'Yes, as long as it is less than 10 years old and the property has not had significant improvements or changes since it was issued.' },
   { q: 'What if my EPC rating is low?', a: 'If your rating is F or G, you cannot legally let the property until it reaches at least E. We can advise on cost-effective improvements to raise your rating.' },
   { q: 'Do you offer same-day EPC appointments?', a: 'We do our best to accommodate urgent requests. Call us on 07308 658247 and we will check availability for same-day or next-day appointments.' },
-  { q: 'How much does a domestic EPC cost in Bolton?', a: 'Our domestic EPC is a fixed £50 for any size of home — no hidden fees and no travel charge across Greater Manchester.' },
+  { q: 'How much does a domestic EPC cost in Bolton?', a: 'Our domestic EPC rates start from £50 — with complete transparent pricing and no travel charge across Greater Manchester.' },
 ]
 
 export default function DomesticEpcPage() {
@@ -41,7 +41,7 @@ export default function DomesticEpcPage() {
           <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any area across Greater Manchester.</p>
           <p className="text-white/80 mb-8 max-w-2xl">Whether you are selling, letting or remortgaging, we provide accredited Energy Performance Certificates lodged on the national register within 24-48 hours of inspection.</p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — £50</Link>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — From £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>

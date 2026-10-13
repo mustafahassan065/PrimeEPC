@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { targetLocations } from '@/lib/locationData'
 
 interface LocationLandingTemplateProps {
   cityName: string
@@ -22,22 +23,25 @@ export default function LocationLandingTemplate({
   neighbourhoods,
   content,
   content2,
+  citySlug,
 }: LocationLandingTemplateProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   const services = [
     {
       title: 'Domestic EPC Certificate',
-      price: '£50',
+      price: 'From £50',
       priceColor: 'text-[#016837]',
       description: 'Official residential Energy Performance Certificate for selling or renting your home.',
+      href: '/domestic-epc',
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />,
     },
     {
       title: 'Commercial EPC Assessment',
-      price: '£144',
+      price: 'From £144',
       priceColor: 'text-gray-700',
       description: 'Accredited commercial energy assessments for offices, shops and rental premises.',
+      href: '/commercial-epc',
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />,
     },
     {
@@ -45,13 +49,15 @@ export default function LocationLandingTemplate({
       price: 'Get Quote',
       priceColor: 'text-gray-700',
       description: 'Precision CAD floor plans for estate agents, landlords and property listings.',
+      href: '/floor-plans-drafting',
       icon: <><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" /></>,
     },
     {
       title: 'Landlord EICR Certificate',
-      price: '£110',
+      price: 'From £110',
       priceColor: 'text-[#016837]',
       description: 'Electrical Installation Condition Report — full landlord safety compliance.',
+      href: '/eicr',
       icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />,
     },
   ]
@@ -59,7 +65,7 @@ export default function LocationLandingTemplate({
   const features = [
     { icon: '🚀', title: 'Fast 24–48h Turnaround', text: 'Your lodged EPC delivered digitally within 24 to 48 hours of the survey.' },
     { icon: '🏆', title: 'Quidos-Accredited Assessors', text: 'Government-accredited, DBS-checked assessors with direct national lodgement.' },
-    { icon: '💷', title: 'Fixed £50 Price', text: 'No estate agent mark-ups, no hidden fees — one clear fixed price.' },
+    { icon: '💷', title: 'Rates From £50', text: 'No estate agent mark-ups, no hidden fees — transparent pricing starting from £50.' },
     { icon: '📍', title: 'Local ' + cityName + ' Coverage', text: 'Same-day appointments available across all ' + cityName + ' postcodes.' },
   ]
 
@@ -72,7 +78,7 @@ export default function LocationLandingTemplate({
   const faqs = [
     {
       question: `How much does an EPC cost in ${cityName}?`,
-      answer: `Our domestic EPC in ${cityName} is a fixed £50 — no hidden fees and no estate agent mark-ups. Commercial EPCs start from £144.`,
+      answer: `Our domestic EPC rates in ${cityName} start from £50 — no hidden fees and no estate agent mark-ups. Commercial EPCs start from £144.`,
     },
     {
       question: `How quickly can I get an EPC in ${cityName}?`,
@@ -92,8 +98,61 @@ export default function LocationLandingTemplate({
     },
   ]
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.primeepcdesign.co.uk' },
+      { '@type': 'ListItem', position: 2, name: 'Areas We Serve', item: 'https://www.primeepcdesign.co.uk/areas-we-serve' },
+      { '@type': 'ListItem', position: 3, name: `EPC ${cityName}`, item: `https://www.primeepcdesign.co.uk/locations/${citySlug}` }
+    ]
+  }
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: f.answer
+      }
+    }))
+  }
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: `Prime EPC — ${cityName}`,
+    description: `Accredited domestic and commercial EPC assessor in ${cityName} covering ${postcodes.join(', ')}. Official register lodgement within 24–48 hours from £50.`,
+    url: `https://www.primeepcdesign.co.uk/locations/${citySlug}`,
+    telephone: '+447308658247',
+    priceRange: 'From £50',
+    areaServed: [cityName, ...postcodes],
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '17 Bromwich Street',
+      addressLocality: 'Bolton',
+      postalCode: 'BL2 1JF',
+      addressCountry: 'GB'
+    }
+  }
+
   return (
     <div className="min-h-screen font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
 
       {/* ── Hero — Simple & Clear ── */}
       <section className="relative py-20 overflow-hidden">
@@ -139,7 +198,7 @@ export default function LocationLandingTemplate({
               href="/booking"
               className="bg-[#80C531] hover:bg-[#72b329] text-gray-950 font-bold py-4 px-8 rounded-xl shadow-lg transition-all text-center"
             >
-              Book EPC in {cityName} — £50 →
+              Book EPC in {cityName} — From £50 →
             </Link>
             <a
               href="tel:+447308658247"
@@ -170,7 +229,7 @@ export default function LocationLandingTemplate({
             {services.map((service, i) => (
               <Link
                 key={i}
-                href="/booking"
+                href={service.href}
                 className="bg-white rounded-3xl p-6 shadow-lg border border-[#80C531]/20 hover:border-[#016837] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center block"
               >
                 <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-r from-[#016837] to-[#80C531] rounded-2xl flex items-center justify-center shadow-md">
@@ -284,6 +343,33 @@ export default function LocationLandingTemplate({
         </div>
       </section>
 
+      {/* ── Nearby North West Coverage Hubs ── */}
+      <section className="py-12 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-4 text-center max-w-5xl">
+          <p className="text-xs font-bold text-[#016837] uppercase tracking-wider mb-2">50-Mile North West Hub Network</p>
+          <h3 className="text-xl font-bold text-gray-900 mb-5">Also Serving Neighboring Towns &amp; Boroughs</h3>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {targetLocations
+              .filter(loc => loc.slug !== citySlug)
+              .map((loc, i) => (
+                <Link
+                  key={i}
+                  href={`/locations/${loc.slug}`}
+                  className="text-xs bg-gray-50 hover:bg-[#80C531]/15 text-gray-700 hover:text-[#016837] font-semibold px-3 py-1.5 rounded-full border border-gray-200 hover:border-[#80C531] transition-all"
+                >
+                  📍 {loc.name} EPC
+                </Link>
+              ))}
+            <Link
+              href="/epc-near-me"
+              className="text-xs bg-[#016837] text-white font-bold px-3 py-1.5 rounded-full hover:bg-[#01572E] transition-all"
+            >
+              🎯 EPC Near Me Finder
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Final CTA ── */}
       <section className="py-16 bg-gradient-to-br from-green-600 to-green-800">
         <div className="container mx-auto px-4 text-center">
@@ -291,11 +377,11 @@ export default function LocationLandingTemplate({
             Ready to Book Your EPC in {cityName}?
           </h2>
           <p className="text-white/80 max-w-2xl mx-auto mb-8">
-            Fixed £50 domestic EPC with 24–48 hour turnaround. Book direct with a Quidos-accredited local assessor — no middleman fees.
+            Domestic EPCs from £50 with fast 24–48 hour turnaround. Book direct with a Quidos-accredited local assessor — no middleman fees.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#72b329] text-gray-950 font-bold py-4 px-8 rounded-xl shadow-lg transition-all">
-              Book Now — £50 →
+              Book Now — From £50 →
             </Link>
             <a href="https://wa.me/447308658247" target="_blank" rel="noopener noreferrer" className="bg-white text-[#016837] font-bold py-4 px-8 rounded-xl shadow-lg hover:bg-[#F8F8F8] transition-all">
               WhatsApp Us

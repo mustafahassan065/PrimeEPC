@@ -4,7 +4,7 @@ import { targetLocations } from '@/lib/locationData';
 export const metadata = {
   title: 'Areas We Serve | EPC Coverage Across Greater Manchester & the North West',
   description:
-    'Prime EPC covers a 50-mile radius across the North West — Bolton, Manchester, Salford, Oldham, Blackburn, Stockport, Rochdale, Warrington and Liverpool. Fixed £50 domestic EPCs with 24–48h turnaround.',
+    'Prime EPC covers a 50-mile radius across the North West — Bolton, Manchester, Salford, Oldham, Blackburn, Stockport, Rochdale, Warrington and Liverpool. Domestic EPCs from £50 with fast 24–48h turnaround.',
   alternates: {
     canonical: 'https://www.primeepcdesign.co.uk/areas-we-serve',
   },
@@ -97,7 +97,7 @@ export default function AreasWeServePage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Don't See Your Area Listed?</h2>
           <p className="text-white/80 max-w-2xl mx-auto mb-8">
-            We cover a 50-mile radius across the North West. Contact us — chances are we can still reach you with the same £50 fixed-fee EPC.
+            We cover a 50-mile radius across the North West. Contact us — chances are we can still reach you with domestic EPC rates starting from £50.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#72b329] text-gray-950 font-bold py-3 px-8 rounded-xl shadow-lg transition-all">

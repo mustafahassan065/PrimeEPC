@@ -13,7 +13,7 @@ const sections = [
     title: 'Costs & Prices',
     id: 'cost',
     faqs: [
-      { q: 'How much does an EPC cost in Bolton?', a: 'A domestic EPC is a fixed £50 for any size of home — no hidden fees and no travel charge across Greater Manchester.' },
+      { q: 'How much does an EPC cost in Bolton?', a: 'Domestic EPC rates start from £50 with complete transparent pricing and no travel charge across Greater Manchester.' },
       { q: 'How much does an EICR cost?', a: 'Our EICR starts from £110 for a 1-2 bedroom property. Larger properties are quoted individually.' },
       { q: 'Is there a travel charge?', a: 'No. We cover Bolton and Greater Manchester within our 50-mile radius with no travel charge.' },
       { q: 'Is VAT included in your prices?', a: 'Yes. All our prices include VAT — there are no additional charges.' },
