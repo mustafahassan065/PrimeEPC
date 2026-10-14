@@ -20,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'landlord-certificates',
     'bulk-epc',
     'floor-plans-drafting',
+    'electrical-design',
+    'pricing',
     'areas-we-serve',
     'epc-near-me',
     'booking',

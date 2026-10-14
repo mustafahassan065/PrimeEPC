@@ -71,12 +71,11 @@ export default function BulkEpcPage() {
               <div className="w-3 h-3 bg-[#80C531] rounded-full animate-pulse"></div>
               <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">DISCOUNTED RATES FOR MULTIPLE PROPERTIES</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              <span className="block text-white">Bulk EPC Orders</span>
-              <span className="block text-[#80C531]">Save More, Order More</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white">
+              Bulk EPC Orders &amp; Portfolio Energy Assessments Across the North West
             </h1>
             <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Landlords, letting agents and property developers — get discounted rates on multiple EPCs. Standard EPC from <strong className="text-[#80C531]">£50</strong> — the more properties you book, the more you save. Fast turnaround, fully accredited assessors across Greater Manchester and the North West.
+              Landlords, letting agents and property developers — get tiered volume discounts starting from <strong className="text-[#80C531]">£50/unit</strong> across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast 24 to 48 hour turnaround with free local branch key collection.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#bulk-form" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg">
@@ -94,12 +93,20 @@ export default function BulkEpcPage() {
       <section id="bulk-form" className="py-20 bg-gradient-to-b from-white to-[#F8F8F8]">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
+            {/* AEO Direct Answer Section */}
+            <div className="bg-white rounded-2xl p-6 md:p-8 text-left text-[#282828] mb-12 shadow-md border border-[#80C531]/40">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">How do bulk EPC discounts work for property portfolios and letting agents?</h2>
+              <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+                Prime EPC provides tiered volume discounts starting from £50 per property for landlords, letting agents, housing associations, and block managers booking multiple assessments across the North West. Portfolio orders include a single point of contact, free branch key collection, consolidated invoicing, and 24 to 48 hour register lodgement.
+              </p>
+            </div>
+
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#80C531]/10 to-[#80C531]/20 text-[#016837] px-4 py-2 rounded-full text-sm font-semibold mb-4">📦 BULK EPC ORDERS</div>
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-4">Request a Bulk EPC Quote</h2>
               <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fill in the form and we will get back to you within 1 working day with a tailored quote and discounted pricing.</p>
               <div className="flex flex-wrap justify-center gap-4 mt-6">
-                {[['£50', 'Standard EPC'],['Discounted','Bulk Rates'],['24-48h','Turnaround'],['100%','Accredited']].map(([val, label], i) => (
+                {[['From £50', 'Starting Rate'],['Discounted','Bulk Rates'],['24-48h','Turnaround'],['100%','Accredited']].map(([val, label], i) => (
                   <div key={i} className="bg-white rounded-2xl px-5 py-3 shadow-sm border border-gray-100 text-center">
                     <p className="text-xl font-black text-[#016837]">{val}</p>
                     <p className="text-xs text-gray-500">{label}</p>

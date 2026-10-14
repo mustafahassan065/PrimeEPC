@@ -10,10 +10,12 @@ export default function Header() {
   const services = [
     { href: '/domestic-epc', label: 'Domestic EPC' },
     { href: '/commercial-epc', label: 'Commercial EPC' },
-    { href: '/eicr', label: 'EICR' },
-    { href: '/floor-plans-drafting', label: 'Floor Plans' },
+    { href: '/eicr', label: 'Landlord EICR' },
+    { href: '/landlord-certificates', label: 'Landlord Package' },
     { href: '/bulk-epc', label: 'Bulk EPC Orders' },
-    
+    { href: '/floor-plans-drafting', label: 'CAD Floor Plans' },
+    { href: '/electrical-design', label: 'Electrical Design' },
+    { href: '/pricing', label: 'Pricing Guide' },
   ]
 
   return (
@@ -79,7 +81,7 @@ export default function Header() {
             <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Areas We Serve</Link>
             <Link href="/bulk-epc" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Bulk EPC Orders</Link>
             <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">Blog</Link>
-            <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">FAQs</Link>
+            <Link href="/faq" className="text-[#282828] hover:text-[#016837] font-medium transition-colors duration-200 text-sm xl:text-base whitespace-nowrap">FAQs</Link>
            
             <Link
               href="/booking"
@@ -117,7 +119,7 @@ export default function Header() {
               </div>
               <Link href="/areas-we-serve" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Areas We Serve</Link>
               <Link href="/blog" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Blog</Link>
-              <Link href="/#faqs" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>FAQs</Link>
+              <Link href="/faq" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>FAQs</Link>
               <Link href="/#contact" className="text-[#282828] hover:text-[#016837] font-medium py-2 transition-colors duration-200" onClick={() => setIsMenuOpen(false)}>Contact</Link>
               <Link href="/booking" className="bg-[#016837] text-white px-6 py-3 rounded-lg hover:bg-[#01572E] transition-all duration-300 font-medium text-center shadow-md hover:shadow-lg" onClick={() => setIsMenuOpen(false)}>Book Your Assessment</Link>
             </div>

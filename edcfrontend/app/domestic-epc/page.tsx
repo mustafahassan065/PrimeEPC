@@ -5,19 +5,23 @@ import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Domestic EPC Bolton & Manchester | From £50' },
-  description: 'Need an EPC to sell or let your home? Accredited assessor, rates from £50, official lodgement within 24-48 hours across Greater Manchester. Book online.',
+  title: { absolute: 'Domestic EPC North West from £50 | Accredited Assessor' },
+  description: 'Domestic EPCs from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. RdSAP 10 surveys for sales, rentals & 10-year renewals. 24–48h lodgement.',
   alternates: { canonical: '/domestic-epc' },
-  openGraph: { url: '/domestic-epc' },
+  openGraph: {
+    url: '/domestic-epc',
+    title: 'Domestic EPC North West from £50 | Accredited Assessor',
+    description: 'Domestic EPCs from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. RdSAP 10 surveys for sales, rentals & 10-year renewals. 24–48h lodgement.',
+  },
 }
 
 const faqs = [
-  { q: 'Do I need to be home during the EPC assessment?', a: 'No. Provided access is arranged via an adult representative, on-site key safe, or direct key collection from your estate or letting agent, you do not need to attend.' },
-  { q: 'How long is a domestic EPC valid for?', a: 'A domestic EPC is valid for 10 years. You can reuse an existing EPC if it was issued within the last 10 years and the property has not changed significantly.' },
-  { q: 'Can I use an old EPC for a new tenancy?', a: 'Yes, as long as it is less than 10 years old and the property has not had significant improvements or changes since it was issued.' },
-  { q: 'What if my EPC rating is low?', a: 'If your rating is F or G, you cannot legally let the property until it reaches at least E. We can advise on cost-effective improvements to raise your rating.' },
-  { q: 'Do you offer same-day EPC appointments?', a: 'We do our best to accommodate urgent requests. Call us on 07308 658247 and we will check availability for same-day or next-day appointments.' },
-  { q: 'How much does a domestic EPC cost in Bolton?', a: 'Our domestic EPC rates start from £50 — with complete transparent pricing and no travel charge across Greater Manchester.' },
+  { q: 'How much does a domestic EPC cost in Greater Manchester and the North West?', a: 'A domestic Energy Performance Certificate (EPC) with Prime EPC & Design Consultants starts from £50 for standard flats and terraced houses across Greater Manchester, Merseyside, Lancashire, and Cheshire. Pricing scales transparently for larger detached homes or extended properties, with zero estate agent mark-ups and official GOV.UK register lodgement within 24 to 48 hours.' },
+  { q: 'What does an energy assessor check during an RdSAP 10 EPC inspection?', a: 'During a 30-to-50 minute non-invasive survey under UK RdSAP 10 standards, our accredited Domestic Energy Assessor measures external wall construction (solid brick, stone, or cavity), loft insulation depth at the hatch against the 270mm benchmark, boiler model efficiency, heating controls (programmers, room thermostats, TRVs), window glazing age, and fixed low-energy LED lighting.' },
+  { q: 'Do I need to be home during the EPC assessment?', a: 'No. Provided access is arranged via an adult representative, on-site key safe, or free key collection from local estate agents or letting agents, you do not need to attend.' },
+  { q: 'How long is a domestic EPC valid for?', a: 'A domestic EPC is valid for 10 years. A 10-year expired EPC renewal is legally required before listing on Rightmove and Zoopla, or signing a new tenancy agreement.' },
+  { q: 'Can I get a re-assessment after energy efficiency upgrades?', a: 'Yes. Booking a re-assessment after installing a new condensing boiler or 270mm loft insulation ensures your updated score is logged on the official register ahead of a sale or remortgage.' },
+  { q: 'Do you offer same-day EPC appointments?', a: 'We regularly accommodate urgent requests for conveyancing solicitors and estate agents. Call us on 07308 658247 to confirm availability.' },
 ]
 
 export default function DomesticEpcPage() {
@@ -36,10 +40,10 @@ export default function DomesticEpcPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Domestic EPC', path: '/domestic-epc' }]} />
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            Domestic Energy Performance Certificates Across Greater Manchester
+            Domestic Energy Performance Certificates Across the North West
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — any area across Greater Manchester.</p>
-          <p className="text-white/80 mb-8 max-w-2xl">Whether you are selling, letting or remortgaging, we provide accredited Energy Performance Certificates lodged on the national register within 24-48 hours of inspection.</p>
+          <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — direct local assessor rates across Greater Manchester.</p>
+          <p className="text-white/80 mb-8 max-w-2xl">Official RdSAP 10 domestic energy assessments lodged on the national GOV.UK register within 24 to 48 hours for home sales, private rentals, and 10-year renewals.</p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — From £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
@@ -51,42 +55,62 @@ export default function DomesticEpcPage() {
       <section className="bg-gray-50 py-6 border-b border-gray-200">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex flex-wrap justify-center gap-8 text-center">
-            {[{ val: '£50', label: 'Starting From' },{ val: '24-48h', label: 'Turnaround' },{ val: '100%', label: 'Accredited' },{ val: '10 yrs', label: 'Certificate Valid' }].map((s,i) => (
+            {[{ val: 'From £50', label: 'Starting Rate' },{ val: '24-48h', label: 'Register Lodgement' },{ val: '100%', label: 'Quidos Accredited' },{ val: '10 yrs', label: 'Certificate Valid' }].map((s,i) => (
               <div key={i}><p className="text-2xl font-bold text-[#016837]">{s.val}</p><p className="text-xs text-gray-500">{s.label}</p></div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
-        <div>
-          <h2 className="text-3xl font-bold mb-4">When is a Domestic EPC Legally Mandatory?</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">An Energy Performance Certificate is required by law whenever a residential property is built, sold, or rented in the UK. If you are listing your property with an estate agent, private marketing portal, or letting agency, an EPC must be commissioned prior to marketing. The certificate remains valid for 10 years and grades building efficiency on an A to G scale, alongside a Standard Assessment Procedure (SAP) score from 1 to 100.</p>
-          <ul className="space-y-2 text-gray-600">
-            {['Selling your home — required before listing with an estate agent','Renting out a property — must be provided to tenants before they move in','Remortgaging — some lenders require a current EPC','New build completion — required before the property can be occupied'].map((item,i) => (
-              <li key={i} className="flex items-start gap-2"><span className="text-[#016837] font-bold mt-0.5">✓</span><span>{item}</span></li>
-            ))}
-          </ul>
+      {/* Content & AEO Direct Answers */}
+      <section className="py-16 container mx-auto px-4 max-w-3xl space-y-10 text-[#282828]">
+        {/* AEO Answer 1 */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">How much does a domestic EPC cost in Greater Manchester and the North West?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+            A domestic Energy Performance Certificate (EPC) with Prime EPC &amp; Design Consultants starts from £50 for standard flats and terraced houses across Greater Manchester, Merseyside, Lancashire, and Cheshire. Pricing scales transparently for larger detached homes or extended properties, with zero estate agent mark-ups and official GOV.UK register lodgement within 24 to 48 hours.
+          </p>
         </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">What Does the Assessor Check During the Inspection?</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">Our non-invasive on-site assessment takes approximately 30 to 50 minutes. Operating under standard RdSAP 10 methodology, our certified Domestic Energy Assessor evaluates:</p>
-          <ul className="space-y-2 text-gray-600">
+
+        {/* AEO Answer 2 */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">What does an energy assessor check during an RdSAP 10 EPC inspection?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg mb-4">
+            During a 30-to-50 minute non-invasive survey under UK RdSAP 10 standards, our accredited Domestic Energy Assessor measures external wall construction (solid brick, stone, or cavity), loft insulation depth at the hatch against the 270mm benchmark, boiler model efficiency, heating controls (programmers, room thermostats, TRVs), window glazing age, and fixed low-energy LED lighting.
+          </p>
+          <ul className="space-y-2.5 text-gray-600 text-sm md:text-base">
             {[
               'Building Fabric & Construction: Wall types (solid stone, solid brick, or cavity brickwork), property age bands, extensions, and cavity wall insulation retrofits.',
               'Roof Space & Loft Insulation: Measuring insulation depth at the loft hatch against the current 270mm standard, examining joist insulation, and checking party wall construction.',
               'Space & Water Heating Systems: Main boiler make and model, fuel type, heating programmer controls, room thermostats, thermostatic radiator valves (TRVs), and hot water cylinder insulation.',
               'Glazing & Draught Proofing: Window installation eras (single, pre-2002 double, or modern low-E double glazing) and secondary glazing seals.',
-              'Low-Carbon Technology & Lighting: Solar PV array output, domestic heat pumps, and the percentage of fixed low-energy LED lighting.',
+              'Low-Carbon Technology & Lighting: Solar PV array output, domestic heat pumps, and fixed low-energy LED lighting percentages.',
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-2"><span className="text-[#016837] font-bold mt-0.5">•</span><span>{item}</span></li>
             ))}
           </ul>
         </div>
+
         <div>
-          <h2 className="text-3xl font-bold mb-4">Understanding your EPC rating A to G</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">The EPC shows your current rating and a potential rating if recommended improvements are made. Under the Minimum Energy Efficiency Standards (MEES), rented properties must reach at least Band E — with Band C expected to become the minimum by 2030.</p>
+          <h2 className="text-3xl font-bold mb-4">When is an EPC Legally Required?</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            Under UK law, an EPC is legally mandatory before a residential property can be advertised for sale or rent. We provide fast assessments for <strong>EPC for Rightmove and Zoopla listings</strong>, <strong>EPC for conveyancing solicitors</strong>, and <strong>10-year expired EPC renewal</strong> requirements. We offer <strong>free key collection from local estate agents</strong> and letting agents across Bolton, Manchester, and a 50-mile radius.
+          </p>
+          <ul className="space-y-2 text-gray-600">
+            {[
+              'Selling your home — essential before listing with high-street or online estate agents',
+              'Renting out a property — statutory requirement for private tenancies, Selective Licensing, and HMOs',
+              'Remortgaging or equity release — requested by mortgage lenders and green finance providers',
+              'Re-assessment after installing a new condensing boiler or 270mm loft insulation — upgrades your rating on the national register ahead of 2030 Band C targets'
+            ].map((item,i) => (
+              <li key={i} className="flex items-start gap-2"><span className="text-[#016837] font-bold mt-0.5">✓</span><span>{item}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Understanding Your EPC Rating A to G</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">The EPC displays current energy efficiency and potential ratings if suggested improvements are implemented. Under Minimum Energy Efficiency Standards (MEES), rented properties must achieve at least Band E, moving toward Band C under the Warm Homes Plan.</p>
           <div className="grid grid-cols-7 gap-1">
             {[{band:'A',color:'#008054',range:'92+'},{band:'B',color:'#19b459',range:'81-91'},{band:'C',color:'#8dce46',range:'69-80'},{band:'D',color:'#ffd500',range:'55-68'},{band:'E',color:'#fcaa65',range:'39-54'},{band:'F',color:'#ef8023',range:'21-38'},{band:'G',color:'#e9153b',range:'1-20'}].map((b) => (
               <div key={b.band} className="text-center rounded-lg p-2 text-white text-sm font-bold" style={{backgroundColor:b.color}}>
@@ -95,20 +119,19 @@ export default function DomesticEpcPage() {
             ))}
           </div>
         </div>
+
         <div>
-          <h2 className="text-3xl font-bold mb-4">Understanding the Recommendation Report</h2>
-          <p className="text-gray-600 leading-relaxed mb-3">Every certificate comes with a detailed recommendation report indicating practical energy-saving measures. We walk through these recommendations on site, advising homeowners and landlords on affordable upgrades — such as topping up loft insulation to 270mm or fitting radiator thermostatic valves — that provide the greatest efficiency gain for your investment.</p>
-          <p className="text-gray-600 leading-relaxed">See our guide on <Link href="/blog/improve-epc-rating-manchester" className="text-[#016837] underline">improving your EPC rating</Link>.</p>
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">Areas we cover</h2>
+          <h2 className="text-3xl font-bold mb-4">Areas We Cover</h2>
           <p className="text-gray-600 leading-relaxed">
-            <Link href="/locations/bolton" className="text-[#016837] underline">Bolton</Link>,{' '}
-            <Link href="/locations/manchester" className="text-[#016837] underline">Manchester</Link>,{' '}
-            <Link href="/locations/salford" className="text-[#016837] underline">Salford</Link>,{' '}
-            <Link href="/locations/stockport" className="text-[#016837] underline">Stockport</Link>,{' '}
-            <Link href="/locations/oldham" className="text-[#016837] underline">Oldham</Link> and more.{' '}
-            <Link href="/areas-we-serve" className="text-[#016837] underline">See all areas →</Link>
+            Direct surveyor appointments across{' '}
+            <Link href="/locations/bolton" className="text-[#016837] underline font-semibold">Bolton</Link>,{' '}
+            <Link href="/locations/manchester" className="text-[#016837] underline font-semibold">Manchester</Link>,{' '}
+            <Link href="/locations/salford" className="text-[#016837] underline font-semibold">Salford</Link>,{' '}
+            <Link href="/locations/bury" className="text-[#016837] underline font-semibold">Bury</Link>,{' '}
+            <Link href="/locations/wigan" className="text-[#016837] underline font-semibold">Wigan</Link>,{' '}
+            <Link href="/locations/stockport" className="text-[#016837] underline font-semibold">Stockport</Link>,{' '}
+            <Link href="/locations/oldham" className="text-[#016837] underline font-semibold">Oldham</Link>, and the entire 50-mile North West radius.{' '}
+            <Link href="/areas-we-serve" className="text-[#016837] underline font-semibold">See all 16 coverage hubs →</Link>
           </p>
         </div>
       </section>
@@ -135,9 +158,9 @@ export default function DomesticEpcPage() {
       <section className="bg-[#016837] text-white py-14">
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="text-3xl font-bold mb-4">Book Your Domestic EPC Today</h2>
-          <p className="text-white/80 mb-8">Starting from £50· Any size home · Certificate within 24-48 hours</p>
+          <p className="text-white/80 mb-8">Starting from £50 · Direct accredited assessor · Certificate lodged within 24 to 48 hours</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — £50</Link>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — From £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white text-white hover:bg-white hover:text-[#016837] font-bold px-8 py-4 rounded-lg transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>

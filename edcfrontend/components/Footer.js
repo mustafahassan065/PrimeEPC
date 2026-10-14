@@ -94,9 +94,9 @@ export default function Footer() {
             <div className="flex flex-col space-y-3">
               <Link href="/about" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">About us</Link>
               <Link href="/why-us" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Why Us</Link>
-              <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans & Drafting</Link>
+              <Link href="/pricing" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Pricing Guide</Link>
               <Link href="/blog" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Blog</Link>
-              <Link href="/#faqs" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQ&apos;s</Link>
+              <Link href="/faq" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">FAQ&apos;s</Link>
             </div>
           </div>
 
@@ -109,7 +109,8 @@ export default function Footer() {
               <Link href="/eicr" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Landlord EICR</Link>
               <Link href="/landlord-certificates" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Landlord Package</Link>
               <Link href="/bulk-epc" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Bulk EPCs</Link>
-              <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">Floor Plans</Link>
+              <Link href="/floor-plans-drafting" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">CAD Floor Plans</Link>
+              <Link href="/electrical-design" className="text-white/70 hover:text-[#80C531] text-sm transition-colors duration-200">BS 7671 Electrical Design</Link>
             </div>
           </div>
 

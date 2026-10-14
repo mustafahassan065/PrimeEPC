@@ -280,6 +280,26 @@ export function findServiceByQuery(query: string): ServiceIntent | null {
       label: 'Bulk EPC Orders',
     };
   }
+  if (q.includes('electrical design') || q.includes('part p') || q.includes('bs 7671') || q.includes('schematic') || q.includes('emergency lighting')) {
+    return {
+      title: 'BS 7671 Electrical Design & CAD Layouts | Prime EPC',
+      badge: '📐 BS 7671 18th Edition Certified Electrical Design',
+      lead: 'Engineered electrical design drawings, BS 5266 emergency lighting, and BS 5839 fire detection plans for Building Regulations Part P & Part L approval.',
+      href: '/electrical-design',
+      price: 'Bespoke Quote',
+      label: 'BS 7671 Electrical Design',
+    };
+  }
+  if (q.includes('price') || q.includes('pricing') || q.includes('cost') || q.includes('rate') || q.includes('fee')) {
+    return {
+      title: 'Property Compliance & EPC Direct Pricing Guide',
+      badge: '💷 Direct Surveyor Rates — No Brokerage Mark-Ups',
+      lead: 'Transparent direct surveyor pricing across Greater Manchester: Domestic EPCs from £50, Commercial EPCs from £144, Landlord EICRs from £110.',
+      href: '/pricing',
+      price: 'From £50',
+      label: 'Direct Pricing Schedule',
+    };
+  }
   return null;
 }
 

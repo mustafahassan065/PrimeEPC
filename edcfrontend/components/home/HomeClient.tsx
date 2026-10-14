@@ -61,7 +61,7 @@ export default function HomeClient() {
         type: 'general' as const,
         h1: 'EPC Certificates in Greater Manchester & 50-Mile Radius from £50',
         badge: 'Accredited Energy Assessors — 50-Mile North West Coverage',
-        lead: 'Fast, accredited domestic and commercial EPC assessments across Greater Manchester, Merseyside, Lancashire, and Cheshire. Serving homeowners, landlords, and estate agents within a 50-mile radius of our Bolton base with direct assessor booking, no agency commission, and official 24–48 hour register lodgement.',
+        lead: 'Book your domestic EPC (from £50), commercial SBEM energy survey (from £144), or 5-year landlord EICR (from £110) directly with an accredited Bolton-based assessor. We cover Greater Manchester, Merseyside, Lancashire, and Cheshire within a 50-mile radius, cutting out estate agent mark-ups and lodging your certificate on the GOV.UK register within 24 to 48 hours.',
         ctaText: 'Check Price & Book',
         ctaHref: '/booking',
         matchedLocation: null as LocationData | null,
@@ -509,6 +509,15 @@ export default function HomeClient() {
             ))}
           </div>
 
+          {/* Additional Direct Service Links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs md:text-sm text-white/90 mb-10 max-w-4xl mx-auto">
+            <span className="font-semibold text-[#80C531]">Explore More Compliance Services:</span>
+            <Link href="/landlord-certificates" className="hover:text-white underline underline-offset-4 font-medium transition-colors">⚡ Landlord EPC + EICR Package</Link>
+            <Link href="/bulk-epc" className="hover:text-white underline underline-offset-4 font-medium transition-colors">📦 Bulk &amp; Portfolio EPCs</Link>
+            <Link href="/electrical-design" className="hover:text-white underline underline-offset-4 font-medium transition-colors">📐 BS 7671 Electrical Design</Link>
+            <Link href="/pricing" className="hover:text-white underline underline-offset-4 font-medium transition-colors">💷 Direct Pricing Guide</Link>
+          </div>
+
           {/* Bottom Features Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
@@ -522,7 +531,7 @@ export default function HomeClient() {
               },
               {
                 path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
-                label: 'Fixed Price\nGuarantee'
+                label: 'Direct Upfront\nClear Rates'
               },
               {
                 path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,

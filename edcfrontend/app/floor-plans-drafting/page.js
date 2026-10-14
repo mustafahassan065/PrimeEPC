@@ -33,7 +33,7 @@ export default function FloorPlansAndDrafting() {
                 </h1>
                 
                 <p className="text-xl text-white opacity-90 mb-8 leading-relaxed">
-High-quality floor plans are a fundamental asset in residential marketing, helping prospective buyers and tenants visualize room layouts, spatial flow, and usable square footage. Prime EPC provides professional 2D and 3D layout floor plans for estate agents, private sellers, and property landlords across Greater Manchester.
+                  Prime EPC delivers precision RICS Gross Internal Area (GIA) laser-measured floor plans across Greater Manchester. We provide 2D and 3D marketing floor plans for Rightmove and Zoopla listings, council HMO and Selective Licensing room-size floor plans, and Land Registry compliant commercial lease plans with rapid 24 to 48 hour digital delivery.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -108,7 +108,7 @@ High-quality floor plans are a fundamental asset in residential marketing, helpi
               { number: '2,500+', label: 'Drawings Delivered' },
               { number: '99%', label: 'Land Registry Acceptance' },
               { number: '24hr', label: 'Standard Turnaround' },
-              { number: '4.9/5', label: 'Client Satisfaction' }
+              { number: '4.6/5', label: 'Trustpilot Rating' }
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-[#016837] mb-3">{stat.number}</div>
@@ -297,7 +297,7 @@ High-quality floor plans are a fundamental asset in residential marketing, helpi
                     {
                       icon: '💰',
                       title: 'Transparent Pricing',
-                      description: 'Fixed prices with no hidden costs, plus volume discounts for regular agency clients.'
+                      description: 'Clear rates with no hidden costs, plus volume discounts for regular agency clients.'
                     }
                   ].map((benefit, index) => (
                     <div key={index} className="flex items-start gap-6 p-6 bg-white rounded-3xl shadow-lg border border-[#80C531]/20 hover:shadow-xl transition-all duration-300">

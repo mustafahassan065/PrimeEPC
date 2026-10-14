@@ -5,18 +5,22 @@ import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'EICR Bolton & Manchester from £110 | Landlord Electrical Report' },
-  description: 'Electrical Installation Condition Reports for landlords, sellers and businesses in Bolton and Greater Manchester. From £110. Book with your EPC and save.',
+  title: { absolute: 'Landlord EICR North West from £110 | 5-Year Electrical Test' },
+  description: 'BS 7671 18th Edition Landlord EICR electrical safety reports from £110 across Manchester, Bolton, Liverpool & the North West. 5-year renewals & HMO checks.',
   alternates: { canonical: '/eicr' },
-  openGraph: { url: '/eicr' },
+  openGraph: {
+    url: '/eicr',
+    title: 'Landlord EICR North West from £110 | 5-Year Electrical Test',
+    description: 'BS 7671 18th Edition Landlord EICR electrical safety reports from £110 across Manchester, Bolton, Liverpool & the North West. 5-year renewals & HMO checks.',
+  },
 }
 
 const faqs = [
-  { q: 'How much does an EICR cost in Bolton?', a: 'Our landlord EICR starts from £110 for a 1-3 bedroom property. Larger properties are priced by the number of circuits — contact us for a quote.' },
-  { q: 'How often do landlords need an EICR?', a: 'Private landlords in England must have electrical installations inspected at least every five years, give tenants a copy within 28 days, and provide a copy to the council within 7 days if requested.' },
-  { q: 'What do the codes C1, C2, C3 and FI mean?', a: 'C1 means danger present — immediate action required. C2 means potentially dangerous. FI means further investigation needed. C3 is an improvement recommendation only. Any C1, C2 or FI makes the report Unsatisfactory, and remedial work must be completed within 28 days.' },
-  { q: 'How long does an EICR take?', a: 'Usually 2-4 hours for a standard house or flat. The power will need to be off for part of the inspection.' },
-  { q: 'Can I get my EPC and EICR on the same day?', a: 'Yes. We can carry out both in one visit, saving you arranging access twice. See our landlord package for combined pricing.' },
+  { q: 'When is a 5-year landlord EICR electrical safety report legally required?', a: 'Under the Electrical Safety Standards in the Private Rented Sector (England) Regulations 2020, private and social landlords must have fixed electrical installations inspected and tested by a qualified person at least every 5 years, or at a change of tenancy. Tenants must receive a copy within 28 days, and council fines for non-compliance reach £30,000.' },
+  { q: 'What do EICR observation codes C1, C2, C3, and FI mean?', a: 'On a BS 7671 18th Edition EICR report, Code C1 means danger present (immediate risk of shock), Code C2 means potentially dangerous (urgent fault), and Code FI means further investigation required without delay. Any C1, C2, or FI code makes the EICR Unsatisfactory, legally requiring remedial electrical work within 28 days.' },
+  { q: 'How much does an EICR cost in Bolton and Greater Manchester?', a: 'Our landlord EICR starts from £110 for a standard 1-3 bedroom property, tiered transparently by the number of consumer unit circuits. We also provide combined EPC + EICR packages from £160.' },
+  { q: 'How long does an electrical safety test take?', a: 'Usually 2 to 4 hours depending on property size and consumer unit complexity. Power is turned off for short intervals during fixed wiring testing.' },
+  { q: 'Can I get my EPC and EICR carried out on the same day?', a: 'Yes. We coordinate both assessments in a single visit, cutting out duplicate call-outs and tenant disruption. See our landlord package for combined rates.' },
 ]
 
 export default function EicrPage() {
@@ -35,15 +39,13 @@ export default function EicrPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'EICR', path: '/eicr' }]} />
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            EICR Electrical Safety Reports in Bolton &amp; Greater Manchester
+            EICR Electrical Safety Reports Across Greater Manchester &amp; the North West
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl">
-            An EICR checks that the wiring, consumer unit, sockets and circuits in your property are safe.
-            We carry out EICRs for landlords, sellers and businesses across Bolton and Greater Manchester
-            from <strong>£110</strong> — and can do your EPC in the same visit.
+            BS 7671 18th Edition certified inspection and testing for landlords, home buyers, and commercial premises across Bolton, Manchester, and a 50-mile radius starting from <strong>£110</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book an EICR — from £110</Link>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book an EICR — From £110</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>
@@ -54,10 +56,10 @@ export default function EicrPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex flex-wrap justify-center gap-8 text-center">
             {[
-              { val: 'from £110', label: 'Fixed Fee' },
-              { val: '24-48h', label: 'Certificate' },
-              { val: '100%', label: 'Accredited' },
-              { val: '1 Visit', label: 'EPC + EICR' },
+              { val: 'From £110', label: 'Starting Rate' },
+              { val: '24-48h', label: 'Digital PDF Delivery' },
+              { val: '18th Edition', label: 'BS 7671 Certified' },
+              { val: '1 Visit', label: 'EPC + EICR Package' },
             ].map((s, i) => (
               <div key={i}>
                 <p className="text-2xl font-bold text-[#016837]">{s.val}</p>
@@ -68,21 +70,28 @@ export default function EicrPage() {
         </div>
       </section>
 
-      {/* Content */}
-      <section className="py-16 container mx-auto px-4 max-w-3xl space-y-8 text-[#282828]">
-        <div>
-          <h2 className="text-3xl font-bold mb-4">Statutory Electrical Safety Standards for Private Landlords</h2>
-          <p className="text-gray-600 leading-relaxed">Under the Electrical Safety Standards in the Private Rented Sector (England) Regulations 2020, private landlords must have all electrical installations inspected and tested by a qualified person at intervals of no more than five years. A copy of the Electrical Installation Condition Report (EICR) must be supplied to existing tenants within 28 days of testing and provided to the local housing authority within 7 days upon formal request. Failure to comply can result in local council financial penalties of up to £30,000.</p>
+      {/* Content & AEO Direct Answers */}
+      <section className="py-16 container mx-auto px-4 max-w-3xl space-y-10 text-[#282828]">
+        {/* AEO Answer 1 */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">When is a 5-year landlord EICR electrical safety report legally required?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+            Under the Electrical Safety Standards in the Private Rented Sector (England) Regulations 2020, private and social landlords must have fixed electrical installations inspected and tested by a qualified person at least every 5 years, or at a change of tenancy. Tenants must receive a copy within 28 days, and council fines for non-compliance reach £30,000.
+          </p>
         </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">Understanding Electrical Observation Codes</h2>
-          <p className="text-gray-600 leading-relaxed mb-4">During testing, our qualified electricians test consumer units, earthing, bonding, and fixed wiring circuits, recording any safety defects under standard classification codes:</p>
+
+        {/* AEO Answer 2 */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">What do EICR observation codes C1, C2, C3, and FI mean?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg mb-4">
+            On a BS 7671 18th Edition EICR report, Code C1 means danger present (immediate risk of shock), Code C2 means potentially dangerous (urgent fault), and Code FI means further investigation required without delay. Any C1, C2, or FI code makes the EICR Unsatisfactory, legally requiring remedial electrical work within 28 days.
+          </p>
           <div className="space-y-3">
             {[
-              { code: 'Code C1 — Danger Present', desc: 'Immediate risk of injury or electric shock. Requires urgent make-safe action.' },
-              { code: 'Code C2 — Potentially Dangerous', desc: 'Critical safety issue requiring urgent remedial attention.' },
-              { code: 'Code FI — Further Investigation', desc: 'Unverified safety hazard requiring further diagnostic tracing.' },
-              { code: 'Code C3 — Improvement Recommended', desc: 'Non-compliance with modern 18th Edition wiring standards that does not present immediate danger.' },
+              { code: 'Code C1 — Danger Present', desc: 'Immediate risk of injury or electric shock. Requires urgent make-safe action before re-energising.' },
+              { code: 'Code C2 — Potentially Dangerous', desc: 'Critical electrical fault or missing earthing/bonding requiring remedial attention within 28 days.' },
+              { code: 'Code FI — Further Investigation', desc: 'Unverified circuit safety hazard requiring urgent diagnostic tracing without delay.' },
+              { code: 'Code C3 — Improvement Recommended', desc: 'Non-compliance with the latest 18th Edition wiring standards that does not present an immediate danger.' },
             ].map((item, i) => (
               <div key={i} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <p className="font-bold text-[#016837] mb-1">{item.code}</p>
@@ -90,49 +99,40 @@ export default function EicrPage() {
               </div>
             ))}
           </div>
-          <p className="text-gray-600 leading-relaxed mt-4">If an EICR records any C1, C2, or FI observation, the overall outcome is declared Unsatisfactory. The landlord is legally required to complete necessary remedial repairs via a certified electrician within 28 days.</p>
         </div>
+
         <div>
-          <h2 className="text-3xl font-bold mb-4">EICR prices in Bolton &amp; Manchester</h2>
-          <div className="border border-gray-200 rounded-xl overflow-hidden">
+          <h2 className="text-3xl font-bold mb-4">2026 EICR 5-Year Renewals &amp; Compliance Deadlines</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            With the original 2020/2021 PRS regulations now reaching their 5-year threshold, thousands of landlords across Greater Manchester require a <strong>5-year EICR renewal for expired 2021 certificates</strong>. We provide fast inspections for <strong>change of tenancy electrical safety check</strong> schedules, <strong>HMO and council selective licensing electrical report</strong> compliance, and thorough <strong>consumer unit RCD testing</strong>.
+          </p>
+          <p className="text-gray-600 leading-relaxed">
+            Need an EPC at the same time? Save time and avoid duplicate call-out fees with our <Link href="/landlord-certificates" className="text-[#016837] underline font-semibold">combined Landlord EPC + EICR Package</Link>.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Direct Surveyor Pricing Guide</h2>
+          <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <table className="w-full text-sm">
               <thead className="bg-[#016837] text-white">
-                <tr><th className="text-left p-4">Property</th><th className="text-left p-4">Price</th></tr>
+                <tr><th className="text-left p-4">Property Size / Circuits</th><th className="text-left p-4">Starting Rate</th></tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
-                {[['1-2 bedroom flat or house','£110'],['3-4 bedroom house','£140'],['5+ bedroom house','£180'],['Commercial / HMO','Contact us']].map(([prop,price],i) => (
-                  <tr key={i} className="hover:bg-gray-50"><td className="p-4 text-gray-700">{prop}</td><td className="p-4 font-bold text-[#016837]">{price}</td></tr>
-                ))}
+              <tbody className="divide-y divide-gray-100 bg-white">
+                <tr><td className="p-4 font-medium">Studio / 1-Bedroom Flat</td><td className="p-4 font-bold text-[#016837]">From £110</td></tr>
+                <tr><td className="p-4 font-medium">2 to 3 Bedroom House / Flat</td><td className="p-4 font-bold text-[#016837]">From £130</td></tr>
+                <tr><td className="p-4 font-medium">4+ Bedroom / HMO Property</td><td className="p-4 font-bold text-[#016837]">From £160</td></tr>
+                <tr><td className="p-4 font-medium">Combined EPC + EICR Bundle</td><td className="p-4 font-bold text-[#016837]">From £160 (Single Visit)</td></tr>
               </tbody>
             </table>
           </div>
-          <p className="text-sm text-gray-500 mt-3">Prices include VAT. No travel charge across Bolton and Greater Manchester.</p>
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">EICR for Bolton landlords</h2>
-          <p className="text-gray-600 leading-relaxed">Many of the properties we inspect in Bolton — particularly the Victorian and Edwardian terraces in areas like Halliwell, Daubhill and Great Lever — still have older wiring or consumer units without RCD protection. C2 codes are common in these properties. If your report comes back Unsatisfactory, you have 28 days to complete the remedial work and obtain a new certificate.</p>
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">EPC and EICR in one visit</h2>
-          <p className="text-gray-600 leading-relaxed">Landlords need both certificates. Book them together and we cover access once, produce both certificates and send one invoice. <Link href="/landlord-certificates" className="text-[#016837] underline">See our landlord package</Link>.</p>
-        </div>
-        <div>
-          <h2 className="text-3xl font-bold mb-4">Areas we cover</h2>
-          <p className="text-gray-600 leading-relaxed">
-            <Link href="/locations/bolton" className="text-[#016837] underline">Bolton</Link>,{' '}
-            <Link href="/locations/manchester" className="text-[#016837] underline">Manchester</Link>,{' '}
-            <Link href="/locations/salford" className="text-[#016837] underline">Salford</Link>,{' '}
-            <Link href="/locations/oldham" className="text-[#016837] underline">Oldham</Link>,{' '}
-            <Link href="/locations/stockport" className="text-[#016837] underline">Stockport</Link> and more.{' '}
-            <Link href="/areas-we-serve" className="text-[#016837] underline">See all areas →</Link>
-          </p>
         </div>
       </section>
 
-      {/* FAQs — homepage style */}
+      {/* FAQs */}
       <section className="py-16 bg-[#f8fffe]" id="faqs">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#282828] mb-8 text-center">EICR Questions Answered</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#282828] mb-8 text-center">Landlord EICR Questions Answered</h2>
           <div className="space-y-3">
             {faqs.map((f, i) => (
               <details key={i} className="bg-white rounded-2xl border border-[#80C531]/20 shadow-sm open:shadow-md group">
@@ -150,10 +150,10 @@ export default function EicrPage() {
       {/* CTA */}
       <section className="bg-[#016837] text-white py-14">
         <div className="container mx-auto px-4 max-w-3xl text-center">
-          <h2 className="text-3xl font-bold mb-4">Book Your EICR Today</h2>
-          <p className="text-white/80 mb-8">From £110 · Accredited inspector · Certificate within 24-48 hours</p>
+          <h2 className="text-3xl font-bold mb-4">Book Your Landlord EICR Today</h2>
+          <p className="text-white/80 mb-8">Starting from £110 · 18th Edition qualified inspectors · Digital PDF report within 24 to 48 hours</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — from £110</Link>
+            <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-lg transition-all">Book Online — From £110</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white text-white hover:bg-white hover:text-[#016837] font-bold px-8 py-4 rounded-lg transition-all">📞 {BUSINESS.phoneDisplay}</a>
           </div>
         </div>
