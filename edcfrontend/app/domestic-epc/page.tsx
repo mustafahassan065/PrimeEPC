@@ -5,23 +5,26 @@ import ServiceSchema from '@/components/seo/ServiceSchema'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Domestic EPC North West from £50 | Accredited Assessor' },
-  description: 'Domestic EPCs from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. RdSAP 10 surveys for sales, rentals & 10-year renewals. 24–48h lodgement.',
+  title: { absolute: 'Domestic EPC from £50 | Same Day Bookings & Urgent Reports' },
+  description:
+    'EPC certificate from £50 with same day bookings across Greater Manchester & the North West. Book EPC today for house sales, rentals or remortgages.',
   alternates: { canonical: '/domestic-epc' },
   openGraph: {
     url: '/domestic-epc',
-    title: 'Domestic EPC North West from £50 | Accredited Assessor',
-    description: 'Domestic EPCs from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. RdSAP 10 surveys for sales, rentals & 10-year renewals. 24–48h lodgement.',
+    title: 'Domestic EPC from £50 | Same Day Bookings & Urgent Reports',
+    description:
+      'EPC certificate from £50 with same day bookings across Greater Manchester & the North West. Book EPC today for house sales, rentals or remortgages.',
   },
 }
 
 const faqs = [
+  { q: 'Can I book an urgent EPC today for a same day survey and report?', a: 'Yes. You can book an EPC now with Prime EPC & Design Consultants for a same day survey across Greater Manchester, Merseyside, Lancashire, and Cheshire. Domestic EPC certificates start from £50, and if you need an urgent EPC for a property exchange or tenancy handover, we prioritise same day report lodgement on the GOV.UK register.' },
+  { q: 'Why book an EPC for a remortgage or Green Mortgage application?', a: 'Many UK mortgage lenders and Buy-to-Let providers now require an in-date EPC before releasing remortgage funds, or offer lower Green Mortgage interest rates for homes rated Band A to C. If you have installed a condensing boiler, double glazing, or 270mm loft insulation, booking an updated RdSAP 10 survey logs your higher rating officially.' },
   { q: 'How much does a domestic EPC cost in Greater Manchester and the North West?', a: 'A domestic Energy Performance Certificate (EPC) with Prime EPC & Design Consultants starts from £50 for standard flats and terraced houses across Greater Manchester, Merseyside, Lancashire, and Cheshire. Pricing scales transparently for larger detached homes or extended properties, with zero estate agent mark-ups and official GOV.UK register lodgement within 24 to 48 hours.' },
   { q: 'What does an energy assessor check during an RdSAP 10 EPC inspection?', a: 'During a 30-to-50 minute non-invasive survey under UK RdSAP 10 standards, our accredited Domestic Energy Assessor measures external wall construction (solid brick, stone, or cavity), loft insulation depth at the hatch against the 270mm benchmark, boiler model efficiency, heating controls (programmers, room thermostats, TRVs), window glazing age, and fixed low-energy LED lighting.' },
   { q: 'Do I need to be home during the EPC assessment?', a: 'No. Provided access is arranged via an adult representative, on-site key safe, or free key collection from local estate agents or letting agents, you do not need to attend.' },
   { q: 'How long is a domestic EPC valid for?', a: 'A domestic EPC is valid for 10 years. A 10-year expired EPC renewal is legally required before listing on Rightmove and Zoopla, or signing a new tenancy agreement.' },
-  { q: 'Can I get a re-assessment after energy efficiency upgrades?', a: 'Yes. Booking a re-assessment after installing a new condensing boiler or 270mm loft insulation ensures your updated score is logged on the official register ahead of a sale or remortgage.' },
-  { q: 'Do you offer same-day EPC appointments?', a: 'We regularly accommodate urgent requests for conveyancing solicitors and estate agents. Call us on 07308 658247 to confirm availability.' },
+  { q: 'Do you offer same-day EPC appointments?', a: 'Yes. We regularly accommodate urgent requests for conveyancing solicitors, home sales, and estate agents. Call us on 07308 658247 to confirm today’s appointment slots.' },
 ]
 
 export default function DomesticEpcPage() {
@@ -31,7 +34,7 @@ export default function DomesticEpcPage() {
         name="Domestic EPC"
         path="/domestic-epc"
         serviceType="Energy Performance Certificate for residential properties"
-        price={BUSINESS.prices.domesticEpc}
+        price={BUSINESS.prices.domesticEpcFrom}
         areas={['Bolton','Manchester','Salford','Bury','Wigan','Leigh','Chorley','Oldham','Rochdale','Stockport']}
       />
 
@@ -40,10 +43,10 @@ export default function DomesticEpcPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Domestic EPC', path: '/domestic-epc' }]} />
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            Domestic Energy Performance Certificates Across the North West
+            Domestic EPC Certificates from £50 — Same Day Bookings Across the North West
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-3">Starting from <strong className="text-[#80C531]">£50</strong> — direct local assessor rates across Greater Manchester.</p>
-          <p className="text-white/80 mb-8 max-w-2xl">Official RdSAP 10 domestic energy assessments lodged on the national GOV.UK register within 24 to 48 hours for home sales, private rentals, and 10-year renewals.</p>
+          <p className="text-white/80 mb-8 max-w-2xl">Official RdSAP 10 domestic energy assessments lodged on the national GOV.UK register within 24 to 48 hours for home sales, urgent tenancies, remortgages, and 10-year renewals.</p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link href="/booking" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold py-4 px-8 rounded-xl text-center transition-all">Book EPC — From £50</Link>
             <a href={`tel:${BUSINESS.phoneIntl}`} className="border-2 border-white/40 hover:border-white text-white font-bold py-4 px-8 rounded-xl text-center transition-all">📞 {BUSINESS.phoneDisplay}</a>
@@ -64,7 +67,23 @@ export default function DomesticEpcPage() {
 
       {/* Content & AEO Direct Answers */}
       <section className="py-16 container mx-auto px-4 max-w-3xl space-y-10 text-[#282828]">
-        {/* AEO Answer 1 */}
+        {/* AEO Answer Section 1: Urgent & Same Day */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">Can I book an urgent EPC today for a same day survey and report?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+            Yes. You can book an EPC now with Prime EPC &amp; Design Consultants for a same day survey across Greater Manchester, Merseyside, Lancashire, and Cheshire. Domestic EPC certificates start from £50, and if you need an urgent EPC for a property exchange or tenancy handover, we prioritise same day report lodgement on the GOV.UK register.
+          </p>
+        </div>
+
+        {/* AEO Answer Section 2: Remortgage & Green Mortgage Niche */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">Why book an EPC for a remortgage or Green Mortgage application?</h2>
+          <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+            Many UK mortgage lenders and Buy-to-Let providers now require an in-date EPC before releasing remortgage funds, or offer lower Green Mortgage interest rates for homes rated Band A to C. If you have installed a condensing boiler, double glazing, or 270mm loft insulation, booking an updated RdSAP 10 survey logs your higher rating officially.
+          </p>
+        </div>
+
+        {/* AEO Answer 3: Pricing */}
         <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">How much does a domestic EPC cost in Greater Manchester and the North West?</h2>
           <p className="text-gray-700 leading-relaxed text-base md:text-lg">

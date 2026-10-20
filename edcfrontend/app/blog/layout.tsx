@@ -4,13 +4,7 @@ export const metadata: Metadata = {
   title: 'EPC & Property Compliance News & Guides Manchester | Prime EPC',
   description:
     'Stay up to date with 2026 MEES regulations, UK landlord energy efficiency requirements, EICR rules, and property performance guidance across Greater Manchester.',
-  keywords: [
-    'EPC News Manchester',
-    'MEES Regulations 2026',
-    'Landlord EPC Rules UK',
-    'EICR Guidance Greater Manchester',
-    'Energy Efficiency Guides Manchester'
-  ],
+
   alternates: {
     canonical: 'https://www.primeepcdesign.co.uk/blog',
   },

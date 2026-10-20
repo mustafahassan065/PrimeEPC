@@ -4,25 +4,29 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs'
 import { BUSINESS } from '@/lib/business'
 
 export const metadata: Metadata = {
-  title: { absolute: 'EPC & Electrical Compliance Pricing Guide | Prime EPC' },
-  description: 'Transparent direct surveyor pricing for Domestic EPC (from £50), Commercial EPC (from £144), and Landlord EICR (from £110) across Greater Manchester.',
+  title: { absolute: 'EPC & EICR Prices North West | Rates from £50' },
+  description:
+    'Transparent rates: Domestic EPC from £50, commercial EPC from £144, EICR from £110 across Manchester, Liverpool, Bolton & North West. Bulk discounts available.',
   alternates: { canonical: '/pricing' },
   openGraph: {
     url: '/pricing',
-    title: 'EPC & Electrical Compliance Pricing Guide | Prime EPC',
-    description: 'Transparent direct surveyor pricing for Domestic EPC (from £50), Commercial EPC (from £144), and Landlord EICR (from £110) across Greater Manchester.',
+    title: 'EPC & EICR Prices North West | Rates from £50',
+    description:
+      'Transparent rates: Domestic EPC from £50, commercial EPC from £144, EICR from £110 across Manchester, Liverpool, Bolton & North West. Bulk discounts available.',
   },
 }
 
 export default function PricingPage() {
   const pricingData = [
     {
-      service: 'Domestic EPC Assessment',
+      service: 'Domestic EPC Certificate',
       href: '/domestic-epc',
-      rate: 'From £50 (tiered by size & extensions)',
-      turnaround: '24–48 Hours',
+      rate: 'From £50 (tiered by size — same day bookings available)',
+      turnaround: 'Same Day / 24–48h Report',
       validity: '10 Years',
-      badge: 'Most Popular'
+      badge: 'Most Popular',
+      actionHref: '/booking',
+      actionText: 'Book Now →',
     },
     {
       service: 'Commercial EPC Assessment',
@@ -30,7 +34,9 @@ export default function PricingPage() {
       rate: 'From £144 (Level 3 & 4 SBEM)',
       turnaround: '48–72 Hours',
       validity: '10 Years',
-      badge: 'MEES Ready'
+      badge: 'MEES Ready',
+      actionHref: '/booking',
+      actionText: 'Book Now →',
     },
     {
       service: 'Landlord EICR Safety Report',
@@ -38,23 +44,29 @@ export default function PricingPage() {
       rate: 'From £110 (tiered by circuits)',
       turnaround: '24–48 Hours',
       validity: '5 Years (PRS Legal Rule)',
-      badge: 'BS 7671 Certified'
+      badge: 'BS 7671 Certified',
+      actionHref: '/booking',
+      actionText: 'Book Now →',
     },
     {
       service: 'Landlord EPC + EICR Bundle',
       href: '/landlord-certificates',
-      rate: 'Single-Visit Package Rate',
+      rate: 'Discounted Single-Visit Package',
       turnaround: '24–48 Hours',
       validity: '10 Yrs (EPC) / 5 Yrs (EICR)',
-      badge: 'Best Value'
+      badge: 'Best Value',
+      actionHref: '/booking',
+      actionText: 'Book Package →',
     },
     {
       service: 'Bulk & Portfolio EPC Orders',
       href: '/bulk-epc',
-      rate: 'Volume Tiers from £50/unit',
-      turnaround: '24–48 Hours',
+      rate: 'Custom Multi-Property Discount Quote',
+      turnaround: 'Priority Portfolio Schedule',
       validity: '10 Years',
-      badge: 'Volume Discount'
+      badge: 'Volume Discount',
+      actionHref: '/bulk-epc',
+      actionText: 'Get Quote →',
     },
     {
       service: 'CAD Floor Plans & Lease Plans',
@@ -62,7 +74,9 @@ export default function PricingPage() {
       rate: 'Quote on Request',
       turnaround: '24–48 Hours',
       validity: 'Marketing / Licensing Asset',
-      badge: 'RICS GIA Measured'
+      badge: 'RICS GIA Measured',
+      actionHref: '/floor-plans-drafting',
+      actionText: 'Enquire →',
     },
     {
       service: 'BS 7671 Electrical Design',
@@ -70,7 +84,9 @@ export default function PricingPage() {
       rate: 'Bespoke Project Quote',
       turnaround: 'Project Dependent',
       validity: 'Building Control Sign-Off',
-      badge: 'Part P & L'
+      badge: 'Part P & L',
+      actionHref: '/electrical-design',
+      actionText: 'Enquire →',
     },
   ]
 
@@ -84,7 +100,7 @@ export default function PricingPage() {
             💷 Direct Surveyor Rates — No Middleman Agency Fees
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-5 leading-tight">
-            Transparent Property Compliance Pricing Guide
+            Transparent Property Compliance Pricing (Direct Assessor Rates)
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto leading-relaxed">
             Direct pricing for homeowners, landlords, estate agents, and commercial premises across Greater Manchester and a 50-mile radius.
@@ -124,10 +140,10 @@ export default function PricingPage() {
                       <td className="p-4">{row.validity}</td>
                       <td className="p-4 text-right">
                         <Link
-                          href="/booking"
+                          href={row.actionHref}
                           className="bg-[#016837] hover:bg-[#01572E] text-white font-bold py-2 px-4 rounded-lg text-xs md:text-sm whitespace-nowrap shadow transition-all inline-block"
                         >
-                          Book Now →
+                          {row.actionText}
                         </Link>
                       </td>
                     </tr>
@@ -136,7 +152,7 @@ export default function PricingPage() {
               </table>
             </div>
             <p className="text-xs text-gray-500 mt-6 leading-relaxed">
-              * Domestic EPC rates start from £50 for standard apartments and terraced homes, tiered by bedrooms, square metres, and extensions. Commercial EPCs start from £144 for Level 3 properties. Landlord EICRs start from £110 for standard consumer units. All prices exclude third-party brokerage commissions.
+              * Domestic EPC rates start from £50 for standard apartments and terraced homes, tiered by bedrooms, square metres, and extensions (same day bookings available). Commercial EPCs start from £144 for Level 3 properties. Landlord EICRs start from £110 for standard consumer units. Bulk EPCs are priced via tailored volume discounts. All prices exclude third-party brokerage commissions.
             </p>
           </div>
         </div>

@@ -4,14 +4,7 @@ export const metadata: Metadata = {
   title: 'Book EPC & EICR Certificates Manchester | Fast 24-48h Delivery',
   description:
     'Book accredited domestic EPCs (from £50), commercial EPCs (from £144), and landlord EICR safety reports (£110) online. 24-48h turnaround across Greater Manchester.',
-  keywords: [
-    'Book EPC Manchester',
-    'Order EPC Online Manchester',
-    'Domestic EPC Booking',
-    'Commercial EPC Booking Manchester',
-    'Book Landlord EICR 2026',
-    'Fast EPC Certificate Bolton'
-  ],
+
   alternates: {
     canonical: 'https://www.primeepcdesign.co.uk/booking',
   },

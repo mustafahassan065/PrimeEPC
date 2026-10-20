@@ -4,8 +4,9 @@ import Breadcrumbs from '@/components/seo/Breadcrumbs'
 import { homeFaqs } from '@/lib/homeFaqs'
 
 export const metadata: Metadata = {
-  title: { absolute: 'EPC & EICR FAQs | Costs, Validity, Landlord Rules' },
-  description: 'Answers to common questions about EPCs and EICRs in Bolton and Greater Manchester — costs, how long they take, landlord rules and MEES compliance.',
+  title: { absolute: 'EPC & EICR FAQs | Same Day, Remortgage & Bulk Discounts' },
+  description:
+    'Answers to common questions on urgent same day EPCs, remortgage surveys, bulk discounts, 5-year EICRs, and MEES compliance across Bolton, Manchester & the North West.',
   alternates: { canonical: '/faq' },
 }
 
@@ -19,6 +20,8 @@ const sections = [
     title: 'Costs & Prices',
     id: 'cost',
     faqs: [
+      { q: 'How much is an EPC certificate near me and how do same day bookings work?', a: 'An EPC certificate starts from £50 for standard flats and terraced houses across Greater Manchester, Merseyside, Lancashire, and Cheshire, scaling fairly for larger homes or extensions. Same day bookings are available subject to surveyor diary slots, and you pay the assessor directly with zero estate agent commission.' },
+      { q: 'Do you offer discounts on bulk EPC orders for landlords and letting agents?', a: 'Yes. We provide custom bulk EPC discounts for portfolio landlords, letting agencies, block managers, and housing associations ordering multiple assessments. Your discount is tailored to the number of units and postcode clustering, complete with free agent key collection and a single consolidated invoice.' },
       { q: 'How much does an EPC cost in Bolton and Greater Manchester?', a: 'Domestic EPC rates start from £50 with complete transparent pricing and no travel charge across Greater Manchester. Commercial EPCs start from £144.' },
       { q: 'How much does an EICR cost?', a: 'Our Landlord EICR starts from £110 for a 1-3 bedroom property, tiered transparently by the number of consumer unit circuits.' },
       { q: 'Is there a travel charge?', a: 'No. We cover Bolton and Greater Manchester within our 50-mile radius with zero travel surcharge.' },
@@ -30,6 +33,7 @@ const sections = [
     title: 'The Visit & Inspection',
     id: 'visit',
     faqs: [
+      { q: 'Can I book an urgent EPC today and get a same day report?', a: 'Yes. If you have an urgent property sale exchange, auction deadline, or tenancy move-in, you can book an EPC now by calling 07308 658247 or booking online. We offer same day survey slots across our 16 North West service areas, with priority same day report lodgement onto the GOV.UK register.' },
       { q: 'How long does an EPC assessment take?', a: 'Around 30 to 50 minutes for a typical house or flat. The assessor will inspect every room, the loft hatch, and the heating controls.' },
       { q: 'Do I need to be present during the assessment?', a: 'No, provided access is arranged via an adult representative, on-site key safe, or free key collection from your estate or letting agent.' },
       { q: 'How do I receive my EPC certificate?', a: 'Your certificate is emailed directly to you in digital PDF format and lodged on the official GOV.UK register within 24 to 48 hours of inspection.' },
@@ -39,6 +43,7 @@ const sections = [
     title: 'Validity & Regulations',
     id: 'validity',
     faqs: [
+      { q: 'Why should I book an EPC for a remortgage?', a: 'UK mortgage lenders and Buy-to-Let underwriters check the national EPC register during remortgage valuations, and many offer discounted Green Mortgage interest rates for properties in Band A, B, or C. If your existing certificate has expired after 10 years—or if you have upgraded your boiler, windows, or loft insulation—booking an EPC for your remortgage updates your official rating.' },
       { q: 'How long is an EPC valid for?', a: 'A domestic EPC is valid for 10 years. A commercial EPC is also valid for 10 years from the date of issue.' },
       { q: 'Can I reuse an old EPC?', a: 'Yes, as long as it was issued within the last 10 years and the property has not had major alterations to its heating, insulation, or structure.' },
       { q: 'What happens if I carry out energy improvements?', a: 'If you install a new condensing boiler, double glazing, or top up loft insulation to 270mm, booking a re-assessment updates your official rating on the register.' },

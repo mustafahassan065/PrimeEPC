@@ -1,12 +1,11 @@
-// app/blog/[slug]/page.js
-import Head from 'next/head';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 const API_URL = 'https://primeepcdesign.co.uk'
 
 async function getBlog(slug) {
   try {
-    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`${API_URL}/api/blogs/${slug}`, { next: { revalidate: 3600 } });
     if (!res.ok) return null;
     const data = await res.json();
     return data.success ? data.data : null;
@@ -22,9 +21,8 @@ export async function generateMetadata({ params }) {
   if (!blog) return { title: 'Blog Not Found | Prime EPC' };
   const imageUrl = getImageUrl(blog.featured_image || blog.featuredImage);
   return {
-    title: `${blog.meta_title || blog.title} | Prime EPC Manchester`,
+    title: blog.meta_title || blog.title,
     description: blog.meta_description || blog.excerpt || 'EPC, EICR & MEES compliance insights for Greater Manchester property owners.',
-    keywords: Array.isArray(blog.keywords) ? blog.keywords.join(', ') : blog.keywords || 'EPC Manchester, MEES Compliance 2026, Landlord Rules',
     alternates: {
       canonical: `https://www.primeepcdesign.co.uk/blog/${slug}`,
     },
@@ -184,17 +182,7 @@ export default async function BlogPost({ params }) {
   const blog = await getBlog(slug);
 
   if (!blog) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Blog not found</h1>
-          <p className="text-gray-600">The blog post could not be found.</p>
-          <a href="/blog" className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            Back to Blog List
-          </a>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   const featuredImage = getImageUrl(blog.featured_image || blog.featuredImage);
@@ -210,8 +198,39 @@ export default async function BlogPost({ params }) {
   // Split content into blocks on blank lines
   const blocks = (blog.content || '').split(/\n\n+/);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: blog.title,
+    description: blog.meta_description || blog.excerpt || blog.title,
+    image: featuredImage ? [featuredImage] : undefined,
+    datePublished: blog.created_at || blog.createdAt,
+    dateModified: blog.updated_at || blog.updatedAt || blog.created_at || blog.createdAt,
+    author: {
+      '@type': 'Organization',
+      name: 'Prime EPC & Design Consultants',
+      url: 'https://www.primeepcdesign.co.uk',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Prime EPC & Design Consultants',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.primeepcdesign.co.uk/images/logo3.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.primeepcdesign.co.uk/blog/${slug}`,
+    },
+  };
+
   return (
     <article className="min-h-screen bg-white py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <div className="container mx-auto px-4 max-w-4xl">
 
         <header className="text-center mb-12">

@@ -72,10 +72,10 @@ export default function BulkEpcPage() {
               <span className="text-white text-sm font-semibold tracking-wide bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">DISCOUNTED RATES FOR MULTIPLE PROPERTIES</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight text-white">
-              Bulk EPC Orders &amp; Portfolio Energy Assessments Across the North West
+              Bulk EPC Orders &amp; Multi-Property Portfolio Discounts Across the North West
             </h1>
             <p className="text-xl text-white opacity-90 mb-8 leading-relaxed max-w-2xl mx-auto">
-              Landlords, letting agents and property developers — get tiered volume discounts starting from <strong className="text-[#80C531]">£50/unit</strong> across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast 24 to 48 hour turnaround with free local branch key collection.
+              Landlords, letting agents and property developers — get custom volume discounts and preferential portfolio rates across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast 24 to 48 hour turnaround with free local branch key collection.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="#bulk-form" className="bg-[#80C531] hover:bg-[#70B52B] text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg">
@@ -95,10 +95,39 @@ export default function BulkEpcPage() {
           <div className="max-w-6xl mx-auto">
             {/* AEO Direct Answer Section */}
             <div className="bg-white rounded-2xl p-6 md:p-8 text-left text-[#282828] mb-12 shadow-md border border-[#80C531]/40">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">How do bulk EPC discounts work for property portfolios and letting agents?</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#016837]">How do bulk EPC discounts work for landlords and letting agents?</h2>
               <p className="text-gray-700 leading-relaxed text-base md:text-lg">
-                Prime EPC provides tiered volume discounts starting from £50 per property for landlords, letting agents, housing associations, and block managers booking multiple assessments across the North West. Portfolio orders include a single point of contact, free branch key collection, consolidated invoicing, and 24 to 48 hour register lodgement.
+                Prime EPC &amp; Design Consultants provides custom volume discounts for landlords, letting agents, block managers, and housing associations booking multiple EPC assessments across Greater Manchester, Merseyside, Lancashire, and Cheshire. Rather than a rigid flat fee, we tailor your portfolio discount based on property count, postcode grouping, and unit layout.
               </p>
+            </div>
+
+            {/* Bulk Volume Discount Tiers */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:border-[#80C531] transition-all">
+                <span className="inline-block bg-[#80C531]/15 text-[#016837] text-xs font-bold px-3 py-1 rounded-full mb-3">Tier 1</span>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">2 – 4 Properties</h3>
+                <p className="text-xs font-semibold text-[#016837] uppercase tracking-wider mb-3">Small Portfolio / Multi-Let</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Preferential multi-property discount, coordinated same-day survey visits, and individual GOV.UK PDF certificates.
+                </p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border-2 border-[#016837] shadow-md relative">
+                <span className="absolute -top-3 right-4 bg-[#016837] text-white text-xs font-bold px-3 py-1 rounded-full">Most Popular</span>
+                <span className="inline-block bg-[#80C531]/15 text-[#016837] text-xs font-bold px-3 py-1 rounded-full mb-3">Tier 2</span>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">5 – 10 Properties</h3>
+                <p className="text-xs font-semibold text-[#016837] uppercase tracking-wider mb-3">Landlord Portfolio &amp; Letting Agents</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Trade discount rate, free key collection from local high-street agent branches, single consolidated invoice, and priority 24–48 hour turnaround.
+                </p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:border-[#80C531] transition-all">
+                <span className="inline-block bg-[#80C531]/15 text-[#016837] text-xs font-bold px-3 py-1 rounded-full mb-3">Tier 3</span>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">11+ Properties</h3>
+                <p className="text-xs font-semibold text-[#016837] uppercase tracking-wider mb-3">Apartment Blocks &amp; HMOs</p>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Bespoke block &amp; portfolio rate, dedicated account manager, optional combined 5-year EICR electrical testing in the same visit, and spreadsheet compliance tracking.
+                </p>
+              </div>
             </div>
 
             <div className="text-center mb-12">
@@ -106,7 +135,7 @@ export default function BulkEpcPage() {
               <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-4">Request a Bulk EPC Quote</h2>
               <p className="text-xl text-[#282828] opacity-90 max-w-2xl mx-auto">Fill in the form and we will get back to you within 1 working day with a tailored quote and discounted pricing.</p>
               <div className="flex flex-wrap justify-center gap-4 mt-6">
-                {[['From £50', 'Starting Rate'],['Discounted','Bulk Rates'],['24-48h','Turnaround'],['100%','Accredited']].map(([val, label], i) => (
+                {[['Custom Quotes', 'Volume Discounts'],['Trade Rates','Bulk Portfolios'],['24-48h','Turnaround'],['100%','Accredited']].map(([val, label], i) => (
                   <div key={i} className="bg-white rounded-2xl px-5 py-3 shadow-sm border border-gray-100 text-center">
                     <p className="text-xl font-black text-[#016837]">{val}</p>
                     <p className="text-xs text-gray-500">{label}</p>

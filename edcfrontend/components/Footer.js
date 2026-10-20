@@ -149,23 +149,37 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1.5 text-xs text-white/80">
             <Link href="/locations/bolton" className="hover:text-[#80C531] transition-colors">EPC Bolton</Link>
             <span>•</span>
-            <Link href="/locations/manchester" className="hover:text-[#80C531] transition-colors">EPC Manchester</Link>
+            <Link href="/locations/bury" className="hover:text-[#80C531] transition-colors">EPC Bury</Link>
             <span>•</span>
-            <Link href="/locations/salford" className="hover:text-[#80C531] transition-colors">EPC Salford</Link>
+            <Link href="/locations/manchester" className="hover:text-[#80C531] transition-colors">EPC Manchester</Link>
             <span>•</span>
             <Link href="/locations/oldham" className="hover:text-[#80C531] transition-colors">EPC Oldham</Link>
             <span>•</span>
-            <Link href="/locations/blackburn" className="hover:text-[#80C531] transition-colors">EPC Blackburn</Link>
+            <Link href="/locations/rochdale" className="hover:text-[#80C531] transition-colors">EPC Rochdale</Link>
+            <span>•</span>
+            <Link href="/locations/salford" className="hover:text-[#80C531] transition-colors">EPC Salford</Link>
             <span>•</span>
             <Link href="/locations/stockport" className="hover:text-[#80C531] transition-colors">EPC Stockport</Link>
             <span>•</span>
-            <Link href="/locations/rochdale" className="hover:text-[#80C531] transition-colors">EPC Rochdale</Link>
+            <Link href="/locations/tameside" className="hover:text-[#80C531] transition-colors">EPC Tameside</Link>
             <span>•</span>
-            <Link href="/locations/warrington" className="hover:text-[#80C531] transition-colors">EPC Warrington</Link>
+            <Link href="/locations/trafford" className="hover:text-[#80C531] transition-colors">EPC Trafford</Link>
+            <span>•</span>
+            <Link href="/locations/wigan" className="hover:text-[#80C531] transition-colors">EPC Wigan</Link>
+            <span>•</span>
+            <Link href="/locations/blackburn" className="hover:text-[#80C531] transition-colors">EPC Blackburn</Link>
+            <span>•</span>
+            <Link href="/locations/chorley" className="hover:text-[#80C531] transition-colors">EPC Chorley</Link>
             <span>•</span>
             <Link href="/locations/liverpool" className="hover:text-[#80C531] transition-colors">EPC Liverpool</Link>
             <span>•</span>
-            <span className="text-white/50">Covering 50-Mile North West Radius</span>
+            <Link href="/locations/rossendale" className="hover:text-[#80C531] transition-colors">EPC Rossendale</Link>
+            <span>•</span>
+            <Link href="/locations/st-helens" className="hover:text-[#80C531] transition-colors">EPC St Helens</Link>
+            <span>•</span>
+            <Link href="/locations/warrington" className="hover:text-[#80C531] transition-colors">EPC Warrington</Link>
+            <span>•</span>
+            <Link href="/areas-we-serve" className="hover:text-[#80C531] font-semibold text-[#80C531] transition-colors">All 16 North West Areas →</Link>
           </div>
         </div>
       </div>

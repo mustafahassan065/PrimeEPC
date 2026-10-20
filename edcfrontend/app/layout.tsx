@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' })
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.primeepcdesign.co.uk'),
   title: {
-    default: 'EPC Bolton & Greater Manchester from £50 | Prime EPC',
+    default: 'EPC Certificates from £50 | Same Day North West Bookings',
     template: '%s | Prime EPC',
   },
   description:

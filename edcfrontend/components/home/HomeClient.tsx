@@ -59,9 +59,9 @@ export default function HomeClient() {
     if (!clean || isGeneralEpcQuery(clean)) {
       return {
         type: 'general' as const,
-        h1: 'EPC Certificates in Greater Manchester & 50-Mile Radius from £50',
-        badge: 'Accredited Energy Assessors — 50-Mile North West Coverage',
-        lead: 'Book your domestic EPC (from £50), commercial SBEM energy survey (from £144), or 5-year landlord EICR (from £110) directly with an accredited Bolton-based assessor. We cover Greater Manchester, Merseyside, Lancashire, and Cheshire within a 50-mile radius, cutting out estate agent mark-ups and lodging your certificate on the GOV.UK register within 24 to 48 hours.',
+        h1: 'Accredited EPC & EICR Certificates from £50 — Same-Day Surveys Across the North West',
+        badge: 'Accredited Energy Assessors — Covering 16 North West Regions',
+        lead: 'Book your EPC now directly with an accredited surveyor—no estate agent mark-ups or middleman fees. We provide domestic EPC certificates from £50 (same day bookings available), commercial SBEM assessments from £144, 5-year landlord EICRs from £110, and custom bulk portfolio discounts across Greater Manchester, Merseyside, Lancashire, and Cheshire. Whether you need an urgent EPC for a property sale, a same-day survey for a new tenancy, or want to book an EPC for a remortgage, your official report is lodged within 24 to 48 hours.',
         ctaText: 'Check Price & Book',
         ctaHref: '/booking',
         matchedLocation: null as LocationData | null,
@@ -69,14 +69,57 @@ export default function HomeClient() {
       }
     }
 
-    if (isNearMeQuery(clean)) {
+    // Dynamic Search Trigger 1: Urgent / Same Day / Today / Now
+    if (clean.includes('urgent') || clean.includes('same day') || clean.includes('today') || clean.includes('now')) {
+      return {
+        type: 'urgent' as const,
+        h1: 'Urgent EPC & Same Day Survey Bookings — From £50',
+        badge: '⚡ Priority Slot: Book EPC Today for Same Day Survey & Fast Report',
+        lead: 'Need an urgent EPC today? We provide same-day survey slots and priority report lodgement across Greater Manchester, Merseyside, Lancashire, and Cheshire starting from £50.',
+        ctaText: 'Book Urgent EPC Now →',
+        ctaHref: '/booking',
+        matchedLocation: null as LocationData | null,
+        matchedService: null as ServiceIntent | null,
+      }
+    }
+
+    // Dynamic Search Trigger 2: Remortgage / Mortgage
+    if (clean.includes('remortgage') || clean.includes('mortgage')) {
+      return {
+        type: 'remortgage' as const,
+        h1: 'Book EPC for Remortgage & Green Mortgage Rates — From £50',
+        badge: '🏦 Mortgage Valuation Ready: Official RdSAP 10 Register Lodgement',
+        lead: 'Booking an EPC for a remortgage or Green Mortgage valuation? Our accredited assessors lodge your official RdSAP 10 certificate directly onto the GOV.UK register to satisfy lender requirements.',
+        ctaText: 'Book Remortgage EPC Today →',
+        ctaHref: '/booking',
+        matchedLocation: null as LocationData | null,
+        matchedService: null as ServiceIntent | null,
+      }
+    }
+
+    // Dynamic Search Trigger 3: Near Me / Local
+    if (isNearMeQuery(clean) || clean.includes('near me') || clean.includes('local')) {
       return {
         type: 'near-me' as const,
-        h1: 'EPC Certificates Near Me — 50-Mile North West Radius from £50',
-        badge: '🎯 Instant Geo-Match: 24h Local EPC Delivery Near You',
+        h1: 'EPC Near Me — Same Day Bookings Across 16 North West Areas',
+        badge: '📍 Local Assessor Match: EPC Certificate from £50',
         lead: 'Looking for an accredited domestic or commercial EPC assessor near you? Direct booking across Greater Manchester, Lancashire, Merseyside & Cheshire with fast 24–48h register turnaround, transparent rates starting from £50, and zero broker markups.',
-        ctaText: 'Find Assessor Near Me →',
+        ctaText: 'Find EPC Assessor Near Me →',
         ctaHref: '/epc-near-me',
+        matchedLocation: null as LocationData | null,
+        matchedService: null as ServiceIntent | null,
+      }
+    }
+
+    // Dynamic Search Trigger 4: Bulk / Portfolio
+    if (clean.includes('bulk') || clean.includes('portfolio')) {
+      return {
+        type: 'bulk' as const,
+        h1: 'Bulk EPC Orders & Multi-Property Portfolio Discounts',
+        badge: '🏢 Landlord & Agent Trade Rates — Custom Volume Discount',
+        lead: 'Managing multiple properties or a block of flats? Get custom volume discounts, coordinated same-day surveys, free branch key collection, and consolidated invoicing for landlord portfolios.',
+        ctaText: 'Get Bulk EPC Discount Quote →',
+        ctaHref: '/bulk-epc',
         matchedLocation: null as LocationData | null,
         matchedService: null as ServiceIntent | null,
       }
@@ -86,7 +129,7 @@ export default function HomeClient() {
     if (loc) {
       return {
         type: 'location' as const,
-        h1: `EPC Certificates in ${loc.name} — From £50 | Local Accredited Assessor`,
+        h1: `EPC Certificates in ${loc.name} — From £50 | Same-Day Local Survey`,
         badge: `📍 Matched Coverage: ${loc.name} (${loc.postcodes.split(',').slice(0, 3).join(', ')}...) — 24–48h Lodgement`,
         lead: `Accredited domestic and commercial EPC surveys in ${loc.name} and across ${loc.postcodes}. Direct local assessor booking from £50, no third-party booking commissions, and official government lodgement within 24–48 hours.`,
         ctaText: `Book in ${loc.name} (From £50) →`,
@@ -128,6 +171,36 @@ export default function HomeClient() {
     if (!q || q.length < 2) return []
 
     const list: Array<{ label: string; sub: string; badge: string; href: string; icon: string }> = []
+
+    if (q.includes('urgent') || q.includes('same day') || q.includes('today') || q.includes('now')) {
+      list.push({
+        label: 'Urgent EPC & Same Day Survey Bookings',
+        sub: 'Priority appointments across Greater Manchester & 50-mile radius',
+        badge: 'From £50',
+        href: '/booking',
+        icon: '⚡',
+      })
+    }
+
+    if (q.includes('remortgage') || q.includes('mortgage')) {
+      list.push({
+        label: 'Book EPC for Remortgage & Green Mortgages',
+        sub: 'Official RdSAP 10 lodgement for lenders and lower interest tiers',
+        badge: 'From £50',
+        href: '/booking',
+        icon: '🏦',
+      })
+    }
+
+    if (q.includes('bulk') || q.includes('portfolio') || q.includes('multi')) {
+      list.push({
+        label: 'Bulk EPC Orders & Multi-Property Discounts',
+        sub: 'Custom volume quotes for landlords, letting agents & apartment blocks',
+        badge: 'Trade Discount',
+        href: '/bulk-epc',
+        icon: '🏢',
+      })
+    }
 
     if (isNearMeQuery(q) || q.includes('near') || q.includes('local') || q.includes('find') || q.includes('close')) {
       list.push({
@@ -240,6 +313,10 @@ export default function HomeClient() {
   }
 
   const faqs = [
+    { question: 'Can I book an urgent EPC today and get a same day report?', answer: 'Yes. If you have an urgent property sale exchange, auction deadline, or tenancy move-in, you can book an EPC now by calling 07308 658247 or booking online. Because our assessors are based locally at 17 Bromwich Street in Bolton, we offer same day survey slots across Greater Manchester and the North West, with priority same day report lodgement onto the GOV.UK register.' },
+    { question: 'How much is an EPC certificate near me and how do same day bookings work?', answer: 'An EPC certificate starts from £50 for standard flats and terraced houses across our 50-mile North West radius, scaling fairly for larger homes or extensions. Same day bookings are available subject to surveyor diary slots, and you pay the assessor directly with zero estate agent commission.' },
+    { question: 'Why should I book an EPC for a remortgage?', answer: 'UK mortgage lenders and Buy-to-Let underwriters increasingly check the national EPC register during remortgage valuations, and many offer discounted Green Mortgage rates for properties in Band A, B, or C. If your existing certificate has expired after 10 years—or if you have upgraded your boiler, windows, or loft insulation—booking an EPC for your remortgage updates your official rating.' },
+    { question: 'Do you offer discounts on bulk EPC orders for landlords and letting agents?', answer: 'Yes. We offer custom bulk EPC discounts for portfolio landlords, letting agencies, block managers, and housing associations ordering multiple assessments. Your discount is tailored to the number of units and whether several properties or flats can be surveyed on the same day, complete with free agent key collection and a single consolidated invoice.' },
     { question: 'What is an EPC and why is it needed?', answer: 'An Energy Performance Certificate shows how energy efficient a property is and its estimated energy costs. It\'s legally required in the UK when you sell, rent or build a new property.' },
     { question: 'How long is an EPC valid for?', answer: 'An EPC is valid for 10 years from issue. After that, if you\'re selling or renting, you need a new one.' },
     { question: 'How long does an EPC assessment take?', answer: 'Usually between 30 to 60 minutes for domestic properties, depending on size and complexity.' },
@@ -535,7 +612,7 @@ export default function HomeClient() {
               },
               {
                 path: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,
-                label: 'Bespoke Trade\nPortal'
+                label: 'Landlord Trade\nPortal'
               }
             ].map((feat, i) => (
               <div key={i} className="flex items-center gap-3">
@@ -667,7 +744,7 @@ export default function HomeClient() {
                 </p>
                 <ul className="space-y-2 text-sm text-white/85 mb-6">
                   <li className="flex items-center gap-2">
-                    <span className="text-[#80C531] font-bold">✓</span> One seamless inspection visit for all certificates
+                    <span className="text-[#80C531] font-bold">✓</span> One coordinated inspection visit for all certificates
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="text-[#80C531] font-bold">✓</span> 100% MEES &amp; UK rental safety regulations compliant

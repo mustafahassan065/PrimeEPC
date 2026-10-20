@@ -5,19 +5,23 @@ import { BUSINESS } from '@/lib/business';
 import { targetLocations } from '@/lib/locationData';
 
 export const metadata: Metadata = {
-  title: { absolute: 'EPC Near Me from £50 | Accredited Assessors 50-Mile Radius' },
+  title: { absolute: 'EPC Near Me | From £50 Same Day Bookings | Prime EPC' },
   description:
-    'Looking for an accredited EPC assessor near you? Local domestic and commercial energy certificates across Greater Manchester, Cheshire, Merseyside & Lancashire. From £50. 24–48h lodgement.',
+    'Searching for an accredited EPC near me? Book EPC now from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. Same day survey & fast report.',
   alternates: { canonical: '/epc-near-me' },
   openGraph: {
     url: '/epc-near-me',
-    title: 'EPC Near Me from £50 | Accredited Assessors 50-Mile Radius',
+    title: 'EPC Near Me | From £50 Same Day Bookings | Prime EPC',
     description:
-      'Find accredited EPC assessors near you across Greater Manchester, Cheshire, Merseyside & Lancashire within a 50-mile radius. Fast 24–48h lodgement from £50.',
+      'Searching for an accredited EPC near me? Book EPC now from £50 across Greater Manchester, Merseyside, Lancashire & Cheshire. Same day survey & fast report.',
   },
 };
 
 const nearMeFaqs = [
+  {
+    q: 'How do I book a local EPC assessor near me today?',
+    a: 'Enter your postcode or select your town to book an accredited local energy assessor near you within our 16 North West coverage regions. Domestic EPC certificates start from £50 with same day survey slots available for urgent property sales, rental listings, and remortgage valuations—with zero estate agent mark-ups.',
+  },
   {
     q: 'How do I find an accredited EPC assessor near me?',
     a: 'Prime EPC provides accredited, government-approved energy assessors across a 50-mile radius of Greater Manchester. You can enter your postcode or select your nearest borough to book direct with no estate agent commission.',

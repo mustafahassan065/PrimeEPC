@@ -63,7 +63,7 @@ export default function EpcNearMeClient({ faqs }: { faqs: { q: string; a: string
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight">
-            Find Accredited EPC Assessors Near You
+            EPC Near Me — Accredited Local Assessors &amp; Same Day Bookings from £50
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8">
@@ -160,6 +160,20 @@ export default function EpcNearMeClient({ faqs }: { faqs: { q: string; a: string
               <p className="text-2xl font-bold text-[#016837]">4.6 ★</p>
               <p className="text-xs text-gray-500 font-medium">18 Trustpilot Reviews</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── AEO Direct Answer Section ── */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="bg-[#f8fffe] rounded-2xl p-6 md:p-8 border border-[#80C531]/30 shadow-sm text-left">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#016837] mb-4">
+              How do I book a local EPC assessor near me today?
+            </h2>
+            <p className="text-gray-700 leading-relaxed text-base md:text-lg">
+              Enter your postcode or select your town to book an accredited local energy assessor near you within our 50-mile North West coverage radius. Domestic EPC certificates start from £50 with same day survey slots available for urgent property sales, rental listings, and remortgage valuations—with zero estate agent mark-ups.
+            </p>
           </div>
         </div>
       </section>

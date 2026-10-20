@@ -159,13 +159,22 @@ export default function BookingPage() {
   const [loading, setLoading]               = useState(false)
   const [step, setStep]                     = useState(1)
   const [selectedDate, setSelectedDate]     = useState(null)
-  const [currentMonth, setCurrentMonth]     = useState(new Date())
+  const [currentMonth, setCurrentMonth]     = useState(null)
+  const [todayDate, setTodayDate]           = useState(null)
   const [showAreasBox, setShowAreasBox]     = useState(false)
   const [paymentMethod, setPaymentMethod]   = useState('cash')
   const [bookingDone, setBookingDone]       = useState(false)
   const [paymentError, setPaymentError]     = useState('')
   const [stripeClientSecret, setStripeClientSecret] = useState('')
   const [stripeLoading, setStripeLoading]   = useState(false)
+
+  useEffect(() => {
+    const now = new Date()
+    setCurrentMonth(now)
+    const t = new Date(now)
+    t.setHours(0, 0, 0, 0)
+    setTodayDate(t)
+  }, [])
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '',
     propertyType: 'domestic', propertyDetails: '',
@@ -374,6 +383,7 @@ export default function BookingPage() {
     new Date(dateObj).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' })
 
   const getCalendarGrid = () => {
+    if (!currentMonth) return []
     const year  = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
     const firstDay    = new Date(year, month, 1).getDay()
@@ -382,23 +392,22 @@ export default function BookingPage() {
     calendarDates.forEach(d => { lookup[d.date] = d })
     const cells = []
     for (let i = 0; i < firstDay; i++) cells.push(null)
+    const todayTs = todayDate || new Date()
     for (let d = 1; d <= daysInMonth; d++) {
       const mo      = String(month+1).padStart(2,'0')
       const day     = String(d).padStart(2,'0')
       const dateStr = `${year}-${mo}-${day}`
-      const todayTs = new Date(); todayTs.setHours(0,0,0,0)
       const dateObj = new Date(year, month, d)
-      cells.push(lookup[dateStr] || { date: dateStr, dateObj, slots: [], hasSlots: false, isPast: dateObj < todayTs })
+      cells.push(lookup[dateStr] || { date: dateStr, dateObj, slots: [], hasSlots: false, isPast: todayDate ? dateObj < todayDate : false })
     }
     return cells
   }
 
-  const prevMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth()-1, 1))
-  const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth()+1, 1))
+  const prevMonth = () => currentMonth && setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth()-1, 1))
+  const nextMonth = () => currentMonth && setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth()+1, 1))
 
-  const monthLabel = currentMonth.toLocaleDateString('en-GB', { month:'long', year:'numeric' })
+  const monthLabel = currentMonth ? currentMonth.toLocaleDateString('en-GB', { month:'long', year:'numeric' }) : ''
   const weekDays   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-  const todayDate  = new Date(); todayDate.setHours(0,0,0,0)
 
   // Booking success screen
   if (bookingDone) {
@@ -512,8 +521,8 @@ export default function BookingPage() {
                     {getCalendarGrid().map((cell, i) => {
                       if (!cell) return <div key={i}/>
                       const isSelected = selectedDate && selectedDate.date === cell.date
-                      const isPast     = cell.dateObj < todayDate
-                      const isToday    = cell.dateObj.getTime() === todayDate.getTime()
+                      const isPast     = todayDate ? cell.dateObj < todayDate : false
+                      const isToday    = todayDate ? cell.dateObj.getTime() === todayDate.getTime() : false
 
                       return (
                         <button

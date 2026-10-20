@@ -1,130 +1,72 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import HomeClient from '@/components/home/HomeClient'
+import JsonLd from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
-  title: { absolute: 'EPC Greater Manchester & 50-Mile Radius | From £50' },
-  description: 'Accredited EPC assessors serving Greater Manchester, Cheshire, Merseyside & Lancashire within a 50-mile radius. Domestic EPCs from £50. Fast 24–48h lodgement.',
+  title: { absolute: 'EPC Certificates from £50 | Same Day North West Bookings' },
+  description:
+    'Book your EPC today from £50 with same-day survey bookings across Greater Manchester, Merseyside, Lancashire & Cheshire. Commercial EPCs from £144, EICR from £110.',
   alternates: { canonical: '/' },
   openGraph: {
     url: '/',
-    title: 'EPC Greater Manchester & 50-Mile Radius | From £50',
-    description: 'Accredited EPC assessors serving Greater Manchester, Cheshire, Merseyside & Lancashire within a 50-mile radius. Domestic EPCs from £50.',
+    title: 'EPC Certificates from £50 | Same Day North West Bookings',
+    description:
+      'Accredited domestic EPCs from £50, commercial EPCs from £144 & landlord EICRs from £110 across all 16 North West service areas. Same-day surveys & 24–48h reports.',
   },
 }
 
 export default function Home() {
-  const websiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Prime EPC',
-    url: 'https://www.primeepcdesign.co.uk',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://www.primeepcdesign.co.uk/?q={search_term_string}'
-      },
-      'query-input': 'required name=search_term_string'
-    }
-  }
-
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Prime EPC',
-    description: 'Accredited Energy Performance Certificate (EPC) and Landlord Electrical (EICR) assessments across Greater Manchester and a 50-mile radius.',
-    url: 'https://www.primeepcdesign.co.uk',
-    telephone: '+447308658247',
-    priceRange: 'From £50',
-    image: 'https://www.primeepcdesign.co.uk/images/bg.avif',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '17 Bromwich Street',
-      addressLocality: 'Bolton',
-      postalCode: 'BL2 1JF',
-      addressCountry: 'GB'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 53.578,
-      longitude: -2.429
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.6',
-      reviewCount: '18',
-      bestRating: '5',
-      worstRating: '1'
-    },
-    areaServed: [
-      'Greater Manchester',
-      'Bolton',
-      'Bury',
-      'Manchester',
-      'Salford',
-      'Wigan',
-      'Rochdale',
-      'Oldham',
-      'Stockport',
-      'Trafford',
-      'Tameside'
-    ]
-  }
-
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'How much does an EPC cost in Greater Manchester?',
+        name: 'Can I book an urgent EPC today and get a same day report?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'At Prime EPC, domestic Energy Performance Certificates start from £50 with complete transparent pricing and no hidden costs across Greater Manchester. Commercial EPCs start from £144.'
-        }
+          text: 'Yes. If you have an urgent property sale exchange, auction deadline, or tenancy move-in, you can book an EPC now by calling 07308 658247 or booking online. We offer same day survey slots across our 16 North West service areas, with priority same day report lodgement onto the GOV.UK register.',
+        },
       },
       {
         '@type': 'Question',
-        name: 'How long is an EPC valid for?',
+        name: 'How much is an EPC certificate near me and how do same day bookings work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'An EPC is valid for 10 years from the date of issue. If you are selling or letting a property, you legally need a valid certificate.'
-        }
+          text: 'An EPC certificate starts from £50 for standard flats and terraced houses across Greater Manchester, Merseyside, Lancashire, and Cheshire, scaling fairly for larger homes or extensions. Same day bookings are available subject to surveyor diary slots, and you pay the assessor directly with zero estate agent commission.',
+        },
       },
       {
         '@type': 'Question',
-        name: 'How quickly can I get an EPC certificate lodged?',
+        name: 'Why should I book an EPC for a remortgage?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Assessments are completed in 30 to 60 minutes, and the official government certificate is lodged and emailed within 24 to 48 hours.'
-        }
+          text: 'UK mortgage lenders and Buy-to-Let underwriters check the national EPC register during remortgage valuations, and many offer discounted Green Mortgage interest rates for properties in Band A, B, or C. If your existing certificate has expired after 10 years—or if you have upgraded your boiler, windows, or loft insulation—booking an EPC for your remortgage updates your official rating.',
+        },
       },
       {
         '@type': 'Question',
-        name: 'Can I book an EPC and Landlord EICR electrical check together?',
+        name: 'Do you offer discounts on bulk EPC orders for landlords and letting agents?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, Prime EPC provides combined Landlord Compliance Packages starting from £160, combining both the EPC assessment and 5-year statutory EICR into a single visit.'
-        }
-      }
-    ]
+          text: 'Yes. We provide custom bulk EPC discounts for portfolio landlords, letting agencies, block managers, and housing associations ordering multiple assessments. Your discount is tailored to the number of units and postcode clustering, complete with free agent key collection and a single consolidated invoice.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'When is my 5-year landlord EICR electrical safety report due for renewal?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Under the Electrical Safety Standards in the Private Rented Sector Regulations, private and social rented homes in England must have an EICR inspection renewed at least every 5 years by a BS 7671 18th Edition qualified inspector. Our landlord EICR renewals start from £110 and can be completed alongside a domestic EPC in a single visit.',
+        },
+      },
+    ],
   }
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd data={faqSchema} />
       <Suspense
         fallback={
           <div className="min-h-screen bg-[#016837] flex items-center justify-center text-white font-bold text-lg">

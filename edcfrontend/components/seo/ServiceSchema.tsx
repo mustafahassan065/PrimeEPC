@@ -12,7 +12,16 @@ export default function ServiceSchema({ name, path, serviceType, price, areas }:
       url: `${BUSINESS.url}${path}`,
       provider: { '@id': `${BUSINESS.url}/#business` },
       areaServed: areas.map((a) => ({ '@type': 'City', name: a })),
-      ...(price ? { offers: { '@type': 'Offer', price: String(price), priceCurrency: 'GBP' } } : {}),
+      ...(price ? {
+        offers: {
+          '@type': 'Offer',
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            minPrice: price.toFixed(2),
+            priceCurrency: 'GBP',
+          },
+        },
+      } : {}),
     }} />
   )
 }

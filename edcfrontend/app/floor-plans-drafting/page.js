@@ -279,7 +279,7 @@ export default function FloorPlansAndDrafting() {
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold text-[#282828] mb-6">The Prime Advantage</h2>
                 <p className="text-xl text-[#282828] opacity-90 mb-8 leading-relaxed">
-                  We are not just a drafting service; we are property compliance experts. By integrating design with our core EPC services, we offer a seamless solution for UK property professionals.
+                  We are not just a drafting service; we are property compliance experts. By integrating design with our core EPC services, we offer a direct, single-visit solution for UK property professionals.
                 </p>
                 
                 <div className="space-y-6">

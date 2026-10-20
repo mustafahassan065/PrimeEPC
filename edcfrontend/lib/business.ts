@@ -12,15 +12,18 @@ export const BUSINESS = {
   postcode: 'BL2 1JF',
   geo: { lat: 53.578, lng: -2.429 },
   prices: {
-    domesticEpc: 50,
+    domesticEpcFrom: 50,
     commercialEpcFrom: 144,
     eicrFrom: 110,
   },
+  trustpilot: {
+    score: '4.6',
+    reviewsCount: 18,
+    url: 'https://uk.trustpilot.com/review/primeepcdesign.co.uk',
+  },
   hours: [
-    { days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '21:00' },
-    { days: ['Saturday','Sunday'], opens: '10:00', closes: '18:00' },
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '21:00' },
+    { days: ['Saturday', 'Sunday'], opens: '10:00', closes: '18:00' },
   ],
-  sameAs: [
-    'https://uk.trustpilot.com/review/primeepcdesign.co.uk',
-  ],
+  sameAs: ['https://uk.trustpilot.com/review/primeepcdesign.co.uk'],
 } as const
