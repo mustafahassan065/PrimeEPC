@@ -35,23 +35,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   let posts: MetadataRoute.Sitemap = []
-  try {
-    const res = await fetch(`${API}/api/blogs`, { next: { revalidate: 3600 } })
-    if (res.ok) {
-      const json = await res.json()
-      const list = Array.isArray(json.data) ? json.data : Array.isArray(json.blogs) ? json.blogs : []
-      posts = list
-        .filter((p: { slug?: string }) => p.slug)
-        .map((p: { slug: string; updated_at?: string; updatedAt?: string; created_at?: string; createdAt?: string }) => {
-          const d = p.updated_at ?? p.updatedAt ?? p.created_at ?? p.createdAt
-          return {
-            url: `${BASE}/blog/${p.slug}`,
-            ...(d ? { lastModified: new Date(d) } : {}),
-          }
-        })
+  const candidateUrls = [
+    process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/blogs` : null,
+    'http://127.0.0.1:5000/api/blogs',
+    'http://localhost:5000/api/blogs',
+    'https://www.primeepcdesign.co.uk/api/blogs',
+    'https://primeepcdesign.co.uk/api/blogs',
+  ].filter(Boolean) as string[]
+
+  for (const url of candidateUrls) {
+    try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 3000)
+      const res = await fetch(url, { signal: controller.signal })
+      clearTimeout(timeoutId)
+      if (res.ok) {
+        const json = await res.json()
+        const list = Array.isArray(json.data) ? json.data : Array.isArray(json.blogs) ? json.blogs : []
+        if (list.length > 0) {
+          posts = list
+            .filter((p: { slug?: string }) => p.slug)
+            .map((p: { slug: string; updated_at?: string; updatedAt?: string; created_at?: string; createdAt?: string }) => {
+              const d = p.updated_at ?? p.updatedAt ?? p.created_at ?? p.createdAt
+              return {
+                url: `${BASE}/blog/${p.slug}`,
+                ...(d ? { lastModified: new Date(d) } : {}),
+              }
+            })
+          break
+        }
+      }
+    } catch {
+      // try next candidate
+      continue
     }
-  } catch {
-    // skip if offline during build
   }
 
   return [...core, ...locations, ...posts]

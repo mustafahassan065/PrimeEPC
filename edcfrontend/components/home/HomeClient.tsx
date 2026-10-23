@@ -61,7 +61,7 @@ export default function HomeClient() {
         type: 'general' as const,
         h1: 'Accredited EPC & EICR Certificates from £50 — Same-Day Surveys Across the North West',
         badge: 'Accredited Energy Assessors — Covering 16 North West Regions',
-        lead: 'Book your EPC now directly with an accredited surveyor—no estate agent mark-ups or middleman fees. We provide domestic EPC certificates from £50 (same day bookings available), commercial SBEM assessments from £144, 5-year landlord EICRs from £110, and custom bulk portfolio discounts across Greater Manchester, Merseyside, Lancashire, and Cheshire. Whether you need an urgent EPC for a property sale, a same-day survey for a new tenancy, or want to book an EPC for a remortgage, your official report is lodged within 24 to 48 hours.',
+        lead: 'Book your EPC directly with accredited surveyors—zero agent mark-ups. Domestic EPCs from £50 (same-day surveys available), commercial SBEM from £144, and 5-year landlord EICRs from £110 across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast GOV.UK lodgement within 24–48 hours for sales, lettings, and remortgages.',
         ctaText: 'Check Price & Book',
         ctaHref: '/booking',
         matchedLocation: null as LocationData | null,
@@ -448,51 +448,7 @@ export default function HomeClient() {
             )}
           </div>
 
-          {/* Quick Intent Keyword Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto mb-4">
-            <span className="text-white/80 text-xs font-semibold mr-1">Popular Keywords:</span>
-            {[
-              { label: '📍 Bolton', query: 'bolton' },
-              { label: '📍 Manchester', query: 'manchester' },
-              { label: '📍 Salford', query: 'salford' },
-              { label: '📍 Bury', query: 'bury' },
-              { label: '📍 Wigan', query: 'wigan' },
-              { label: '🎯 EPC Near Me', query: 'epc near me' },
-              { label: '⚡ Landlord Bundle', query: 'landlord package' },
-              { label: '🏢 Commercial EPC', query: 'commercial epc' },
-            ].map((chip, idx) => {
-              const active = searchQuery.toLowerCase().includes(chip.query.toLowerCase())
-              return (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => {
-                    setSearchQuery(chip.query)
-                    setIsDropdownOpen(false)
-                  }}
-                  className={`text-xs px-3 py-1.5 rounded-full font-medium transition-all backdrop-blur-sm ${
-                    active
-                      ? 'bg-[#80C531] text-gray-950 font-bold shadow-md scale-105'
-                      : 'bg-white/15 text-white hover:bg-white/25 hover:scale-105'
-                  }`}
-                >
-                  {chip.label}
-                </button>
-              )
-            })}
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchQuery('')
-                  setIsDropdownOpen(false)
-                }}
-                className="text-xs px-2.5 py-1.5 rounded-full font-medium bg-red-500/30 text-white hover:bg-red-500/50 transition-all"
-              >
-                ✕ Reset
-              </button>
-            )}
-          </div>
+
 
           {/* Direct Match Indicator Card */}
           {searchIntent.type !== 'general' && (
@@ -529,13 +485,6 @@ export default function HomeClient() {
               </div>
             </div>
           )}
-
-          {/* Trustpilot Social Proof */}
-          <div className="text-center mb-8">
-            <p className="text-sm font-semibold text-white/90 inline-flex items-center gap-1.5 bg-black/20 backdrop-blur-sm px-4 py-1.5 rounded-full">
-              <span className="text-[#80C531]">★</span> Rated 4.6 on Trustpilot based on 18 verified customer reviews
-            </p>
-          </div>
 
           {/* Service Cards — 4 verified service cards linking to respective pages */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
@@ -584,15 +533,6 @@ export default function HomeClient() {
                 <p className={`font-bold text-lg mt-1 ${card.priceColor}`}>{card.price}</p>
               </Link>
             ))}
-          </div>
-
-          {/* Additional Direct Service Links */}
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs md:text-sm text-white/90 mb-10 max-w-4xl mx-auto">
-            <span className="font-semibold text-[#80C531]">Explore More Compliance Services:</span>
-            <Link href="/landlord-certificates" className="hover:text-white underline underline-offset-4 font-medium transition-colors">⚡ Landlord EPC + EICR Package</Link>
-            <Link href="/bulk-epc" className="hover:text-white underline underline-offset-4 font-medium transition-colors">📦 Bulk &amp; Portfolio EPCs</Link>
-            <Link href="/electrical-design" className="hover:text-white underline underline-offset-4 font-medium transition-colors">📐 BS 7671 Electrical Design</Link>
-            <Link href="/pricing" className="hover:text-white underline underline-offset-4 font-medium transition-colors">💷 Direct Pricing Guide</Link>
           </div>
 
           {/* Bottom Features Row */}

@@ -58,7 +58,11 @@ router.post('/login', async (req, res) => {
 // Create Blog (Protected) - FIXED
 router.post('/blogs', auth, async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, keywords, metaTitle, meta_title, metaDescription, meta_description, excerpt, featuredImage, featured_image, author, status, slug } = req.body;
+    let storedKeywords = keywords;
+    if (Array.isArray(keywords)) {
+      storedKeywords = JSON.stringify(keywords);
+    }
     
     // ✅ FIX: Use Sequelize create method
     const blog = await Blog.create({
@@ -72,7 +76,7 @@ router.post('/blogs', auth, async (req, res) => {
       metaDescription: content.substring(0, 160),
       excerpt: content.substring(0, 300),
       featuredImage: '',
-      keywords: []
+      keywords: storedKeywords || "[]"
     });
     
     res.status(201).json({
