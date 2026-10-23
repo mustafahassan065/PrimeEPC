@@ -344,7 +344,7 @@ export default function AdminBookings() {
   const invVat      = inv ? invSubtotal * (Number(inv.vatRate) || 0) / 100 : 0
   const invTotal    = invSubtotal + invVat
 
-  // ── PDF banao + email pe attachment bhejo ──────────────────────────────
+  
   const sendInvoicePdf = async () => {
     if (!inv || !invBooking) return
     if (!inv.billEmail) { alert('Customer ki email address missing hai.'); return }
@@ -409,7 +409,7 @@ export default function AdminBookings() {
       })
       const data = await res.json()
       if (data.success) {
-        alert(`✅ Invoice ${inv.invoiceNo} bhej di gayi: ${inv.billEmail}`)
+        alert(`✅ Invoice ${inv.invoiceNo} Sent: ${inv.billEmail}`)
         setInvBooking(null)
         setInv(null)
       } else {
@@ -417,7 +417,7 @@ export default function AdminBookings() {
       }
     } catch (e) {
       console.error('Invoice PDF error:', e)
-      alert('❌ PDF banane mein masla aa gaya. Dobara try karein.')
+      alert('❌ There is a problem in creating PDF')
     } finally { setInvSending(false) }
   }
 
@@ -1136,7 +1136,7 @@ export default function AdminBookings() {
 
                   {/* Notes */}
                   <div>
-                    <label className={invLabel}>Notes (har line alag)</label>
+                    <label className={invLabel}>Notes</label>
                     <textarea rows={3} value={inv.notes} onChange={e => invSet('notes', e.target.value)} className={invField}/>
                   </div>
 
@@ -1153,7 +1153,7 @@ export default function AdminBookings() {
                     {invSending ? (
                       <>
                         <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                        PDF bana kar bheji ja rahi hai...
+                        Loading ...
                       </>
                     ) : (
                       <>
@@ -1166,7 +1166,7 @@ export default function AdminBookings() {
 
                 {/* ── RIGHT: Live preview ── */}
                 <div className={`p-4 lg:p-6 bg-gray-200/70 overflow-hidden ${invTab === 'edit' ? 'hidden lg:block' : ''}`}>
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Live Preview — jo PDF mein jayega wohi ye hai</p>
+                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Live Preview</p>
                   <div className="overflow-auto" style={{ maxHeight: 'calc(100vh - 190px)' }}>
                     {/* Screen preview (scaled) */}
                     <div style={{ width: 760, transform: 'scale(0.72)', transformOrigin: 'top left' }}>
