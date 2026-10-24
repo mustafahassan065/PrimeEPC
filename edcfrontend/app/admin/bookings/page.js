@@ -36,14 +36,7 @@ function InvoicePreview({ d }) {
       <div style={{ display: 'table', width: '100%', padding: '28px 36px 8px' }}>
         <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <div style={{ width: 74, height: 74, borderRadius: '50%', border: '4px solid ' + LIGHT, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <svg width="42" height="42" viewBox="0 0 24 24" fill="none">
-                <path d="M3.5 11.5 12 4.5l8.5 7" stroke={GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M5.5 10.5V19h13v-8.5" stroke={GREEN} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <rect x="10" y="13.5" width="4" height="5.5" fill={GREEN}/>
-                <path d="M17 4.5c2.5.5 3.5 2 3.5 3.5-2 0-3.5-.8-3.5-3.5z" fill={LIGHT}/>
-              </svg>
-            </div>
+            <img src="/images/logo3.png" alt="Prime EPC" crossOrigin="anonymous" style={{ width: 90, height: 90, objectFit: 'contain', flexShrink: 0 }} />
             <div>
               <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1, letterSpacing: 1 }}>
                 <span style={{ color: GREEN }}>PRIME</span>
@@ -306,8 +299,8 @@ export default function AdminBookings() {
       dueDate: dateISO,
       status: b.paymentStatus === 'paid' ? 'Paid' : 'Unpaid',
       paymentMethod: ({ cash:'Cash', stripe:'Bank Card', paypal:'PayPal', bank_transfer:'Bank Transfer' })[b.paymentMethod] || (b.paymentMethod || 'Bank Transfer'),
-      companyName: 'Prime EPC Ltd',
-      companyAddress: '123 Greenway Business Park\nMaple Road\nManchester\nM1 2AB\nUnited Kingdom',
+      companyName: 'Prime EPC & Design Consultant Ltd',
+      companyAddress: '17 Bromwich Street, Bolton, BL2 1JF',
       companyPhone: '020 7946 0568',
       companyEmail: 'info@primeepcdesign.co.uk',
       companyWebsite: 'www.primeepcdesign.co.uk',
@@ -347,8 +340,8 @@ export default function AdminBookings() {
   
   const sendInvoicePdf = async () => {
     if (!inv || !invBooking) return
-    if (!inv.billEmail) { alert('Customer ki email address missing hai.'); return }
-    if (!window.confirm(`Invoice ${inv.invoiceNo} (${gbp(invTotal)}) ko ${inv.billEmail} pe bhejein?`)) return
+    if (!inv.billEmail) { alert('Customer email address is missing.'); return }
+    if (!window.confirm(`Send invoice ${inv.invoiceNo} (${gbp(invTotal)}) to ${inv.billEmail}?`)) return
     setInvSending(true)
     try {
       const html2canvas = (await import('html2canvas')).default
@@ -417,7 +410,7 @@ export default function AdminBookings() {
       }
     } catch (e) {
       console.error('Invoice PDF error:', e)
-      alert('❌ There is a problem in creating PDF')
+      alert('❌ Failed to generate the PDF. Please try again.')
     } finally { setInvSending(false) }
   }
 
@@ -1011,13 +1004,10 @@ export default function AdminBookings() {
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Company</p>
                     <div className="space-y-2.5">
-                      <div>
-                        <label className={invLabel}>Company Name</label>
-                        <input type="text" value={inv.companyName} onChange={e => invSet('companyName', e.target.value)} className={invField}/>
-                      </div>
-                      <div>
-                        <label className={invLabel}>Company Address (har line alag)</label>
-                        <textarea rows={4} value={inv.companyAddress} onChange={e => invSet('companyAddress', e.target.value)} className={invField}/>
+                      <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
+                        <p className="text-xs font-bold text-gray-700">{inv.companyName}</p>
+                        <p className="text-xs text-gray-500 mt-1">{inv.companyAddress}</p>
+                        <p className="text-[10px] text-gray-400 mt-1.5 italic">Company name and address are fixed on every invoice.</p>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
                         <div>
@@ -1055,7 +1045,7 @@ export default function AdminBookings() {
                         </div>
                       </div>
                       <div>
-                        <label className={invLabel}>Billing Address (har line alag)</label>
+                        <label className={invLabel}>Billing Address (one per line)</label>
                         <textarea rows={2} value={inv.billAddress} onChange={e => invSet('billAddress', e.target.value)} className={invField}/>
                       </div>
                     </div>

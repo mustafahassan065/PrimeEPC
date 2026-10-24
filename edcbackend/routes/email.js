@@ -29,7 +29,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
     const {
       name, email, phone, propertyType, propertyDetails,
       postcode, propertyAddress, preferredDate, message,
-      paymentMethod, amount, paymentRef, paymentStatus
+      paymentMethod, amount, paymentRef, paymentStatus, endTime
     } = req.body
 
     if (req.body.honeypot) return res.json({ success: true })
@@ -38,9 +38,11 @@ router.post('/send-booking-confirmation', async (req, res) => {
     const dateStr = dateObj
       ? dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
       : 'Not specified'
-    const timeStr = dateObj
+    const startTimeStr = dateObj
       ? dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC', hour12: false })
       : ''
+    // End time bhi dikhao jab available ho (slot se ya manual booking se)
+    const timeStr = startTimeStr && endTime ? `${startTimeStr} – ${endTime}` : startTimeStr
 
     const paymentLabel = {
       cash: 'Cash (Pay on Arrival)',

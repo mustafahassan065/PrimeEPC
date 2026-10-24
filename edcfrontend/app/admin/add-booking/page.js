@@ -26,7 +26,7 @@ export default function AddBookingPage() {
     name: '', email: '', phone: '',
     propertyType: 'domestic', propertyDetails: '',
     doorNumber: '', addressLine1: '', city: '', postcode: '',
-    date: '', time: '',
+    date: '', time: '', endTime: '',
     paymentMethod: 'cash', amount: '',
     notes: ''
   })
@@ -78,6 +78,7 @@ export default function AddBookingPage() {
           paymentStatus:   'pending',
           amount:          form.amount || 0,
           slotId:          'manual',   // manual booking — no slot
+          endTime:         form.endTime || '',
           message:         form.notes || 'Manual booking added by admin'
         })
       })
@@ -234,15 +235,20 @@ export default function AddBookingPage() {
               </div>
 
               {/* Date & Time */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm text-gray-600 mb-1">Assessment Date *</label>
                   <input type="date" name="date" required value={form.date} onChange={handleChange}
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Time *</label>
+                  <label className="block text-sm text-gray-600 mb-1">Start Time *</label>
                   <input type="time" name="time" required value={form.time} onChange={handleChange}
+                    className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-600 mb-1">End Time *</label>
+                  <input type="time" name="endTime" required value={form.endTime} onChange={handleChange}
                     className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-[#016837]"/>
                 </div>
               </div>

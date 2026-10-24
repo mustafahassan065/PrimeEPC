@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
     const {
       name, email, phone, propertyType, propertyDetails,
       postcode, propertyAddress, preferredDate, message, slotId,
-      paymentMethod, paymentRef, paymentStatus, amount
+      paymentMethod, paymentRef, paymentStatus, amount, endTime
     } = req.body;
 
     const isManual = slotId === 'manual';
@@ -68,7 +68,8 @@ router.post('/create', async (req, res) => {
       paymentMethod: paymentMethod || 'cash',
       paymentRef:    paymentRef    || null,
       paymentStatus: paymentStatus || 'pending',
-      amount:        amount        || 0
+      amount:        amount        || 0,
+      endTime:       endTime || (slot ? slot.endTime : null) || null
     });
 
     // Update slot bookings count only for website bookings
@@ -88,7 +89,8 @@ router.post('/create', async (req, res) => {
             paymentMethod: paymentMethod || 'cash',
             paymentRef:    paymentRef    || '',
             paymentStatus: paymentStatus || 'pending',
-            amount:        amount        || 0
+            amount:        amount        || 0,
+            endTime:       endTime || (slot ? slot.endTime : '') || ''
           })
         });
         const emailData = await emailRes.json();
@@ -110,7 +112,27 @@ router.post('/create', async (req, res) => {
 router.get('/admin/bookings', auth, async (req, res) => {
   try {
     const bookings = await Booking.findAll({ order: [['createdAt', 'DESC']] });
-    res.json({ success: true, data: bookings });
+
+    // Real slot end-times attach karo — pehle sirf +1h guess ho raha tha
+    const pad = n => String(n).padStart(2, '0');
+    const dates = [...new Set(bookings.map(b => {
+      const d = new Date(b.preferredDate);
+      return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
+    }))];
+    const schedules = dates.length
+      ? await Schedule.findAll({ where: { date: { [Op.in]: dates } } })
+      : [];
+    const endTimeMap = {};
+    schedules.forEach(s => { endTimeMap[`${s.date}|${s.startTime}`] = s.endTime; });
+
+    const data = bookings.map(b => {
+      const d = new Date(b.preferredDate);
+      const key = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}|${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
+      const realEnd = endTimeMap[key] || b.endTime || null;
+      return { ...b.toJSON(), slot: realEnd ? { endTime: realEnd } : null };
+    });
+
+    res.json({ success: true, data });
   } catch (error) {
     console.error('Get bookings error:', error);
     res.status(500).json({ success: false, message: 'Error fetching bookings' });
