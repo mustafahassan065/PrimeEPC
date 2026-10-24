@@ -506,11 +506,17 @@ export default function AdminBookings() {
   // Sort by preferredDate descending (most recent first), then filter
   const sortedBookings = [...bookings].sort((a, b) => new Date(b.preferredDate) - new Date(a.preferredDate))
 
+  const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000
+
   const filteredBookings = activeFilter === 'all'
     ? sortedBookings
     : activeFilter === 'total'
     ? sortedBookings
+    : activeFilter === 'recent'
+    ? sortedBookings.filter(b => new Date(b.preferredDate).getTime() >= twoDaysAgo)
     : sortedBookings.filter(b => b.status === activeFilter)
+
+  const endTimeOf = (b) => b.slot?.endTime || b.endTime || null
 
   const statusColor = (s) => ({
     confirmed: 'bg-green-100 text-green-700',
@@ -620,9 +626,10 @@ export default function AdminBookings() {
           )}
 
           {/* Stats strip — clickable filters */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
             {[
               { label:'Total Bookings', value: bookings.length, color:'text-gray-800', filter:'all', ring:'ring-gray-400' },
+              { label:'Recent Bookings', value: bookings.filter(b => new Date(b.preferredDate).getTime() >= Date.now() - 2*24*60*60*1000).length, color:'text-purple-600', filter:'recent', ring:'ring-purple-400' },
               { label:'Pending', value: bookings.filter(b=>b.status==='pending').length, color:'text-yellow-600', filter:'pending', ring:'ring-yellow-400' },
               { label:'Confirmed', value: bookings.filter(b=>b.status==='confirmed').length, color:'text-green-600', filter:'confirmed', ring:'ring-green-400' },
               { label:'Completed', value: bookings.filter(b=>b.status==='completed').length, color:'text-blue-600', filter:'completed', ring:'ring-blue-400' },
@@ -688,8 +695,8 @@ export default function AdminBookings() {
                             <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})}</p>
                             <p className="text-xs text-gray-400">
                               {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
-                              {b.slot?.endTime
-                                ? ` – ${b.slot.endTime}`
+                              {endTimeOf(b)
+                                ? ` – ${endTimeOf(b)}`
                                 : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
                               }
                             </p>
@@ -777,8 +784,8 @@ export default function AdminBookings() {
                           <span className="text-gray-400 w-16 flex-shrink-0">Date</span>
                           <span className="text-gray-700">
                             {new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
-                            {b.slot?.endTime
-                              ? ` – ${b.slot.endTime}`
+                            {endTimeOf(b)
+                              ? ` – ${endTimeOf(b)}`
                               : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
                             }
                           </span>

@@ -72,6 +72,8 @@ export default function AdminDashboard() {
   const uniqueCustomers = new Set(bookings.map(b => b.email)).size
   const recentBookings  = [...bookings].sort((a,b) => new Date(b.preferredDate) - new Date(a.preferredDate)).slice(0, 6)
 
+  const endTimeOf = (b) => b.slot?.endTime || b.endTime || null
+
   const statusColor = (s) => ({
     confirmed: 'bg-green-100 text-green-700',
     completed:  'bg-blue-100 text-blue-700',
@@ -279,7 +281,13 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-5 py-3 whitespace-nowrap">
                         <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</p>
-                        <p className="text-xs text-gray-400">{new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}</p>
+                        <p className="text-xs text-gray-400">
+                          {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}
+                          {endTimeOf(b)
+                            ? ` – ${endTimeOf(b)}`
+                            : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
+                          }
+                        </p>
                       </td>
                       <td className="px-5 py-3">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full capitalize ${statusColor(b.status)}`}>{b.status}</span>
