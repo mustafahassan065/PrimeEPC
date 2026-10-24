@@ -283,10 +283,7 @@ export default function AdminDashboard() {
                         <p className="text-gray-700">{new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</p>
                         <p className="text-xs text-gray-400">
                           {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}
-                          {endTimeOf(b)
-                            ? ` – ${endTimeOf(b)}`
-                            : (() => { const d = new Date(b.preferredDate); const e = new Date(d.getTime()+3600000); return ` – ${e.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',timeZone:'UTC',hour12:false})}`; })()
-                          }
+                          {endTimeOf(b) && ` – ${endTimeOf(b)}`}
                         </p>
                       </td>
                       <td className="px-5 py-3">
