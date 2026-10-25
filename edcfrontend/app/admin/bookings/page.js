@@ -782,7 +782,6 @@ export default function AdminBookings() {
                           <span className="text-gray-700">
                             {new Date(b.preferredDate).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric', timeZone:'UTC'})} at {new Date(b.preferredDate).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit', timeZone:'UTC', hour12:false})}
                             {endTimeOf(b) && ` – ${endTimeOf(b)}`}
-                            
                           </span>
                         </div>
                         {b.amount > 0 && (
