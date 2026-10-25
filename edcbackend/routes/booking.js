@@ -129,7 +129,7 @@ router.get('/admin/bookings', auth, async (req, res) => {
       const d = new Date(b.preferredDate);
       const key = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}|${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
       const realEnd = endTimeMap[key] || b.endTime || null;
-      return { ...b.toJSON(), slot: realEnd ? { endTime: realEnd } : null };
+      return { ...b.toJSON(), endTime: realEnd, slot: realEnd ? { endTime: realEnd } : null };
     });
 
     res.json({ success: true, data });
