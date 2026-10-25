@@ -222,10 +222,10 @@ export default function AdminBookings() {
   const [editLoading, setEditLoading]   = useState(false)
 
   // ── Invoice editor state ──
-  const [invBooking, setInvBooking] = useState(null)   // booking jis ki invoice khuli hai
-  const [inv, setInv]               = useState(null)   // editable invoice data
+  const [invBooking, setInvBooking] = useState(null)
+  const [inv, setInv]               = useState(null)
   const [invSending, setInvSending] = useState(false)
-  const [invTab, setInvTab]         = useState('edit') // mobile: edit | preview
+  const [invTab, setInvTab]         = useState('edit')
 
   const router = useRouter()
 
@@ -284,7 +284,6 @@ export default function AdminBookings() {
     } catch { alert('Unable to connect. Please try again.') }
   }
 
-  // ── Invoice editor: button click pe khulta hai ───────────────────────────
   const openInvoice = (b) => {
     const d = b.preferredDate ? new Date(b.preferredDate) : new Date()
     const dateISO = d.toISOString().slice(0, 10)
@@ -337,7 +336,6 @@ export default function AdminBookings() {
   const invVat      = inv ? invSubtotal * (Number(inv.vatRate) || 0) / 100 : 0
   const invTotal    = invSubtotal + invVat
 
-  
   const sendInvoicePdf = async () => {
     if (!inv || !invBooking) return
     if (!inv.billEmail) { alert('Customer email address is missing.'); return }
@@ -359,7 +357,6 @@ export default function AdminBookings() {
       if (imgH <= ph) {
         pdf.addImage(canvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, imgW, imgH)
       } else {
-        // Multi-page agar invoice lambi ho
         const pageH = Math.floor(canvas.width * ph / imgW)
         let rendered = 0, page = 0
         while (rendered < canvas.height) {
@@ -469,7 +466,6 @@ export default function AdminBookings() {
         ))
         setEditBooking(null)
 
-        // Send update email to customer if email exists
         if (editForm.email) {
           try {
             await fetch(`${API_URL}/api/email/send-booking-update`, {
@@ -489,7 +485,7 @@ export default function AdminBookings() {
                 status:          editForm.status,
               })
             })
-          } catch { /* email fail hone par booking update still successful */ }
+          } catch { /* ignore email error */ }
         }
 
       } else alert('Failed to update: ' + data.message)
@@ -503,9 +499,7 @@ export default function AdminBookings() {
     router.push('/admin/login')
   }
 
-  // Sort by preferredDate descending (most recent first), then filter
   const sortedBookings = [...bookings].sort((a, b) => new Date(b.preferredDate) - new Date(a.preferredDate))
-
   const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000
 
   const filteredBookings = activeFilter === 'all'
@@ -561,7 +555,6 @@ export default function AdminBookings() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-56 bg-[#0a1628] text-white flex flex-col transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:flex`}>
         <div className="px-5 py-5 border-b border-white/10">
@@ -604,8 +597,6 @@ export default function AdminBookings() {
 
       {/* Main */}
       <div className="flex-1 flex flex-col min-w-0">
-
-        {/* Topbar */}
         <header className="bg-white shadow-sm px-4 lg:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <button onClick={() => setSidebarOpen(true)} className="lg:hidden text-gray-500">
@@ -620,12 +611,11 @@ export default function AdminBookings() {
         </header>
 
         <main className="flex-1 p-4 lg:p-6">
-
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4 text-sm">{error}</div>
           )}
 
-          {/* Stats strip — clickable filters */}
+          {/* Stats strip */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
             {[
               { label:'Total Bookings', value: bookings.length, color:'text-gray-800', filter:'all', ring:'ring-gray-400' },
@@ -638,7 +628,7 @@ export default function AdminBookings() {
                 className={`bg-white rounded-xl px-4 py-3 shadow-sm text-left transition-all hover:shadow-md ${activeFilter === s.filter ? `ring-2 ${s.ring}` : ''}`}>
                 <p className={`text-2xl font-bold ${s.color}`}>{s.value}</p>
                 <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
-                {activeFilter === s.filter && <p className="text-xs font-medium mt-1" style={{color: 'inherit'}}>● Active filter</p>}
+                {activeFilter === s.filter && <p className="text-xs font-medium mt-1">● Active filter</p>}
               </button>
             ))}
           </div>
@@ -686,7 +676,6 @@ export default function AdminBookings() {
                             <p className="text-gray-700 capitalize">{b.propertyType}</p>
                             <p className="text-xs text-gray-400">{b.propertyDetails}</p>
                           </td>
-                          {/* Full address — no truncation */}
                           <td className="px-5 py-3">
                             <p className="text-gray-700 text-sm" style={{maxWidth:'200px', wordBreak:'break-word', whiteSpace:'normal'}}>{b.propertyAddress}</p>
                             <p className="text-xs text-gray-400 font-mono mt-0.5">{b.postcode}</p>
@@ -714,32 +703,14 @@ export default function AdminBookings() {
                                 <option value="completed">Completed</option>
                                 <option value="cancelled">Cancelled</option>
                               </select>
-                              <button
-                                onClick={() => openEdit(b)}
-                                title="Edit booking"
-                                className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                </svg>
+                              <button onClick={() => openEdit(b)} title="Edit booking" className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                               </button>
-                              <button
-                                onClick={() => deleteBooking(b.id, b.name)}
-                                title="Delete booking"
-                                className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                </svg>
+                              <button onClick={() => deleteBooking(b.id, b.name)} title="Delete booking" className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors flex-shrink-0">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                               </button>
-                              <button
-                                onClick={() => openInvoice(b)}
-                                title="Create & Send Invoice (PDF)"
-                                className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors flex-shrink-0"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
+                              <button onClick={() => openInvoice(b)} title="Create & Send Invoice (PDF)" className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors flex-shrink-0">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                               </button>
                             </div>
                           </td>
@@ -772,7 +743,6 @@ export default function AdminBookings() {
                           <span className="text-gray-400 w-16 flex-shrink-0">Service</span>
                           <span className="text-gray-700 capitalize">{b.propertyType} — {b.propertyDetails}</span>
                         </div>
-                        {/* Full address on mobile too */}
                         <div className="flex gap-2 text-xs">
                           <span className="text-gray-400 w-16 flex-shrink-0">Address</span>
                           <span className="text-gray-700" style={{wordBreak:'break-word'}}>{b.propertyAddress}, {b.postcode}</span>
@@ -799,32 +769,14 @@ export default function AdminBookings() {
                             <option value="completed">Completed</option>
                             <option value="cancelled">Cancelled</option>
                           </select>
-                          <button
-                            onClick={() => openEdit(b)}
-                            title="Edit booking"
-                            className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                            </svg>
+                          <button onClick={() => openEdit(b)} title="Edit booking" className="p-1.5 text-blue-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors flex-shrink-0">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                           </button>
-                          <button
-                            onClick={() => deleteBooking(b.id, b.name)}
-                            className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                            title="Delete"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                            </svg>
+                          <button onClick={() => deleteBooking(b.id, b.name)} className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                           </button>
-                          <button
-                            onClick={() => openInvoice(b)}
-                            className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors"
-                            title="Create & Send Invoice (PDF)"
-                          >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
+                          <button onClick={() => openInvoice(b)} className="p-1.5 text-[#016837] hover:text-[#01572E] hover:bg-green-50 rounded-lg transition-colors" title="Create & Send Invoice (PDF)">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                           </button>
                         </div>
                       </div>
@@ -837,7 +789,7 @@ export default function AdminBookings() {
         </main>
       </div>
 
-      {/* ── Edit Booking Modal ── */}
+      {/* Edit Booking Modal */}
       {editBooking && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
@@ -922,12 +874,10 @@ export default function AdminBookings() {
               </div>
             </div>
             <div className="px-6 py-4 border-t border-gray-100 flex gap-3">
-              <button onClick={() => setEditBooking(null)}
-                className="flex-1 py-2.5 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 text-sm transition-colors">
+              <button onClick={() => setEditBooking(null)} className="flex-1 py-2.5 border border-gray-200 text-gray-500 rounded-lg hover:bg-gray-50 text-sm transition-colors">
                 Cancel
               </button>
-              <button onClick={saveEdit} disabled={editLoading}
-                className="flex-1 py-2.5 bg-[#016837] text-white rounded-lg hover:bg-[#01572E] text-sm font-medium disabled:opacity-50 transition-colors">
+              <button onClick={saveEdit} disabled={editLoading} className="flex-1 py-2.5 bg-[#016837] text-white rounded-lg hover:bg-[#01572E] text-sm font-medium disabled:opacity-50 transition-colors">
                 {editLoading ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
@@ -935,37 +885,27 @@ export default function AdminBookings() {
         </div>
       )}
 
-      {/* ══ INVOICE EDITOR MODAL ══ */}
+      {/* Invoice Editor Modal */}
       {inv && invBooking && (
         <div className="fixed inset-0 bg-black/60 z-50 overflow-y-auto">
           <div className="min-h-full flex items-start justify-center p-3 lg:p-6">
             <div className="bg-gray-100 rounded-2xl shadow-2xl w-full max-w-6xl overflow-hidden">
-
-              {/* Modal header */}
               <div className="bg-white px-5 py-3.5 border-b border-gray-200 flex items-center justify-between sticky top-0 z-10">
                 <div className="flex items-center gap-3">
                   <h2 className="text-base font-bold text-gray-800">Invoice Editor</h2>
                   <span className="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-semibold">{inv.invoiceNo}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  {/* Mobile tabs */}
                   <div className="flex lg:hidden bg-gray-100 rounded-lg p-0.5">
-                    <button onClick={() => setInvTab('edit')}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${invTab === 'edit' ? 'bg-white shadow text-[#016837]' : 'text-gray-500'}`}>Edit</button>
-                    <button onClick={() => setInvTab('preview')}
-                      className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${invTab === 'preview' ? 'bg-white shadow text-[#016837]' : 'text-gray-500'}`}>Preview</button>
+                    <button onClick={() => setInvTab('edit')} className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${invTab === 'edit' ? 'bg-white shadow text-[#016837]' : 'text-gray-500'}`}>Edit</button>
+                    <button onClick={() => setInvTab('preview')} className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${invTab === 'preview' ? 'bg-white shadow text-[#016837]' : 'text-gray-500'}`}>Preview</button>
                   </div>
-                  <button onClick={() => { setInvBooking(null); setInv(null) }}
-                    className="text-gray-400 hover:text-gray-600 text-2xl leading-none px-1">&times;</button>
+                  <button onClick={() => { setInvBooking(null); setInv(null) }} className="text-gray-400 hover:text-gray-600 text-2xl leading-none px-1">&times;</button>
                 </div>
               </div>
 
               <div className="grid lg:grid-cols-[400px_1fr]">
-
-                {/* ── LEFT: Edit form ── */}
                 <div className={`bg-white border-r border-gray-200 p-5 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto ${invTab === 'preview' ? 'hidden lg:block' : ''}`}>
-
-                  {/* Invoice meta */}
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Invoice</p>
                     <div className="grid grid-cols-2 gap-2.5">
@@ -1001,14 +941,12 @@ export default function AdminBookings() {
                     </div>
                   </div>
 
-                  {/* Company */}
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Company</p>
                     <div className="space-y-2.5">
                       <div className="bg-gray-50 border border-gray-200 rounded-xl p-3">
                         <p className="text-xs font-bold text-gray-700">{inv.companyName}</p>
                         <p className="text-xs text-gray-500 mt-1">{inv.companyAddress}</p>
-                        <p className="text-[10px] text-gray-400 mt-1.5 italic">Company name and address are fixed on every invoice.</p>
                       </div>
                       <div className="grid grid-cols-3 gap-2">
                         <div>
@@ -1027,7 +965,6 @@ export default function AdminBookings() {
                     </div>
                   </div>
 
-                  {/* Bill To */}
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Bill To</p>
                     <div className="space-y-2.5">
@@ -1046,13 +983,12 @@ export default function AdminBookings() {
                         </div>
                       </div>
                       <div>
-                        <label className={invLabel}>Billing Address (one per line)</label>
+                        <label className={invLabel}>Billing Address</label>
                         <textarea rows={2} value={inv.billAddress} onChange={e => invSet('billAddress', e.target.value)} className={invField}/>
                       </div>
                     </div>
                   </div>
 
-                  {/* Appointment */}
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Appointment</p>
                     <div className="space-y-2.5">
@@ -1077,42 +1013,28 @@ export default function AdminBookings() {
                     </div>
                   </div>
 
-                  {/* Items */}
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Items</p>
-                      <button onClick={addItem}
-                        className="text-xs font-semibold text-[#016837] hover:text-[#01572E] flex items-center gap-1">
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4"/></svg>
-                        Add Item
-                      </button>
+                      <button onClick={addItem} className="text-xs font-semibold text-[#016837] hover:text-[#01572E] flex items-center gap-1">Add Item</button>
                     </div>
                     <div className="space-y-2.5">
                       {inv.items.map((it, i) => (
                         <div key={i} className="border border-gray-200 rounded-xl p-3 space-y-2 bg-gray-50">
                           <div className="flex items-start gap-2">
-                            <input type="text" placeholder="Description" value={it.description}
-                              onChange={e => invItemSet(i, 'description', e.target.value)}
-                              className={invField + ' flex-1 bg-white'}/>
+                            <input type="text" placeholder="Description" value={it.description} onChange={e => invItemSet(i, 'description', e.target.value)} className={invField + ' flex-1 bg-white'}/>
                             {inv.items.length > 1 && (
-                              <button onClick={() => removeItem(i)} title="Remove item"
-                                className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg flex-shrink-0 mt-0.5">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                              </button>
+                              <button onClick={() => removeItem(i)} className="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg flex-shrink-0 mt-0.5">×</button>
                             )}
                           </div>
                           <div className="grid grid-cols-2 gap-2">
                             <div>
                               <label className={invLabel}>Qty</label>
-                              <input type="number" min="1" value={it.qty}
-                                onChange={e => invItemSet(i, 'qty', e.target.value)}
-                                className={invField + ' bg-white'}/>
+                              <input type="number" min="1" value={it.qty} onChange={e => invItemSet(i, 'qty', e.target.value)} className={invField + ' bg-white'}/>
                             </div>
                             <div>
                               <label className={invLabel}>Unit Price (£)</label>
-                              <input type="number" min="0" step="0.01" value={it.unitPrice}
-                                onChange={e => invItemSet(i, 'unitPrice', e.target.value)}
-                                className={invField + ' bg-white'}/>
+                              <input type="number" min="0" step="0.01" value={it.unitPrice} onChange={e => invItemSet(i, 'unitPrice', e.target.value)} className={invField + ' bg-white'}/>
                             </div>
                           </div>
                         </div>
@@ -1120,46 +1042,29 @@ export default function AdminBookings() {
                     </div>
                     <div className="mt-2.5">
                       <label className={invLabel}>VAT Rate (%)</label>
-                      <input type="number" min="0" step="0.01" value={inv.vatRate}
-                        onChange={e => invSet('vatRate', e.target.value)} className={invField}/>
+                      <input type="number" min="0" step="0.01" value={inv.vatRate} onChange={e => invSet('vatRate', e.target.value)} className={invField}/>
                     </div>
                   </div>
 
-                  {/* Notes */}
                   <div>
                     <label className={invLabel}>Notes</label>
                     <textarea rows={3} value={inv.notes} onChange={e => invSet('notes', e.target.value)} className={invField}/>
                   </div>
 
-                  {/* Live total */}
                   <div className="bg-green-50 border border-green-200 rounded-xl p-4 space-y-1">
                     <div className="flex justify-between text-sm"><span className="text-gray-600">Subtotal</span><span className="font-bold text-gray-800">{gbp(invSubtotal)}</span></div>
                     <div className="flex justify-between text-sm"><span className="text-gray-600">VAT ({inv.vatRate}%)</span><span className="font-bold text-gray-800">{gbp(invVat)}</span></div>
                     <div className="flex justify-between text-base pt-1 border-t border-green-200"><span className="font-bold text-[#016837]">Total</span><span className="font-black text-[#016837]">{gbp(invTotal)}</span></div>
                   </div>
 
-                  {/* Send button */}
-                  <button onClick={sendInvoicePdf} disabled={invSending}
-                    className="w-full py-3 bg-[#016837] text-white rounded-xl hover:bg-[#01572E] font-bold text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
-                    {invSending ? (
-                      <>
-                        <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                        Loading ...
-                      </>
-                    ) : (
-                      <>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        Send Invoice Email (PDF) — {gbp(invTotal)}
-                      </>
-                    )}
+                  <button onClick={sendInvoicePdf} disabled={invSending} className="w-full py-3 bg-[#016837] text-white rounded-xl hover:bg-[#01572E] font-bold text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
+                    {invSending ? 'Loading ...' : `Send Invoice Email (PDF) — ${gbp(invTotal)}`}
                   </button>
                 </div>
 
-                {/* ── RIGHT: Live preview ── */}
                 <div className={`p-4 lg:p-6 bg-gray-200/70 overflow-hidden ${invTab === 'edit' ? 'hidden lg:block' : ''}`}>
                   <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Live Preview</p>
                   <div className="overflow-auto" style={{ maxHeight: 'calc(100vh - 190px)' }}>
-                    {/* Screen preview (scaled) */}
                     <div style={{ width: 760, transform: 'scale(0.72)', transformOrigin: 'top left' }}>
                       <InvoicePreview d={inv}/>
                     </div>
@@ -1169,7 +1074,6 @@ export default function AdminBookings() {
             </div>
           </div>
 
-          {/* Hidden full-size copy — PDF capture ke liye (screen pe nahi dikhta) */}
           <div style={{ position: 'fixed', left: -10000, top: 0, pointerEvents: 'none' }}>
             <div id="invoice-capture">
               <InvoicePreview d={inv}/>

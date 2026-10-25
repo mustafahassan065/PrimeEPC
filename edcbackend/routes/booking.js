@@ -113,7 +113,7 @@ router.get('/admin/bookings', auth, async (req, res) => {
   try {
     const bookings = await Booking.findAll({ order: [['createdAt', 'DESC']] });
 
-    // Real slot end-times attach karo — pehle sirf +1h guess ho raha tha
+    // Real slot end-times attach karo
     const pad = n => String(n).padStart(2, '0');
     const dates = [...new Set(bookings.map(b => {
       const d = new Date(b.preferredDate);
@@ -219,7 +219,7 @@ router.post('/admin/schedules', auth, async (req, res) => {
   }
 });
 
-// ✅ BULK Create schedules (Admin only) — FIXED for large batches
+// ✅ BULK Create schedules (Admin only)
 router.post('/admin/schedules/bulk', auth, async (req, res) => {
   const transaction = await sequelize.transaction();
   try {
@@ -233,7 +233,6 @@ router.post('/admin/schedules/bulk', auth, async (req, res) => {
       });
     }
 
-    // Safety limit — max 500 per request
     if (slots.length > 500) {
       await transaction.rollback();
       return res.status(400).json({ 
@@ -242,10 +241,8 @@ router.post('/admin/schedules/bulk', auth, async (req, res) => {
       });
     }
 
-    // Get all unique dates from incoming slots
     const uniqueDates = [...new Set(slots.map(s => s.date))];
 
-    // Check existing slots for those dates (fast lookup)
     const existingSlots = await Schedule.findAll({
       where: { date: { [Op.in]: uniqueDates } },
       attributes: ['date', 'startTime', 'endTime'],
@@ -256,7 +253,6 @@ router.post('/admin/schedules/bulk', auth, async (req, res) => {
       existingSlots.map(e => `${e.date}_${e.startTime}_${e.endTime}`)
     );
 
-    // Filter only new slots
     const newSlots = slots.filter(s => 
       !existingKeys.has(`${s.date}_${s.startTime}_${s.endTime}`)
     );
@@ -273,7 +269,6 @@ router.post('/admin/schedules/bulk', auth, async (req, res) => {
       });
     }
 
-    // Single query insert — PostgreSQL bulkCreate
     const created = await Schedule.bulkCreate(newSlots, { 
       transaction,
       validate: true 
