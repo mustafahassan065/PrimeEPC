@@ -123,12 +123,14 @@ router.get('/admin/bookings', auth, async (req, res) => {
       ? await Schedule.findAll({ where: { date: { [Op.in]: dates } } })
       : [];
     const endTimeMap = {};
-    schedules.forEach(s => { endTimeMap[`${s.date}|${s.startTime}`] = s.endTime; });
+    // TIME columns come back as "HH:MM:SS" — normalise to "HH:MM" so keys match
+    const hhmm = t => (t ? String(t).slice(0, 5) : null);
+    schedules.forEach(s => { endTimeMap[`${s.date}|${hhmm(s.startTime)}`] = hhmm(s.endTime); });
 
     const data = bookings.map(b => {
       const d = new Date(b.preferredDate);
       const key = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}|${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`;
-      const realEnd = endTimeMap[key] || b.endTime || null;
+      const realEnd = endTimeMap[key] || hhmm(b.endTime) || null;
       return { ...b.toJSON(), endTime: realEnd, slot: realEnd ? { endTime: realEnd } : null };
     });
 
