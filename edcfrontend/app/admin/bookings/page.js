@@ -37,12 +37,7 @@ function InvoicePreview({ d }) {
         <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <img src="/images/logo3.png" alt="Prime EPC" crossOrigin="anonymous" style={{ width: 90, height: 90, objectFit: 'contain', flexShrink: 0 }} />
-            <div>
-              <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1, letterSpacing: 1 }}>
-                <span style={{ color: GREEN }}>PRIME</span>
-              </div>
-              <div style={{ fontSize: 44, fontWeight: 900, lineHeight: 1, letterSpacing: 4, color: LIGHT, marginTop: -4 }}>EPC</div>
-            </div>
+            
           </div>
         </div>
         <div style={{ display: 'table-cell', verticalAlign: 'top', textAlign: 'right' }}>
