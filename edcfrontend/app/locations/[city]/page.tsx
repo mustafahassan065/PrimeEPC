@@ -93,6 +93,16 @@ const cityMeta: Record<string, { title: string; h1: string; description: string 
     h1: 'EPC Warrington: Domestic & Commercial Energy Certificates from £50',
     description: 'Professional EPC surveys across Warrington, Lymm, Stockton Heath, Birchwood, and Culcheth. Domestic rates from £50, commercial from £144, fast lodgement, zero agency mark-ups.',
   },
+  'cheshire-east': {
+    title: 'EPC Cheshire East from £50 | Wilmslow, Knutsford, Macclesfield & Crewe',
+    h1: 'EPC Cheshire East: Accredited Domestic & Commercial Energy Certificates',
+    description: 'Accredited EPC certificates across Cheshire East including Wilmslow, Macclesfield, Knutsford, Alderley Edge, and Crewe. Domestic EPCs from £50, commercial from £144.',
+  },
+  'cheshire-west': {
+    title: 'EPC Cheshire West & Chester from £50 | Chester, Northwich & Ellesmere Port',
+    h1: 'EPC Cheshire West & Chester: Energy Performance Surveys from £50',
+    description: 'Accredited domestic and commercial EPC surveys across Chester, Northwich, Ellesmere Port, Winsford, and Frodsham from £50. Fast 24–48h lodgement.',
+  },
 };
 
 export function generateStaticParams() {
@@ -186,6 +196,7 @@ export default async function DynamicLocationPage({ params }: Props) {
         postcodes={location.postcodes.split(', ')}
         h1={meta.h1}
         neighbourhoods={location.neighbourhoods}
+        subAreas={location.subAreas}
         content={location.content}
         content2={location.content2}
       />

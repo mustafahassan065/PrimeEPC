@@ -153,7 +153,11 @@ export default function Footer() {
             <span>•</span>
             <Link href="/locations/warrington" className="hover:text-[#80C531] transition-colors">EPC Warrington</Link>
             <span>•</span>
-            <Link href="/areas-we-serve" className="hover:text-[#80C531] font-semibold text-[#80C531] transition-colors">All 16 North West Areas →</Link>
+            <Link href="/locations/cheshire-east" className="hover:text-[#80C531] transition-colors">EPC Cheshire East</Link>
+            <span>•</span>
+            <Link href="/locations/cheshire-west" className="hover:text-[#80C531] transition-colors">EPC Cheshire West</Link>
+            <span>•</span>
+            <Link href="/areas-we-serve" className="hover:text-[#80C531] font-semibold text-[#80C531] transition-colors">All 18 Coverage Hubs →</Link>
           </div>
         </div>
       </div>

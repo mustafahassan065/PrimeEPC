@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { targetLocations } from '@/lib/locationData'
+import { targetLocations, LocationSubArea } from '@/lib/locationData'
 
 interface LocationLandingTemplateProps {
   cityName: string
@@ -11,6 +11,7 @@ interface LocationLandingTemplateProps {
   housingContext: string
   postcodes: string[]
   neighbourhoods?: string
+  subAreas?: LocationSubArea[]
   content?: string
   content2?: string
 }
@@ -21,6 +22,7 @@ export default function LocationLandingTemplate({
   postcodes,
   h1,
   neighbourhoods,
+  subAreas,
   content,
   content2,
   citySlug,
@@ -273,6 +275,46 @@ export default function LocationLandingTemplate({
           </div>
         </div>
       </section>
+
+      {/* ── Local Coverage Directory for {City} ── */}
+      {subAreas && subAreas.length > 0 && (
+        <section className="py-16 bg-[#F8F8F8] border-t border-b border-[#80C531]/20">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 bg-[#016837]/10 text-[#016837] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider mb-3">
+                📍 LOCAL COVERAGE DIRECTORY
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#282828]">
+                Neighbourhoods &amp; Districts Covered Across {cityName}
+              </h2>
+              <p className="text-sm text-gray-600 mt-2 max-w-2xl mx-auto">
+                Official Quidos domestic and commercial energy assessments across every ward, village, and suburb in {cityName}.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {subAreas.map((group, idx) => (
+                <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                  <h3 className="font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
+                    <span className="text-[#016837]">📍</span>
+                    {group.name}
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.areas.map((area, aIdx) => (
+                      <span
+                        key={aIdx}
+                        className="bg-gray-50 text-gray-700 hover:text-[#016837] text-xs font-medium px-2.5 py-1 rounded-md border border-gray-100"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── 3-Step Process ── */}
       <section className="py-20 bg-gradient-to-br from-[#F8F8F8] via-white to-[#E1EED4]/50">
