@@ -192,7 +192,7 @@ export const targetLocations: LocationData[] = [
       },
       {
         name: 'West Salford',
-        areas: ['Irlam', 'Cadishead', 'Barton-upon-Irwell', 'Roe Green'],
+        areas: ['Irlam', 'Cadishead', 'Barton-upon-Irwell', 'Roe Green', 'Carrington'],
       },
     ],
     geo: { lat: 53.483, lng: -2.270 },
