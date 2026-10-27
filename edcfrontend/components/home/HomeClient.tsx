@@ -1,26 +1,12 @@
 "use client"
 
 import Link from 'next/link'
-import { useState, useEffect, useMemo, useRef } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import Image from 'next/image'
-import {
-  targetLocations,
-  findLocationByQuery,
-  isNearMeQuery,
-  isGeneralEpcQuery,
-  findServiceByQuery,
-  LocationData,
-  ServiceIntent,
-} from '@/lib/locationData'
+import CoverageChecker from '@/components/home/CoverageChecker'
 
 export default function HomeClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const searchContainerRef = useRef<HTMLDivElement>(null)
-  const searchParams = useSearchParams()
-  const router = useRouter()
 
   const [formData, setFormData] = useState({
     name: '',
@@ -34,237 +20,8 @@ export default function HomeClient() {
   const [formLoading, setFormLoading] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
 
-  // Listen to incoming URL query parameter (e.g., /?q=bolton or /?location=bury)
-  useEffect(() => {
-    const q = searchParams.get('q') || searchParams.get('location') || searchParams.get('city') || searchParams.get('search')
-    if (q) {
-      setSearchQuery(q)
-    }
-  }, [searchParams])
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
-        setIsDropdownOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  // Reactive dynamic title, badge, and SEO intent
-  const searchIntent = useMemo(() => {
-    const clean = searchQuery.trim().toLowerCase()
-    if (!clean || isGeneralEpcQuery(clean)) {
-      return {
-        type: 'general' as const,
-        h1: 'Accredited EPC & EICR Certificates from £50 — Same-Day Surveys Across the North West',
-        badge: 'Accredited Energy Assessors — Covering 16 North West Regions',
-        lead: 'Book your EPC directly with accredited surveyors—zero agent mark-ups. Domestic EPCs from £50 (same-day surveys available), commercial SBEM from £144, and 5-year landlord EICRs from £110 across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast GOV.UK lodgement within 24–48 hours for sales, lettings, and remortgages.',
-        ctaText: 'Check Price & Book',
-        ctaHref: '/booking',
-        matchedLocation: null as LocationData | null,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    // Dynamic Search Trigger 1: Urgent / Same Day / Today / Now
-    if (clean.includes('urgent') || clean.includes('same day') || clean.includes('today') || clean.includes('now')) {
-      return {
-        type: 'urgent' as const,
-        h1: 'Urgent EPC & Same Day Survey Bookings — From £50',
-        badge: '⚡ Priority Slot: Book EPC Today for Same Day Survey & Fast Report',
-        lead: 'Need an urgent EPC today? We provide same-day survey slots and priority report lodgement across Greater Manchester, Merseyside, Lancashire, and Cheshire starting from £50.',
-        ctaText: 'Book Urgent EPC Now →',
-        ctaHref: '/booking',
-        matchedLocation: null as LocationData | null,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    // Dynamic Search Trigger 2: Remortgage / Mortgage
-    if (clean.includes('remortgage') || clean.includes('mortgage')) {
-      return {
-        type: 'remortgage' as const,
-        h1: 'Book EPC for Remortgage & Green Mortgage Rates — From £50',
-        badge: '🏦 Mortgage Valuation Ready: Official RdSAP 10 Register Lodgement',
-        lead: 'Booking an EPC for a remortgage or Green Mortgage valuation? Our accredited assessors lodge your official RdSAP 10 certificate directly onto the GOV.UK register to satisfy lender requirements.',
-        ctaText: 'Book Remortgage EPC Today →',
-        ctaHref: '/booking',
-        matchedLocation: null as LocationData | null,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    // Dynamic Search Trigger 3: Near Me / Local
-    if (isNearMeQuery(clean) || clean.includes('near me') || clean.includes('local')) {
-      return {
-        type: 'near-me' as const,
-        h1: 'EPC Near Me — Same Day Bookings Across 16 North West Areas',
-        badge: '📍 Local Assessor Match: EPC Certificate from £50',
-        lead: 'Looking for an accredited domestic or commercial EPC assessor near you? Direct booking across Greater Manchester, Lancashire, Merseyside & Cheshire with fast 24–48h register turnaround, transparent rates starting from £50, and zero broker markups.',
-        ctaText: 'Find EPC Assessor Near Me →',
-        ctaHref: '/epc-near-me',
-        matchedLocation: null as LocationData | null,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    // Dynamic Search Trigger 4: Bulk / Portfolio
-    if (clean.includes('bulk') || clean.includes('portfolio')) {
-      return {
-        type: 'bulk' as const,
-        h1: 'Bulk EPC Orders & Multi-Property Portfolio Discounts',
-        badge: '🏢 Landlord & Agent Trade Rates — Custom Volume Discount',
-        lead: 'Managing multiple properties or a block of flats? Get custom volume discounts, coordinated same-day surveys, free branch key collection, and consolidated invoicing for landlord portfolios.',
-        ctaText: 'Get Bulk EPC Discount Quote →',
-        ctaHref: '/bulk-epc',
-        matchedLocation: null as LocationData | null,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    const loc = findLocationByQuery(clean)
-    if (loc) {
-      return {
-        type: 'location' as const,
-        h1: `EPC Certificates in ${loc.name} — From £50 | Same-Day Local Survey`,
-        badge: `📍 Matched Coverage: ${loc.name} (${loc.postcodes.split(',').slice(0, 3).join(', ')}...) — 24–48h Lodgement`,
-        lead: `Accredited domestic and commercial EPC surveys in ${loc.name} and across ${loc.postcodes}. Direct local assessor booking from £50, no third-party booking commissions, and official government lodgement within 24–48 hours.`,
-        ctaText: `Book in ${loc.name} (From £50) →`,
-        ctaHref: `/locations/${loc.slug}`,
-        matchedLocation: loc,
-        matchedService: null as ServiceIntent | null,
-      }
-    }
-
-    const srv = findServiceByQuery(clean)
-    if (srv) {
-      return {
-        type: 'service' as const,
-        h1: srv.title,
-        badge: srv.badge,
-        lead: srv.lead,
-        ctaText: `Book ${srv.label} →`,
-        ctaHref: srv.href,
-        matchedLocation: null as LocationData | null,
-        matchedService: srv,
-      }
-    }
-
-    return {
-      type: 'custom' as const,
-      h1: `EPC Certificates for "${searchQuery.trim()}" — Fast 24–48h Turnaround`,
-      badge: '🔍 Searching North West Coverage Hubs',
-      lead: `Looking for energy assessment or electrical compliance services for "${searchQuery.trim()}"? We cover Greater Manchester and a 50-mile radius with direct accredited assessor booking starting from £50.`,
-      ctaText: 'Check Price & Availability →',
-      ctaHref: '/booking',
-      matchedLocation: null as LocationData | null,
-      matchedService: null as ServiceIntent | null,
-    }
-  }, [searchQuery])
-
-  // Predictive autocomplete suggestions
-  const suggestions = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase()
-    if (!q || q.length < 2) return []
-
-    const list: Array<{ label: string; sub: string; badge: string; href: string; icon: string }> = []
-
-    if (q.includes('urgent') || q.includes('same day') || q.includes('today') || q.includes('now')) {
-      list.push({
-        label: 'Urgent EPC & Same Day Survey Bookings',
-        sub: 'Priority appointments across Greater Manchester & 50-mile radius',
-        badge: 'From £50',
-        href: '/booking',
-        icon: '⚡',
-      })
-    }
-
-    if (q.includes('remortgage') || q.includes('mortgage')) {
-      list.push({
-        label: 'Book EPC for Remortgage & Green Mortgages',
-        sub: 'Official RdSAP 10 lodgement for lenders and lower interest tiers',
-        badge: 'From £50',
-        href: '/booking',
-        icon: '🏦',
-      })
-    }
-
-    if (q.includes('bulk') || q.includes('portfolio') || q.includes('multi')) {
-      list.push({
-        label: 'Bulk EPC Orders & Multi-Property Discounts',
-        sub: 'Custom volume quotes for landlords, letting agents & apartment blocks',
-        badge: 'Trade Discount',
-        href: '/bulk-epc',
-        icon: '🏢',
-      })
-    }
-
-    if (isNearMeQuery(q) || q.includes('near') || q.includes('local') || q.includes('find') || q.includes('close')) {
-      list.push({
-        label: 'EPC Near Me — 1-Click GPS & Postcode Assessor Finder',
-        sub: 'Find your closest accredited assessor across 16 North West coverage hubs',
-        badge: 'From £50',
-        href: '/epc-near-me',
-        icon: '🎯',
-      })
-    }
-
-    const matchingLocations = targetLocations.filter(loc =>
-      loc.name.toLowerCase().includes(q) ||
-      loc.postcodes.toLowerCase().includes(q) ||
-      loc.neighbourhoods.toLowerCase().includes(q)
-    ).slice(0, 5)
-
-    matchingLocations.forEach(loc => {
-      list.push({
-        label: `EPC Certificates in ${loc.name}`,
-        sub: `Postcodes: ${loc.postcodes}`,
-        badge: 'From £50',
-        href: `/locations/${loc.slug}`,
-        icon: '📍',
-      })
-    })
-
-    const serviceChecks = [
-      { name: 'Commercial EPC Assessment', keywords: ['commercial', 'sbem', 'business', 'shop', 'office'], href: '/commercial-epc', badge: 'From £144', icon: '🏢' },
-      { name: 'Landlord EICR Electrical Report', keywords: ['eicr', 'electrical', 'safety', 'wiring', 'landlord'], href: '/eicr', badge: 'From £110', icon: '⚡' },
-      { name: 'Landlord Compliance Package (EPC + EICR)', keywords: ['bundle', 'package', 'both', 'landlord package'], href: '/landlord-certificates', badge: 'From £160', icon: '📦' },
-      { name: 'Domestic EPC Certificate', keywords: ['domestic', 'residential', 'house', 'flat', 'home'], href: '/domestic-epc', badge: 'From £50', icon: '🏠' },
-      { name: 'CAD Floor Plans & Lease Plans', keywords: ['floor', 'plan', 'cad', 'lease'], href: '/floor-plans-drafting', badge: 'Get Quote', icon: '📐' },
-    ]
-
-    serviceChecks.forEach(srv => {
-      if (srv.keywords.some(k => q.includes(k))) {
-        list.push({
-          label: srv.name,
-          sub: 'Direct accredited assessor booking',
-          badge: srv.badge,
-          href: srv.href,
-          icon: srv.icon,
-        })
-      }
-    })
-
-    return list.slice(0, 6)
-  }, [searchQuery])
-
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
-  }
-
-  const handleSearchSubmit = () => {
-    setIsDropdownOpen(false)
-    router.push(searchIntent.ctaHref)
-  }
-
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      handleSearchSubmit()
-    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -343,7 +100,7 @@ export default function HomeClient() {
     <div className="min-h-screen font-sans">
 
       {/* ── Hero Section ── */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-20">
         <div className="absolute inset-0 z-0">
           <Image src="/images/bg.avif" alt="Accredited EPC certificates and energy assessments Greater Manchester" fill priority fetchPriority="high" decoding="sync" className="object-cover object-center" sizes="(max-width: 768px) 100vw, 100vw" />
         </div>
@@ -355,136 +112,23 @@ export default function HomeClient() {
 
         <div className="container mx-auto px-4 relative z-10">
 
-          {/* Dynamic SEO Title & Badge */}
-          <div className="text-center max-w-4xl mx-auto mb-8 transition-all duration-300">
-            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-5 transition-all">
-              {searchIntent.badge}
+          {/* Hero heading */}
+          <div className="text-center max-w-4xl mx-auto mb-8">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold mb-5">
+              Accredited Energy Assessors — Covering 16 North West Regions
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight transition-all">
-              {searchIntent.h1}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight tracking-tight">
+              Accredited EPC &amp; EICR Certificates from £50 — Same-Day Surveys Across the North West
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed transition-all">
-              {searchIntent.lead}
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              Book your EPC directly with accredited surveyors—zero agent mark-ups. Domestic EPCs from £50 (same-day surveys available), commercial SBEM from £144, and 5-year landlord EICRs from £110 across Greater Manchester, Merseyside, Lancashire, and Cheshire. Fast GOV.UK lodgement within 24–48 hours for sales, lettings, and remortgages.
             </p>
           </div>
 
-          {/* Search Bar with Predictive Dropdown & Dynamic Routing */}
-          <div ref={searchContainerRef} className="max-w-3xl mx-auto mb-4 relative z-30">
-            <div className="bg-white rounded-xl p-2 shadow-xl flex items-center gap-2 ring-2 ring-white/20 focus-within:ring-[#80C531] transition-all">
-              <div className="flex-1 flex items-center gap-3 px-3 md:px-4">
-                <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={e => {
-                    setSearchQuery(e.target.value)
-                    setIsDropdownOpen(true)
-                  }}
-                  onFocus={() => {
-                    if (suggestions.length > 0) setIsDropdownOpen(true)
-                  }}
-                  onKeyDown={handleSearchKeyDown}
-                  placeholder="Search town, postcode or service (e.g. Bolton, BL1, Manchester, EPC Near Me, EICR)"
-                  className="w-full py-3 text-gray-800 placeholder-gray-400 focus:outline-none bg-transparent text-sm md:text-base font-medium"
-                />
-                {searchQuery && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSearchQuery('')
-                      setIsDropdownOpen(false)
-                    }}
-                    className="text-gray-400 hover:text-gray-600 p-1 text-sm font-bold"
-                    aria-label="Clear search"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={handleSearchSubmit}
-                className="bg-[#C0392B] hover:bg-[#A93226] text-white font-bold py-3 px-5 md:px-8 rounded-lg transition-all duration-300 shadow-md whitespace-nowrap text-sm md:text-base"
-              >
-                {searchIntent.ctaText}
-              </button>
-            </div>
-
-            {/* Predictive Autocomplete Dropdown */}
-            {isDropdownOpen && suggestions.length > 0 && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 text-left">
-                <div className="px-4 py-2 bg-gray-50 border-b border-gray-100 flex items-center justify-between text-xs font-semibold text-gray-500">
-                  <span>Suggested Matches ({suggestions.length})</span>
-                  <span>Click to view page</span>
-                </div>
-                <div className="divide-y divide-gray-100 max-h-80 overflow-y-auto">
-                  {suggestions.map((item, idx) => (
-                    <Link
-                      key={idx}
-                      href={item.href}
-                      onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-center justify-between p-3.5 hover:bg-[#80C531]/10 transition-colors group"
-                    >
-                      <div className="flex items-center gap-3 min-w-0 pr-3">
-                        <span className="text-xl flex-shrink-0">{item.icon}</span>
-                        <div className="min-w-0">
-                          <p className="font-bold text-gray-900 group-hover:text-[#016837] text-sm truncate">
-                            {item.label}
-                          </p>
-                          <p className="text-xs text-gray-500 truncate">
-                            {item.sub}
-                          </p>
-                        </div>
-                      </div>
-                      <span className="bg-[#016837]/10 text-[#016837] font-bold text-xs px-2.5 py-1 rounded-full whitespace-nowrap group-hover:bg-[#016837] group-hover:text-white transition-all">
-                        {item.badge}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+          {/* Coverage checker — enter postcode / town, click your area to book */}
+          <div className="mb-10">
+            <CoverageChecker />
           </div>
-
-
-
-          {/* Direct Match Indicator Card */}
-          {searchIntent.type !== 'general' && (
-            <div className="max-w-3xl mx-auto mb-6">
-              <div className="bg-white/95 backdrop-blur-md rounded-xl p-3 shadow-lg border border-[#80C531] flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="text-xl flex-shrink-0">
-                    {searchIntent.type === 'location' ? '📍' : searchIntent.type === 'near-me' ? '🎯' : '⚡'}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-xs font-bold text-[#016837] uppercase tracking-wide">
-                      {searchIntent.type === 'location'
-                        ? `Direct Coverage Confirmed: ${searchIntent.matchedLocation?.name}`
-                        : searchIntent.type === 'near-me'
-                        ? 'Local Assessor Directory Active'
-                        : 'Service Matched'}
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900 truncate">
-                      {searchIntent.type === 'location'
-                        ? `Rates from £50 across ${searchIntent.matchedLocation?.postcodes}`
-                        : searchIntent.type === 'near-me'
-                        ? 'Direct booking with local assessors within a 50-mile radius'
-                        : searchIntent.h1}
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href={searchIntent.ctaHref}
-                  className="bg-[#016837] hover:bg-[#01572E] text-white text-xs font-bold py-2 px-4 rounded-lg shadow whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0"
-                >
-                  <span>Open Dedicated Page</span>
-                  <span>→</span>
-                </Link>
-              </div>
-            </div>
-          )}
 
           {/* Service Cards — 4 verified service cards linking to respective pages */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
