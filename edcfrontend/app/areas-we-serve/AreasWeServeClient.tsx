@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { targetLocations, findLocationByQuery, LocationData } from '@/lib/locationData';
+import { targetLocations, LocationData } from '@/lib/locationData';
+import CoverageChecker from '@/components/home/CoverageChecker';
 
 // Generate a complete alphabetical list of all sub-areas mapped to their parent location slug
 interface DirectoryItem {
@@ -18,6 +19,14 @@ export default function AreasWeServeClient() {
   const [activeRegion, setActiveRegion] = useState<'all' | 'greater-manchester' | 'surrounding'>('all');
   const [activeLetter, setActiveLetter] = useState<string>('all');
   const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({});
+
+  // Text used to filter the cards / A–Z directory below.
+  // Full postcodes (e.g. "BL1 1AA") are handled by the coverage checker, so they don't filter the lists.
+  const filterQuery = useMemo(() => {
+    const t = query.trim();
+    if (/^[A-Za-z]{1,2}\d/.test(t) && (/\s/.test(t) || t.length > 4)) return '';
+    return t;
+  }, [query]);
 
   const toggleExpand = (slug: string) => {
     setExpandedCards((prev) => ({ ...prev, [slug]: !prev[slug] }));
@@ -54,8 +63,8 @@ export default function AreasWeServeClient() {
   // Filter directory by search query or active letter
   const filteredDirectory = useMemo(() => {
     return directoryItems.filter((item) => {
-      if (query.trim()) {
-        const q = query.trim().toLowerCase();
+      if (filterQuery) {
+        const q = filterQuery.toLowerCase();
         return (
           item.area.toLowerCase().includes(q) ||
           item.parentName.toLowerCase().includes(q) ||
@@ -67,7 +76,7 @@ export default function AreasWeServeClient() {
       }
       return true;
     });
-  }, [directoryItems, query, activeLetter]);
+  }, [directoryItems, filterQuery, activeLetter]);
 
   // Distinct alphabet letters present in the directory
   const availableLetters = useMemo(() => {
@@ -81,96 +90,42 @@ export default function AreasWeServeClient() {
     return Array.from(letters).sort();
   }, [directoryItems]);
 
-  // Direct match lookup for the search box
-  const directMatch = useMemo(() => {
-    if (!query.trim() || query.trim().length < 2) return null;
-    return findLocationByQuery(query);
-  }, [query]);
-
   // Filter location cards based on query and region filter
   const gmLocations = useMemo(() => {
     return targetLocations.filter((loc) => {
       if (loc.region !== 'greater-manchester') return false;
-      if (!query.trim()) return true;
-      const q = query.trim().toLowerCase();
+      if (!filterQuery) return true;
+      const q = filterQuery.toLowerCase();
       return (
         loc.name.toLowerCase().includes(q) ||
         loc.postcodes.toLowerCase().includes(q) ||
         loc.neighbourhoods.toLowerCase().includes(q)
       );
     });
-  }, [query]);
+  }, [filterQuery]);
 
   const surroundingLocations = useMemo(() => {
     return targetLocations.filter((loc) => {
       if (loc.region !== 'surrounding') return false;
-      if (!query.trim()) return true;
-      const q = query.trim().toLowerCase();
+      if (!filterQuery) return true;
+      const q = filterQuery.toLowerCase();
       return (
         loc.name.toLowerCase().includes(q) ||
         loc.postcodes.toLowerCase().includes(q) ||
         loc.neighbourhoods.toLowerCase().includes(q)
       );
     });
-  }, [query]);
+  }, [filterQuery]);
 
   return (
     <div>
-      {/* ── Live Search & Filter Bar ── */}
+      {/* ── Postcode / Area Coverage Checker + Region Filter ── */}
       <section className="relative -mt-8 z-20 container mx-auto px-4 max-w-4xl">
-        <div className="bg-white rounded-2xl shadow-xl p-5 md:p-6 border border-[#80C531]/30">
-          <div className="relative">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search your town, suburb, or postcode (e.g. Didsbury, Prestwich, Horwich, Wilmslow, Altrincham, BL1, M14, SK9, WA1)..."
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 pl-12 text-sm md:text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#016837] focus:border-transparent focus:bg-white shadow-inner"
-            />
-            <svg
-              className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            {query && (
-              <button
-                onClick={() => setQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-500 hover:text-gray-800 bg-gray-200 hover:bg-gray-300 px-2.5 py-1 rounded"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+        {/* Enter postcode (first 2-4 characters) or town → pick your area → booking */}
+        <CoverageChecker onQueryChange={setQuery} />
 
-          {/* Direct Match Indicator */}
-          {directMatch && (
-            <div className="mt-4 p-4 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border border-[#016837]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fadeIn">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">📍</span>
-                <div>
-                  <p className="text-xs font-bold text-[#016837] uppercase tracking-wide">
-                    Coverage Confirmed: {directMatch.name} ({directMatch.county})
-                  </p>
-                  <p className="text-sm font-semibold text-gray-900">
-                    We assess properties across {directMatch.postcodes} — domestic EPCs from £50.
-                  </p>
-                </div>
-              </div>
-              <Link
-                href={`/locations/${directMatch.slug}`}
-                className="bg-[#016837] hover:bg-[#01572E] text-white text-xs font-bold py-2 px-4 rounded-lg shadow whitespace-nowrap transition-all flex items-center gap-1.5 flex-shrink-0"
-              >
-                <span>View {directMatch.name} Page</span>
-                <span>→</span>
-              </Link>
-            </div>
-          )}
-
-          {/* Region Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-5 pt-4 border-t border-gray-100">
+        <div className="mt-4 bg-white rounded-2xl shadow-xl p-4 border border-[#80C531]/30">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <button
               onClick={() => setActiveRegion('all')}
               className={`text-xs md:text-sm font-bold px-4 py-2 rounded-full transition-all ${
