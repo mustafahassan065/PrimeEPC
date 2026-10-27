@@ -78,9 +78,11 @@ type Group = {
 export default function CoverageChecker({
   title = 'Do We Cover Your Area?',
   subtitle = 'Enter your postcode or town to check coverage, then click your area to book.',
+  onQueryChange,
 }: {
   title?: string
   subtitle?: string
+  onQueryChange?: (q: string) => void
 }) {
   const router = useRouter()
   const [query, setQuery] = useState('')
@@ -182,6 +184,7 @@ export default function CoverageChecker({
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value)
+                  onQueryChange?.(e.target.value)
                   setOpen(true)
                 }}
                 onFocus={() => setOpen(true)}
@@ -199,6 +202,7 @@ export default function CoverageChecker({
                   type="button"
                   onClick={() => {
                     setQuery('')
+                    onQueryChange?.('')
                     setOpen(false)
                   }}
                   className="text-gray-400 hover:text-gray-600 text-sm font-bold p-1"
