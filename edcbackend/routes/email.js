@@ -18,6 +18,96 @@ const transporter = nodemailer.createTransport({
 const ADMIN_EMAIL = 'info@primeepcdesign.co.uk'
 const FROM_EMAIL  = '"Prime EPC and Design Consultants" <info@primeepcdesign.co.uk>'
 
+// ── Add-to-calendar helpers ──────────────────────────────────────────────
+// Backend ka public URL (email button isi par .ics file serve karta hai).
+// .env mein set karo: PUBLIC_API_URL=https://your-api-domain.com
+const crypto = require('crypto')
+const PUBLIC_API_URL = (process.env.PUBLIC_API_URL || 'https://api.primeepcdesign.co.uk').replace(/\/$/, '')
+
+const pad2 = n => String(n).padStart(2, '0')
+// preferredDate ke UTC digits hi booking ka wall-clock time hain (email mein bhi yehi dikhta hai)
+const wallStamp = d => `${d.getUTCFullYear()}${pad2(d.getUTCMonth() + 1)}${pad2(d.getUTCDate())}T${pad2(d.getUTCHours())}${pad2(d.getUTCMinutes())}00`
+const icsEscape = v => String(v || '').replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/;/g, '\\;').replace(/,/g, '\\,')
+const icsFold = line => line.match(/.{1,70}/g).join('\r\n ')
+
+function buildIcs({ start, end, title, description, location }) {
+  const uid = crypto.createHash('md5').update(`${start}|${end}|${title}|${location}`).digest('hex') + '@primeepcdesign.co.uk'
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Prime EPC and Design Consultants//Booking//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VTIMEZONE',
+    'TZID:Europe/London',
+    'BEGIN:DAYLIGHT',
+    'TZOFFSETFROM:+0000',
+    'TZOFFSETTO:+0100',
+    'TZNAME:BST',
+    'DTSTART:19700329T010000',
+    'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU',
+    'END:DAYLIGHT',
+    'BEGIN:STANDARD',
+    'TZOFFSETFROM:+0100',
+    'TZOFFSETTO:+0000',
+    'TZNAME:GMT',
+    'DTSTART:19701025T020000',
+    'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU',
+    'END:STANDARD',
+    'END:VTIMEZONE',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${new Date().toISOString().replace(/-|:|\.\d+/g, '')}`,
+    `DTSTART;TZID=Europe/London:${start}`,
+    `DTEND;TZID=Europe/London:${end}`,
+    `SUMMARY:${icsEscape(title)}`,
+    `DESCRIPTION:${icsEscape(description)}`,
+    `LOCATION:${icsEscape(location)}`,
+    'STATUS:CONFIRMED',
+    // Alerts: 1 din pehle aur 1 ghanta pehle
+    'BEGIN:VALARM', 'TRIGGER:-P1D', 'ACTION:DISPLAY', `DESCRIPTION:${icsEscape(title)} - tomorrow`, 'END:VALARM',
+    'BEGIN:VALARM', 'TRIGGER:-PT1H', 'ACTION:DISPLAY', `DESCRIPTION:${icsEscape(title)} - in 1 hour`, 'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ]
+  return lines.map(l => (l.length > 70 ? icsFold(l) : l)).join('\r\n') + '\r\n'
+}
+
+// Booking date/time se calendar links + .ics content banata hai (date na ho to null)
+function calendarLinks({ dateObj, endTime, title, description, location }) {
+  if (!dateObj || isNaN(dateObj.getTime())) return null
+  const start = wallStamp(dateObj)
+  let endDate = new Date(dateObj.getTime() + 3600000)
+  const m = /^(\d{1,2}):(\d{2})$/.exec(String(endTime || '').trim())
+  if (m) {
+    const e = new Date(Date.UTC(dateObj.getUTCFullYear(), dateObj.getUTCMonth(), dateObj.getUTCDate(), +m[1], +m[2]))
+    if (e > dateObj) endDate = e
+  }
+  const end = wallStamp(endDate)
+  const q = new URLSearchParams({ s: start, e: end, t: title, d: description, l: location || '' })
+  const g = new URLSearchParams({ action: 'TEMPLATE', text: title, details: description, location: location || '', dates: `${start}/${end}`, ctz: 'Europe/London' })
+  return {
+    icsUrl: `${PUBLIC_API_URL}/api/email/calendar.ics?${q.toString()}`.replace(/&/g, '&amp;'),
+    googleUrl: `https://calendar.google.com/calendar/render?${g.toString().replace('%2F', '/')}`.replace(/&/g, '&amp;'),
+    icsContent: buildIcs({ start, end, title, description, location })
+  }
+}
+
+// Email ke end mein jaane wala "Add to my calendar" button (customer + admin dono)
+function calendarButtonHtml(cal) {
+  if (!cal) return ''
+  return `
+  <!-- ADD TO MY CALENDAR -->
+  <tr><td style="padding:0 28px 24px;" align="center">
+    <a href="${cal.icsUrl}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 32px;border-radius:30px;">
+      &#128197; Add to my calendar
+    </a>
+    <p style="margin:10px 0 0;font-size:11px;color:#6b7280;">Adds this booking to your calendar with reminders (1 day &amp; 1 hour before).</p>
+    <p style="margin:6px 0 0;font-size:11px;"><a href="${cal.googleUrl}" target="_blank" style="color:#016837;">Open directly in Google Calendar</a></p>
+  </td></tr>
+`
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // POST /api/email/send-booking-confirmation
 // Called after booking is saved — sends emails to admin + user
@@ -53,6 +143,19 @@ router.post('/send-booking-confirmation', async (req, res) => {
 
     const amountStr = amount ? `£${amount}` : 'To be confirmed'
     const service = propertyDetails || propertyType || 'EPC Assessment'
+
+    // ── Calendar (customer + admin) ──────────────────────────────────────
+    const calLocation = [propertyAddress, postcode].filter(Boolean).join(', ')
+    const userCal = calendarLinks({
+      dateObj, endTime, location: calLocation,
+      title: 'EPC Assessment \u2014 Prime EPC',
+      description: 'Your EPC assessment with Prime EPC & Design Consultants. Contact: 07308658247'
+    })
+    const adminCal = calendarLinks({
+      dateObj, endTime, location: calLocation,
+      title: `EPC Booking \u2014 ${name}`,
+      description: `Customer: ${name}\nPhone: ${phone || 'N/A'}\nEmail: ${email || 'N/A'}\nService: ${service}`
+    })
 
     // ── USER confirmation email ───────────────────────────────────────────
     const userHtml = `<!DOCTYPE html>
@@ -132,12 +235,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
     </table>
   </td></tr>
 
-  <!-- ADD TO CALENDAR BUTTON -->
-  <tr><td style="padding:0 28px 24px;" align="center">
-    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=EPC+Assessment+%E2%80%94+Prime+EPC&details=Your+EPC+assessment+with+Prime+EPC+%26+Design+Consultants.+Contact%3A+07308658247&location=${encodeURIComponent(propertyAddress + ', ' + postcode)}&dates=${dateObj ? dateObj.toISOString().replace(/-|:|\.\d+/g,'').slice(0,15) + '00Z/' + new Date(dateObj.getTime()+3600000).toISOString().replace(/-|:|\.\d+/g,'').slice(0,15) + '00Z' : ''}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 32px;border-radius:30px;">
-      &#128197; Add to Calendar
-    </a>
-  </td></tr>
+  ${calendarButtonHtml(userCal)}
 
   <!-- NEED CHANGES BOX -->
   <tr><td style="padding:0 28px 28px;">
@@ -246,6 +344,8 @@ router.post('/send-booking-confirmation', async (req, res) => {
     </table>
   </td></tr>
 
+  ${calendarButtonHtml(adminCal)}
+
   <!-- ADMIN FOOTER -->
   <tr><td style="background:#014d28;padding:12px 24px;">
     <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.5);">&#128222; 07308 658247 &nbsp;|&nbsp; &#9993; info@primeepcdesign.co.uk &nbsp;|&nbsp; &#127760; primeepcdesign.co.uk</p>
@@ -261,13 +361,15 @@ router.post('/send-booking-confirmation', async (req, res) => {
         from: FROM_EMAIL,
         to: ADMIN_EMAIL,
         subject: `New Booking \u2014 ${name} \u2014 ${dateStr}`,
-        html: adminHtml
+        html: adminHtml,
+        ...(adminCal ? { icalEvent: { filename: 'booking.ics', method: 'PUBLISH', content: adminCal.icsContent } } : {})
       }),
       transporter.sendMail({
         from: FROM_EMAIL,
         to: email,
         subject: 'Booking Confirmed \u2014 Prime EPC and Design Consultants',
-        html: userHtml
+        html: userHtml,
+        ...(userCal ? { icalEvent: { filename: 'booking.ics', method: 'PUBLISH', content: userCal.icsContent } } : {})
       })
     ])
 
@@ -279,6 +381,25 @@ router.post('/send-booking-confirmation', async (req, res) => {
 })
 
 
+// GET /api/email/calendar.ics — "Add to my calendar" button isi ko open karta hai
+// Query: s (start YYYYMMDDTHHMMSS), e (end), t (title), d (description), l (location)
+// ─────────────────────────────────────────────────────────────────────────
+router.get('/calendar.ics', (req, res) => {
+  const { s, e, t, d, l } = req.query
+  const stamp = /^\d{8}T\d{6}$/
+  if (!stamp.test(s || '') || !stamp.test(e || '')) return res.status(400).send('Invalid date')
+  const ics = buildIcs({
+    start: s, end: e,
+    title: String(t || 'EPC Booking').slice(0, 200),
+    description: String(d || '').slice(0, 1000),
+    location: String(l || '').slice(0, 300)
+  })
+  res.setHeader('Content-Type', 'text/calendar; charset=utf-8')
+  res.setHeader('Content-Disposition', 'inline; filename="booking.ics"')
+  res.send(ics)
+})
+
+// ─────────────────────────────────────────────────────────────────────────
 // POST /api/email/send-contact-form
 // Body: { name, email, phone, service, message }
 // Bot protection: honeypot checked in frontend; rate limiting via express-rate-limit
@@ -526,6 +647,14 @@ router.post('/send-booking-update', async (req, res) => {
     const paymentLabel = { cash: 'Cash (Pay on Arrival)', stripe: 'Bank Card', paypal: 'PayPal', bank_transfer: 'Bank Transfer' }[paymentMethod] || paymentMethod || 'Cash'
     const statusLabel  = { pending: 'Pending', confirmed: 'Confirmed', completed: 'Completed', cancelled: 'Cancelled' }[status] || status
 
+    const updDate = preferredDate ? new Date(preferredDate) : null
+    const updCal = status === 'cancelled' ? null : calendarLinks({
+      dateObj: updDate,
+      location: [propertyAddress, postcode].filter(Boolean).join(', '),
+      title: 'EPC Assessment \u2014 Prime EPC',
+      description: 'Your EPC assessment with Prime EPC & Design Consultants. Contact: 07308658247'
+    })
+
     const html = `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
         <div style="background:#016837;padding:20px;border-radius:8px 8px 0 0;">
@@ -564,6 +693,12 @@ router.post('/send-booking-update', async (req, res) => {
               </tr>
             </table>
           </div>
+
+          ${updCal ? `<div style="text-align:center;margin:0 0 16px;">
+            <a href="${updCal.icsUrl}" target="_blank" style="display:inline-block;background:#016837;color:#ffffff;text-decoration:none;font-size:14px;font-weight:700;padding:14px 32px;border-radius:30px;">&#128197; Add to my calendar</a>
+            <p style="margin:10px 0 0;font-size:11px;color:#6b7280;">Adds this booking to your calendar with reminders (1 day &amp; 1 hour before).</p>
+            <p style="margin:6px 0 0;font-size:11px;"><a href="${updCal.googleUrl}" target="_blank" style="color:#016837;">Open directly in Google Calendar</a></p>
+          </div>` : ''}
 
           <div style="padding:14px;background:#f0fdf4;border-radius:8px;margin-bottom:16px;">
             <p style="margin:0 0 6px;color:#374151;font-size:13px;">If you have any questions about your updated booking, please contact us:</p>
