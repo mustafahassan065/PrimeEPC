@@ -78,6 +78,15 @@ export default function AdminDashboard() {
   const revenueBookings = bookings.filter(b => b.status !== 'cancelled')
   const totalRevenue    = revenueBookings.reduce((sum, b) => sum + (Number(b.amount) || 0), 0)
 
+  // Payment method wise total revenue (method na ho to booking page ki tarah 'cash' maana jata hai)
+  const revenueByMethod = (method) => {
+    const list = revenueBookings.filter(b => (b.paymentMethod || 'cash') === method)
+    return { total: list.reduce((sum, b) => sum + (Number(b.amount) || 0), 0), count: list.length }
+  }
+  const cashRevenue   = revenueByMethod('cash')
+  const bankRevenue   = revenueByMethod('bank_transfer')
+  const stripeRevenue = revenueByMethod('stripe')
+
   // Monthly revenue: sirf current month ki bookings (date UTC digits se, jaise baqi dashboard mein dikhti hai)
   const now          = new Date()
   const curYear      = now.getUTCFullYear()
@@ -253,6 +262,32 @@ export default function AdminDashboard() {
                 <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
                 <p className="text-[11px] text-gray-400 mt-1">{stat.sub}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Revenue by payment method */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { label:'Cash Revenue',          data: cashRevenue,
+                icon:'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z',
+                color:'bg-amber-50 text-amber-600' },
+              { label:'Bank Transfer Revenue', data: bankRevenue,
+                icon:'M3 10h18M5 10V7l7-4 7 4v3M6 10v8m4-8v8m4-8v8m4-8v8M4 18h16v3H4v-3z',
+                color:'bg-sky-50 text-sky-600' },
+              { label:'Stripe Revenue',        data: stripeRevenue,
+                icon:'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
+                color:'bg-indigo-50 text-indigo-600' },
+            ].map(stat => (
+              <div key={stat.label} className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${stat.color}`}>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon}/>
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-gray-800">{gbp(stat.data.total)}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+                <p className="text-[11px] text-gray-400 mt-1">All time · {stat.data.count} bookings</p>
               </div>
             ))}
           </div>
