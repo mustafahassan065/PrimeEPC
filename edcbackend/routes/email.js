@@ -362,7 +362,7 @@ router.post('/send-booking-confirmation', async (req, res) => {
         to: ADMIN_EMAIL,
         subject: `New Booking \u2014 ${name} \u2014 ${dateStr}`,
         html: adminHtml,
-        ...(adminCal ? { icalEvent: { filename: 'booking.ics', method: 'PUBLISH', content: adminCal.icsContent } } : {})
+        ...(adminCal ? { attachments: [{ filename: 'booking.ics', content: adminCal.icsContent, contentType: 'text/calendar; charset=utf-8; method=PUBLISH' }] } : {})
       }),
       transporter.sendMail({
         from: FROM_EMAIL,

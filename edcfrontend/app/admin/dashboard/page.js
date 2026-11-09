@@ -6,6 +6,8 @@ import Link from 'next/link'
 
 const API_URL = 'https://primeepcdesign.co.uk'
 
+const gbp = n => '£' + (Number(n) || 0).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
 const SidebarIcon = ({ path }) => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d={path}/>
@@ -71,6 +73,23 @@ export default function AdminDashboard() {
   const completed       = bookings.filter(b => b.status === 'completed').length
   const uniqueCustomers = new Set(bookings.map(b => b.email)).size
   const recentBookings  = [...bookings].sort((a,b) => new Date(b.preferredDate) - new Date(a.preferredDate)).slice(0, 6)
+
+  // ── Revenue (cancelled bookings count nahi hoti) ──────────────────────
+  const revenueBookings = bookings.filter(b => b.status !== 'cancelled')
+  const totalRevenue    = revenueBookings.reduce((sum, b) => sum + (Number(b.amount) || 0), 0)
+
+  // Monthly revenue: sirf current month ki bookings (date UTC digits se, jaise baqi dashboard mein dikhti hai)
+  const now          = new Date()
+  const curYear      = now.getUTCFullYear()
+  const curMonth     = now.getUTCMonth()
+  const daysInMonth  = new Date(Date.UTC(curYear, curMonth + 1, 0)).getUTCDate()
+  const monthLabel   = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+  const monthBookings = revenueBookings.filter(b => {
+    if (!b.preferredDate) return false
+    const d = new Date(b.preferredDate)
+    return d.getUTCFullYear() === curYear && d.getUTCMonth() === curMonth
+  })
+  const monthlyRevenue = monthBookings.reduce((sum, b) => sum + (Number(b.amount) || 0), 0)
 
   const endTimeOf = (b) => b.slot?.endTime || b.endTime || null
 
@@ -211,6 +230,29 @@ export default function AdminDashboard() {
                 </div>
                 <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
                 <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Revenue */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              { label:'Total Revenue',   value: gbp(totalRevenue),   sub: `All time · ${revenueBookings.length} bookings`,
+                icon:'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+                color:'bg-emerald-50 text-emerald-600' },
+              { label:'Monthly Revenue', value: gbp(monthlyRevenue), sub: `${monthLabel} · Day ${now.getUTCDate()} of ${daysInMonth} · ${monthBookings.length} bookings`,
+                icon:'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
+                color:'bg-teal-50 text-teal-600' },
+            ].map(stat => (
+              <div key={stat.label} className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${stat.color}`}>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon}/>
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+                <p className="text-[11px] text-gray-400 mt-1">{stat.sub}</p>
               </div>
             ))}
           </div>
